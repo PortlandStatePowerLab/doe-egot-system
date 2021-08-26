@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DERControlList all="0" results="0" subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <DERControl subscribable="0" replyTo="http://uri1" responseRequired="00" href="http://uri1">
+    <mRID>0FB7</mRID>
+    <description>description1</description>
+    <version>0</version>
+    <creationTime>1</creationTime>
+    <EventStatus>
+      <currentStatus>0</currentStatus>
+      <dateTime>1</dateTime>
+      <potentiallySuperseded>true</potentiallySuperseded>
+      <potentiallySupersededTime>1</potentiallySupersededTime>
+      <reason>reason1</reason>
+    </EventStatus>
+    <interval>
+      <duration>0</duration>
+      <start>1</start>
+    </interval>
+    <randomizeDuration>1</randomizeDuration>
+    <randomizeStart>1</randomizeStart>
+    <DERControlBase>
+      <opModConnect>true</opModConnect>
+      <opModEnergize>true</opModEnergize>
+      <opModFixedPFAbsorbW>
+        <displacement>0</displacement>
+        <excitation>true</excitation>
+        <multiplier>1</multiplier>
+      </opModFixedPFAbsorbW>
+      <opModFixedPFInjectW>
+        <displacement>0</displacement>
+        <excitation>true</excitation>
+        <multiplier>-128</multiplier>
+      </opModFixedPFInjectW>
+      <opModFixedVar>
+        <refType>0</refType>
+        <value>1</value>
+      </opModFixedVar>
+      <opModFixedW>1</opModFixedW>
+      <opModFreqDroop>
+        <dBOF>0</dBOF>
+        <dBUF>0</dBUF>
+        <kOF>0</kOF>
+        <kUF>0</kUF>
+        <openLoopTms>0</openLoopTms>
+      </opModFreqDroop>
+      <opModFreqWatt href="http://uri1" />
+      <opModHFRTMayTrip href="http://uri1" />
+      <opModHFRTMustTrip href="http://uri1" />
+      <opModHVRTMayTrip href="http://uri1" />
+      <opModHVRTMomentaryCessation href="http://uri1" />
+      <opModHVRTMustTrip href="http://uri1" />
+      <opModLFRTMayTrip href="http://uri1" />
+      <opModLFRTMustTrip href="http://uri1" />
+      <opModLVRTMayTrip href="http://uri1" />
+      <opModLVRTMomentaryCessation href="http://uri1" />
+      <opModLVRTMustTrip href="http://uri1" />
+      <opModMaxLimW>0</opModMaxLimW>
+      <opModTargetVar>
+        <multiplier>1</multiplier>
+        <value>1</value>
+      </opModTargetVar>
+      <opModTargetW>
+        <multiplier>1</multiplier>
+        <value>1</value>
+      </opModTargetW>
+      <opModVoltVar href="http://uri1" />
+      <opModVoltWatt href="http://uri1" />
+      <opModWattPF href="http://uri1" />
+      <opModWattVar href="http://uri1" />
+      <rampTms>0</rampTms>
+    </DERControlBase>
+    <deviceCategory>0FB7</deviceCategory>
+  </DERControl>
+  <DERControl subscribable="0" replyTo="http://uri2" responseRequired="07" href="http://uri2">
+    <mRID>80000001</mRID>
+    <description>description2</description>
+    <version>65535</version>
+    <creationTime>-9223372036854775807</creationTime>
+    <EventStatus>
+      <currentStatus>255</currentStatus>
+      <dateTime>-9223372036854775807</dateTime>
+      <potentiallySuperseded>false</potentiallySuperseded>
+      <potentiallySupersededTime>-9223372036854775807</potentiallySupersededTime>
+      <reason>reason2</reason>
+    </EventStatus>
+    <interval>
+      <duration>4294967295</duration>
+      <start>-9223372036854775807</start>
+    </interval>
+    <randomizeDuration>-32768</randomizeDuration>
+    <randomizeStart>-32768</randomizeStart>
+    <DERControlBase>
+      <opModConnect>false</opModConnect>
+      <opModEnergize>false</opModEnergize>
+      <opModFixedPFAbsorbW>
+        <displacement>65535</displacement>
+        <excitation>false</excitation>
+        <multiplier>127</multiplier>
+      </opModFixedPFAbsorbW>
+      <opModFixedPFInjectW>
+        <displacement>65535</displacement>
+        <excitation>false</excitation>
+        <multiplier>0</multiplier>
+      </opModFixedPFInjectW>
+      <opModFixedVar>
+        <refType>255</refType>
+        <value>-32768</value>
+      </opModFixedVar>
+      <opModFixedW>-32768</opModFixedW>
+      <opModFreqDroop>
+        <dBOF>4294967295</dBOF>
+        <dBUF>4294967295</dBUF>
+        <kOF>65535</kOF>
+        <kUF>65535</kUF>
+        <openLoopTms>65535</openLoopTms>
+      </opModFreqDroop>
+      <opModFreqWatt href="http://uri2" />
+      <opModHFRTMayTrip href="http://uri2" />
+      <opModHFRTMustTrip href="http://uri2" />
+      <opModHVRTMayTrip href="http://uri2" />
+      <opModHVRTMomentaryCessation href="http://uri2" />
+      <opModHVRTMustTrip href="http://uri2" />
+      <opModLFRTMayTrip href="http://uri2" />
+      <opModLFRTMustTrip href="http://uri2" />
+      <opModLVRTMayTrip href="http://uri2" />
+      <opModLVRTMomentaryCessation href="http://uri2" />
+      <opModLVRTMustTrip href="http://uri2" />
+      <opModMaxLimW>65535</opModMaxLimW>
+      <opModTargetVar>
+        <multiplier>-128</multiplier>
+        <value>-32768</value>
+      </opModTargetVar>
+      <opModTargetW>
+        <multiplier>-128</multiplier>
+        <value>-32768</value>
+      </opModTargetW>
+      <opModVoltVar href="http://uri2" />
+      <opModVoltWatt href="http://uri2" />
+      <opModWattPF href="http://uri2" />
+      <opModWattVar href="http://uri2" />
+      <rampTms>65535</rampTms>
+    </DERControlBase>
+    <deviceCategory>80000001</deviceCategory>
+  </DERControl>
+  <DERControl subscribable="255" replyTo="http://uri3" responseRequired="81" href="http://uri3">
+    <mRID>7FFFFFFF</mRID>
+    <description>description3</description>
+    <version>1</version>
+    <creationTime>9223372036854775807</creationTime>
+    <EventStatus>
+      <currentStatus>1</currentStatus>
+      <dateTime>9223372036854775807</dateTime>
+      <potentiallySuperseded>true</potentiallySuperseded>
+      <potentiallySupersededTime>9223372036854775807</potentiallySupersededTime>
+      <reason>reason3</reason>
+    </EventStatus>
+    <interval>
+      <duration>1</duration>
+      <start>9223372036854775807</start>
+    </interval>
+    <randomizeDuration>32767</randomizeDuration>
+    <randomizeStart>32767</randomizeStart>
+    <DERControlBase>
+      <opModConnect>true</opModConnect>
+      <opModEnergize>true</opModEnergize>
+      <opModFixedPFAbsorbW>
+        <displacement>1</displacement>
+        <excitation>true</excitation>
+        <multiplier>2</multiplier>
+      </opModFixedPFAbsorbW>
+      <opModFixedPFInjectW>
+        <displacement>1</displacement>
+        <excitation>true</excitation>
+        <multiplier>-127</multiplier>
+      </opModFixedPFInjectW>
+      <opModFixedVar>
+        <refType>1</refType>
+        <value>32767</value>
+      </opModFixedVar>
+      <opModFixedW>32767</opModFixedW>
+      <opModFreqDroop>
+        <dBOF>1</dBOF>
+        <dBUF>1</dBUF>
+        <kOF>1</kOF>
+        <kUF>1</kUF>
+        <openLoopTms>1</openLoopTms>
+      </opModFreqDroop>
+      <opModFreqWatt href="http://uri3" />
+      <opModHFRTMayTrip href="http://uri3" />
+      <opModHFRTMustTrip href="http://uri3" />
+      <opModHVRTMayTrip href="http://uri3" />
+      <opModHVRTMomentaryCessation href="http://uri3" />
+      <opModHVRTMustTrip href="http://uri3" />
+      <opModLFRTMayTrip href="http://uri3" />
+      <opModLFRTMustTrip href="http://uri3" />
+      <opModLVRTMayTrip href="http://uri3" />
+      <opModLVRTMomentaryCessation href="http://uri3" />
+      <opModLVRTMustTrip href="http://uri3" />
+      <opModMaxLimW>1</opModMaxLimW>
+      <opModTargetVar>
+        <multiplier>127</multiplier>
+        <value>32767</value>
+      </opModTargetVar>
+      <opModTargetW>
+        <multiplier>127</multiplier>
+        <value>32767</value>
+      </opModTargetW>
+      <opModVoltVar href="http://uri3" />
+      <opModVoltWatt href="http://uri3" />
+      <opModWattPF href="http://uri3" />
+      <opModWattVar href="http://uri3" />
+      <rampTms>1</rampTms>
+    </DERControlBase>
+    <deviceCategory>7FFFFFFF</deviceCategory>
+  </DERControl>
+</DERControlList>

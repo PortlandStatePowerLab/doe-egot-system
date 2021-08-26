@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UnitValueType xmlns="urn:ieee:std:2030.5:ns">
+  <multiplier>1</multiplier>
+  <unit>0</unit>
+  <value>1</value>
+</UnitValueType>

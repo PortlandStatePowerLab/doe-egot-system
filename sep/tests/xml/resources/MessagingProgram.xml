@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MessagingProgram subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <ActiveTextMessageListLink all="0" href="http://uri1" />
+  <locale>locale1</locale>
+  <primacy>0</primacy>
+  <TextMessageListLink all="0" href="http://uri1" />
+</MessagingProgram>

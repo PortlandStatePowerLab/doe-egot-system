@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FunctionSetAssignmentsBase href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <CustomerAccountListLink all="0" href="http://uri1" />
+  <DemandResponseProgramListLink all="0" href="http://uri1" />
+  <DERProgramListLink all="0" href="http://uri1" />
+  <FileListLink all="0" href="http://uri1" />
+  <MessagingProgramListLink all="0" href="http://uri1" />
+  <PrepaymentListLink all="0" href="http://uri1" />
+  <ResponseSetListLink all="0" href="http://uri1" />
+  <TariffProfileListLink all="0" href="http://uri1" />
+  <TimeLink href="http://uri1" />
+  <UsagePointListLink all="0" href="http://uri1" />
+</FunctionSetAssignmentsBase>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RPLSourceRoutesList all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <RPLSourceRoutes href="http://uri1">
+    <DestAddress>0FB7</DestAddress>
+    <SourceRoute>0FB7</SourceRoute>
+  </RPLSourceRoutes>
+  <RPLSourceRoutes href="http://uri2">
+    <DestAddress>80000001</DestAddress>
+    <SourceRoute>80000001</SourceRoute>
+  </RPLSourceRoutes>
+  <RPLSourceRoutes href="http://uri3">
+    <DestAddress>7FFFFFFF</DestAddress>
+    <SourceRoute>7FFFFFFF</SourceRoute>
+  </RPLSourceRoutes>
+</RPLSourceRoutesList>

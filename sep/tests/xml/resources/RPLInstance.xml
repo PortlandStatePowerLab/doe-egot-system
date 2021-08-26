@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RPLInstance href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <DODAGid>0</DODAGid>
+  <DODAGroot>true</DODAGroot>
+  <flags>0</flags>
+  <groundedFlag>true</groundedFlag>
+  <MOP>0</MOP>
+  <PRF>0</PRF>
+  <rank>0</rank>
+  <RPLInstanceID>0</RPLInstanceID>
+  <RPLSourceRoutesListLink all="0" href="http://uri1" />
+  <versionNumber>0</versionNumber>
+</RPLInstance>

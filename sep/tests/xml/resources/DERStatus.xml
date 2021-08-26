@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DERStatus subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <alarmStatus>0FB7</alarmStatus>
+  <genConnectStatus>
+    <dateTime>1</dateTime>
+    <value>07</value>
+  </genConnectStatus>
+  <inverterStatus>
+    <dateTime>1</dateTime>
+    <value>0</value>
+  </inverterStatus>
+  <localControlModeStatus>
+    <dateTime>1</dateTime>
+    <value>0</value>
+  </localControlModeStatus>
+  <manufacturerStatus>
+    <dateTime>1</dateTime>
+    <value>value1</value>
+  </manufacturerStatus>
+  <operationalModeStatus>
+    <dateTime>1</dateTime>
+    <value>0</value>
+  </operationalModeStatus>
+  <readingTime>1</readingTime>
+  <stateOfChargeStatus>
+    <dateTime>1</dateTime>
+    <value>0</value>
+  </stateOfChargeStatus>
+  <storageModeStatus>
+    <dateTime>1</dateTime>
+    <value>0</value>
+  </storageModeStatus>
+  <storConnectStatus>
+    <dateTime>-9223372036854775807</dateTime>
+    <value>07</value>
+  </storConnectStatus>
+</DERStatus>

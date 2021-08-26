@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EndDeviceList pollRate="900" all="0" results="0" subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <EndDevice subscribable="0" href="http://uri1">
+    <ConfigurationLink href="http://uri1" />
+    <DERListLink all="0" href="http://uri1" />
+    <deviceCategory>0FB7</deviceCategory>
+    <DeviceInformationLink href="http://uri1" />
+    <DeviceStatusLink href="http://uri1" />
+    <FileStatusLink href="http://uri1" />
+    <IPInterfaceListLink all="0" href="http://uri1" />
+    <lFDI>0FB7</lFDI>
+    <LoadShedAvailabilityListLink all="0" href="http://uri1" />
+    <LogEventListLink all="0" href="http://uri1" />
+    <PowerStatusLink href="http://uri1" />
+    <sFDI>0</sFDI>
+    <changedTime>1</changedTime>
+    <enabled>true</enabled>
+    <FlowReservationRequestListLink all="0" href="http://uri1" />
+    <FlowReservationResponseListLink all="0" href="http://uri1" />
+    <FunctionSetAssignmentsListLink all="0" href="http://uri1" />
+    <postRate>0</postRate>
+    <RegistrationLink href="http://uri1" />
+    <SubscriptionListLink all="0" href="http://uri1" />
+  </EndDevice>
+  <EndDevice subscribable="0" href="http://uri2">
+    <ConfigurationLink href="http://uri2" />
+    <DERListLink all="4294967295" href="http://uri2" />
+    <deviceCategory>80000001</deviceCategory>
+    <DeviceInformationLink href="http://uri2" />
+    <DeviceStatusLink href="http://uri2" />
+    <FileStatusLink href="http://uri2" />
+    <IPInterfaceListLink all="4294967295" href="http://uri2" />
+    <lFDI>80000001</lFDI>
+    <LoadShedAvailabilityListLink all="4294967295" href="http://uri2" />
+    <LogEventListLink all="4294967295" href="http://uri2" />
+    <PowerStatusLink href="http://uri2" />
+    <sFDI>281474976710655</sFDI>
+    <changedTime>-9223372036854775807</changedTime>
+    <enabled>false</enabled>
+    <FlowReservationRequestListLink all="4294967295" href="http://uri2" />
+    <FlowReservationResponseListLink all="4294967295" href="http://uri2" />
+    <FunctionSetAssignmentsListLink all="4294967295" href="http://uri2" />
+    <postRate>4294967295</postRate>
+    <RegistrationLink href="http://uri2" />
+    <SubscriptionListLink all="4294967295" href="http://uri2" />
+  </EndDevice>
+  <EndDevice subscribable="255" href="http://uri3">
+    <ConfigurationLink href="http://uri3" />
+    <DERListLink all="1" href="http://uri3" />
+    <deviceCategory>7FFFFFFF</deviceCategory>
+    <DeviceInformationLink href="http://uri3" />
+    <DeviceStatusLink href="http://uri3" />
+    <FileStatusLink href="http://uri3" />
+    <IPInterfaceListLink all="1" href="http://uri3" />
+    <lFDI>7FFFFFFF</lFDI>
+    <LoadShedAvailabilityListLink all="1" href="http://uri3" />
+    <LogEventListLink all="1" href="http://uri3" />
+    <PowerStatusLink href="http://uri3" />
+    <sFDI>1</sFDI>
+    <changedTime>9223372036854775807</changedTime>
+    <enabled>true</enabled>
+    <FlowReservationRequestListLink all="1" href="http://uri3" />
+    <FlowReservationResponseListLink all="1" href="http://uri3" />
+    <FunctionSetAssignmentsListLink all="1" href="http://uri3" />
+    <postRate>1</postRate>
+    <RegistrationLink href="http://uri3" />
+    <SubscriptionListLink all="1" href="http://uri3" />
+  </EndDevice>
+</EndDeviceList>

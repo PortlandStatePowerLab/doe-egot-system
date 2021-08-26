@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DERCurve href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <autonomousVRefEnable>true</autonomousVRefEnable>
+  <autonomousVRefTimeConstant>0</autonomousVRefTimeConstant>
+  <creationTime>1</creationTime>
+  <CurveData>
+    <excitation>true</excitation>
+    <xvalue>1</xvalue>
+    <yvalue>1</yvalue>
+  </CurveData>
+  <CurveData>
+    <excitation>false</excitation>
+    <xvalue>-2147483647</xvalue>
+    <yvalue>-2147483647</yvalue>
+  </CurveData>
+  <CurveData>
+    <excitation>true</excitation>
+    <xvalue>2147483647</xvalue>
+    <yvalue>2147483647</yvalue>
+  </CurveData>
+  <curveType>0</curveType>
+  <openLoopTms>0</openLoopTms>
+  <rampDecTms>0</rampDecTms>
+  <rampIncTms>0</rampIncTms>
+  <rampPT1Tms>0</rampPT1Tms>
+  <vRef>0</vRef>
+  <xMultiplier>1</xMultiplier>
+  <yMultiplier>1</yMultiplier>
+  <yRefType>0</yRefType>
+</DERCurve>

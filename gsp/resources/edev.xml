@@ -1,0 +1,13 @@
+  
+<?xml version="1.0" encoding="utf-8"?>
+<EndDeviceList pollRate="900" all="1" results="1" subscribable="0" href="/edev" xmlns="urn:ieee:std:2030.5:ns">
+  <EndDevice subscribable="0" href="/edev">
+    <lFDI>0FB7</lFDI>
+    <sFDI>0</sFDI>
+    <changedTime>1</changedTime>
+    <enabled>true</enabled>
+    <FlowReservationRequestListLink all="0" href="/freq" />
+    <FlowReservationResponseListLink all="0" href="/fres" />
+    <postRate>0</postRate>
+  </EndDevice>
+</EndDeviceList>

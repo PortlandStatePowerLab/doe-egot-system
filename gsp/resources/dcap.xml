@@ -1,0 +1,7 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<DeviceCapability pollRate="5" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <TimeLink href="/tm" />
+  <EndDeviceListLink all="1" href="/edev" />
+  <SelfDeviceLink href="/sdev" />
+</DeviceCapability>

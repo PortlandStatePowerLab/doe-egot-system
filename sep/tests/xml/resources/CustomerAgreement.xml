@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomerAgreement href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <ActiveBillingPeriodListLink all="0" href="http://uri1" />
+  <ActiveProjectionReadingListLink all="0" href="http://uri1" />
+  <ActiveTargetReadingListLink all="0" href="http://uri1" />
+  <BillingPeriodListLink all="0" href="http://uri1" />
+  <HistoricalReadingListLink all="0" href="http://uri1" />
+  <PrepaymentLink href="http://uri1" />
+  <ProjectionReadingListLink all="0" href="http://uri1" />
+  <serviceAccount>serviceAccount1</serviceAccount>
+  <serviceLocation>serviceLocation1</serviceLocation>
+  <TargetReadingListLink all="0" href="http://uri1" />
+  <TariffProfileLink href="http://uri1" />
+  <UsagePointLink href="http://uri1" />
+</CustomerAgreement>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PowerFactorWithExcitation xmlns="urn:ieee:std:2030.5:ns">
+  <displacement>0</displacement>
+  <excitation>true</excitation>
+  <multiplier>1</multiplier>
+</PowerFactorWithExcitation>

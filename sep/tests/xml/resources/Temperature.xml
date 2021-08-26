@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Temperature xmlns="urn:ieee:std:2030.5:ns">
+  <multiplier>1</multiplier>
+  <subject>0</subject>
+  <value>1</value>
+</Temperature>

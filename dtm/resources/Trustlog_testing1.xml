@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='us-ascii'?>
+<TrustLog>
+<dtm_log_entry logged="2021-04-24 18:48:43.588319">
+	<message>
+		<from>DCM</from>
+		<to>DER</to>
+		<content>
+			<command>
+				<type>TEST</type>
+				<start>This afternoon</start>
+				<duration>like half an hour?</duration>
+				<expect_response>vibes</expect_response>
+			</command>
+		</content>
+		<DCM_timestamp>2021-04-24 18:48:32.745415</DCM_timestamp>
+	</message>
+</dtm_log_entry><dtm_log_entry logged="2021-04-24 18:49:58.855091">
+	<message>
+		<from>DCM</from>
+		<to>DER</to>
+		<content>
+			<command>
+				<type>TEST</type>
+				<start>This afternoon</start>
+				<duration>like half an hour?</duration>
+				<expect_response>vibes</expect_response>
+			</command>
+		</content>
+		<DCM_timestamp>2021-04-24 18:48:43.587319</DCM_timestamp>
+	</message>
+</dtm_log_entry><dtm_log_ERROR logged="2021-04-24 18:50:03.248688">
+	<error_type>INCOMPLETE/INCORRECT XML MSG RECEIVED</error_type>
+	<invalid_msg_contents>
+		<TrustLog>
+			<DCMContact timestamp="2021-04-24 18:49:58.853279" loopback_random_data="9.8">CONNECTION SUCCESSFUL</DCMContact>
+		</TrustLog>
+	</invalid_msg_contents>
+</dtm_log_ERROR><dtm_log_ERROR logged="2021-04-24 18:52:13.435688">
+	<error_type>INCOMPLETE/INCORRECT XML MSG RECEIVED</error_type>
+	<invalid_msg_contents>
+		<TrustLog>
+			<DCMContact timestamp="2021-04-24 18:50:03.245930" loopback_random_data="6.69">CONNECTION SUCCESSFUL</DCMContact>
+		</TrustLog>
+	</invalid_msg_contents>
+</dtm_log_ERROR><dtm_log_ERROR logged="2021-04-24 18:52:16.748369">
+	<error_type>UN-PARSABLE/NON-XML MSG RECEIVED</error_type>
+	<invalid_msg_contents>this is a fake non-xml message</invalid_msg_contents>
+</dtm_log_ERROR><dtm_log_ERROR logged="2021-04-24 18:52:20.721033">
+	<error_type>UN-PARSABLE/NON-XML MSG RECEIVED</error_type>
+	<invalid_msg_contents>this is a fake non-xml message</invalid_msg_contents>
+</dtm_log_ERROR><dtm_log_entry logged="2021-04-24 18:52:47.310761">
+	<message>
+		<from>DCM</from>
+		<to>DER</to>
+		<content>
+			<command>
+				<type>TEST</type>
+				<start>This afternoon</start>
+				<duration>like half an hour?</duration>
+				<expect_response>vibes</expect_response>
+			</command>
+		</content>
+		<DCM_timestamp>2021-04-24 18:52:20.717018</DCM_timestamp>
+	</message>
+</dtm_log_entry><dtm_log_entry logged="2021-04-26 13:14:05.008306">
+	<message>
+		<from>DCM</from>
+		<to>DER</to>
+		<content>
+			<command>
+				<type>TEST</type>
+				<start>This afternoon</start>
+				<duration>like half an hour?</duration>
+				<expect_response>vibes</expect_response>
+			</command>
+		</content>
+		<DCM_timestamp>2021-04-26 13:11:28.913186</DCM_timestamp>
+	</message>
+</dtm_log_entry><dtm_log_entry logged="2021-04-26 13:14:08.043005">
+	<message>
+		<from>DCM</from>
+		<to>DER</to>
+		<content>
+			<command>
+				<type>TEST</type>
+				<start>This afternoon</start>
+				<duration>like half an hour?</duration>
+				<expect_response>vibes</expect_response>
+			</command>
+		</content>
+		<DCM_timestamp>2021-04-26 13:14:05.007308</DCM_timestamp>
+	</message>
+</dtm_log_entry></TrustLog>

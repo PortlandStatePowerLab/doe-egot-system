@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PriceResponseCfgList all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <PriceResponseCfg href="http://uri1">
+    <consumeThreshold>1</consumeThreshold>
+    <maxReductionThreshold>1</maxReductionThreshold>
+    <RateComponentLink href="http://uri1" />
+  </PriceResponseCfg>
+  <PriceResponseCfg href="http://uri2">
+    <consumeThreshold>-2147483647</consumeThreshold>
+    <maxReductionThreshold>-2147483647</maxReductionThreshold>
+    <RateComponentLink href="http://uri2" />
+  </PriceResponseCfg>
+  <PriceResponseCfg href="http://uri3">
+    <consumeThreshold>2147483647</consumeThreshold>
+    <maxReductionThreshold>2147483647</maxReductionThreshold>
+    <RateComponentLink href="http://uri3" />
+  </PriceResponseCfg>
+</PriceResponseCfgList>

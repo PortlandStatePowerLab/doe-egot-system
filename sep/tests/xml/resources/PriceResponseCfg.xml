@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PriceResponseCfg href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <consumeThreshold>1</consumeThreshold>
+  <maxReductionThreshold>1</maxReductionThreshold>
+  <RateComponentLink href="http://uri1" />
+</PriceResponseCfg>

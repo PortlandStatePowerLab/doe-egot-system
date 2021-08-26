@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FileStatus pollRate="900" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <activateTime>1</activateTime>
+  <FileLink href="http://uri1" />
+  <loadPercent>0</loadPercent>
+  <nextRequestAttempt>1</nextRequestAttempt>
+  <request503Count>0</request503Count>
+  <requestFailCount>0</requestFailCount>
+  <status>0</status>
+  <statusTime>1</statusTime>
+</FileStatus>

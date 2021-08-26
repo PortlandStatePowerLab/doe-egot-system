@@ -1,0 +1,31 @@
+# Debian Buster is the same base as the most recent Raspbian OS
+FROM debian:buster AS builder
+
+# general environment dependencies 
+RUN apt-get update -y \
+  && apt-get install -y build-essential git cmake wget pkg-config libssl-dev\
+  && mkdir ~/temp
+
+# ensure cmake is at least 3.14, currently debian:buster has 3.13 
+RUN cd ~/temp && wget https://github.com/Kitware/CMake/releases/download/v3.18.4/cmake-3.18.4.tar.gz \
+  && tar -xf cmake-3.18.4.tar.gz \
+  && cd cmake-3.18.4 && cmake . && make && sudo make install
+
+# ensure boost is at least 1.70, currently debian:buster is fine, but raspberry pi is on 1.63 
+# so I have updated the container since the pi has to be upgraded
+RUN cd ~/temp && wget https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz \
+  && tar -xf boost_1_75_0.tar.gz \
+  && cd boost_1_75_0 && ./bootstrap.sh && ./b2 && sudo ./b2 install
+
+# install xerces for the IEEE 2030.5 xml validation, not all projects will use this
+RUN cd ~/temp && wget https://mirror.jframeworks.com/apache//xerces/c/3/sources/xerces-c-3.2.3.tar.gz \
+  && tar -xf xerces-c-3.2.3.tar.gz \
+  && cd xerces-c-3.2.3 && ./configure --prefix=/usr && make && sudo make install \
+  && cd && rm -rf temp
+
+# Stage 2, after build is complete the image layer will not change again.
+FROM builder AS main
+COPY . /app
+WORKDIR /app
+RUN cmake -S . -B build && cmake --config build && cmake --build build
+CMD ./build/tests

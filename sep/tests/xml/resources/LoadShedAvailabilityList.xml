@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LoadShedAvailabilityList pollRate="900" all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <LoadShedAvailability href="http://uri1">
+    <availabilityDuration>0</availabilityDuration>
+    <DemandResponseProgramLink href="http://uri1" />
+    <sheddablePercent>0</sheddablePercent>
+    <sheddablePower>
+      <multiplier>1</multiplier>
+      <value>1</value>
+    </sheddablePower>
+  </LoadShedAvailability>
+  <LoadShedAvailability href="http://uri2">
+    <availabilityDuration>4294967295</availabilityDuration>
+    <DemandResponseProgramLink href="http://uri2" />
+    <sheddablePercent>65535</sheddablePercent>
+    <sheddablePower>
+      <multiplier>-128</multiplier>
+      <value>-32768</value>
+    </sheddablePower>
+  </LoadShedAvailability>
+  <LoadShedAvailability href="http://uri3">
+    <availabilityDuration>1</availabilityDuration>
+    <DemandResponseProgramLink href="http://uri3" />
+    <sheddablePercent>1</sheddablePercent>
+    <sheddablePower>
+      <multiplier>127</multiplier>
+      <value>32767</value>
+    </sheddablePower>
+  </LoadShedAvailability>
+</LoadShedAvailabilityList>

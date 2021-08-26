@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EndDeviceControl subscribable="0" replyTo="http://uri1" responseRequired="00" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <creationTime>1</creationTime>
+  <EventStatus>
+    <currentStatus>0</currentStatus>
+    <dateTime>1</dateTime>
+    <potentiallySuperseded>true</potentiallySuperseded>
+    <potentiallySupersededTime>1</potentiallySupersededTime>
+    <reason>reason1</reason>
+  </EventStatus>
+  <interval>
+    <duration>0</duration>
+    <start>1</start>
+  </interval>
+  <randomizeDuration>1</randomizeDuration>
+  <randomizeStart>1</randomizeStart>
+  <ApplianceLoadReduction>
+    <type>0</type>
+  </ApplianceLoadReduction>
+  <deviceCategory>0FB7</deviceCategory>
+  <drProgramMandatory>true</drProgramMandatory>
+  <DutyCycle>
+    <normalValue>0</normalValue>
+  </DutyCycle>
+  <loadShiftForward>true</loadShiftForward>
+  <Offset>
+    <coolingOffset>0</coolingOffset>
+    <heatingOffset>0</heatingOffset>
+    <loadAdjustmentPercentageOffset>0</loadAdjustmentPercentageOffset>
+  </Offset>
+  <overrideDuration>0</overrideDuration>
+  <SetPoint>
+    <coolingSetpoint>1</coolingSetpoint>
+    <heatingSetpoint>1</heatingSetpoint>
+  </SetPoint>
+  <TargetReduction>
+    <type>0</type>
+    <value>0</value>
+  </TargetReduction>
+</EndDeviceControl>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UsagePointBase href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <roleFlags>0FB7</roleFlags>
+  <serviceCategoryKind>0</serviceCategoryKind>
+  <status>0</status>
+</UsagePointBase>

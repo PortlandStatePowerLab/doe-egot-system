@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DERAvailability subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <availabilityDuration>0</availabilityDuration>
+  <maxChargeDuration>0</maxChargeDuration>
+  <readingTime>1</readingTime>
+  <reserveChargePercent>0</reserveChargePercent>
+  <reservePercent>0</reservePercent>
+  <statVarAvail>
+    <multiplier>1</multiplier>
+    <value>1</value>
+  </statVarAvail>
+  <statWAvail>
+    <multiplier>1</multiplier>
+    <value>1</value>
+  </statWAvail>
+</DERAvailability>

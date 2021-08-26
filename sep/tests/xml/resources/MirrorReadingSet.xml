@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MirrorReadingSet href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <timePeriod>
+    <duration>0</duration>
+    <start>1</start>
+  </timePeriod>
+  <Reading subscribable="0" href="http://uri1">
+    <consumptionBlock>0</consumptionBlock>
+    <qualityFlags>0FB7</qualityFlags>
+    <timePeriod>
+      <duration>0</duration>
+      <start>-9223372036854775807</start>
+    </timePeriod>
+    <touTier>0</touTier>
+    <value>-140737488355328</value>
+    <localID>0FB7</localID>
+  </Reading>
+  <Reading subscribable="0" href="http://uri2">
+    <consumptionBlock>255</consumptionBlock>
+    <qualityFlags>8001</qualityFlags>
+    <timePeriod>
+      <duration>4294967295</duration>
+      <start>9223372036854775807</start>
+    </timePeriod>
+    <touTier>255</touTier>
+    <value>140737488355328</value>
+    <localID>8001</localID>
+  </Reading>
+  <Reading subscribable="255" href="http://uri3">
+    <consumptionBlock>1</consumptionBlock>
+    <qualityFlags>7FFF</qualityFlags>
+    <timePeriod>
+      <duration>1</duration>
+      <start>0</start>
+    </timePeriod>
+    <touTier>1</touTier>
+    <value>-140737488355327</value>
+    <localID>7FFF</localID>
+  </Reading>
+</MirrorReadingSet>

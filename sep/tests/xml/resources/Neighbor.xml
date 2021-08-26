@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Neighbor href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <isChild>true</isChild>
+  <linkQuality>0</linkQuality>
+  <shortAddress>0</shortAddress>
+</Neighbor>

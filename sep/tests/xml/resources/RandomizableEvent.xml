@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RandomizableEvent subscribable="0" replyTo="http://uri1" responseRequired="00" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <creationTime>1</creationTime>
+  <EventStatus>
+    <currentStatus>0</currentStatus>
+    <dateTime>1</dateTime>
+    <potentiallySuperseded>true</potentiallySuperseded>
+    <potentiallySupersededTime>1</potentiallySupersededTime>
+    <reason>reason1</reason>
+  </EventStatus>
+  <interval>
+    <duration>0</duration>
+    <start>1</start>
+  </interval>
+  <randomizeDuration>1</randomizeDuration>
+  <randomizeStart>1</randomizeStart>
+</RandomizableEvent>

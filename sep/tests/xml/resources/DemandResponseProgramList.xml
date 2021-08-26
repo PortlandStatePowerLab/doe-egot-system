@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DemandResponseProgramList pollRate="900" all="0" results="0" subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <DemandResponseProgram href="http://uri1">
+    <mRID>0FB7</mRID>
+    <description>description1</description>
+    <version>0</version>
+    <ActiveEndDeviceControlListLink all="0" href="http://uri1" />
+    <availabilityUpdatePercentChangeThreshold>0</availabilityUpdatePercentChangeThreshold>
+    <availabilityUpdatePowerChangeThreshold>
+      <multiplier>1</multiplier>
+      <value>1</value>
+    </availabilityUpdatePowerChangeThreshold>
+    <EndDeviceControlListLink all="0" href="http://uri1" />
+    <primacy>0</primacy>
+  </DemandResponseProgram>
+  <DemandResponseProgram href="http://uri2">
+    <mRID>80000001</mRID>
+    <description>description2</description>
+    <version>65535</version>
+    <ActiveEndDeviceControlListLink all="4294967295" href="http://uri2" />
+    <availabilityUpdatePercentChangeThreshold>65535</availabilityUpdatePercentChangeThreshold>
+    <availabilityUpdatePowerChangeThreshold>
+      <multiplier>-128</multiplier>
+      <value>-32768</value>
+    </availabilityUpdatePowerChangeThreshold>
+    <EndDeviceControlListLink all="4294967295" href="http://uri2" />
+    <primacy>255</primacy>
+  </DemandResponseProgram>
+  <DemandResponseProgram href="http://uri3">
+    <mRID>7FFFFFFF</mRID>
+    <description>description3</description>
+    <version>1</version>
+    <ActiveEndDeviceControlListLink all="1" href="http://uri3" />
+    <availabilityUpdatePercentChangeThreshold>1</availabilityUpdatePercentChangeThreshold>
+    <availabilityUpdatePowerChangeThreshold>
+      <multiplier>127</multiplier>
+      <value>32767</value>
+    </availabilityUpdatePowerChangeThreshold>
+    <EndDeviceControlListLink all="1" href="http://uri3" />
+    <primacy>1</primacy>
+  </DemandResponseProgram>
+</DemandResponseProgramList>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FileList pollRate="900" all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <File href="http://uri1">
+    <activateTime>1</activateTime>
+    <fileURI>http://uri1</fileURI>
+    <lFDI>0FB7</lFDI>
+    <mfHwVer>mfHwVer1</mfHwVer>
+    <mfID>0</mfID>
+    <mfModel>mfModel1</mfModel>
+    <mfSerNum>mfSerNum1</mfSerNum>
+    <mfVer>mfVer1</mfVer>
+    <size>0</size>
+    <type>0FB7</type>
+  </File>
+  <File href="http://uri2">
+    <activateTime>-9223372036854775807</activateTime>
+    <fileURI>http://uri2</fileURI>
+    <lFDI>80000001</lFDI>
+    <mfHwVer>mfHwVer2</mfHwVer>
+    <mfID>4294967295</mfID>
+    <mfModel>mfModel2</mfModel>
+    <mfSerNum>mfSerNum2</mfSerNum>
+    <mfVer>mfVer2</mfVer>
+    <size>4294967295</size>
+    <type>8001</type>
+  </File>
+  <File href="http://uri3">
+    <activateTime>9223372036854775807</activateTime>
+    <fileURI>http://uri3</fileURI>
+    <lFDI>7FFFFFFF</lFDI>
+    <mfHwVer>mfHwVer3</mfHwVer>
+    <mfID>1</mfID>
+    <mfModel>mfModel3</mfModel>
+    <mfSerNum>mfSerNum3</mfSerNum>
+    <mfVer>mfVer3</mfVer>
+    <size>1</size>
+    <type>7FFF</type>
+  </File>
+</FileList>

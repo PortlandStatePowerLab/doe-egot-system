@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Time pollRate="900" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <currentTime>1</currentTime>
+  <dstEndTime>1</dstEndTime>
+  <dstOffset>1</dstOffset>
+  <dstStartTime>1</dstStartTime>
+  <localTime>1</localTime>
+  <quality>3</quality>
+  <tzOffset>1</tzOffset>
+</Time>

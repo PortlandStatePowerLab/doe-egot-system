@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Reading subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <consumptionBlock>0</consumptionBlock>
+  <qualityFlags>0FB7</qualityFlags>
+  <timePeriod>
+    <duration>0</duration>
+    <start>1</start>
+  </timePeriod>
+  <touTier>0</touTier>
+  <value>-140737488355328</value>
+  <localID>0FB7</localID>
+</Reading>

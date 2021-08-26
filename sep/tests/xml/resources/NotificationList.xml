@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NotificationList all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <Notification href="http://uri1">
+    <subscribedResource>http://uri1</subscribedResource>
+    <newResourceURI>http://uri1</newResourceURI>
+    <Resource href="http://uri1" />
+    <status>0</status>
+    <subscriptionURI>http://uri1</subscriptionURI>
+  </Notification>
+  <Notification href="http://uri2">
+    <subscribedResource>http://uri2</subscribedResource>
+    <newResourceURI>http://uri2</newResourceURI>
+    <Resource href="http://uri2" />
+    <status>255</status>
+    <subscriptionURI>http://uri2</subscriptionURI>
+  </Notification>
+  <Notification href="http://uri3">
+    <subscribedResource>http://uri3</subscribedResource>
+    <newResourceURI>http://uri3</newResourceURI>
+    <Resource href="http://uri3" />
+    <status>1</status>
+    <subscriptionURI>http://uri3</subscriptionURI>
+  </Notification>
+</NotificationList>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BillingMeterReadingBase href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <BillingReadingSetListLink all="0" href="http://uri1" />
+  <ReadingTypeLink href="http://uri1" />
+</BillingMeterReadingBase>

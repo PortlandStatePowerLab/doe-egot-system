@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TimeConfiguration xmlns="urn:ieee:std:2030.5:ns">
+  <dstEndRule>0FB7</dstEndRule>
+  <dstOffset>1</dstOffset>
+  <dstStartRule>0FB7</dstStartRule>
+  <tzOffset>1</tzOffset>
+</TimeConfiguration>

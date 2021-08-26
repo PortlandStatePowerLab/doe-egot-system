@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DRLCCapabilities xmlns="urn:ieee:std:2030.5:ns">
+  <averageEnergy>
+    <multiplier>1</multiplier>
+    <value>0</value>
+  </averageEnergy>
+  <maxDemand>
+    <multiplier>1</multiplier>
+    <value>1</value>
+  </maxDemand>
+  <optionsImplemented>0FB7</optionsImplemented>
+</DRLCCapabilities>

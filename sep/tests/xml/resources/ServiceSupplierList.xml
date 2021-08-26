@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceSupplierList all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <ServiceSupplier href="http://uri1">
+    <mRID>0FB7</mRID>
+    <description>description1</description>
+    <version>0</version>
+    <email>email1</email>
+    <phone>phone1</phone>
+    <providerID>0</providerID>
+    <web>web1</web>
+  </ServiceSupplier>
+  <ServiceSupplier href="http://uri2">
+    <mRID>80000001</mRID>
+    <description>description2</description>
+    <version>65535</version>
+    <email>email2</email>
+    <phone>phone2</phone>
+    <providerID>4294967295</providerID>
+    <web>web2</web>
+  </ServiceSupplier>
+  <ServiceSupplier href="http://uri3">
+    <mRID>7FFFFFFF</mRID>
+    <description>description3</description>
+    <version>1</version>
+    <email>email3</email>
+    <phone>phone3</phone>
+    <providerID>1</providerID>
+    <web>web3</web>
+  </ServiceSupplier>
+</ServiceSupplierList>

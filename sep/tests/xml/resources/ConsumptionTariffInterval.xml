@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConsumptionTariffInterval href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <consumptionBlock>0</consumptionBlock>
+  <EnvironmentalCost>
+    <amount>0</amount>
+    <costKind>0</costKind>
+    <costLevel>0</costLevel>
+    <numCostLevels>0</numCostLevels>
+  </EnvironmentalCost>
+  <EnvironmentalCost>
+    <amount>4294967295</amount>
+    <costKind>255</costKind>
+    <costLevel>255</costLevel>
+    <numCostLevels>255</numCostLevels>
+  </EnvironmentalCost>
+  <EnvironmentalCost>
+    <amount>1</amount>
+    <costKind>1</costKind>
+    <costLevel>1</costLevel>
+    <numCostLevels>1</numCostLevels>
+  </EnvironmentalCost>
+  <price>1</price>
+  <startValue>0</startValue>
+</ConsumptionTariffInterval>

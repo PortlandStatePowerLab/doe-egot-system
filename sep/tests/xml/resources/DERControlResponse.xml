@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DERControlResponse href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <createdDateTime>1</createdDateTime>
+  <endDeviceLFDI>0FB7</endDeviceLFDI>
+  <status>0</status>
+  <subject>0FB7</subject>
+</DERControlResponse>

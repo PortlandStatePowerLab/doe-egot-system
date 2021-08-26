@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MirrorMeterReading href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <lastUpdateTime>1</lastUpdateTime>
+  <MirrorReadingSet href="http://uri1">
+    <mRID>80000001</mRID>
+    <description>description1</description>
+    <version>65535</version>
+    <timePeriod>
+      <duration>0</duration>
+      <start>1</start>
+    </timePeriod>
+    <Reading subscribable="0" href="http://uri1">
+      <consumptionBlock>0</consumptionBlock>
+      <qualityFlags>0FB7</qualityFlags>
+      <timePeriod>
+        <duration>0</duration>
+        <start>-9223372036854775807</start>
+      </timePeriod>
+      <touTier>0</touTier>
+      <value>-140737488355328</value>
+      <localID>0FB7</localID>
+    </Reading>
+    <Reading subscribable="0" href="http://uri2">
+      <consumptionBlock>255</consumptionBlock>
+      <qualityFlags>8001</qualityFlags>
+      <timePeriod>
+        <duration>4294967295</duration>
+        <start>9223372036854775807</start>
+      </timePeriod>
+      <touTier>255</touTier>
+      <value>140737488355328</value>
+      <localID>8001</localID>
+    </Reading>
+    <Reading subscribable="255" href="http://uri3">
+      <consumptionBlock>1</consumptionBlock>
+      <qualityFlags>7FFF</qualityFlags>
+      <timePeriod>
+        <duration>1</duration>
+        <start>0</start>
+      </timePeriod>
+      <touTier>1</touTier>
+      <value>-140737488355327</value>
+      <localID>7FFF</localID>
+    </Reading>
+  </MirrorReadingSet>
+  <MirrorReadingSet href="http://uri2">
+    <mRID>7FFFFFFF</mRID>
+    <description>description2</description>
+    <version>1</version>
+    <timePeriod>
+      <duration>4294967295</duration>
+      <start>2</start>
+    </timePeriod>
+    <Reading subscribable="1" href="http://uri4">
+      <consumptionBlock>254</consumptionBlock>
+      <qualityFlags>0FB6</qualityFlags>
+      <timePeriod>
+        <duration>4294967294</duration>
+        <start>-9223372036854775806</start>
+      </timePeriod>
+      <touTier>254</touTier>
+      <value>140737488355327</value>
+      <localID>0FB6</localID>
+    </Reading>
+    <Reading subscribable="254" href="http://uri5">
+      <consumptionBlock>2</consumptionBlock>
+      <qualityFlags>0FB8</qualityFlags>
+      <timePeriod>
+        <duration>2</duration>
+        <start>9223372036854775806</start>
+      </timePeriod>
+      <touTier>2</touTier>
+      <value>-140737488355326</value>
+      <localID>0FB8</localID>
+    </Reading>
+    <Reading subscribable="2" href="http://uri6">
+      <consumptionBlock>253</consumptionBlock>
+      <qualityFlags>8002</qualityFlags>
+      <timePeriod>
+        <duration>4294967293</duration>
+        <start>-1</start>
+      </timePeriod>
+      <touTier>253</touTier>
+      <value>140737488355326</value>
+      <localID>8002</localID>
+    </Reading>
+  </MirrorReadingSet>
+  <MirrorReadingSet href="http://uri3">
+    <mRID>0FB6</mRID>
+    <description>description3</description>
+    <version>65534</version>
+    <timePeriod>
+      <duration>1</duration>
+      <start>3</start>
+    </timePeriod>
+    <Reading subscribable="253" href="http://uri7">
+      <consumptionBlock>3</consumptionBlock>
+      <qualityFlags>7FFE</qualityFlags>
+      <timePeriod>
+        <duration>3</duration>
+        <start>-9223372036854775805</start>
+      </timePeriod>
+      <touTier>3</touTier>
+      <value>-140737488355325</value>
+      <localID>7FFE</localID>
+    </Reading>
+    <Reading subscribable="3" href="http://uri8">
+      <consumptionBlock>252</consumptionBlock>
+      <qualityFlags>0FB5</qualityFlags>
+      <timePeriod>
+        <duration>4294967292</duration>
+        <start>9223372036854775805</start>
+      </timePeriod>
+      <touTier>252</touTier>
+      <value>140737488355325</value>
+      <localID>0FB5</localID>
+    </Reading>
+    <Reading subscribable="252" href="http://uri9">
+      <consumptionBlock>4</consumptionBlock>
+      <qualityFlags>0FB9</qualityFlags>
+      <timePeriod>
+        <duration>4</duration>
+        <start>-2</start>
+      </timePeriod>
+      <touTier>4</touTier>
+      <value>-140737488355324</value>
+      <localID>0FB9</localID>
+    </Reading>
+  </MirrorReadingSet>
+  <nextUpdateTime>1</nextUpdateTime>
+  <Reading subscribable="0" href="http://uri1">
+    <consumptionBlock>251</consumptionBlock>
+    <qualityFlags>0FB7</qualityFlags>
+    <timePeriod>
+      <duration>4294967291</duration>
+      <start>4</start>
+    </timePeriod>
+    <touTier>251</touTier>
+    <value>-140737488355328</value>
+    <localID>0FB7</localID>
+  </Reading>
+  <ReadingType href="http://uri1">
+    <accumulationBehaviour>0</accumulationBehaviour>
+    <calorificValue>
+      <multiplier>1</multiplier>
+      <unit>0</unit>
+      <value>1</value>
+    </calorificValue>
+    <commodity>0</commodity>
+    <conversionFactor>
+      <multiplier>-128</multiplier>
+      <unit>255</unit>
+      <value>1</value>
+    </conversionFactor>
+    <dataQualifier>0</dataQualifier>
+    <flowDirection>0</flowDirection>
+    <intervalLength>0</intervalLength>
+    <kind>0</kind>
+    <maxNumberOfIntervals>0</maxNumberOfIntervals>
+    <numberOfConsumptionBlocks>0</numberOfConsumptionBlocks>
+    <numberOfTouTiers>0</numberOfTouTiers>
+    <phase>0</phase>
+    <powerOfTenMultiplier>1</powerOfTenMultiplier>
+    <subIntervalLength>0</subIntervalLength>
+    <supplyLimit>0</supplyLimit>
+    <tieredConsumptionBlocks>true</tieredConsumptionBlocks>
+    <uom>0</uom>
+  </ReadingType>
+</MirrorMeterReading>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EventStatus xmlns="urn:ieee:std:2030.5:ns">
+  <currentStatus>0</currentStatus>
+  <dateTime>1</dateTime>
+  <potentiallySuperseded>true</potentiallySuperseded>
+  <potentiallySupersededTime>1</potentiallySupersededTime>
+  <reason>reason1</reason>
+</EventStatus>

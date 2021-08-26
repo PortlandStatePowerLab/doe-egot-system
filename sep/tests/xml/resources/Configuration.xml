@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration pollRate="900" subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <currentLocale>currentLocale1</currentLocale>
+  <PowerConfiguration>
+    <batteryInstallTime>1</batteryInstallTime>
+    <lowChargeThreshold>0</lowChargeThreshold>
+  </PowerConfiguration>
+  <PriceResponseCfgListLink all="0" href="http://uri1" />
+  <TimeConfiguration>
+    <dstEndRule>0FB7</dstEndRule>
+    <dstOffset>1</dstOffset>
+    <dstStartRule>0FB7</dstStartRule>
+    <tzOffset>1</tzOffset>
+  </TimeConfiguration>
+  <userDeviceName>userDeviceName1</userDeviceName>
+</Configuration>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DeviceStatus pollRate="900" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <changedTime>1</changedTime>
+  <onCount>0</onCount>
+  <opState>0</opState>
+  <opTime>0</opTime>
+  <Temperature>
+    <multiplier>1</multiplier>
+    <subject>0</subject>
+    <value>1</value>
+  </Temperature>
+  <Temperature>
+    <multiplier>-128</multiplier>
+    <subject>255</subject>
+    <value>-32768</value>
+  </Temperature>
+  <Temperature>
+    <multiplier>127</multiplier>
+    <subject>1</subject>
+    <value>32767</value>
+  </Temperature>
+  <TimeLink href="http://uri1" />
+</DeviceStatus>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SubscriptionList pollRate="900" all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <Subscription href="http://uri1">
+    <subscribedResource>http://uri1</subscribedResource>
+    <Condition>
+      <attributeIdentifier>0</attributeIdentifier>
+      <lowerThreshold>-140737488355328</lowerThreshold>
+      <upperThreshold>-140737488355328</upperThreshold>
+    </Condition>
+    <encoding>0</encoding>
+    <level>level1</level>
+    <limit>0</limit>
+    <notificationURI>http://uri1</notificationURI>
+  </Subscription>
+  <Subscription href="http://uri2">
+    <subscribedResource>http://uri2</subscribedResource>
+    <Condition>
+      <attributeIdentifier>255</attributeIdentifier>
+      <lowerThreshold>140737488355328</lowerThreshold>
+      <upperThreshold>140737488355328</upperThreshold>
+    </Condition>
+    <encoding>255</encoding>
+    <level>level2</level>
+    <limit>4294967295</limit>
+    <notificationURI>http://uri2</notificationURI>
+  </Subscription>
+  <Subscription href="http://uri3">
+    <subscribedResource>http://uri3</subscribedResource>
+    <Condition>
+      <attributeIdentifier>1</attributeIdentifier>
+      <lowerThreshold>-140737488355327</lowerThreshold>
+      <upperThreshold>-140737488355327</upperThreshold>
+    </Condition>
+    <encoding>1</encoding>
+    <level>level3</level>
+    <limit>1</limit>
+    <notificationURI>http://uri3</notificationURI>
+  </Subscription>
+</SubscriptionList>

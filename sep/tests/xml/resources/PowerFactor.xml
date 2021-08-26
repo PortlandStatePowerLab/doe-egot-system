@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PowerFactor xmlns="urn:ieee:std:2030.5:ns">
+  <displacement>0</displacement>
+  <multiplier>1</multiplier>
+</PowerFactor>

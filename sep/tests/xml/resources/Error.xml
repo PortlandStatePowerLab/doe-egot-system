@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Error xmlns="urn:ieee:std:2030.5:ns">
+  <maxRetryDuration>0</maxRetryDuration>
+  <reasonCode>0</reasonCode>
+</Error>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DeviceInformation pollRate="900" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <DRLCCapabilities>
+    <averageEnergy>
+      <multiplier>1</multiplier>
+      <value>0</value>
+    </averageEnergy>
+    <maxDemand>
+      <multiplier>1</multiplier>
+      <value>1</value>
+    </maxDemand>
+    <optionsImplemented>0FB7</optionsImplemented>
+  </DRLCCapabilities>
+  <functionsImplemented>0FB7</functionsImplemented>
+  <gpsLocation>
+    <lat>lat1</lat>
+    <lon>lon1</lon>
+  </gpsLocation>
+  <lFDI>0FB7</lFDI>
+  <mfDate>1</mfDate>
+  <mfHwVer>mfHwVer1</mfHwVer>
+  <mfID>0</mfID>
+  <mfInfo>mfInfo1</mfInfo>
+  <mfModel>mfModel1</mfModel>
+  <mfSerNum>mfSerNum1</mfSerNum>
+  <primaryPower>0</primaryPower>
+  <secondaryPower>0</secondaryPower>
+  <SupportedLocaleListLink all="0" href="http://uri1" />
+  <swActTime>1</swActTime>
+  <swVer>swVer1</swVer>
+</DeviceInformation>

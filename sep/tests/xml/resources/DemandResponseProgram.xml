@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DemandResponseProgram href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <ActiveEndDeviceControlListLink all="0" href="http://uri1" />
+  <availabilityUpdatePercentChangeThreshold>0</availabilityUpdatePercentChangeThreshold>
+  <availabilityUpdatePowerChangeThreshold>
+    <multiplier>1</multiplier>
+    <value>1</value>
+  </availabilityUpdatePowerChangeThreshold>
+  <EndDeviceControlListLink all="0" href="http://uri1" />
+  <primacy>0</primacy>
+</DemandResponseProgram>

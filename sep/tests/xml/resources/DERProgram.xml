@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DERProgram subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <ActiveDERControlListLink all="0" href="http://uri1" />
+  <DefaultDERControlLink href="http://uri1" />
+  <DERControlListLink all="0" href="http://uri1" />
+  <DERCurveListLink all="0" href="http://uri1" />
+  <primacy>0</primacy>
+</DERProgram>

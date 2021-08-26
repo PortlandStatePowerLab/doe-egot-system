@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConsumptionTariffIntervalList all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <ConsumptionTariffInterval href="http://uri1">
+    <consumptionBlock>0</consumptionBlock>
+    <EnvironmentalCost>
+      <amount>0</amount>
+      <costKind>0</costKind>
+      <costLevel>0</costLevel>
+      <numCostLevels>0</numCostLevels>
+    </EnvironmentalCost>
+    <EnvironmentalCost>
+      <amount>4294967295</amount>
+      <costKind>255</costKind>
+      <costLevel>255</costLevel>
+      <numCostLevels>255</numCostLevels>
+    </EnvironmentalCost>
+    <EnvironmentalCost>
+      <amount>1</amount>
+      <costKind>1</costKind>
+      <costLevel>1</costLevel>
+      <numCostLevels>1</numCostLevels>
+    </EnvironmentalCost>
+    <price>1</price>
+    <startValue>0</startValue>
+  </ConsumptionTariffInterval>
+  <ConsumptionTariffInterval href="http://uri2">
+    <consumptionBlock>255</consumptionBlock>
+    <EnvironmentalCost>
+      <amount>4294967294</amount>
+      <costKind>254</costKind>
+      <costLevel>254</costLevel>
+      <numCostLevels>254</numCostLevels>
+    </EnvironmentalCost>
+    <EnvironmentalCost>
+      <amount>2</amount>
+      <costKind>2</costKind>
+      <costLevel>2</costLevel>
+      <numCostLevels>2</numCostLevels>
+    </EnvironmentalCost>
+    <EnvironmentalCost>
+      <amount>4294967293</amount>
+      <costKind>253</costKind>
+      <costLevel>253</costLevel>
+      <numCostLevels>253</numCostLevels>
+    </EnvironmentalCost>
+    <price>-2147483647</price>
+    <startValue>281474976710655</startValue>
+  </ConsumptionTariffInterval>
+  <ConsumptionTariffInterval href="http://uri3">
+    <consumptionBlock>1</consumptionBlock>
+    <EnvironmentalCost>
+      <amount>3</amount>
+      <costKind>3</costKind>
+      <costLevel>3</costLevel>
+      <numCostLevels>3</numCostLevels>
+    </EnvironmentalCost>
+    <EnvironmentalCost>
+      <amount>4294967292</amount>
+      <costKind>252</costKind>
+      <costLevel>252</costLevel>
+      <numCostLevels>252</numCostLevels>
+    </EnvironmentalCost>
+    <EnvironmentalCost>
+      <amount>4</amount>
+      <costKind>4</costKind>
+      <costLevel>4</costLevel>
+      <numCostLevels>4</numCostLevels>
+    </EnvironmentalCost>
+    <price>2147483647</price>
+    <startValue>1</startValue>
+  </ConsumptionTariffInterval>
+</ConsumptionTariffIntervalList>

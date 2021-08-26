@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MessagingProgramList pollRate="900" all="0" results="0" subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <MessagingProgram subscribable="0" href="http://uri1">
+    <mRID>0FB7</mRID>
+    <description>description1</description>
+    <version>0</version>
+    <ActiveTextMessageListLink all="0" href="http://uri1" />
+    <locale>locale1</locale>
+    <primacy>0</primacy>
+    <TextMessageListLink all="0" href="http://uri1" />
+  </MessagingProgram>
+  <MessagingProgram subscribable="0" href="http://uri2">
+    <mRID>80000001</mRID>
+    <description>description2</description>
+    <version>65535</version>
+    <ActiveTextMessageListLink all="4294967295" href="http://uri2" />
+    <locale>locale2</locale>
+    <primacy>255</primacy>
+    <TextMessageListLink all="4294967295" href="http://uri2" />
+  </MessagingProgram>
+  <MessagingProgram subscribable="255" href="http://uri3">
+    <mRID>7FFFFFFF</mRID>
+    <description>description3</description>
+    <version>1</version>
+    <ActiveTextMessageListLink all="1" href="http://uri3" />
+    <locale>locale3</locale>
+    <primacy>1</primacy>
+    <TextMessageListLink all="1" href="http://uri3" />
+  </MessagingProgram>
+</MessagingProgramList>

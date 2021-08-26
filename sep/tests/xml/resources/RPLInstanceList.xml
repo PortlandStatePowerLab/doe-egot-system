@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RPLInstanceList all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <RPLInstance href="http://uri1">
+    <DODAGid>0</DODAGid>
+    <DODAGroot>true</DODAGroot>
+    <flags>0</flags>
+    <groundedFlag>true</groundedFlag>
+    <MOP>0</MOP>
+    <PRF>0</PRF>
+    <rank>0</rank>
+    <RPLInstanceID>0</RPLInstanceID>
+    <RPLSourceRoutesListLink all="0" href="http://uri1" />
+    <versionNumber>0</versionNumber>
+  </RPLInstance>
+  <RPLInstance href="http://uri2">
+    <DODAGid>255</DODAGid>
+    <DODAGroot>false</DODAGroot>
+    <flags>255</flags>
+    <groundedFlag>false</groundedFlag>
+    <MOP>255</MOP>
+    <PRF>255</PRF>
+    <rank>65535</rank>
+    <RPLInstanceID>255</RPLInstanceID>
+    <RPLSourceRoutesListLink all="4294967295" href="http://uri2" />
+    <versionNumber>255</versionNumber>
+  </RPLInstance>
+  <RPLInstance href="http://uri3">
+    <DODAGid>1</DODAGid>
+    <DODAGroot>true</DODAGroot>
+    <flags>1</flags>
+    <groundedFlag>true</groundedFlag>
+    <MOP>1</MOP>
+    <PRF>1</PRF>
+    <rank>1</rank>
+    <RPLInstanceID>1</RPLInstanceID>
+    <RPLSourceRoutesListLink all="1" href="http://uri3" />
+    <versionNumber>1</versionNumber>
+  </RPLInstance>
+</RPLInstanceList>

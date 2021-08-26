@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TimeTariffIntervalList all="0" results="0" subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <TimeTariffInterval subscribable="0" replyTo="http://uri1" responseRequired="00" href="http://uri1">
+    <mRID>0FB7</mRID>
+    <description>description1</description>
+    <version>0</version>
+    <creationTime>1</creationTime>
+    <EventStatus>
+      <currentStatus>0</currentStatus>
+      <dateTime>1</dateTime>
+      <potentiallySuperseded>true</potentiallySuperseded>
+      <potentiallySupersededTime>1</potentiallySupersededTime>
+      <reason>reason1</reason>
+    </EventStatus>
+    <interval>
+      <duration>0</duration>
+      <start>1</start>
+    </interval>
+    <randomizeDuration>1</randomizeDuration>
+    <randomizeStart>1</randomizeStart>
+    <ConsumptionTariffIntervalListLink all="0" href="http://uri1" />
+    <touTier>0</touTier>
+  </TimeTariffInterval>
+  <TimeTariffInterval subscribable="0" replyTo="http://uri2" responseRequired="07" href="http://uri2">
+    <mRID>80000001</mRID>
+    <description>description2</description>
+    <version>65535</version>
+    <creationTime>-9223372036854775807</creationTime>
+    <EventStatus>
+      <currentStatus>255</currentStatus>
+      <dateTime>-9223372036854775807</dateTime>
+      <potentiallySuperseded>false</potentiallySuperseded>
+      <potentiallySupersededTime>-9223372036854775807</potentiallySupersededTime>
+      <reason>reason2</reason>
+    </EventStatus>
+    <interval>
+      <duration>4294967295</duration>
+      <start>-9223372036854775807</start>
+    </interval>
+    <randomizeDuration>-32768</randomizeDuration>
+    <randomizeStart>-32768</randomizeStart>
+    <ConsumptionTariffIntervalListLink all="4294967295" href="http://uri2" />
+    <touTier>255</touTier>
+  </TimeTariffInterval>
+  <TimeTariffInterval subscribable="255" replyTo="http://uri3" responseRequired="81" href="http://uri3">
+    <mRID>7FFFFFFF</mRID>
+    <description>description3</description>
+    <version>1</version>
+    <creationTime>9223372036854775807</creationTime>
+    <EventStatus>
+      <currentStatus>1</currentStatus>
+      <dateTime>9223372036854775807</dateTime>
+      <potentiallySuperseded>true</potentiallySuperseded>
+      <potentiallySupersededTime>9223372036854775807</potentiallySupersededTime>
+      <reason>reason3</reason>
+    </EventStatus>
+    <interval>
+      <duration>1</duration>
+      <start>9223372036854775807</start>
+    </interval>
+    <randomizeDuration>32767</randomizeDuration>
+    <randomizeStart>32767</randomizeStart>
+    <ConsumptionTariffIntervalListLink all="1" href="http://uri3" />
+    <touTier>1</touTier>
+  </TimeTariffInterval>
+</TimeTariffIntervalList>

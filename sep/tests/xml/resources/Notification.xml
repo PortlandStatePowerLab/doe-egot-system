@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Notification href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <subscribedResource>http://uri1</subscribedResource>
+  <newResourceURI>http://uri1</newResourceURI>
+  <Resource href="http://uri1" />
+  <status>0</status>
+  <subscriptionURI>http://uri1</subscriptionURI>
+</Notification>

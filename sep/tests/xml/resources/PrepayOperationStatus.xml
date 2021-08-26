@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PrepayOperationStatus href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <creditTypeChange>
+    <newType>0</newType>
+    <startTime>1</startTime>
+  </creditTypeChange>
+  <creditTypeInUse>0</creditTypeInUse>
+  <serviceChange>
+    <newStatus>0</newStatus>
+    <startTime>1</startTime>
+  </serviceChange>
+  <serviceStatus>0</serviceStatus>
+</PrepayOperationStatus>

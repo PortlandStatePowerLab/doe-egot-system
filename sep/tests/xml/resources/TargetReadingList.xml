@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TargetReadingList all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <TargetReading href="http://uri1">
+    <mRID>0FB7</mRID>
+    <description>description1</description>
+    <version>0</version>
+    <BillingReadingSetListLink all="0" href="http://uri1" />
+    <ReadingTypeLink href="http://uri1" />
+  </TargetReading>
+  <TargetReading href="http://uri2">
+    <mRID>80000001</mRID>
+    <description>description2</description>
+    <version>65535</version>
+    <BillingReadingSetListLink all="4294967295" href="http://uri2" />
+    <ReadingTypeLink href="http://uri2" />
+  </TargetReading>
+  <TargetReading href="http://uri3">
+    <mRID>7FFFFFFF</mRID>
+    <description>description3</description>
+    <version>1</version>
+    <BillingReadingSetListLink all="1" href="http://uri3" />
+    <ReadingTypeLink href="http://uri3" />
+  </TargetReading>
+</TargetReadingList>

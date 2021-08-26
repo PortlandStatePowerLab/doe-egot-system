@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IPInterfaceList pollRate="900" all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <IPInterface href="http://uri1">
+    <ifDescr>ifDescr1</ifDescr>
+    <ifHighSpeed>0</ifHighSpeed>
+    <ifInBroadcastPkts>0</ifInBroadcastPkts>
+    <ifIndex>0</ifIndex>
+    <ifInDiscards>0</ifInDiscards>
+    <ifInErrors>0</ifInErrors>
+    <ifInMulticastPkts>0</ifInMulticastPkts>
+    <ifInOctets>0</ifInOctets>
+    <ifInUcastPkts>0</ifInUcastPkts>
+    <ifInUnknownProtos>0</ifInUnknownProtos>
+    <ifMtu>0</ifMtu>
+    <ifName>ifName1</ifName>
+    <ifOperStatus>0</ifOperStatus>
+    <ifOutBroadcastPkts>0</ifOutBroadcastPkts>
+    <ifOutDiscards>0</ifOutDiscards>
+    <ifOutErrors>0</ifOutErrors>
+    <ifOutMulticastPkts>0</ifOutMulticastPkts>
+    <ifOutOctets>0</ifOutOctets>
+    <ifOutUcastPkts>0</ifOutUcastPkts>
+    <ifPromiscuousMode>true</ifPromiscuousMode>
+    <ifSpeed>0</ifSpeed>
+    <ifType>0</ifType>
+    <IPAddrListLink all="0" href="http://uri1" />
+    <lastResetTime>1</lastResetTime>
+    <lastUpdatedTime>1</lastUpdatedTime>
+    <LLInterfaceListLink all="0" href="http://uri1" />
+  </IPInterface>
+  <IPInterface href="http://uri2">
+    <ifDescr>ifDescr2</ifDescr>
+    <ifHighSpeed>4294967295</ifHighSpeed>
+    <ifInBroadcastPkts>4294967295</ifInBroadcastPkts>
+    <ifIndex>4294967295</ifIndex>
+    <ifInDiscards>4294967295</ifInDiscards>
+    <ifInErrors>4294967295</ifInErrors>
+    <ifInMulticastPkts>4294967295</ifInMulticastPkts>
+    <ifInOctets>4294967295</ifInOctets>
+    <ifInUcastPkts>4294967295</ifInUcastPkts>
+    <ifInUnknownProtos>4294967295</ifInUnknownProtos>
+    <ifMtu>4294967295</ifMtu>
+    <ifName>ifName2</ifName>
+    <ifOperStatus>255</ifOperStatus>
+    <ifOutBroadcastPkts>4294967295</ifOutBroadcastPkts>
+    <ifOutDiscards>4294967295</ifOutDiscards>
+    <ifOutErrors>4294967295</ifOutErrors>
+    <ifOutMulticastPkts>4294967295</ifOutMulticastPkts>
+    <ifOutOctets>4294967295</ifOutOctets>
+    <ifOutUcastPkts>4294967295</ifOutUcastPkts>
+    <ifPromiscuousMode>false</ifPromiscuousMode>
+    <ifSpeed>4294967295</ifSpeed>
+    <ifType>65535</ifType>
+    <IPAddrListLink all="4294967295" href="http://uri2" />
+    <lastResetTime>-9223372036854775807</lastResetTime>
+    <lastUpdatedTime>-9223372036854775807</lastUpdatedTime>
+    <LLInterfaceListLink all="4294967295" href="http://uri2" />
+  </IPInterface>
+  <IPInterface href="http://uri3">
+    <ifDescr>ifDescr3</ifDescr>
+    <ifHighSpeed>1</ifHighSpeed>
+    <ifInBroadcastPkts>1</ifInBroadcastPkts>
+    <ifIndex>1</ifIndex>
+    <ifInDiscards>1</ifInDiscards>
+    <ifInErrors>1</ifInErrors>
+    <ifInMulticastPkts>1</ifInMulticastPkts>
+    <ifInOctets>1</ifInOctets>
+    <ifInUcastPkts>1</ifInUcastPkts>
+    <ifInUnknownProtos>1</ifInUnknownProtos>
+    <ifMtu>1</ifMtu>
+    <ifName>ifName3</ifName>
+    <ifOperStatus>1</ifOperStatus>
+    <ifOutBroadcastPkts>1</ifOutBroadcastPkts>
+    <ifOutDiscards>1</ifOutDiscards>
+    <ifOutErrors>1</ifOutErrors>
+    <ifOutMulticastPkts>1</ifOutMulticastPkts>
+    <ifOutOctets>1</ifOutOctets>
+    <ifOutUcastPkts>1</ifOutUcastPkts>
+    <ifPromiscuousMode>true</ifPromiscuousMode>
+    <ifSpeed>1</ifSpeed>
+    <ifType>1</ifType>
+    <IPAddrListLink all="1" href="http://uri3" />
+    <lastResetTime>9223372036854775807</lastResetTime>
+    <lastUpdatedTime>9223372036854775807</lastUpdatedTime>
+    <LLInterfaceListLink all="1" href="http://uri3" />
+  </IPInterface>
+</IPInterfaceList>

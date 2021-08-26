@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FreqDroopType xmlns="urn:ieee:std:2030.5:ns">
+  <dBOF>0</dBOF>
+  <dBUF>0</dBUF>
+  <kOF>0</kOF>
+  <kUF>0</kUF>
+  <openLoopTms>0</openLoopTms>
+</FreqDroopType>

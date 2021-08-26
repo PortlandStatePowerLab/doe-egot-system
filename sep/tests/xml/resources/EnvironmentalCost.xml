@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EnvironmentalCost xmlns="urn:ieee:std:2030.5:ns">
+  <amount>0</amount>
+  <costKind>0</costKind>
+  <costLevel>0</costLevel>
+  <numCostLevels>0</numCostLevels>
+</EnvironmentalCost>

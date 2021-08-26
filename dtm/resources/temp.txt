@@ -1,0 +1,4 @@
+http_server.socket = ssl.wrap_socket(http_server.socket,
+										 keyfile=r"C:\Users\whits\STUFF\Local_Env\projects\CLion_sshdev\EGoT-DCS\certs\server\server.key",
+										 certfile=r"C:\Users\whits\STUFF\Local_Env\projects\CLion_sshdev\EGoT-DCS\certs\server\server.crt",
+										 server_side=True)

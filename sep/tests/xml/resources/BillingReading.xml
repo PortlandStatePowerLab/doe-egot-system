@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BillingReading href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <consumptionBlock>0</consumptionBlock>
+  <qualityFlags>0FB7</qualityFlags>
+  <timePeriod>
+    <duration>0</duration>
+    <start>1</start>
+  </timePeriod>
+  <touTier>0</touTier>
+  <value>-140737488355328</value>
+  <Charge>
+    <description>description1</description>
+    <kind>0</kind>
+    <value>1</value>
+  </Charge>
+  <Charge>
+    <description>description2</description>
+    <kind>255</kind>
+    <value>-2147483647</value>
+  </Charge>
+  <Charge>
+    <description>description3</description>
+    <kind>1</kind>
+    <value>2147483647</value>
+  </Charge>
+</BillingReading>

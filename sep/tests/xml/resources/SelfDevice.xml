@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SelfDevice pollRate="900" subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <ConfigurationLink href="http://uri1" />
+  <DERListLink all="0" href="http://uri1" />
+  <deviceCategory>0FB7</deviceCategory>
+  <DeviceInformationLink href="http://uri1" />
+  <DeviceStatusLink href="http://uri1" />
+  <FileStatusLink href="http://uri1" />
+  <IPInterfaceListLink all="0" href="http://uri1" />
+  <lFDI>0FB7</lFDI>
+  <LoadShedAvailabilityListLink all="0" href="http://uri1" />
+  <LogEventListLink all="0" href="http://uri1" />
+  <PowerStatusLink href="http://uri1" />
+  <sFDI>0</sFDI>
+</SelfDevice>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DrResponse href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <createdDateTime>1</createdDateTime>
+  <endDeviceLFDI>0FB7</endDeviceLFDI>
+  <status>0</status>
+  <subject>0FB7</subject>
+  <ApplianceLoadReduction>
+    <type>0</type>
+  </ApplianceLoadReduction>
+  <AppliedTargetReduction>
+    <type>0</type>
+    <value>0</value>
+  </AppliedTargetReduction>
+  <DutyCycle>
+    <normalValue>0</normalValue>
+  </DutyCycle>
+  <Offset>
+    <coolingOffset>0</coolingOffset>
+    <heatingOffset>0</heatingOffset>
+    <loadAdjustmentPercentageOffset>0</loadAdjustmentPercentageOffset>
+  </Offset>
+  <overrideDuration>0</overrideDuration>
+  <SetPoint>
+    <coolingSetpoint>1</coolingSetpoint>
+    <heatingSetpoint>1</heatingSetpoint>
+  </SetPoint>
+</DrResponse>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IEEE_802_15_4 xmlns="urn:ieee:std:2030.5:ns">
+  <capabilityInfo>07</capabilityInfo>
+  <NeighborListLink all="0" href="http://uri1" />
+  <shortAddress>0</shortAddress>
+</IEEE_802_15_4>

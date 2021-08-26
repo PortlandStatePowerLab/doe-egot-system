@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReactivePower xmlns="urn:ieee:std:2030.5:ns">
+  <multiplier>1</multiplier>
+  <value>1</value>
+</ReactivePower>

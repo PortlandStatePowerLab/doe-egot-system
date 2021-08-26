@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Condition xmlns="urn:ieee:std:2030.5:ns">
+  <attributeIdentifier>0</attributeIdentifier>
+  <lowerThreshold>-140737488355328</lowerThreshold>
+  <upperThreshold>-140737488355328</upperThreshold>
+</Condition>

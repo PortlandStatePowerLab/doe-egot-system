@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomerAccount href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <currency>0</currency>
+  <customerAccount>customerAccount1</customerAccount>
+  <CustomerAgreementListLink all="0" href="http://uri1" />
+  <customerName>customerName1</customerName>
+  <pricePowerOfTenMultiplier>1</pricePowerOfTenMultiplier>
+  <ServiceSupplierLink href="http://uri1" />
+</CustomerAccount>

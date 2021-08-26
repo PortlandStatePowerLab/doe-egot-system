@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DERList pollRate="900" all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <DER subscribable="0" href="http://uri1">
+    <AssociatedDERProgramListLink all="0" href="http://uri1" />
+    <AssociatedUsagePointLink href="http://uri1" />
+    <CurrentDERProgramLink href="http://uri1" />
+    <DERAvailabilityLink href="http://uri1" />
+    <DERCapabilityLink href="http://uri1" />
+    <DERSettingsLink href="http://uri1" />
+    <DERStatusLink href="http://uri1" />
+  </DER>
+  <DER subscribable="0" href="http://uri2">
+    <AssociatedDERProgramListLink all="4294967295" href="http://uri2" />
+    <AssociatedUsagePointLink href="http://uri2" />
+    <CurrentDERProgramLink href="http://uri2" />
+    <DERAvailabilityLink href="http://uri2" />
+    <DERCapabilityLink href="http://uri2" />
+    <DERSettingsLink href="http://uri2" />
+    <DERStatusLink href="http://uri2" />
+  </DER>
+  <DER subscribable="255" href="http://uri3">
+    <AssociatedDERProgramListLink all="1" href="http://uri3" />
+    <AssociatedUsagePointLink href="http://uri3" />
+    <CurrentDERProgramLink href="http://uri3" />
+    <DERAvailabilityLink href="http://uri3" />
+    <DERCapabilityLink href="http://uri3" />
+    <DERSettingsLink href="http://uri3" />
+    <DERStatusLink href="http://uri3" />
+  </DER>
+</DERList>

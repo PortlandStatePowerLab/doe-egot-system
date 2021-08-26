@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RateComponent href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <ActiveTimeTariffIntervalListLink all="0" href="http://uri1" />
+  <flowRateEndLimit>
+    <multiplier>1</multiplier>
+    <unit>0</unit>
+    <value>1</value>
+  </flowRateEndLimit>
+  <flowRateStartLimit>
+    <multiplier>-128</multiplier>
+    <unit>255</unit>
+    <value>1</value>
+  </flowRateStartLimit>
+  <ReadingTypeLink href="http://uri1" />
+  <roleFlags>0FB7</roleFlags>
+  <TimeTariffIntervalListLink all="0" href="http://uri1" />
+</RateComponent>

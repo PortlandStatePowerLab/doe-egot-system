@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UsagePointList pollRate="900" all="0" results="0" subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <UsagePoint href="http://uri1">
+    <mRID>0FB7</mRID>
+    <description>description1</description>
+    <version>0</version>
+    <roleFlags>0FB7</roleFlags>
+    <serviceCategoryKind>0</serviceCategoryKind>
+    <status>0</status>
+    <deviceLFDI>0FB7</deviceLFDI>
+    <MeterReadingListLink all="0" href="http://uri1" />
+  </UsagePoint>
+  <UsagePoint href="http://uri2">
+    <mRID>80000001</mRID>
+    <description>description2</description>
+    <version>65535</version>
+    <roleFlags>8001</roleFlags>
+    <serviceCategoryKind>255</serviceCategoryKind>
+    <status>255</status>
+    <deviceLFDI>80000001</deviceLFDI>
+    <MeterReadingListLink all="4294967295" href="http://uri2" />
+  </UsagePoint>
+  <UsagePoint href="http://uri3">
+    <mRID>7FFFFFFF</mRID>
+    <description>description3</description>
+    <version>1</version>
+    <roleFlags>7FFF</roleFlags>
+    <serviceCategoryKind>1</serviceCategoryKind>
+    <status>1</status>
+    <deviceLFDI>7FFFFFFF</deviceLFDI>
+    <MeterReadingListLink all="1" href="http://uri3" />
+  </UsagePoint>
+</UsagePointList>

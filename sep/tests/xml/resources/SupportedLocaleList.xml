@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SupportedLocaleList all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <SupportedLocale href="http://uri1">
+    <locale>locale1</locale>
+  </SupportedLocale>
+  <SupportedLocale href="http://uri2">
+    <locale>locale2</locale>
+  </SupportedLocale>
+  <SupportedLocale href="http://uri3">
+    <locale>locale3</locale>
+  </SupportedLocale>
+</SupportedLocaleList>

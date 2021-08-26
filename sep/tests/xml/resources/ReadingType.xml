@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReadingType href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <accumulationBehaviour>0</accumulationBehaviour>
+  <calorificValue>
+    <multiplier>1</multiplier>
+    <unit>0</unit>
+    <value>1</value>
+  </calorificValue>
+  <commodity>0</commodity>
+  <conversionFactor>
+    <multiplier>-128</multiplier>
+    <unit>255</unit>
+    <value>1</value>
+  </conversionFactor>
+  <dataQualifier>0</dataQualifier>
+  <flowDirection>0</flowDirection>
+  <intervalLength>0</intervalLength>
+  <kind>0</kind>
+  <maxNumberOfIntervals>0</maxNumberOfIntervals>
+  <numberOfConsumptionBlocks>0</numberOfConsumptionBlocks>
+  <numberOfTouTiers>0</numberOfTouTiers>
+  <phase>0</phase>
+  <powerOfTenMultiplier>1</powerOfTenMultiplier>
+  <subIntervalLength>0</subIntervalLength>
+  <supplyLimit>0</supplyLimit>
+  <tieredConsumptionBlocks>true</tieredConsumptionBlocks>
+  <uom>0</uom>
+</ReadingType>

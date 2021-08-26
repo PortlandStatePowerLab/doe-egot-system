@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FlowReservationRequest href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <creationTime>1</creationTime>
+  <durationRequested>0</durationRequested>
+  <energyRequested>
+    <multiplier>1</multiplier>
+    <value>-140737488355328</value>
+  </energyRequested>
+  <intervalRequested>
+    <duration>0</duration>
+    <start>1</start>
+  </intervalRequested>
+  <powerRequested>
+    <multiplier>1</multiplier>
+    <value>1</value>
+  </powerRequested>
+  <RequestStatus>
+    <dateTime>1</dateTime>
+    <requestStatus>0</requestStatus>
+  </RequestStatus>
+</FlowReservationRequest>

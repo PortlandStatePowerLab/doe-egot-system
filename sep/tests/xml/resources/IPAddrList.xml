@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IPAddrList all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <IPAddr href="http://uri1">
+    <address>0FB7</address>
+    <RPLInstanceListLink all="0" href="http://uri1" />
+  </IPAddr>
+  <IPAddr href="http://uri2">
+    <address>80000001</address>
+    <RPLInstanceListLink all="4294967295" href="http://uri2" />
+  </IPAddr>
+  <IPAddr href="http://uri3">
+    <address>7FFFFFFF</address>
+    <RPLInstanceListLink all="1" href="http://uri3" />
+  </IPAddr>
+</IPAddrList>

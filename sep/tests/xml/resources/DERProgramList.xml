@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DERProgramList pollRate="900" all="0" results="0" subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <DERProgram subscribable="0" href="http://uri1">
+    <mRID>0FB7</mRID>
+    <description>description1</description>
+    <version>0</version>
+    <ActiveDERControlListLink all="0" href="http://uri1" />
+    <DefaultDERControlLink href="http://uri1" />
+    <DERControlListLink all="0" href="http://uri1" />
+    <DERCurveListLink all="0" href="http://uri1" />
+    <primacy>0</primacy>
+  </DERProgram>
+  <DERProgram subscribable="0" href="http://uri2">
+    <mRID>80000001</mRID>
+    <description>description2</description>
+    <version>65535</version>
+    <ActiveDERControlListLink all="4294967295" href="http://uri2" />
+    <DefaultDERControlLink href="http://uri2" />
+    <DERControlListLink all="4294967295" href="http://uri2" />
+    <DERCurveListLink all="4294967295" href="http://uri2" />
+    <primacy>255</primacy>
+  </DERProgram>
+  <DERProgram subscribable="255" href="http://uri3">
+    <mRID>7FFFFFFF</mRID>
+    <description>description3</description>
+    <version>1</version>
+    <ActiveDERControlListLink all="1" href="http://uri3" />
+    <DefaultDERControlLink href="http://uri3" />
+    <DERControlListLink all="1" href="http://uri3" />
+    <DERCurveListLink all="1" href="http://uri3" />
+    <primacy>1</primacy>
+  </DERProgram>
+</DERProgramList>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AccountBalance href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <availableCredit>
+    <energyUnit>
+      <multiplier>1</multiplier>
+      <value>0</value>
+    </energyUnit>
+    <monetaryUnit>0</monetaryUnit>
+    <multiplier>1</multiplier>
+    <value>1</value>
+  </availableCredit>
+  <creditStatus>0</creditStatus>
+  <emergencyCredit>
+    <energyUnit>
+      <multiplier>-128</multiplier>
+      <value>281474976710655</value>
+    </energyUnit>
+    <monetaryUnit>65535</monetaryUnit>
+    <multiplier>-128</multiplier>
+    <value>1</value>
+  </emergencyCredit>
+  <emergencyCreditStatus>0</emergencyCreditStatus>
+</AccountBalance>

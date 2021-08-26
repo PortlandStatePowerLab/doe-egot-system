@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResponseSetList pollRate="900" all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <ResponseSet href="http://uri1">
+    <mRID>0FB7</mRID>
+    <description>description1</description>
+    <version>0</version>
+    <ResponseListLink all="0" href="http://uri1" />
+  </ResponseSet>
+  <ResponseSet href="http://uri2">
+    <mRID>80000001</mRID>
+    <description>description2</description>
+    <version>65535</version>
+    <ResponseListLink all="4294967295" href="http://uri2" />
+  </ResponseSet>
+  <ResponseSet href="http://uri3">
+    <mRID>7FFFFFFF</mRID>
+    <description>description3</description>
+    <version>1</version>
+    <ResponseListLink all="1" href="http://uri3" />
+  </ResponseSet>
+</ResponseSetList>

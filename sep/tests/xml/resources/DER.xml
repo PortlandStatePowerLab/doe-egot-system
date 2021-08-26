@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DER subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <AssociatedDERProgramListLink all="0" href="http://uri1" />
+  <AssociatedUsagePointLink href="http://uri1" />
+  <CurrentDERProgramLink href="http://uri1" />
+  <DERAvailabilityLink href="http://uri1" />
+  <DERCapabilityLink href="http://uri1" />
+  <DERSettingsLink href="http://uri1" />
+  <DERStatusLink href="http://uri1" />
+</DER>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BillingPeriod href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <billLastPeriod>-140737488355328</billLastPeriod>
+  <billToDate>-140737488355328</billToDate>
+  <interval>
+    <duration>0</duration>
+    <start>1</start>
+  </interval>
+  <statusTimeStamp>1</statusTimeStamp>
+</BillingPeriod>

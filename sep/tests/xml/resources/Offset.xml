@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Offset xmlns="urn:ieee:std:2030.5:ns">
+  <coolingOffset>0</coolingOffset>
+  <heatingOffset>0</heatingOffset>
+  <loadAdjustmentPercentageOffset>0</loadAdjustmentPercentageOffset>
+</Offset>

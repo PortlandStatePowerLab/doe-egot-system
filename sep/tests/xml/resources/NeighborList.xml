@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NeighborList all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <Neighbor href="http://uri1">
+    <isChild>true</isChild>
+    <linkQuality>0</linkQuality>
+    <shortAddress>0</shortAddress>
+  </Neighbor>
+  <Neighbor href="http://uri2">
+    <isChild>false</isChild>
+    <linkQuality>255</linkQuality>
+    <shortAddress>65535</shortAddress>
+  </Neighbor>
+  <Neighbor href="http://uri3">
+    <isChild>true</isChild>
+    <linkQuality>1</linkQuality>
+    <shortAddress>1</shortAddress>
+  </Neighbor>
+</NeighborList>

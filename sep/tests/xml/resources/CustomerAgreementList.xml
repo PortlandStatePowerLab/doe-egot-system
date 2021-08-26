@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomerAgreementList all="0" results="0" subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <CustomerAgreement href="http://uri1">
+    <mRID>0FB7</mRID>
+    <description>description1</description>
+    <version>0</version>
+    <ActiveBillingPeriodListLink all="0" href="http://uri1" />
+    <ActiveProjectionReadingListLink all="0" href="http://uri1" />
+    <ActiveTargetReadingListLink all="0" href="http://uri1" />
+    <BillingPeriodListLink all="0" href="http://uri1" />
+    <HistoricalReadingListLink all="0" href="http://uri1" />
+    <PrepaymentLink href="http://uri1" />
+    <ProjectionReadingListLink all="0" href="http://uri1" />
+    <serviceAccount>serviceAccount1</serviceAccount>
+    <serviceLocation>serviceLocation1</serviceLocation>
+    <TargetReadingListLink all="0" href="http://uri1" />
+    <TariffProfileLink href="http://uri1" />
+    <UsagePointLink href="http://uri1" />
+  </CustomerAgreement>
+  <CustomerAgreement href="http://uri2">
+    <mRID>80000001</mRID>
+    <description>description2</description>
+    <version>65535</version>
+    <ActiveBillingPeriodListLink all="4294967295" href="http://uri2" />
+    <ActiveProjectionReadingListLink all="4294967295" href="http://uri2" />
+    <ActiveTargetReadingListLink all="4294967295" href="http://uri2" />
+    <BillingPeriodListLink all="4294967295" href="http://uri2" />
+    <HistoricalReadingListLink all="4294967295" href="http://uri2" />
+    <PrepaymentLink href="http://uri2" />
+    <ProjectionReadingListLink all="4294967295" href="http://uri2" />
+    <serviceAccount>serviceAccount2</serviceAccount>
+    <serviceLocation>serviceLocation2</serviceLocation>
+    <TargetReadingListLink all="4294967295" href="http://uri2" />
+    <TariffProfileLink href="http://uri2" />
+    <UsagePointLink href="http://uri2" />
+  </CustomerAgreement>
+  <CustomerAgreement href="http://uri3">
+    <mRID>7FFFFFFF</mRID>
+    <description>description3</description>
+    <version>1</version>
+    <ActiveBillingPeriodListLink all="1" href="http://uri3" />
+    <ActiveProjectionReadingListLink all="1" href="http://uri3" />
+    <ActiveTargetReadingListLink all="1" href="http://uri3" />
+    <BillingPeriodListLink all="1" href="http://uri3" />
+    <HistoricalReadingListLink all="1" href="http://uri3" />
+    <PrepaymentLink href="http://uri3" />
+    <ProjectionReadingListLink all="1" href="http://uri3" />
+    <serviceAccount>serviceAccount3</serviceAccount>
+    <serviceLocation>serviceLocation3</serviceLocation>
+    <TargetReadingListLink all="1" href="http://uri3" />
+    <TariffProfileLink href="http://uri3" />
+    <UsagePointLink href="http://uri3" />
+  </CustomerAgreement>
+</CustomerAgreementList>

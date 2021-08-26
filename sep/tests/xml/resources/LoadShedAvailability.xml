@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LoadShedAvailability href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <availabilityDuration>0</availabilityDuration>
+  <DemandResponseProgramLink href="http://uri1" />
+  <sheddablePercent>0</sheddablePercent>
+  <sheddablePower>
+    <multiplier>1</multiplier>
+    <value>1</value>
+  </sheddablePower>
+</LoadShedAvailability>

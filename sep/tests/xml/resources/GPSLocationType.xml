@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GPSLocationType xmlns="urn:ieee:std:2030.5:ns">
+  <lat>lat1</lat>
+  <lon>lon1</lon>
+</GPSLocationType>

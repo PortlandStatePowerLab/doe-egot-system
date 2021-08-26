@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CreditRegisterList all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <CreditRegister href="http://uri1">
+    <mRID>0FB7</mRID>
+    <description>description1</description>
+    <version>0</version>
+    <creditAmount>
+      <energyUnit>
+        <multiplier>1</multiplier>
+        <value>0</value>
+      </energyUnit>
+      <monetaryUnit>0</monetaryUnit>
+      <multiplier>1</multiplier>
+      <value>1</value>
+    </creditAmount>
+    <creditType>0</creditType>
+    <effectiveTime>1</effectiveTime>
+    <token>token1</token>
+  </CreditRegister>
+  <CreditRegister href="http://uri2">
+    <mRID>80000001</mRID>
+    <description>description2</description>
+    <version>65535</version>
+    <creditAmount>
+      <energyUnit>
+        <multiplier>-128</multiplier>
+        <value>281474976710655</value>
+      </energyUnit>
+      <monetaryUnit>65535</monetaryUnit>
+      <multiplier>-128</multiplier>
+      <value>-2147483647</value>
+    </creditAmount>
+    <creditType>255</creditType>
+    <effectiveTime>-9223372036854775807</effectiveTime>
+    <token>token2</token>
+  </CreditRegister>
+  <CreditRegister href="http://uri3">
+    <mRID>7FFFFFFF</mRID>
+    <description>description3</description>
+    <version>1</version>
+    <creditAmount>
+      <energyUnit>
+        <multiplier>127</multiplier>
+        <value>1</value>
+      </energyUnit>
+      <monetaryUnit>1</monetaryUnit>
+      <multiplier>127</multiplier>
+      <value>2147483647</value>
+    </creditAmount>
+    <creditType>1</creditType>
+    <effectiveTime>9223372036854775807</effectiveTime>
+    <token>token3</token>
+  </CreditRegister>
+</CreditRegisterList>

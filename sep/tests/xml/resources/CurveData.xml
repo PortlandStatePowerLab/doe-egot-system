@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CurveData xmlns="urn:ieee:std:2030.5:ns">
+  <excitation>true</excitation>
+  <xvalue>1</xvalue>
+  <yvalue>1</yvalue>
+</CurveData>

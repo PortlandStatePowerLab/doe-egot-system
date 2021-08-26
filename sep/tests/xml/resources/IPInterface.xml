@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IPInterface href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <ifDescr>ifDescr1</ifDescr>
+  <ifHighSpeed>0</ifHighSpeed>
+  <ifInBroadcastPkts>0</ifInBroadcastPkts>
+  <ifIndex>0</ifIndex>
+  <ifInDiscards>0</ifInDiscards>
+  <ifInErrors>0</ifInErrors>
+  <ifInMulticastPkts>0</ifInMulticastPkts>
+  <ifInOctets>0</ifInOctets>
+  <ifInUcastPkts>0</ifInUcastPkts>
+  <ifInUnknownProtos>0</ifInUnknownProtos>
+  <ifMtu>0</ifMtu>
+  <ifName>ifName1</ifName>
+  <ifOperStatus>0</ifOperStatus>
+  <ifOutBroadcastPkts>0</ifOutBroadcastPkts>
+  <ifOutDiscards>0</ifOutDiscards>
+  <ifOutErrors>0</ifOutErrors>
+  <ifOutMulticastPkts>0</ifOutMulticastPkts>
+  <ifOutOctets>0</ifOutOctets>
+  <ifOutUcastPkts>0</ifOutUcastPkts>
+  <ifPromiscuousMode>true</ifPromiscuousMode>
+  <ifSpeed>0</ifSpeed>
+  <ifType>0</ifType>
+  <IPAddrListLink all="0" href="http://uri1" />
+  <lastResetTime>1</lastResetTime>
+  <lastUpdatedTime>1</lastUpdatedTime>
+  <LLInterfaceListLink all="0" href="http://uri1" />
+</IPInterface>

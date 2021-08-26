@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BillingPeriodList all="0" results="0" subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <BillingPeriod href="http://uri1">
+    <billLastPeriod>-140737488355328</billLastPeriod>
+    <billToDate>-140737488355328</billToDate>
+    <interval>
+      <duration>0</duration>
+      <start>1</start>
+    </interval>
+    <statusTimeStamp>1</statusTimeStamp>
+  </BillingPeriod>
+  <BillingPeriod href="http://uri2">
+    <billLastPeriod>140737488355328</billLastPeriod>
+    <billToDate>140737488355328</billToDate>
+    <interval>
+      <duration>4294967295</duration>
+      <start>-9223372036854775807</start>
+    </interval>
+    <statusTimeStamp>-9223372036854775807</statusTimeStamp>
+  </BillingPeriod>
+  <BillingPeriod href="http://uri3">
+    <billLastPeriod>-140737488355327</billLastPeriod>
+    <billToDate>-140737488355327</billToDate>
+    <interval>
+      <duration>1</duration>
+      <start>9223372036854775807</start>
+    </interval>
+    <statusTimeStamp>9223372036854775807</statusTimeStamp>
+  </BillingPeriod>
+</BillingPeriodList>

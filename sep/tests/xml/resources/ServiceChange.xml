@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceChange xmlns="urn:ieee:std:2030.5:ns">
+  <newStatus>0</newStatus>
+  <startTime>1</startTime>
+</ServiceChange>

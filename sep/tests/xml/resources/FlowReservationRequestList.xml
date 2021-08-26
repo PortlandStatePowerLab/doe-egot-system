@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FlowReservationRequestList pollRate="900" all="0" results="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <FlowReservationRequest href="http://uri1">
+    <mRID>0FB7</mRID>
+    <description>description1</description>
+    <version>0</version>
+    <creationTime>1</creationTime>
+    <durationRequested>0</durationRequested>
+    <energyRequested>
+      <multiplier>1</multiplier>
+      <value>-140737488355328</value>
+    </energyRequested>
+    <intervalRequested>
+      <duration>0</duration>
+      <start>1</start>
+    </intervalRequested>
+    <powerRequested>
+      <multiplier>1</multiplier>
+      <value>1</value>
+    </powerRequested>
+    <RequestStatus>
+      <dateTime>1</dateTime>
+      <requestStatus>0</requestStatus>
+    </RequestStatus>
+  </FlowReservationRequest>
+  <FlowReservationRequest href="http://uri2">
+    <mRID>80000001</mRID>
+    <description>description2</description>
+    <version>65535</version>
+    <creationTime>-9223372036854775807</creationTime>
+    <durationRequested>65535</durationRequested>
+    <energyRequested>
+      <multiplier>-128</multiplier>
+      <value>140737488355328</value>
+    </energyRequested>
+    <intervalRequested>
+      <duration>4294967295</duration>
+      <start>-9223372036854775807</start>
+    </intervalRequested>
+    <powerRequested>
+      <multiplier>-128</multiplier>
+      <value>-32768</value>
+    </powerRequested>
+    <RequestStatus>
+      <dateTime>-9223372036854775807</dateTime>
+      <requestStatus>255</requestStatus>
+    </RequestStatus>
+  </FlowReservationRequest>
+  <FlowReservationRequest href="http://uri3">
+    <mRID>7FFFFFFF</mRID>
+    <description>description3</description>
+    <version>1</version>
+    <creationTime>9223372036854775807</creationTime>
+    <durationRequested>1</durationRequested>
+    <energyRequested>
+      <multiplier>127</multiplier>
+      <value>-140737488355327</value>
+    </energyRequested>
+    <intervalRequested>
+      <duration>1</duration>
+      <start>9223372036854775807</start>
+    </intervalRequested>
+    <powerRequested>
+      <multiplier>127</multiplier>
+      <value>32767</value>
+    </powerRequested>
+    <RequestStatus>
+      <dateTime>9223372036854775807</dateTime>
+      <requestStatus>1</requestStatus>
+    </RequestStatus>
+  </FlowReservationRequest>
+</FlowReservationRequestList>

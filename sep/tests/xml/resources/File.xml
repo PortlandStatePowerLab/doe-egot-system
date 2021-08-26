@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <activateTime>1</activateTime>
+  <fileURI>http://uri1</fileURI>
+  <lFDI>0FB7</lFDI>
+  <mfHwVer>mfHwVer1</mfHwVer>
+  <mfID>0</mfID>
+  <mfModel>mfModel1</mfModel>
+  <mfSerNum>mfSerNum1</mfSerNum>
+  <mfVer>mfVer1</mfVer>
+  <size>0</size>
+  <type>0FB7</type>
+</File>

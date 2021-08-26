@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Subscription href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <subscribedResource>http://uri1</subscribedResource>
+  <Condition>
+    <attributeIdentifier>0</attributeIdentifier>
+    <lowerThreshold>-140737488355328</lowerThreshold>
+    <upperThreshold>-140737488355328</upperThreshold>
+  </Condition>
+  <encoding>0</encoding>
+  <level>level1</level>
+  <limit>0</limit>
+  <notificationURI>http://uri1</notificationURI>
+</Subscription>

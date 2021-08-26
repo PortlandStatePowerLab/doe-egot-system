@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<loWPAN xmlns="urn:ieee:std:2030.5:ns">
+  <octetsRx>0</octetsRx>
+  <octetsTx>0</octetsTx>
+  <packetsRx>0</packetsRx>
+  <packetsTx>0</packetsTx>
+  <rxFragError>0</rxFragError>
+</loWPAN>

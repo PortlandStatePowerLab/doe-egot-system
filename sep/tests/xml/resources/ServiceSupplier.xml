@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceSupplier href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <email>email1</email>
+  <phone>phone1</phone>
+  <providerID>0</providerID>
+  <web>web1</web>
+</ServiceSupplier>

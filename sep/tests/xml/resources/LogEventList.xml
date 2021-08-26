@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LogEventList pollRate="900" all="0" results="0" subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <LogEvent href="http://uri1">
+    <createdDateTime>1</createdDateTime>
+    <details>details1</details>
+    <extendedData>0</extendedData>
+    <functionSet>0</functionSet>
+    <logEventCode>0</logEventCode>
+    <logEventID>0</logEventID>
+    <logEventPEN>0</logEventPEN>
+    <profileID>0</profileID>
+  </LogEvent>
+  <LogEvent href="http://uri2">
+    <createdDateTime>-9223372036854775807</createdDateTime>
+    <details>details2</details>
+    <extendedData>4294967295</extendedData>
+    <functionSet>255</functionSet>
+    <logEventCode>255</logEventCode>
+    <logEventID>65535</logEventID>
+    <logEventPEN>4294967295</logEventPEN>
+    <profileID>255</profileID>
+  </LogEvent>
+  <LogEvent href="http://uri3">
+    <createdDateTime>9223372036854775807</createdDateTime>
+    <details>details3</details>
+    <extendedData>1</extendedData>
+    <functionSet>1</functionSet>
+    <logEventCode>1</logEventCode>
+    <logEventID>1</logEventID>
+    <logEventPEN>1</logEventPEN>
+    <profileID>1</profileID>
+  </LogEvent>
+</LogEventList>

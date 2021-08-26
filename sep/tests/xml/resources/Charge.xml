@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Charge xmlns="urn:ieee:std:2030.5:ns">
+  <description>description1</description>
+  <kind>0</kind>
+  <value>1</value>
+</Charge>

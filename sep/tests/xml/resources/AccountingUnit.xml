@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AccountingUnit xmlns="urn:ieee:std:2030.5:ns">
+  <energyUnit>
+    <multiplier>1</multiplier>
+    <value>0</value>
+  </energyUnit>
+  <monetaryUnit>0</monetaryUnit>
+  <multiplier>1</multiplier>
+  <value>1</value>
+</AccountingUnit>

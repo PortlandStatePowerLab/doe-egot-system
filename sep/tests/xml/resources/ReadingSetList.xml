@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReadingSetList all="0" results="0" subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <ReadingSet href="http://uri1">
+    <mRID>0FB7</mRID>
+    <description>description1</description>
+    <version>0</version>
+    <timePeriod>
+      <duration>0</duration>
+      <start>1</start>
+    </timePeriod>
+    <ReadingListLink all="0" href="http://uri1" />
+  </ReadingSet>
+  <ReadingSet href="http://uri2">
+    <mRID>80000001</mRID>
+    <description>description2</description>
+    <version>65535</version>
+    <timePeriod>
+      <duration>4294967295</duration>
+      <start>-9223372036854775807</start>
+    </timePeriod>
+    <ReadingListLink all="4294967295" href="http://uri2" />
+  </ReadingSet>
+  <ReadingSet href="http://uri3">
+    <mRID>7FFFFFFF</mRID>
+    <description>description3</description>
+    <version>1</version>
+    <timePeriod>
+      <duration>1</duration>
+      <start>9223372036854775807</start>
+    </timePeriod>
+    <ReadingListLink all="1" href="http://uri3" />
+  </ReadingSet>
+</ReadingSetList>

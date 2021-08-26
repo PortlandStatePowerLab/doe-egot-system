@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PrepaymentList pollRate="900" all="0" results="0" subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <Prepayment href="http://uri1">
+    <mRID>0FB7</mRID>
+    <description>description1</description>
+    <version>0</version>
+    <AccountBalanceLink href="http://uri1" />
+    <ActiveCreditRegisterListLink all="0" href="http://uri1" />
+    <ActiveSupplyInterruptionOverrideListLink all="0" href="http://uri1" />
+    <creditExpiryLevel>
+      <energyUnit>
+        <multiplier>1</multiplier>
+        <value>0</value>
+      </energyUnit>
+      <monetaryUnit>0</monetaryUnit>
+      <multiplier>1</multiplier>
+      <value>1</value>
+    </creditExpiryLevel>
+    <CreditRegisterListLink all="0" href="http://uri1" />
+    <lowCreditWarningLevel>
+      <energyUnit>
+        <multiplier>-128</multiplier>
+        <value>281474976710655</value>
+      </energyUnit>
+      <monetaryUnit>65535</monetaryUnit>
+      <multiplier>-128</multiplier>
+      <value>1</value>
+    </lowCreditWarningLevel>
+    <lowEmergencyCreditWarningLevel>
+      <energyUnit>
+        <multiplier>127</multiplier>
+        <value>1</value>
+      </energyUnit>
+      <monetaryUnit>1</monetaryUnit>
+      <multiplier>127</multiplier>
+      <value>1</value>
+    </lowEmergencyCreditWarningLevel>
+    <prepayMode>0</prepayMode>
+    <PrepayOperationStatusLink href="http://uri1" />
+    <SupplyInterruptionOverrideListLink all="0" href="http://uri1" />
+    <UsagePoint href="http://uri1">
+      <mRID>80000001</mRID>
+      <description>description1</description>
+      <version>65535</version>
+      <roleFlags>0FB7</roleFlags>
+      <serviceCategoryKind>0</serviceCategoryKind>
+      <status>0</status>
+      <deviceLFDI>0FB7</deviceLFDI>
+      <MeterReadingListLink all="0" href="http://uri1" />
+    </UsagePoint>
+    <UsagePoint href="http://uri2">
+      <mRID>7FFFFFFF</mRID>
+      <description>description2</description>
+      <version>1</version>
+      <roleFlags>8001</roleFlags>
+      <serviceCategoryKind>255</serviceCategoryKind>
+      <status>255</status>
+      <deviceLFDI>80000001</deviceLFDI>
+      <MeterReadingListLink all="4294967295" href="http://uri2" />
+    </UsagePoint>
+    <UsagePoint href="http://uri3">
+      <mRID>0FB6</mRID>
+      <description>description3</description>
+      <version>65534</version>
+      <roleFlags>7FFF</roleFlags>
+      <serviceCategoryKind>1</serviceCategoryKind>
+      <status>1</status>
+      <deviceLFDI>7FFFFFFF</deviceLFDI>
+      <MeterReadingListLink all="1" href="http://uri3" />
+    </UsagePoint>
+    <UsagePointLink href="http://uri1" />
+  </Prepayment>
+  <Prepayment href="http://uri2">
+    <mRID>0FB8</mRID>
+    <description>description2</description>
+    <version>2</version>
+    <AccountBalanceLink href="http://uri2" />
+    <ActiveCreditRegisterListLink all="4294967295" href="http://uri2" />
+    <ActiveSupplyInterruptionOverrideListLink all="4294967295" href="http://uri2" />
+    <creditExpiryLevel>
+      <energyUnit>
+        <multiplier>0</multiplier>
+        <value>281474976710654</value>
+      </energyUnit>
+      <monetaryUnit>65534</monetaryUnit>
+      <multiplier>0</multiplier>
+      <value>-2147483647</value>
+    </creditExpiryLevel>
+    <CreditRegisterListLink all="4294967295" href="http://uri2" />
+    <lowCreditWarningLevel>
+      <energyUnit>
+        <multiplier>2</multiplier>
+        <value>2</value>
+      </energyUnit>
+      <monetaryUnit>2</monetaryUnit>
+      <multiplier>2</multiplier>
+      <value>-2147483647</value>
+    </lowCreditWarningLevel>
+    <lowEmergencyCreditWarningLevel>
+      <energyUnit>
+        <multiplier>-127</multiplier>
+        <value>281474976710653</value>
+      </energyUnit>
+      <monetaryUnit>65533</monetaryUnit>
+      <multiplier>-127</multiplier>
+      <value>-2147483647</value>
+    </lowEmergencyCreditWarningLevel>
+    <prepayMode>255</prepayMode>
+    <PrepayOperationStatusLink href="http://uri2" />
+    <SupplyInterruptionOverrideListLink all="4294967295" href="http://uri2" />
+    <UsagePoint href="http://uri4">
+      <mRID>80000002</mRID>
+      <description>description4</description>
+      <version>65533</version>
+      <roleFlags>0FB6</roleFlags>
+      <serviceCategoryKind>254</serviceCategoryKind>
+      <status>254</status>
+      <deviceLFDI>0FB6</deviceLFDI>
+      <MeterReadingListLink all="4294967294" href="http://uri4" />
+    </UsagePoint>
+    <UsagePoint href="http://uri5">
+      <mRID>7FFFFFFE</mRID>
+      <description>description5</description>
+      <version>3</version>
+      <roleFlags>0FB8</roleFlags>
+      <serviceCategoryKind>2</serviceCategoryKind>
+      <status>2</status>
+      <deviceLFDI>0FB8</deviceLFDI>
+      <MeterReadingListLink all="2" href="http://uri5" />
+    </UsagePoint>
+    <UsagePoint href="http://uri6">
+      <mRID>0FB5</mRID>
+      <description>description6</description>
+      <version>65532</version>
+      <roleFlags>8002</roleFlags>
+      <serviceCategoryKind>253</serviceCategoryKind>
+      <status>253</status>
+      <deviceLFDI>80000002</deviceLFDI>
+      <MeterReadingListLink all="4294967293" href="http://uri6" />
+    </UsagePoint>
+    <UsagePointLink href="http://uri2" />
+  </Prepayment>
+  <Prepayment href="http://uri3">
+    <mRID>0FB9</mRID>
+    <description>description3</description>
+    <version>4</version>
+    <AccountBalanceLink href="http://uri3" />
+    <ActiveCreditRegisterListLink all="1" href="http://uri3" />
+    <ActiveSupplyInterruptionOverrideListLink all="1" href="http://uri3" />
+    <creditExpiryLevel>
+      <energyUnit>
+        <multiplier>126</multiplier>
+        <value>3</value>
+      </energyUnit>
+      <monetaryUnit>3</monetaryUnit>
+      <multiplier>126</multiplier>
+      <value>2147483647</value>
+    </creditExpiryLevel>
+    <CreditRegisterListLink all="1" href="http://uri3" />
+    <lowCreditWarningLevel>
+      <energyUnit>
+        <multiplier>-1</multiplier>
+        <value>281474976710652</value>
+      </energyUnit>
+      <monetaryUnit>65532</monetaryUnit>
+      <multiplier>-1</multiplier>
+      <value>2147483647</value>
+    </lowCreditWarningLevel>
+    <lowEmergencyCreditWarningLevel>
+      <energyUnit>
+        <multiplier>3</multiplier>
+        <value>4</value>
+      </energyUnit>
+      <monetaryUnit>4</monetaryUnit>
+      <multiplier>3</multiplier>
+      <value>2147483647</value>
+    </lowEmergencyCreditWarningLevel>
+    <prepayMode>1</prepayMode>
+    <PrepayOperationStatusLink href="http://uri3" />
+    <SupplyInterruptionOverrideListLink all="1" href="http://uri3" />
+    <UsagePoint href="http://uri7">
+      <mRID>80000003</mRID>
+      <description>description7</description>
+      <version>65531</version>
+      <roleFlags>7FFE</roleFlags>
+      <serviceCategoryKind>3</serviceCategoryKind>
+      <status>3</status>
+      <deviceLFDI>7FFFFFFE</deviceLFDI>
+      <MeterReadingListLink all="3" href="http://uri7" />
+    </UsagePoint>
+    <UsagePoint href="http://uri8">
+      <mRID>7FFFFFFD</mRID>
+      <description>description8</description>
+      <version>5</version>
+      <roleFlags>0FB5</roleFlags>
+      <serviceCategoryKind>252</serviceCategoryKind>
+      <status>252</status>
+      <deviceLFDI>0FB5</deviceLFDI>
+      <MeterReadingListLink all="4294967292" href="http://uri8" />
+    </UsagePoint>
+    <UsagePoint href="http://uri9">
+      <mRID>0FB4</mRID>
+      <description>description9</description>
+      <version>65530</version>
+      <roleFlags>0FB9</roleFlags>
+      <serviceCategoryKind>4</serviceCategoryKind>
+      <status>4</status>
+      <deviceLFDI>0FB9</deviceLFDI>
+      <MeterReadingListLink all="4" href="http://uri9" />
+    </UsagePoint>
+    <UsagePointLink href="http://uri3" />
+  </Prepayment>
+</PrepaymentList>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DERControl subscribable="0" replyTo="http://uri1" responseRequired="00" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <creationTime>1</creationTime>
+  <EventStatus>
+    <currentStatus>0</currentStatus>
+    <dateTime>1</dateTime>
+    <potentiallySuperseded>true</potentiallySuperseded>
+    <potentiallySupersededTime>1</potentiallySupersededTime>
+    <reason>reason1</reason>
+  </EventStatus>
+  <interval>
+    <duration>0</duration>
+    <start>1</start>
+  </interval>
+  <randomizeDuration>1</randomizeDuration>
+  <randomizeStart>1</randomizeStart>
+  <DERControlBase>
+    <opModConnect>true</opModConnect>
+    <opModEnergize>true</opModEnergize>
+    <opModFixedPFAbsorbW>
+      <displacement>0</displacement>
+      <excitation>true</excitation>
+      <multiplier>1</multiplier>
+    </opModFixedPFAbsorbW>
+    <opModFixedPFInjectW>
+      <displacement>0</displacement>
+      <excitation>true</excitation>
+      <multiplier>-128</multiplier>
+    </opModFixedPFInjectW>
+    <opModFixedVar>
+      <refType>0</refType>
+      <value>1</value>
+    </opModFixedVar>
+    <opModFixedW>1</opModFixedW>
+    <opModFreqDroop>
+      <dBOF>0</dBOF>
+      <dBUF>0</dBUF>
+      <kOF>0</kOF>
+      <kUF>0</kUF>
+      <openLoopTms>0</openLoopTms>
+    </opModFreqDroop>
+    <opModFreqWatt href="http://uri1" />
+    <opModHFRTMayTrip href="http://uri1" />
+    <opModHFRTMustTrip href="http://uri1" />
+    <opModHVRTMayTrip href="http://uri1" />
+    <opModHVRTMomentaryCessation href="http://uri1" />
+    <opModHVRTMustTrip href="http://uri1" />
+    <opModLFRTMayTrip href="http://uri1" />
+    <opModLFRTMustTrip href="http://uri1" />
+    <opModLVRTMayTrip href="http://uri1" />
+    <opModLVRTMomentaryCessation href="http://uri1" />
+    <opModLVRTMustTrip href="http://uri1" />
+    <opModMaxLimW>0</opModMaxLimW>
+    <opModTargetVar>
+      <multiplier>1</multiplier>
+      <value>1</value>
+    </opModTargetVar>
+    <opModTargetW>
+      <multiplier>1</multiplier>
+      <value>1</value>
+    </opModTargetW>
+    <opModVoltVar href="http://uri1" />
+    <opModVoltWatt href="http://uri1" />
+    <opModWattPF href="http://uri1" />
+    <opModWattVar href="http://uri1" />
+    <rampTms>0</rampTms>
+  </DERControlBase>
+  <deviceCategory>0FB7</deviceCategory>
+</DERControl>

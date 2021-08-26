@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LLInterface href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <CRCerrors>0</CRCerrors>
+  <EUI64>0FB7</EUI64>
+  <IEEE_802_15_4>
+    <capabilityInfo>07</capabilityInfo>
+    <NeighborListLink all="0" href="http://uri1" />
+    <shortAddress>0</shortAddress>
+  </IEEE_802_15_4>
+  <linkLayerType>0</linkLayerType>
+  <LLAckNotRx>0</LLAckNotRx>
+  <LLCSMAFail>0</LLCSMAFail>
+  <LLFramesDropRx>0</LLFramesDropRx>
+  <LLFramesDropTx>0</LLFramesDropTx>
+  <LLFramesRx>0</LLFramesRx>
+  <LLFramesTx>0</LLFramesTx>
+  <LLMediaAccessFail>0</LLMediaAccessFail>
+  <LLOctetsRx>0</LLOctetsRx>
+  <LLOctetsTx>0</LLOctetsTx>
+  <LLRetryCount>0</LLRetryCount>
+  <LLSecurityErrorRx>0</LLSecurityErrorRx>
+  <loWPAN>
+    <octetsRx>0</octetsRx>
+    <octetsTx>0</octetsTx>
+    <packetsRx>0</packetsRx>
+    <packetsTx>0</packetsTx>
+    <rxFragError>0</rxFragError>
+  </loWPAN>
+</LLInterface>

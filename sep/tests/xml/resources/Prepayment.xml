@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Prepayment href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <AccountBalanceLink href="http://uri1" />
+  <ActiveCreditRegisterListLink all="0" href="http://uri1" />
+  <ActiveSupplyInterruptionOverrideListLink all="0" href="http://uri1" />
+  <creditExpiryLevel>
+    <energyUnit>
+      <multiplier>1</multiplier>
+      <value>0</value>
+    </energyUnit>
+    <monetaryUnit>0</monetaryUnit>
+    <multiplier>1</multiplier>
+    <value>1</value>
+  </creditExpiryLevel>
+  <CreditRegisterListLink all="0" href="http://uri1" />
+  <lowCreditWarningLevel>
+    <energyUnit>
+      <multiplier>-128</multiplier>
+      <value>281474976710655</value>
+    </energyUnit>
+    <monetaryUnit>65535</monetaryUnit>
+    <multiplier>-128</multiplier>
+    <value>1</value>
+  </lowCreditWarningLevel>
+  <lowEmergencyCreditWarningLevel>
+    <energyUnit>
+      <multiplier>127</multiplier>
+      <value>1</value>
+    </energyUnit>
+    <monetaryUnit>1</monetaryUnit>
+    <multiplier>127</multiplier>
+    <value>1</value>
+  </lowEmergencyCreditWarningLevel>
+  <prepayMode>0</prepayMode>
+  <PrepayOperationStatusLink href="http://uri1" />
+  <SupplyInterruptionOverrideListLink all="0" href="http://uri1" />
+  <UsagePoint href="http://uri1">
+    <mRID>80000001</mRID>
+    <description>description1</description>
+    <version>65535</version>
+    <roleFlags>0FB7</roleFlags>
+    <serviceCategoryKind>0</serviceCategoryKind>
+    <status>0</status>
+    <deviceLFDI>0FB7</deviceLFDI>
+    <MeterReadingListLink all="0" href="http://uri1" />
+  </UsagePoint>
+  <UsagePoint href="http://uri2">
+    <mRID>7FFFFFFF</mRID>
+    <description>description2</description>
+    <version>1</version>
+    <roleFlags>8001</roleFlags>
+    <serviceCategoryKind>255</serviceCategoryKind>
+    <status>255</status>
+    <deviceLFDI>80000001</deviceLFDI>
+    <MeterReadingListLink all="4294967295" href="http://uri2" />
+  </UsagePoint>
+  <UsagePoint href="http://uri3">
+    <mRID>0FB6</mRID>
+    <description>description3</description>
+    <version>65534</version>
+    <roleFlags>7FFF</roleFlags>
+    <serviceCategoryKind>1</serviceCategoryKind>
+    <status>1</status>
+    <deviceLFDI>7FFFFFFF</deviceLFDI>
+    <MeterReadingListLink all="1" href="http://uri3" />
+  </UsagePoint>
+  <UsagePointLink href="http://uri1" />
+</Prepayment>

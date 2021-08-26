@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CreditRegister href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <mRID>0FB7</mRID>
+  <description>description1</description>
+  <version>0</version>
+  <creditAmount>
+    <energyUnit>
+      <multiplier>1</multiplier>
+      <value>0</value>
+    </energyUnit>
+    <monetaryUnit>0</monetaryUnit>
+    <multiplier>1</multiplier>
+    <value>1</value>
+  </creditAmount>
+  <creditType>0</creditType>
+  <effectiveTime>1</effectiveTime>
+  <token>token1</token>
+</CreditRegister>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomerAccountList pollRate="900" all="0" results="0" subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
+  <CustomerAccount href="http://uri1">
+    <mRID>0FB7</mRID>
+    <description>description1</description>
+    <version>0</version>
+    <currency>0</currency>
+    <customerAccount>customerAccount1</customerAccount>
+    <CustomerAgreementListLink all="0" href="http://uri1" />
+    <customerName>customerName1</customerName>
+    <pricePowerOfTenMultiplier>1</pricePowerOfTenMultiplier>
+    <ServiceSupplierLink href="http://uri1" />
+  </CustomerAccount>
+  <CustomerAccount href="http://uri2">
+    <mRID>80000001</mRID>
+    <description>description2</description>
+    <version>65535</version>
+    <currency>65535</currency>
+    <customerAccount>customerAccount2</customerAccount>
+    <CustomerAgreementListLink all="4294967295" href="http://uri2" />
+    <customerName>customerName2</customerName>
+    <pricePowerOfTenMultiplier>-128</pricePowerOfTenMultiplier>
+    <ServiceSupplierLink href="http://uri2" />
+  </CustomerAccount>
+  <CustomerAccount href="http://uri3">
+    <mRID>7FFFFFFF</mRID>
+    <description>description3</description>
+    <version>1</version>
+    <currency>1</currency>
+    <customerAccount>customerAccount3</customerAccount>
+    <CustomerAgreementListLink all="1" href="http://uri3" />
+    <customerName>customerName3</customerName>
+    <pricePowerOfTenMultiplier>127</pricePowerOfTenMultiplier>
+    <ServiceSupplierLink href="http://uri3" />
+  </CustomerAccount>
+</CustomerAccountList>
