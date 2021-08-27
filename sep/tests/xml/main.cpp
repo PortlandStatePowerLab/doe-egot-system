@@ -7,7 +7,7 @@ void GetParentPath(char** arg)
 {
     g_program_path = arg[0];
     std::size_t found = g_program_path.find_last_of("/\\");
-    g_program_path = g_program_path.substr(0,found);
+    g_program_path = g_program_path.substr(0,found) + "/sep_xml";
 };
 
 int main(int argc, char **argv) 

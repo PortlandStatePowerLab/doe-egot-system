@@ -14,9 +14,14 @@ target_include_directories(
     ${dtm_server_INCLUDE_DIRS}
 )
 
-add_custom_command(
-    TARGET ${COMPONENT_NAME}
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${PROJECT_SOURCE_DIR}/resources/ ${CMAKE_BINARY_DIR}/bin
-    ${PROJECT_SOURCE_DIR}/scripts/ ${CMAKE_BINARY_DIR}/bin
+execute_process(
+    COMMAND ${CMAKE_COMMAND} -E copy_directory 
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/dtm/
+)
+
+execute_process(
+    COMMAND ${CMAKE_COMMAND} -E copy_directory 
+    ${CMAKE_CURRENT_SOURCE_DIR}/scripts
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/dtm/
 )

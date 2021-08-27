@@ -6,8 +6,8 @@ add_executable (${COMPONENT_NAME}
 
 target_link_libraries(${COMPONENT_NAME} 
     Boost::boost
-    DCM::https_client
-    GSP::https_server
+    https_client
+    https_server
     dtm_server
     pthread
 )
@@ -18,11 +18,4 @@ target_include_directories(${COMPONENT_NAME} PUBLIC
     ${dtm_server_INCLUDE_DIRS}
     ${DCM_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
-)
-
-add_custom_command(
-    TARGET ${COMPONENT_NAME}
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${PROJECT_SOURCE_DIR}/resources/ ${CMAKE_BINARY_DIR}/bin
-    ${PROJECT_SOURCE_DIR}/scripts/ ${CMAKE_BINARY_DIR}/bin
 )

@@ -17,7 +17,7 @@ inline std::string GetParentPath(char** arg)
 inline void ResetConfig (boost::property_tree::ptree *pt)
 {
     pt->put("DTM.port", 4430);
-    pt->put("DCM.cert", "/certs/client1.crt");
+    pt->put("DCM.cert", "/root-ca/certs/client1.crt");
     std::cout << pt->get<int>("DTM.port") << std::endl;
     std::cout << pt->get<std::string>("DCM.cert") << std::endl;
 };
