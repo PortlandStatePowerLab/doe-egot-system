@@ -1,0 +1,6 @@
+<group> name="group-1"
+    <bus name=650 />
+    <bus name=665 />
+    <bus name=670 />
+    <bus name=700 />
+</group>

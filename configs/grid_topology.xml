@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<groups>
+    <group name="group-1" >
+        <bus> 650 </bus>
+        <bus> 652 </bus>
+        <bus> 654 </bus>
+    </group>
+    <group name="group-2" >
+        <bus> 657 </bus>
+        <bus> 658 </bus>
+        <bus> 659 </bus>
+    </group>
+    <group name="group-3" >
+        <bus> 663 </bus>
+        <bus> 665 </bus>
+        <bus> 667 </bus>
+    </group>
+    <group name="group-4" >
+        <bus> 680 </bus>
+        <bus> 682 </bus>
+        <bus> 686 </bus>
+        <bus> 689 </bus>
+    </group>
+</groups>
