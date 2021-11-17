@@ -5,7 +5,7 @@
 #include <climits>
 #include <algorithm>
 #include <gtest/gtest.h>
-#include <sep/models.hpp>
+#include <ieee-2030.5/models.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
 #include "global.hpp"

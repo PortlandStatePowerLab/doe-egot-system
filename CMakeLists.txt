@@ -18,6 +18,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # fetch remote packages for development
+find_package(Boost REQUIRED)
+
 include(FetchContent)
 FetchContent_Declare(
   googletest
