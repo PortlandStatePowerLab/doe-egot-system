@@ -17,3 +17,7 @@ A GSP provides grid services to a GO through the dispatch of DER that have subsc
 
 * [temp-system-updates](https://github.com/PortlandStatePowerLab/doe-egot-system/tree/temp-system-updates)
   * In an effort to make navigation of this project as well as stream line the development process we are reorganizing the project folders. This work is still in development and will be integrated in parallel to other research efforts.  
+  * All of the recent IEEE 2030.5 model additions have been made to this branch as well as the updated sep.xsd to restrict data values to the prescribed restrictions from within the schema. 
+* [content-fix](https://github.com/PortlandStatePowerLab/doe-egot-system/tree/content-fix)
+  * This branch was setup to fix some of the initial issues when we created a all enclusive system repository rather than several seperate repositories for each individule actor. Since testing requires all actors to be compiled and ran, it seemed best to have them all in a single location for development and testing.
+  * This branch also includes the addition of a bash script to automate the build process for the DCM and will eventually have a bash script for each actor.
