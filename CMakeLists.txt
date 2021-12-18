@@ -1,5 +1,5 @@
 # You should always specify a range with the newest
-# and oldest tested versions of CMake. 
+# and oldest tested versions of CMake.
 cmake_minimum_required(VERSION 3.14)
 
 # set version
@@ -22,7 +22,7 @@ include(FetchContent)
 FetchContent_Declare(
   googletest
   GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG        master
+  GIT_TAG        main
 )
 
 FetchContent_Declare(
@@ -40,13 +40,13 @@ add_subdirectory(dtm)
 
 # install resources for programs
 execute_process(
-    COMMAND ${CMAKE_COMMAND} -E copy_directory 
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_CURRENT_SOURCE_DIR}/resources/sep_xml/
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/sep_xml
 )
 
 execute_process(
-    COMMAND ${CMAKE_COMMAND} -E copy_directory 
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_CURRENT_SOURCE_DIR}/ssl/root-ca/
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/root-ca
 )
