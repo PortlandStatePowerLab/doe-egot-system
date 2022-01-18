@@ -24,21 +24,20 @@ include(FetchContent)
 FetchContent_Declare(
   googletest
   GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG        master
+  GIT_TAG        release-1.11.0
 )
 
 FetchContent_Declare(
   flecs
   GIT_REPOSITORY https://github.com/SanderMertens/flecs.git
-  GIT_TAG        v2.3.2
+  GIT_TAG        v2.4.8
 )
 
 FetchContent_MakeAvailable(googletest flecs)
 
 add_subdirectory(interfaces)
 add_subdirectory(standards)
-#add_subdirectory(sep)
-#add_subdirectory(dcm)
+add_subdirectory(dcm)
 #add_subdirectory(gsp)
 #add_subdirectory(dtm)
 
