@@ -195,7 +195,8 @@ Piscataway, NJ 08855</xs:documentation>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="SelfDevice">
+  <xs:complexType name="
+  ">
     <xs:annotation>
       <xs:documentation>The EndDevice providing the resources available within the DeviceCapabilities.</xs:documentation>
     </xs:annotation>
@@ -5702,6 +5703,7 @@ All other values reserved.</xs:documentation>
             <xs:enumeration value="0"/>
             <xs:enumeration value="1"/>
             <xs:enumeration value="2"/>
+            <xs:enumeration value="3"/>
             <xs:enumeration value="4"/>
           </xs:restriction>
         </xs:simpleType>

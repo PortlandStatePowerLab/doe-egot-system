@@ -2,6 +2,7 @@
 #define __DEVICE_CAPABILITY_H__
 #include <cstdint>
 #include <string>
+#include "list_link.hpp"
 #include "function_set_assignments_base.hpp"
 
 namespace sep
@@ -11,9 +12,9 @@ namespace sep
     struct DeviceCapability : FunctionSetAssignmentsBase
     {
         uint32_t poll_rate = 900;
-        std::string end_device_list_link;
-        std::string mirror_usage_point_list_link;
-        std::string self_device_link;
+        ListLink end_device_list_link;
+        ListLink mirror_usage_point_list_link;
+        Link self_device_link;
     };
 } // namespace sep
 

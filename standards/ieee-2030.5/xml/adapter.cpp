@@ -73,6 +73,59 @@ namespace xml
                 
         }; // namespace util
 
+    // Abstract Device
+    std::string Serialize(const sep::AbstractDevice &abstract_device)
+    {
+        boost::property_tree::ptree pt;
+        pt.put("AbstractDevice.<xmlattr>.subscribable", xml::util::ToUnderlyingType(abstract_device.subscribable));
+        pt.put("AbstractDevice.<xmlattr>.href", abstract_device.href);
+        pt.put("AbstractDevice.ConfigurationLink.<xmlattr>.href", abstract_device.configuration_link.href);
+        pt.put("AbstractDevice.DERListLink", abstract_device.der_list_link.all);
+        pt.put("AbstractDevice.DERListLink", abstract_device.der_list_link.href);
+        pt.put("AbstractDevice.deviceCategory", xml::util::ToUnderlyingType(abstract_device.device_category));
+        pt.put("AbstractDevice.DeviceInformationLink.<xmlattr>.href", abstract_device.device_information_link.href);
+        pt.put("AbstractDevice.DeviceStatusLink.<xmlattr>.href",abstract_device.device_status_link.href);
+        pt.put("AbstractDevice.FileStatusLink.<xmlattr>.href",abstract_device.file_status_link.href);
+        pt.put("AbstractDevice.IPInterfaceListLink.<xmlattr>.all",abstract_device.ip_interface_list_link.all);
+        pt.put("AbstractDevice.IPInterfaceListLink.<xmlattr>.href",abstract_device.ip_interface_list_link.href);
+        pt.put("AbstractDevice.lFDI",abstract_device.lfdi);
+        pt.put("AbstractDevice.LoadShedAvailabilityListLink.<xmlattr>.all",abstract_device.load_shed_availability_list_link.all);
+        pt.put("AbstractDevice.LoadShedAvailabilityListLink.<xmlattr>.href",abstract_device.load_shed_availability_list_link.href);
+        pt.put("AbstractDevice.LogEventListLink.<xmlattr>.all",abstract_device.log_event_list_link.all);
+        pt.put("AbstractDevice.LogEventListLink.<xmlattr>.href",abstract_device.log_event_list_link.href);
+        pt.put("AbstractDevice.PowerStatusLink.<xmlattr>.href",abstract_device.power_status_link.href);
+        pt.put("AbstractDevice.sFDI",abstract_device.sfdi);
+        xml::util::SetSchema(&pt);
+        return xml::util::Stringify(pt);
+    };
+
+    void Parse(const std::string &xml_str, sep::AbstractDevice *abstract_device)
+    {
+        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        abstract_device->subscribable = static_cast<sep::SubscribableType>(
+            pt.get<uint8_t>("AbstractDevice.<xmlattr>.subscribable", 0)
+        );
+        abstract_device->href = pt.get<std::string>("AbstractDevice.<xmlattr>.href", "");
+        abstract_device->configuration_link.href = pt.get<std::string>("AbstractDevice.ConfigurationLink.<xmlattr>.href", "");
+        abstract_device->der_list_link.all = pt.get<uint32_t>("AbstractDevice.DERListLink.<xmlattr>.all", 0);
+        abstract_device->der_list_link.href = pt.get<std::string>("AbstractDevice.DERListLink.<xmlattr>.href", "");
+        abstract_device->device_category = static_cast<sep::DeviceCategoryType>(
+            pt.get<uint32_t>("AbstractDevice.deviceCategory", 0)
+        );
+        abstract_device->device_information_link.href = pt.get<std::string>("AbstractDevice.DeviceInformationLink.<xmlattr>.href", "");
+        abstract_device->device_status_link.href = pt.get<std::string>("AbstractDevice.DeviceStatusLink.<xmlattr>.href", "");
+        abstract_device->file_status_link.href = pt.get<std::string>("AbstractDevice.FileStatusLink.<xmlattr>.href", "");
+        abstract_device->ip_interface_list_link.all = pt.get<uint32_t>("AbstractDevice.IPInterfaceListLink.<xmlattr>.all", 0);
+        abstract_device->ip_interface_list_link.href = pt.get<std::string>("AbstractDevice.IPInterfaceListLink.<xmlattr>.href", "");
+        abstract_device->lfdi = pt.get<boost::multiprecision::uint256_t>("AbstractDevice.lFDI", 0);
+        abstract_device->load_shed_availability_list_link.all = pt.get<uint32_t>("AbstractDevice.LoadShedAvailabilityListLink.<xmlattr>.all", 0);
+        abstract_device->load_shed_availability_list_link.href = pt.get<std::string>("AbstractDevice.LoadShedAvailabilityListLink.<xmlattr>.href", "");
+        abstract_device->log_event_list_link.all = pt.get<uint32_t>("AbstractDevice.LogEventListLink.<xmlattr>.all", 0);
+        abstract_device->log_event_list_link.href = pt.get<std::string>("AbstractDevice.LogEventListLink.<xmlattr>.href", "");
+        abstract_device->power_status_link.href = pt.get<std::string>("AbstractDevice.PowerStatusLink.<xmlattr>.href", "");
+        abstract_device->sfdi = pt.get<uint8_t>("AbstractDevice.sFDI", 0);
+    };
+
     // Active Power
     std::string Serialize(const sep::ActivePower &active_power)
     {

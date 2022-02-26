@@ -31,6 +31,10 @@ namespace xml
     std::string Serialize(const sep::ActivePower &active_power);
     void Parse (const std::string &xml_str, sep::ActivePower *active_power);
 
+    // Abstract Device
+    std::string Serialize(const sep::AbstractDevice &abstract_device);
+    void Parse (const std::string &xml_str, sep::AbstractDevice *abstract_device);
+
     // Flow Reservation Request
     std::string Serialize(const sep::FlowReservationRequest &fr_request);
     void Parse(const std::string &xml_str, sep::FlowReservationRequest *fr_request);
@@ -51,7 +55,7 @@ namespace xml
     std::string Serialize(const sep::SelfDevice &sdev);
     void Parse(const std::string &xml_str, sep::SelfDevice *sdev);
 
-    // Self Device
+    // Time
     std::string Serialize(const sep::Time &time);
     void Parse(const std::string &xml_str, sep::Time *time);
 } // namespace xml

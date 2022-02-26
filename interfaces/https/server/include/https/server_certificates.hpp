@@ -15,6 +15,7 @@
 #include <boost/bind.hpp>
 #include <cstddef>
 #include <memory>
+#include <iostream>
 
 /*  Load a signed certificate into the ssl context, and configure
     the context for use with a server.
@@ -72,12 +73,12 @@ static bool verify_certificate_simple(bool preverified, boost::asio::ssl::verify
 }
 
 inline void
-load_server_certificate(const std::string &root, ssl::context &ctx)
+load_server_certificate(const std::string &root, boost::asio::ssl::context &ctx)
 {
-    ctx.set_verify_mode(ssl::verify_peer|ssl::verify_fail_if_no_peer_cert);
+    ctx.set_verify_mode(boost::asio::ssl::verify_peer | boost::asio::ssl::verify_fail_if_no_peer_cert);
     ctx.add_verify_path(root + "/root-ca/certs");
-    ctx.use_certificate_file(root + "/root-ca/server.crt", ssl::context::pem);
-    ctx.use_private_key_file(root + "/root-ca/private/server.key", ssl::context::pem);
+    ctx.use_certificate_file(root + "/root-ca/server.crt", boost::asio::ssl::context::pem);
+    ctx.use_private_key_file(root + "/root-ca/private/server.key", boost::asio::ssl::context::pem);
     ctx.set_options(
       boost::asio::ssl::context::default_workarounds |
       boost::asio::ssl::context::single_dh_use

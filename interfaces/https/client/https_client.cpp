@@ -7,6 +7,9 @@ namespace bb = boost::beast;
 namespace net = boost::asio; 
 namespace ssl = net::ssl; 
 
+HttpsClient* HttpsClient::instance_{nullptr};
+std::mutex HttpsClient::mutex_;
+
 HttpsClient::HttpsClient(const std::string &root, const std::string &host, const std::string &port) 
     : root_(root),
     host_(host), 
@@ -19,7 +22,7 @@ HttpsClient::HttpsClient(const std::string &root, const std::string &host, const
 
 HttpsClient::~HttpsClient ()
 {
-    // do nothing
+    delete instance_;
 }
 
 HttpsClient* HttpsClient::getInstance(const std::string &root, const std::string &host,const std::string &port)

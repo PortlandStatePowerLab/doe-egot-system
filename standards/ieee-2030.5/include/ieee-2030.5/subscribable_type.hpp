@@ -4,6 +4,7 @@
 
 namespace sep
 {
+    // c++ default enums are 0 as by the standard
     enum class SubscribableType : uint8_t
     {
         kNone,

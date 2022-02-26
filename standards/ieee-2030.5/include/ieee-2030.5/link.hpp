@@ -9,6 +9,11 @@ namespace sep
     {
         std::string href;
     };
+
+    struct ConfigurationLink : Link
+    {
+        // nothing
+    };
 } // namespace sep
 
 #endif // __LINK_H__

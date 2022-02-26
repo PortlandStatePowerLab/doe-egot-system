@@ -16,11 +16,13 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/config.hpp>
+#include <flecs.h>
 #include <cstdlib>
 #include <iostream>
 #include <memory>
 #include <string>
 #include <thread>
+#include <flecs.hpp>
 
 namespace beast = boost::beast;         // from <boost/beast.hpp>
 namespace http = beast::http;           // from <boost/beast/http.hpp>
@@ -31,7 +33,10 @@ namespace ssl = boost::asio::ssl;       // from <boost/asio/ssl.hpp>
 class HttpsServer
 {
 public:
-    HttpsServer(const std::string &address, uint16_t port, const std::string &doc_root);
+    // rule of 5
+    HttpsServer(HttpsServer& other) = delete;       // clonable
+    void operator=(const HttpsServer&) = delete;    // assignable
+    HttpsServer(const std::string &address, uint16_t port, flecs::world& world);
     ~HttpsServer();
     void Run ();
 

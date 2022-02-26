@@ -3,23 +3,25 @@
 #include <string>
 #include "subscribable_resource.hpp"
 #include "device_category_type.hpp"
+#include "list_link.hpp"
+#include <boost/multiprecision/cpp_int.hpp>
 
 namespace sep
 {
     // The EndDevice providing the resources available within the DeviceCapabilities.
     struct AbstractDevice : SubscribableResource
     {
-        std::string configuration_link;
-        std::string der_list_link;
+        Link configuration_link;
+        ListLink der_list_link;
         sep::DeviceCategoryType device_category;
-        std::string device_information_link;
-        std::string device_status_link;
-        std::string file_status_link;
-        std::string ip_interface_list_link;
-        std::string lfdi;
-        std::string load_shed_availability_list_link;
-        std::string log_event_list_link;
-        std::string power_status_link;
+        Link device_information_link;
+        Link device_status_link;
+        Link file_status_link;
+        ListLink ip_interface_list_link;
+        boost::multiprecision::uint256_t lfdi;
+        ListLink load_shed_availability_list_link;
+        ListLink log_event_list_link;
+        Link power_status_link;
         uint8_t sfdi; 
     };
         
