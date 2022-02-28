@@ -3,9 +3,15 @@
 
 #include <flecs.h>
 
-struct SEPCommonModule
+
+namespace sep
 {
-    SEPCommonModule(flecs::world& ecs);
-};
+    struct CommonModule
+    {
+        CommonModule(flecs::world& ecs);
+    };
+} // namespace sep
+
+
 
 #endif // __SEP_COMMON_MODULE_H__

@@ -5,13 +5,11 @@
 
 namespace sep
 {
-
-struct SupportModule
-{
-public:
-    SupportModule(flecs::world& ecs);
-};
-    
+    struct SupportModule
+    {
+    public:
+        SupportModule(flecs::world &ecs);
+    };
 } // namespace sep
 
 #endif // __SEP_SUPPORT_MODULE_H__

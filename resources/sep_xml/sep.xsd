@@ -104,6 +104,18 @@ Piscataway, NJ 08855</xs:documentation>
 6 - kW ramping
 7 - kVar ramping</xs:documentation>
             </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="UInt8">
+                <xs:enumeration value="0"/>
+                <xs:enumeration value="1"/>
+                <xs:enumeration value="2"/>
+                <xs:enumeration value="3"/>
+                <xs:enumeration value="4"/>
+                <xs:enumeration value="5"/>
+                <xs:enumeration value="6"/>
+                <xs:enumeration value="7"/>
+              </xs:restriction>
+            </xs:simpleType>
           </xs:element>
           <xs:element name="opTime" minOccurs="0" maxOccurs="1" type="UInt32">
             <xs:annotation>
@@ -227,6 +239,12 @@ Piscataway, NJ 08855</xs:documentation>
 1 - Transformer
 2 - HeatSink</xs:documentation>
         </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="UInt8">
+            <xs:enumeration value="0"/>
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="2"/>
+          </xs:restriction>
       </xs:element>
       <xs:element name="value" minOccurs="1" maxOccurs="1" type="Int16">
         <xs:annotation>
@@ -834,6 +852,15 @@ All other values are reserved for future use.</xs:documentation>
 3 = depleted (0% charge remaining)
 4 = not applicable (mains powered only)</xs:documentation>
             </xs:annotation>
+            <xs:simpleContent>
+              <xs:restriction base="UInt8">
+                <xs:enumeration value="0"/>
+                <xs:enumeration value="1"/>
+                <xs:enumeration value="2"/>
+                <xs:enumeration value="3"/>
+                <xs:enumeration value="4"/>
+              </xs:restriction>
+            </xs:simpleContent>
           </xs:element>
           <xs:element name="changedTime" minOccurs="1" maxOccurs="1" type="TimeType">
             <xs:annotation>
@@ -886,7 +913,14 @@ All other values are reserved for future use.</xs:documentation>
 All other values reserved.</xs:documentation>
     </xs:annotation>
     <xs:simpleContent>
-      <xs:extension base="UInt8" />
+      <xs:restriction base="UInt8">
+        <xs:enumeration value="0"/>
+        <xs:enumeration value="1"/>
+        <xs:enumeration value="2"/>
+        <xs:enumeration value="3"/>
+        <xs:enumeration value="4"/>
+        <xs:enumeration value="5"/>
+      </xs:restriction>
     </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="PEVInfo">

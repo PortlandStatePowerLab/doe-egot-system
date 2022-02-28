@@ -1,14 +1,20 @@
 #ifndef __HREF_H__
 #define __HREF_H__
 
-#include "query.hpp"
-#include "uri.hpp"
-#include <boost/multiprecision/cpp_int.hpp>
+#include <cstdint>
+#include <string>
+
+struct Query
+{
+    uint16_t start;
+    uint16_t after;
+    uint16_t length;
+};
 
 struct Href
 {
-    boost::multiprecision::uint256_t lfdi;
-    Uri uri;
+    std::string lfdi;
+    std::string uri;
     Query query;
 };
 

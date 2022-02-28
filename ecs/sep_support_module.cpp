@@ -14,6 +14,8 @@ SupportModule::SupportModule(flecs::world& ecs)
     ecs.component<sep::DeviceCapability>();
     ecs.component<sep::FunctionSetAssignmentsBase>();
     ecs.component<sep::EndDevice>();
+    ecs.component<sep::SelfDevice>();
+    ecs.component<sep::Response>();
 
     /* Register system */
     
