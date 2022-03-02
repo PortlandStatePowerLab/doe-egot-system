@@ -21,7 +21,7 @@ namespace sep
             kEstimatedUsingLinearInterpolation = 1 << 3,
             kQuestionable = 1 << 4,
             kDerived = 1 << 5,
-            kDerived = 1 << 6
+            kProjected = 1 << 6
         };
 
         ConsumptionBlock consumption_block;

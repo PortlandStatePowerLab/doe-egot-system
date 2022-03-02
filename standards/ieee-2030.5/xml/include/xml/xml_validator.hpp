@@ -3,6 +3,7 @@
 // The following code was found at
 // https://sivachandranp.wordpress.com/2010/10/10/xml-schema-validation-using-xerces-c/
 #include <stdio.h>
+#include <iostream>
 #include <string>
 #include <xercesc/util/XMLString.hpp>
 #include <xercesc/parsers/XercesDOMParser.hpp>
@@ -23,8 +24,12 @@ private:
     void reportParseException(const SAXParseException &ex)
     {
         char *msg = XMLString::transcode(ex.getMessage());
-        fprintf(stderr, "at line %llu column %llu, %s\n",
-                ex.getColumnNumber(), ex.getLineNumber(), msg);
+
+        std::cout 
+            << "at line " << ex.getColumnNumber() 
+            << " column " << ex.getColumnNumber() 
+            << ", " << msg << std::endl;
+            
         XMLString::release(&msg);
     }
 

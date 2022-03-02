@@ -92,7 +92,7 @@ Piscataway, NJ 08855</xs:documentation>
               <xs:documentation>The number of times that the device has been turned on: Count of "device on" times, since the last time the counter was reset</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="opState" minOccurs="0" maxOccurs="1" type="UInt8">
+          <xs:element name="opState" minOccurs="0" maxOccurs="1">
             <xs:annotation>
               <xs:documentation>Device operational state: 
 0 - Not applicable / Unknown
@@ -106,14 +106,14 @@ Piscataway, NJ 08855</xs:documentation>
             </xs:annotation>
             <xs:simpleType>
               <xs:restriction base="UInt8">
-                <xs:enumeration value="0"/>
-                <xs:enumeration value="1"/>
-                <xs:enumeration value="2"/>
-                <xs:enumeration value="3"/>
-                <xs:enumeration value="4"/>
-                <xs:enumeration value="5"/>
-                <xs:enumeration value="6"/>
-                <xs:enumeration value="7"/>
+                <xs:enumeration value="0" />
+                <xs:enumeration value="1" />
+                <xs:enumeration value="2" />
+                <xs:enumeration value="3" />
+                <xs:enumeration value="4" />
+                <xs:enumeration value="5" />
+                <xs:enumeration value="6" />
+                <xs:enumeration value="7" />
               </xs:restriction>
             </xs:simpleType>
           </xs:element>
@@ -207,8 +207,7 @@ Piscataway, NJ 08855</xs:documentation>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="
-  ">
+  <xs:complexType name="SelfDevice">
     <xs:annotation>
       <xs:documentation>The EndDevice providing the resources available within the DeviceCapabilities.</xs:documentation>
     </xs:annotation>
@@ -232,7 +231,7 @@ Piscataway, NJ 08855</xs:documentation>
           <xs:documentation>Multiplier for 'unit'.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="subject" minOccurs="1" maxOccurs="1" type="UInt8">
+      <xs:element name="subject" minOccurs="1" maxOccurs="1">
         <xs:annotation>
           <xs:documentation>The subject of the temperature measurement
 0 - Enclosure
@@ -241,10 +240,11 @@ Piscataway, NJ 08855</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="UInt8">
-            <xs:enumeration value="0"/>
-            <xs:enumeration value="1"/>
-            <xs:enumeration value="2"/>
+            <xs:enumeration value="0" />
+            <xs:enumeration value="1" />
+            <xs:enumeration value="2" />
           </xs:restriction>
+        </xs:simpleType>
       </xs:element>
       <xs:element name="value" minOccurs="1" maxOccurs="1" type="Int16">
         <xs:annotation>
@@ -642,8 +642,8 @@ All other values are reserved for future use.</xs:documentation>
             </xs:annotation>
             <xs:simpleType>
               <xs:restriction base="UInt8">
-                <xs:minInclusive value="3"/>
-                <xs:maxInclusive value="7"/>
+                <xs:minInclusive value="3" />
+                <xs:maxInclusive value="7" />
               </xs:restriction>
             </xs:simpleType>
           </xs:element>
@@ -842,7 +842,7 @@ All other values are reserved for future use.</xs:documentation>
     <xs:complexContent>
       <xs:extension base="Resource">
         <xs:sequence>
-          <xs:element name="batteryStatus" minOccurs="1" maxOccurs="1" type="UInt8">
+          <xs:element name="batteryStatus" minOccurs="1" maxOccurs="1">
             <xs:annotation>
               <xs:documentation>Battery system status
 
@@ -852,15 +852,15 @@ All other values are reserved for future use.</xs:documentation>
 3 = depleted (0% charge remaining)
 4 = not applicable (mains powered only)</xs:documentation>
             </xs:annotation>
-            <xs:simpleContent>
+            <xs:simpleType>
               <xs:restriction base="UInt8">
-                <xs:enumeration value="0"/>
-                <xs:enumeration value="1"/>
-                <xs:enumeration value="2"/>
-                <xs:enumeration value="3"/>
-                <xs:enumeration value="4"/>
+                <xs:enumeration value="0" />
+                <xs:enumeration value="1" />
+                <xs:enumeration value="2" />
+                <xs:enumeration value="3" />
+                <xs:enumeration value="4" />
               </xs:restriction>
-            </xs:simpleContent>
+            </xs:simpleType>
           </xs:element>
           <xs:element name="changedTime" minOccurs="1" maxOccurs="1" type="TimeType">
             <xs:annotation>
@@ -902,27 +902,25 @@ All other values are reserved for future use.</xs:documentation>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="PowerSourceType">
+  <xs:simpleType name="PowerSourceType">
     <xs:annotation>
       <xs:documentation>0 - none
-1 - mains 
-2 - battery
-3 - local generation
-4 - emergency 
-5 - unknown
-All other values reserved.</xs:documentation>
+        1 - mains 
+        2 - battery
+        3 - local generation
+        4 - emergency 
+        5 - unknown
+        All other values reserved.</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="UInt8">
-        <xs:enumeration value="0"/>
-        <xs:enumeration value="1"/>
-        <xs:enumeration value="2"/>
-        <xs:enumeration value="3"/>
-        <xs:enumeration value="4"/>
-        <xs:enumeration value="5"/>
-      </xs:restriction>
-    </xs:simpleContent>
-  </xs:complexType>
+    <xs:restriction base="UInt8">
+      <xs:enumeration value="0" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="5" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:complexType name="PEVInfo">
     <xs:annotation>
       <xs:documentation>Contains attributes that can be exposed by PEVs and other devices that have charging requirements.</xs:documentation>
@@ -1974,8 +1972,7 @@ Alternatively, an event with a single Offset type can be targeted at an EMS in o
     <xs:annotation>
       <xs:documentation>The SetPoint object is used to apply specific temperature set points to a temperature control device. The values of the heatingSetpoint and coolingSetpoint attributes SHALL be calculated as follows:
 Cooling/Heating Temperature Set Point / 100 = temperature in degrees Celsius where -273.15°C &amp;lt;= temperature &amp;lt;= 327.67°C, corresponding to a Cooling and/or Heating Temperature Set Point. The maximum resolution this format allows is 0.01°C. 
-The field not present in a Response indicates that this field has not been used by the end device. 
-If a temperature is sent that exceeds the temperature limit boundaries that are programmed into the device, the device SHALL respond by setting the temperature at the limit.</xs:documentation>
+The field not present in a Response indicates that this field has not been used by the end device. If a temperature is sent that exceeds the temperature limit boundaries that are programmed into the device, the device SHALL respond by setting the temperature at the limit.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="coolingSetpoint" minOccurs="0" maxOccurs="1" type="Int16">
@@ -3203,8 +3200,8 @@ All other values reserved.</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="UInt8">
-            <xs:minInclusive value="0"/>
-            <xs:maxInclusive value="1"/>
+            <xs:minInclusive value="0" />
+            <xs:maxInclusive value="1" />
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -3587,7 +3584,7 @@ All other values reserved.</xs:documentation>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="DERType">
+  <xs:simpleType name="DERType">
     <xs:annotation>
       <xs:documentation>0 - Not applicable / Unknown
 1 - Virtual or mixed DER
@@ -3602,22 +3599,20 @@ All other values reserved.</xs:documentation>
 83 - Combined PV and storage
 All other values reserved.</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="UInt8">
-        <xs:enumeration value="0"/>
-        <xs:enumeration value="1"/>
-        <xs:enumeration value="2"/>
-        <xs:enumeration value="3"/>
-        <xs:enumeration value="4"/>
-        <xs:enumeration value="5"/>
-        <xs:enumeration value="6"/>
-        <xs:enumeration value="80"/>
-        <xs:enumeration value="81"/>
-        <xs:enumeration value="82"/>
-        <xs:enumeration value="83"/>
-      </xs:restriction>
-    </xs:simpleContent>
-  </xs:complexType>
+    <xs:restriction base="UInt8">
+      <xs:enumeration value="0" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="5" />
+      <xs:enumeration value="6" />
+      <xs:enumeration value="80" />
+      <xs:enumeration value="81" />
+      <xs:enumeration value="82" />
+      <xs:enumeration value="83" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:complexType name="DERAvailability">
     <xs:annotation>
       <xs:documentation>Indicates current reserve generation status</xs:documentation>
@@ -3687,10 +3682,10 @@ All other values reserved.</xs:documentation>
             </xs:annotation>
             <xs:simpleType>
               <xs:restriction base="UInt8">
-                <xs:enumeration value="0"/>
-                <xs:enumeration value="1"/>
-                <xs:enumeration value="2"/>
-                <xs:enumeration value="3"/>
+                <xs:enumeration value="0" />
+                <xs:enumeration value="1" />
+                <xs:enumeration value="2" />
+                <xs:enumeration value="3" />
               </xs:restriction>
             </xs:simpleType>
           </xs:element>
@@ -3769,7 +3764,7 @@ All other values reserved.</xs:documentation>
               <xs:documentation>AC voltage minimum rating.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="rtgNormalCategory" minOccurs="0" maxOccurs="1" type="UInt8">
+          <xs:element name="rtgNormalCategory" minOccurs="0" maxOccurs="1">
             <xs:annotation>
               <xs:documentation>Normal operating performance category as defined by IEEE 1547-2018. One of:
 0 - not specified
@@ -3779,9 +3774,9 @@ All other values reserved.</xs:documentation>
             </xs:annotation>
             <xs:simpleType>
               <xs:restriction base="UInt8">
-                <xs:enumeration value="0"/>
-                <xs:enumeration value="1"/>
-                <xs:enumeration value="2"/>
+                <xs:enumeration value="0" />
+                <xs:enumeration value="1" />
+                <xs:enumeration value="2" />
               </xs:restriction>
             </xs:simpleType>
           </xs:element>
@@ -3990,7 +3985,7 @@ All other values reserved.</xs:documentation>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="DERControlType">
+  <xs:simpleType name="DERControlType">
     <xs:annotation>
       <xs:documentation>Control modes supported by the DER.  Bit positions SHALL be defined as follows:
 0 - Charge mode
@@ -4022,12 +4017,10 @@ All other values reserved.</xs:documentation>
 26 - opModWattVar (Watt-Var Mode)
 All other values reserved.</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="HexBinary32">
-        <xs:maxInclusive value="3FFFFFF"/>
-      </xs:restriction>
-    </xs:simpleContent>
-  </xs:complexType>
+    <xs:restriction base="xs:hexBinary">
+      <xs:pattern value="[0-3]?[0-9A-F]{0,6}" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:complexType name="DERCurve">
     <xs:annotation>
       <xs:documentation>DER related curves such as Volt-Var mode curves. Relationship between an independent variable (X-axis) and a dependent variable (Y-axis).</xs:documentation>
@@ -4144,7 +4137,7 @@ when DER is injecting reactive power (over-excited).</xs:documentation>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="DERCurveType">
+  <xs:simpleType name="DERCurveType">
     <xs:annotation>
       <xs:documentation>0 - opModFreqWatt (Frequency-Watt Curve Mode)
 1 - opModHFRTMayTrip (High Frequency Ride Through, May Trip Mode)
@@ -4163,12 +4156,10 @@ when DER is injecting reactive power (over-excited).</xs:documentation>
 14 - opModWattVar (Watt-Var Mode)
 All other values reserved.</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="UInt8">
-        <xs:maxInclusive value="14"/>
-      </xs:restriction>
-    </xs:simpleContent>
-  </xs:complexType>
+    <xs:restriction base="UInt8">
+      <xs:maxInclusive value="14" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:complexType name="DERProgram">
     <xs:annotation>
       <xs:documentation>Distributed Energy Resource program.</xs:documentation>
@@ -4229,11 +4220,11 @@ All other values reserved.</xs:documentation>
 10 - DER_FAULT_PHASE_ROTATION
 11-31 - Reserved</xs:documentation>
             </xs:annotation>
-            <xs:simpleContent>
-              <xs:restriction base="HexBinary32">
-                <xs:maxInclusive value="12"/>
+            <xs:simpleType>
+              <xs:restriction base="xs:hexBinary">
+                <xs:pattern value="12" />
               </xs:restriction>
-            </xs:simpleContent>
+            </xs:simpleType>
           </xs:element>
           <xs:element name="genConnectStatus" minOccurs="0" maxOccurs="1" type="ConnectStatusType">
             <xs:annotation>
@@ -4555,11 +4546,15 @@ All other values reserved.</xs:documentation>
         <xs:annotation>
           <xs:documentation>The value indicating the state.</xs:documentation>
         </xs:annotation>
-        <xs:simpleContent>
+        <xs:simpleType>
           <xs:restriction base="HexBinary8">
-            <xs:maxInclusive value="8">
+            <xs:enumeration value="00" />
+            <xs:enumeration value="01" />
+            <xs:enumeration value="02" />
+            <xs:enumeration value="03" />
+            <xs:enumeration value="04" />
           </xs:restriction>
-        </xs:simpleContent>
+        </xs:simpleType>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
@@ -4589,11 +4584,11 @@ All other values reserved.</xs:documentation>
         <xs:annotation>
           <xs:documentation>The value indicating the state.</xs:documentation>
         </xs:annotation>
-        <xs:simpleContent>
+        <xs:simpleType>
           <xs:restriction base="UInt8">
-            <xs:maxInclusive value="10">
+            <xs:maxInclusive value="10" />
           </xs:restriction>
-        </xs:simpleContent>
+        </xs:simpleType>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
@@ -4614,11 +4609,11 @@ All other values reserved.</xs:documentation>
         <xs:annotation>
           <xs:documentation>The value indicating the state.</xs:documentation>
         </xs:annotation>
-        <xs:simpleContent>
+        <xs:simpleType>
           <xs:restriction base="UInt8">
-            <xs:maxInclusive value="10">
+            <xs:maxInclusive value="1" />
           </xs:restriction>
-        </xs:simpleContent>
+        </xs:simpleType>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
@@ -4658,11 +4653,11 @@ All other values reserved.</xs:documentation>
         <xs:annotation>
           <xs:documentation>The value indicating the state.</xs:documentation>
         </xs:annotation>
-        <xs:simpleContent>
+        <xs:simpleType>
           <xs:restriction base="UInt8">
-            <xs:maxInclusive value="3">
+            <xs:maxInclusive value="3" />
           </xs:restriction>
-        </xs:simpleContent>
+        </xs:simpleType>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
@@ -4701,11 +4696,11 @@ All other values reserved.</xs:documentation>
         <xs:annotation>
           <xs:documentation>The value indicating the state.</xs:documentation>
         </xs:annotation>
-        <xs:simpleContent>
+        <xs:simpleType>
           <xs:restriction base="UInt8">
-            <xs:maxInclusive value="2">
+            <xs:maxInclusive value="2" />
           </xs:restriction>
-        </xs:simpleContent>
+        </xs:simpleType>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
@@ -5560,9 +5555,9 @@ All other values reserved.</xs:documentation>
           </xs:annotation>
           <xs:simpleType>
             <xs:restriction base="HexBinary8">
-              <xs:enumeration value="00"/>
-              <xs:enumeration value="01"/>
-              <xs:enumeration value="02"/>
+              <xs:enumeration value="00" />
+              <xs:enumeration value="01" />
+              <xs:enumeration value="02" />
             </xs:restriction>
           </xs:simpleType>
         </xs:attribute>
@@ -5683,8 +5678,8 @@ All other values reserved</xs:documentation>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="Event"> 
-  <xs:annotation>
+  <xs:complexType name="Event">
+    <xs:annotation>
       <xs:documentation>An Event indicates information that applies to a particular period of time. Events SHALL be executed relative to the time of the server, as described in the Time function set section 11.1.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -5734,11 +5729,11 @@ All other values reserved.</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="UInt8">
-            <xs:enumeration value="0"/>
-            <xs:enumeration value="1"/>
-            <xs:enumeration value="2"/>
-            <xs:enumeration value="3"/>
-            <xs:enumeration value="4"/>
+            <xs:enumeration value="0" />
+            <xs:enumeration value="1" />
+            <xs:enumeration value="2" />
+            <xs:enumeration value="3" />
+            <xs:enumeration value="4" />
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -5785,7 +5780,7 @@ All other values reserved.</xs:documentation>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="AccumulationBehaviourType">
+  <xs:simpleType name="AccumulationBehaviourType">
     <xs:annotation>
       <xs:documentation>0 = Not Applicable (default, if not specified)
 
@@ -5808,16 +5803,14 @@ Typically measured over the fastest period of time allowed by the definition of 
 
 All other values reserved.</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="UInt8">
-        <xs:enumeration value="0"/>
-        <xs:enumeration value="3"/>
-        <xs:enumeration value="6"/>
-        <xs:enumeration value="9"/>
-        <xs:enumeration value="12"/>
-      </xs:restriction>
-    </xs:simpleContent>
-  </xs:complexType>
+    <xs:restriction base="UInt8">
+      <xs:enumeration value="0" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="6" />
+      <xs:enumeration value="9" />
+      <xs:enumeration value="12" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:complexType name="ApplianceLoadReductionType">
     <xs:annotation>
       <xs:documentation>0 - Delay Appliance Load
@@ -5834,7 +5827,7 @@ All other values reserved.</xs:documentation>
       <xs:extension base="UInt8" />
     </xs:simpleContent>
   </xs:complexType>
-  <xs:complexType name="CommodityType">
+  <xs:simpleType name="CommodityType">
     <xs:annotation>
       <xs:documentation>0 = Not Applicable (default, if not specified)
 1 = Electricity secondary metered value (a premises meter is typically on the low voltage, or secondary, side of a service transformer)
@@ -5849,23 +5842,21 @@ All other values reserved.</xs:documentation>
 13 = CoolingFluid
 All other values reserved.</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="UInt8">
-        <xs:enumeration value="0"/>
-        <xs:enumeration value="1"/>
-        <xs:enumeration value="2"/>
-        <xs:enumeration value="4"/>
-        <xs:enumeration value="7"/>
-        <xs:enumeration value="8"/>
-        <xs:enumeration value="9"/>
-        <xs:enumeration value="10"/>
-        <xs:enumeration value="11"/>
-        <xs:enumeration value="12"/>
-        <xs:enumeration value="13"/>
-      </xs:restriction>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="ConsumptionBlockType">
+    <xs:restriction base="UInt8">
+      <xs:enumeration value="0" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="7" />
+      <xs:enumeration value="8" />
+      <xs:enumeration value="9" />
+      <xs:enumeration value="10" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="13" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ConsumptionBlockType">
     <xs:annotation>
       <xs:documentation>0 = Not Applicable (default, if not specified)
 1 = Block 1
@@ -5886,12 +5877,10 @@ All other values reserved.</xs:documentation>
 16 = Block 16
 All other values reserved.</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="UInt8">
-        <xs:maxInclusive value="16"/>
-      </xs:restriction>
-    </xs:simpleContent>
-  </xs:complexType>
+    <xs:restriction base="UInt8">
+      <xs:maxInclusive value="16" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:complexType name="CurrencyCode">
     <xs:annotation>
       <xs:documentation>Follows codes defined in [ISO 4217]. 
@@ -5906,7 +5895,7 @@ This is not a complete list.</xs:documentation>
       <xs:extension base="UInt16" />
     </xs:simpleContent>
   </xs:complexType>
-  <xs:complexType name="DataQualifierType">
+  <xs:simpleType name="DataQualifierType">
     <xs:annotation>
       <xs:documentation>0 = Not Applicable (default, if not specified)
 2 = Average
@@ -5917,18 +5906,16 @@ This is not a complete list.</xs:documentation>
 30 = Standard Deviation of a Sample Drawn from a Population (typically indicated by a lower case 's')
 All other values reserved.</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="UInt8">
-        <xs:enumeration value="0"/>
-        <xs:enumeration value="2"/>
-        <xs:enumeration value="8"/>
-        <xs:enumeration value="9"/>
-        <xs:enumeration value="12"/>
-        <xs:enumeration value="29"/>
-        <xs:enumeration value="30"/>
-      </xs:restriction>
-    </xs:simpleContent>
-  </xs:complexType>
+    <xs:restriction base="UInt8">
+      <xs:enumeration value="0" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="8" />
+      <xs:enumeration value="9" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="29" />
+      <xs:enumeration value="30" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:complexType name="DateTimeInterval">
     <xs:annotation>
       <xs:documentation>Interval of date and time.</xs:documentation>
@@ -5978,9 +5965,9 @@ Bit positions SHALL be defined as follows:
 25 - Other Storage System
 All other values reserved.</xs:documentation>
     </xs:annotation>
-      <xs:restriction base="xs:hexBinary">
-        <xs:pattern value="[0-3]?[0-9A-F]{0,6}"/>
-      </xs:restriction>
+    <xs:restriction base="xs:hexBinary">
+      <xs:pattern value="[0-3]?[0-9A-F]{0,6}" />
+    </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="DstRuleType">
     <xs:annotation>
@@ -6019,21 +6006,19 @@ Month: 3</xs:documentation>
       <xs:extension base="HexBinary32" />
     </xs:simpleContent>
   </xs:complexType>
-  <xs:complexType name="FlowDirectionType">
+  <xs:simpleType name="FlowDirectionType">
     <xs:annotation>
       <xs:documentation>0 = Not Applicable (default, if not specified)
 1 = Forward (delivered to customer)
 19 = Reverse (received from customer)
 All other values reserved.</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="UInt8">
-        <xs:enumeration value="0"/>
-        <xs:enumeration value="1"/>
-        <xs:enumeration value="19"/>
-      </xs:restriction>
-    </xs:simpleContent>
-  </xs:complexType>
+    <xs:restriction base="UInt8">
+      <xs:enumeration value="0" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="19" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:complexType name="GPSLocationType">
     <xs:annotation>
       <xs:documentation>Specifies a GPS location, expressed in WGS 84 coordinates.</xs:documentation>
@@ -6051,7 +6036,7 @@ All other values reserved.</xs:documentation>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="KindType">
+  <xs:simpleType name="KindType">
     <xs:annotation>
       <xs:documentation>0 = Not Applicable (default, if not specified)
 3 = Currency
@@ -6060,16 +6045,14 @@ All other values reserved.</xs:documentation>
 37 = Power
 All other values reserved.</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="UInt8">
-        <xs:enumeration value="0"/>
-        <xs:enumeration value="3"/>
-        <xs:enumeration value="8"/>
-        <xs:enumeration value="12"/>
-        <xs:enumeration value="37"/>
-      </xs:restriction
-    </xs:simpleContent>
-  </xs:complexType>
+    <xs:restriction base="UInt8">
+      <xs:enumeration value="0" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="8" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="37" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:complexType name="LocaleType">
     <xs:annotation>
       <xs:documentation>[RFC 4646] identifier of a language-region</xs:documentation>
@@ -6112,7 +6095,7 @@ Except for this special reserved identifier, each modification of an object (res
       <xs:extension base="UInt16" />
     </xs:simpleContent>
   </xs:complexType>
-  <xs:complexType name="PhaseCode">
+  <xs:simpleType name="PhaseCode">
     <xs:annotation>
       <xs:documentation>0 = Not Applicable (default, if not specified)
 32 = Phase C (and S2)
@@ -6127,33 +6110,29 @@ Except for this special reserved identifier, each modification of an object (res
 224 = Phase ABC
 All other values reserved.</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="UInt8">
-        <xs:enumeration value="0"/>
-        <xs:enumeration value="32"/>
-        <xs:enumeration value="33"/>
-        <xs:enumeration value="40"/>
-        <xs:enumeration value="64"/>
-        <xs:enumeration value="65"/>
-        <xs:enumeration value="66"/>
-        <xs:enumeration value="128"/>
-        <xs:enumeration value="129"/>
-        <xs:enumeration value="132"/>
-        <xs:enumeration value="224"/>
-      </xs:restriction
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="PINType">
+    <xs:restriction base="UInt8">
+      <xs:enumeration value="0" />
+      <xs:enumeration value="32" />
+      <xs:enumeration value="33" />
+      <xs:enumeration value="40" />
+      <xs:enumeration value="64" />
+      <xs:enumeration value="65" />
+      <xs:enumeration value="66" />
+      <xs:enumeration value="128" />
+      <xs:enumeration value="129" />
+      <xs:enumeration value="132" />
+      <xs:enumeration value="224" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PINType">
     <xs:annotation>
       <xs:documentation>6 digit unsigned decimal integer (0 - 999999). 
 (Note that this only requires 20 bits, if it can be allocated.)</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="UInt32">
-        <xs:maxInclusive value="999999"/>
-      </xs:restriction
-    </xs:simpleContent>
-  </xs:complexType>
+    <xs:restriction base="UInt32">
+      <xs:maxInclusive value="999999" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:simpleType name="PowerOfTenMultiplierType">
     <xs:annotation>
       <xs:documentation>-9 = nano=x10^-9
@@ -6168,8 +6147,8 @@ All other values reserved.</xs:documentation>
 This is not a complete list. Any integer between -9 and 9 SHALL be supported, indicating the power of ten multiplier for the units.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:short">
-        <xs:minInclusive value = "-9"/>
-        <xs:maxInclusive value = "9"/>
+      <xs:minInclusive value="-9" />
+      <xs:maxInclusive value="9" />
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="PrimacyType">
@@ -6205,7 +6184,7 @@ Lower numbers indicate higher priority.</xs:documentation>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="RoleFlagsType">
+  <xs:simpleType name="RoleFlagsType">
     <xs:annotation>
       <xs:documentation>Specifies the roles that apply to a usage point.
 Bit 0 - isMirror - SHALL be set if the server is not the measurement device
@@ -6217,13 +6196,11 @@ Bit 5 - isDC - SHALL be set if the usage point measures direct current
 Bit 6 - isSubmeter - SHALL be set if the usage point is not a premises aggregation point
 Bit 7-15 - Reserved</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="HexBinary16">
-        <xs:maxInclusive value="7F"/>
-      </xs:restriction>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="ServiceKind">
+    <xs:restriction base="HexBinary16">
+      <xs:pattern value="[0-7]?[0-9A-F]{0,1}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ServiceKind">
     <xs:annotation>
       <xs:documentation>Service kind
 0 - electricity
@@ -6235,18 +6212,16 @@ Bit 7-15 - Reserved</xs:documentation>
 6 - cooling
 All other values reserved.</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="UInt8">
-        <xs:enumeration value="0"/>
-        <xs:enumeration value="1"/>
-        <xs:enumeration value="2"/>
-        <xs:enumeration value="3"/>
-        <xs:enumeration value="4"/>
-        <xs:enumeration value="5"/>
-        <xs:enumeration value="6"/>
+    <xs:restriction base="UInt8">
+      <xs:enumeration value="0" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="5" />
+      <xs:enumeration value="6" />
     </xs:restriction>
-    </xs:simpleContent>
-  </xs:complexType>
+  </xs:simpleType>
   <xs:complexType name="SFDIType">
     <xs:annotation>
       <xs:documentation>Unsigned integer, max inclusive 687194767359, which is 2^36-1 (68719476735), with added check digit. See Section 8.3.2 for check digit calculation.</xs:documentation>
@@ -6290,10 +6265,10 @@ All other values reserved.</xs:documentation>
 All other values reserved.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="UInt8">
-      <xs:enumeration value="0"/>
-      <xs:enumeration value="1"/>
-      <xs:enumeration value="2"/>
-      <xs:enumeration value="3"/>
+      <xs:enumeration value="0" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="TimeOffsetType">
@@ -6312,7 +6287,7 @@ All other values reserved.</xs:documentation>
       <xs:extension base="Int64" />
     </xs:simpleContent>
   </xs:complexType>
-  <xs:complexType name="TOUType">
+  <xs:simpleType name="TOUType">
     <xs:annotation>
       <xs:documentation>0 = Not Applicable (default, if not specified)
 1 = TOU A
@@ -6332,13 +6307,11 @@ All other values reserved.</xs:documentation>
 15 = TOU O
 All other values reserved.</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="UInt8">
-        <xs:maxInclusive value="15"/>
-      </xs:restriction>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="UnitType">
+    <xs:restriction base="UInt8">
+      <xs:maxInclusive value="15" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UnitType">
     <xs:annotation>
       <xs:documentation>The unit types defined for end device control target reductions.
 0 - kWh 
@@ -6356,10 +6329,10 @@ All other values reserved.</xs:documentation>
 12 - Unitless
 All other values reserved.</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="UInt8" />
-    </xs:simpleContent>
-  </xs:complexType>
+    <xs:restriction base="UInt8">
+      <xs:maxInclusive value="12" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:complexType name="UnitValueType">
     <xs:annotation>
       <xs:documentation>Type for specification of a specific value, with units and power of ten multiplier.</xs:documentation>
@@ -6382,7 +6355,7 @@ All other values reserved.</xs:documentation>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="UomType">
+  <xs:simpleType name="UomType">
     <xs:annotation>
       <xs:documentation>The following values are recommended values sourced from the unit of measure enumeration in IEC 61968-9 [61968]. Other values from the unit of measure enumeration in IEC 61968-9 [61968] MAY be used.
 0 = Not Applicable (default, if not specified)
@@ -6418,43 +6391,41 @@ All other values reserved.</xs:documentation>
 155 = PA(absolute)
 169 = Therm</xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:restriction base="UInt8">
-        <xs:enumeration value="0"/>
-        <xs:enumeration value="5"/>
-        <xs:enumeration value="6"/>
-        <xs:enumeration value="23"/>
-        <xs:enumeration value="29"/>
-        <xs:enumeration value="31"/>
-        <xs:enumeration value="33"/>
-        <xs:enumeration value="38"/>
-        <xs:enumeration value="42"/>
-        <xs:enumeration value="61"/>
-        <xs:enumeration value="63"/>
-        <xs:enumeration value="65"/>
-        <xs:enumeration value="67"/>
-        <xs:enumeration value="69"/>
-        <xs:enumeration value="71"/>
-        <xs:enumeration value="72"/>
-        <xs:enumeration value="73"/>
-        <xs:enumeration value="106"/>
-        <xs:enumeration value="119"/>
-        <xs:enumeration value="122"/>
-        <xs:enumeration value="125"/>
-        <xs:enumeration value="128"/>
-        <xs:enumeration value="129"/>
-        <xs:enumeration value="130"/>
-        <xs:enumeration value="131"/>
-        <xs:enumeration value="132"/>
-        <xs:enumeration value="133"/>
-        <xs:enumeration value="134"/>
-        <xs:enumeration value="137"/>
-        <xs:enumeration value="140"/>
-        <xs:enumeration value="155"/>
-        <xs:enumeration value="169"/>
-      </xs:restriction>
-    </xs:simpleContent>
-  </xs:complexType>
+    <xs:restriction base="UInt8">
+      <xs:enumeration value="0" />
+      <xs:enumeration value="5" />
+      <xs:enumeration value="6" />
+      <xs:enumeration value="23" />
+      <xs:enumeration value="29" />
+      <xs:enumeration value="31" />
+      <xs:enumeration value="33" />
+      <xs:enumeration value="38" />
+      <xs:enumeration value="42" />
+      <xs:enumeration value="61" />
+      <xs:enumeration value="63" />
+      <xs:enumeration value="65" />
+      <xs:enumeration value="67" />
+      <xs:enumeration value="69" />
+      <xs:enumeration value="71" />
+      <xs:enumeration value="72" />
+      <xs:enumeration value="73" />
+      <xs:enumeration value="106" />
+      <xs:enumeration value="119" />
+      <xs:enumeration value="122" />
+      <xs:enumeration value="125" />
+      <xs:enumeration value="128" />
+      <xs:enumeration value="129" />
+      <xs:enumeration value="130" />
+      <xs:enumeration value="131" />
+      <xs:enumeration value="132" />
+      <xs:enumeration value="133" />
+      <xs:enumeration value="134" />
+      <xs:enumeration value="137" />
+      <xs:enumeration value="140" />
+      <xs:enumeration value="155" />
+      <xs:enumeration value="169" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:complexType name="VersionType">
     <xs:annotation>
       <xs:documentation>Version SHALL indicate a distinct identifier for each revision of an IdentifiedObject. If not specified, a default version of "0" (initial version) SHALL be assumed. Upon modification of any IdentifiedObject, the mRID SHALL remain the same, but the version SHALL be incremented. Servers MAY NOT modify objects that they did not create, unless they were notified of the change from the entity controlling the object's PEN.</xs:documentation>
@@ -6759,14 +6730,16 @@ Bit 4 - questionable: data that has failed one or more checks
 Bit 5 - derived: data that has been calculated (using logic or mathematical operations), not necessarily measured directly 
 Bit 6 - projected (forecast): data that has been calculated as a projection or forecast of future readings</xs:documentation>
             </xs:annotation>
-            <xs:restriction base="HexBinary16">
-                <xs:enumeration value="1"/>
-                <xs:enumeration value="2"/>
-                <xs:enumeration value="4"/>
-                <xs:enumeration value="8"/>
-                <xs:enumeration value="10"/>
-                <xs:enumeration value="20"/>
+            <xs:simpleType>
+              <xs:restriction base="HexBinary16">
+                <xs:enumeration value="01" />
+                <xs:enumeration value="02" />
+                <xs:enumeration value="04" />
+                <xs:enumeration value="08" />
+                <xs:enumeration value="0A" />
+                <xs:enumeration value="14" />
               </xs:restriction>
+            </xs:simpleType>
           </xs:element>
           <xs:element name="timePeriod" minOccurs="0" maxOccurs="1" type="DateTimeInterval">
             <xs:annotation>
@@ -6828,8 +6801,8 @@ Bit 6 - projected (forecast): data that has been calculated as a projection or f
             </xs:annotation>
             <xs:simpleType>
               <xs:restriction base="UInt8">
-                <xs:minInclusive value="0"/>
-                <xs:maxInclusive value="1"/>
+                <xs:minInclusive value="0" />
+                <xs:maxInclusive value="1" />
               </xs:restriction>
             </xs:simpleType>
           </xs:element>
@@ -7161,5 +7134,4 @@ Bit 6 - projected (forecast): data that has been calculated as a projection or f
   <xs:element name="ReadingBase" type="ReadingBase" />
   <xs:element name="ReadingSetBase" type="ReadingSetBase" />
   <xs:element name="UsagePointBase" type="UsagePointBase" />
-  <xs:element name="UsagePointStatusType" type="UsagePointStatusType" />
 </xs:schema>

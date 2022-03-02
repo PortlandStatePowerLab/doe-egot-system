@@ -45,7 +45,6 @@ namespace xml
         template<typename T>
         std::string Hexify(T number) 
         {
-            std::cout << "Hexify : " << number << std::endl;
             std::string hex_str;
             if (std::is_integral<T>::value)
             {
@@ -88,13 +87,13 @@ namespace xml
         pt.put("AbstractDevice.FileStatusLink.<xmlattr>.href",abstract_device.file_status_link.href);
         pt.put("AbstractDevice.IPInterfaceListLink.<xmlattr>.all",abstract_device.ip_interface_list_link.all);
         pt.put("AbstractDevice.IPInterfaceListLink.<xmlattr>.href",abstract_device.ip_interface_list_link.href);
-        pt.put("AbstractDevice.lFDI",abstract_device.lfdi);
+        pt.put("AbstractDevice.lFDI",xml::util::Hexify(abstract_device.lfdi));
         pt.put("AbstractDevice.LoadShedAvailabilityListLink.<xmlattr>.all",abstract_device.load_shed_availability_list_link.all);
         pt.put("AbstractDevice.LoadShedAvailabilityListLink.<xmlattr>.href",abstract_device.load_shed_availability_list_link.href);
         pt.put("AbstractDevice.LogEventListLink.<xmlattr>.all",abstract_device.log_event_list_link.all);
         pt.put("AbstractDevice.LogEventListLink.<xmlattr>.href",abstract_device.log_event_list_link.href);
         pt.put("AbstractDevice.PowerStatusLink.<xmlattr>.href",abstract_device.power_status_link.href);
-        pt.put("AbstractDevice.sFDI",abstract_device.sfdi);
+        pt.put("AbstractDevice.sFDI",xml::util::Hexify(abstract_device.sfdi));
         xml::util::SetSchema(&pt);
         return xml::util::Stringify(pt);
     };
@@ -117,13 +116,13 @@ namespace xml
         abstract_device->file_status_link.href = pt.get<std::string>("AbstractDevice.FileStatusLink.<xmlattr>.href", "");
         abstract_device->ip_interface_list_link.all = pt.get<uint32_t>("AbstractDevice.IPInterfaceListLink.<xmlattr>.all", 0);
         abstract_device->ip_interface_list_link.href = pt.get<std::string>("AbstractDevice.IPInterfaceListLink.<xmlattr>.href", "");
-        abstract_device->lfdi = pt.get<boost::multiprecision::uint256_t>("AbstractDevice.lFDI", 0);
+        abstract_device->lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(pt.get<std::string>("AbstractDevice.lFDI", ""));
         abstract_device->load_shed_availability_list_link.all = pt.get<uint32_t>("AbstractDevice.LoadShedAvailabilityListLink.<xmlattr>.all", 0);
         abstract_device->load_shed_availability_list_link.href = pt.get<std::string>("AbstractDevice.LoadShedAvailabilityListLink.<xmlattr>.href", "");
         abstract_device->log_event_list_link.all = pt.get<uint32_t>("AbstractDevice.LogEventListLink.<xmlattr>.all", 0);
         abstract_device->log_event_list_link.href = pt.get<std::string>("AbstractDevice.LogEventListLink.<xmlattr>.href", "");
         abstract_device->power_status_link.href = pt.get<std::string>("AbstractDevice.PowerStatusLink.<xmlattr>.href", "");
-        abstract_device->sfdi = pt.get<uint8_t>("AbstractDevice.sFDI", 0);
+        abstract_device->sfdi = xml::util::Dehexify<uint64_t>(pt.get<std::string>("AbstractDevice.sFDI", ""));
     };
 
     // Active Power
@@ -148,7 +147,7 @@ namespace xml
     {
         boost::property_tree::ptree pt;
         pt.put("FlowReservationRequest.<xmlattr>.href", "http://uri1");
-        pt.put("FlowReservationRequest.mRID", fr_request.mrid);
+        pt.put("FlowReservationRequest.mRID", xml::util::Hexify(fr_request.mrid));
         pt.put("FlowReservationRequest.description",fr_request.description);
         pt.put("FlowReservationRequest.version", fr_request.version);
         pt.put("FlowReservationRequest.creationTime", fr_request.creation_time);
@@ -200,7 +199,7 @@ namespace xml
              xml::util::Hexify(xml::util::ToUnderlyingType(fr_response.response_required))
         );
         pt.put("FlowReservationResponse.<xmlattr>.href", fr_response.href);
-        pt.put("FlowReservationResponse.mRID", fr_response.mrid);
+        pt.put("FlowReservationResponse.mRID", xml::util::Hexify(fr_response.mrid));
         pt.put("FlowReservationResponse.description", fr_response.description);
         pt.put("FlowReservationResponse.version", fr_response.version);
         pt.put("FlowReservationResponse.creationTime", fr_response.creation_time);
@@ -304,8 +303,8 @@ namespace xml
         dcap->messaging_program_list_link.all = pt.get<uint32_t>("DeviceCapability.MessagingProgramListLink.<xmlattr>.all", 0);
         dcap->prepayment_list_link.href = pt.get<std::string>("DeviceCapability.PrepaymentListLink.<xmlattr>.href", "");
         dcap->prepayment_list_link.all = pt.get<uint32_t>("DeviceCapability.PrepaymentListLink.<xmlattr>.all", 0);
-        dcap->response_set_list_link.href = pt.get<std::string>("DeviceCapability.ResponseSet.<xmlattr>.href", "");
-        dcap->response_set_list_link.all = pt.get<uint32_t>("DeviceCapability.ResponseSet.<xmlattr>.all", 0);
+        dcap->response_set_list_link.href = pt.get<std::string>("DeviceCapability.ResponseSetListLink.<xmlattr>.href", "");
+        dcap->response_set_list_link.all = pt.get<uint32_t>("DeviceCapability.ResponseSetListLink.<xmlattr>.all", 0);
         dcap->tariff_profile_list_link.href = pt.get<std::string>("DeviceCapability.TariffProfileListLink.<xmlattr>.href", "");
         dcap->tariff_profile_list_link.all = pt.get<uint32_t>("DeviceCapability.TariffProfileListLink.<xmlattr>.all", 0);
         dcap->time_link.href = pt.get<std::string>("DeviceCapability.TimeLink.<xmlattr>.href", "");
@@ -330,13 +329,13 @@ namespace xml
         pt.put("EndDevice.FileStatusLink.<xmlattr>.href", edev.file_status_link.href);
         pt.put("EndDevice.IPInterfaceListLink.<xmlattr>.href", edev.ip_interface_list_link.href);
         pt.put("EndDevice.IPInterfaceListLink.<xmlattr>.all", edev.ip_interface_list_link.all);
-        pt.put("EndDevice.lFDI", xml::util::Hexify(edev.lfdi));
+        pt.put("EndDevice.lFDI", edev.lfdi);
         pt.put("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.href", edev.load_shed_availability_list_link.href);
         pt.put("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.all", edev.load_shed_availability_list_link.all);
         pt.put("EndDevice.LogEventListLink.<xmlattr>.href", edev.log_event_list_link.href);
         pt.put("EndDevice.LogEventListLink.<xmlattr>.all", edev.log_event_list_link.all);
         pt.put("EndDevice.PowerStatusLink.<xmlattr>.href", edev.power_status_link.href);
-        pt.put("EndDevice.sFDI", xml::util::Hexify(edev.sfdi));
+        pt.put("EndDevice.sFDI", edev.sfdi);
         pt.put("EndDevice.changedTime", edev.changed_time);
         pt.put("EndDevice.enabled", edev.enabled);
         pt.put("EndDevice.FlowReservationRequestListLink.<xmlattr>.href", edev.flow_reservation_request_list_link.href);
@@ -372,13 +371,13 @@ namespace xml
         edev->file_status_link.href  = pt.get<std::string>("EndDevice.FileStatusLink.<xmlattr>.href", "");
         edev->ip_interface_list_link.href  = pt.get<std::string>("EndDevice.IPInterfaceListLink.<xmlattr>.href", "");
         edev->ip_interface_list_link.all = pt.get<uint32_t>("EndDevice.IPInterfaceListLink.<xmlattr>.all", 0);
-        edev->lfdi = pt.get<boost::multiprecision::uint256_t>("EndDevice.lFDI", 0);
+        edev->lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(pt.get<std::string>("EndDevice.lFDI", ""));
         edev->load_shed_availability_list_link.href  = pt.get<std::string>("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.href", "");
         edev->load_shed_availability_list_link.all  = pt.get<uint32_t>("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.all", 0);
         edev->log_event_list_link.href  = pt.get<std::string>("EndDevice.LogEventListLink.<xmlattr>.href", "");
         edev->log_event_list_link.all  = pt.get<uint32_t>("EndDevice.LogEventListLink.<xmlattr>.all", 0);
         edev->power_status_link.href  = pt.get<std::string>("EndDevice.PowerStatusLink.<xmlattr>.href", "");
-        edev->sfdi = pt.get<uint64_t>("EndDevice.sFDI", 0);
+        edev->sfdi = xml::util::Dehexify<uint64_t>(pt.get<std::string>("EndDevice.sFDI", ""));
         edev->changed_time = pt.get<sep::TimeType>("EndDevice.changedTime", 0);
         edev->enabled = pt.get<bool>("EndDevice.enabled", false);
         edev->flow_reservation_request_list_link.href  = pt.get<std::string>("EndDevice.FlowReservationRequestListLink.<xmlattr>.href", "");
@@ -408,13 +407,13 @@ namespace xml
         pt.put("SelfDevice.FileStatusLink.<xmlattr>.href", sdev.file_status_link.href);
         pt.put("SelfDevice.IPInterfaceListLink.<xmlattr>.href", sdev.ip_interface_list_link.href);
         pt.put("SelfDevice.IPInterfaceListLink.<xmlattr>.all", sdev.ip_interface_list_link.all);
-        pt.put("SelfDevice.lFDI", xml::util::Hexify(sdev.lfdi));
+        pt.put("SelfDevice.lFDI", sdev.lfdi);
         pt.put("SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.href", sdev.load_shed_availability_list_link.href);
         pt.put("SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.all", sdev.load_shed_availability_list_link.all);
         pt.put("SelfDevice.LogEventListLink.<xmlattr>.href", sdev.log_event_list_link.href);
         pt.put("SelfDevice.LogEventListLink.<xmlattr>.all", sdev.log_event_list_link.all);
         pt.put("SelfDevice.PowerStatusLink.<xmlattr>.href", sdev.power_status_link.href);
-        pt.put("SelfDevice.sFDI", xml::util::Hexify(sdev.sfdi));
+        pt.put("SelfDevice.sFDI", sdev.sfdi);
 
         xml::util::SetSchema(&pt);
         return xml::util::Stringify(pt); 
@@ -439,13 +438,13 @@ namespace xml
         sdev->file_status_link.href  = pt.get<std::string>("SelfDevice.FileStatusLink.<xmlattr>.href", "");
         sdev->ip_interface_list_link.href  = pt.get<std::string>("SelfDevice.IPInterfaceListLink.<xmlattr>.href", "");
         sdev->ip_interface_list_link.all  = pt.get<uint32_t>("SelfDevice.IPInterfaceListLink.<xmlattr>.all", 0);
-        sdev->lfdi = pt.get<boost::multiprecision::uint256_t>("SelfDevice.lFDI", 0);
+        sdev->lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(pt.get<std::string>("SelfDevice.lFDI", ""));
         sdev->load_shed_availability_list_link.href  = pt.get<std::string>("SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.href", "");
         sdev->load_shed_availability_list_link.all  = pt.get<uint32_t>("SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.all", 0);
         sdev->log_event_list_link.href  = pt.get<std::string>("SelfDevice.LogEventListLink.<xmlattr>.href", "");
         sdev->log_event_list_link.all  = pt.get<uint32_t>("SelfDevice.LogEventListLink.<xmlattr>.all", 0);
         sdev->power_status_link.href  = pt.get<std::string>("SelfDevice.PowerStatusLink.<xmlattr>.href", "");
-        sdev->sfdi = pt.get<uint64_t>("SelfDevice.sFDI", 0);
+        sdev->sfdi = xml::util::Dehexify<uint64_t>(pt.get<std::string>("SelfDevice.sFDI", ""));
     }
     
     std::string Serialize(const sep::Time &time) 

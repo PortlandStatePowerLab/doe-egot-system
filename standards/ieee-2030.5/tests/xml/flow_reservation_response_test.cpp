@@ -62,7 +62,7 @@ TEST_F(TestFlowReservationResponseXML, IsAdapterTranslationAccurate)
     EXPECT_EQ(fr_response->reply_to, "http://uri1");
     EXPECT_EQ(xml::util::Hexify(xml::util::ToUnderlyingType(fr_response->response_required)), "00");
     EXPECT_EQ(fr_response->href, "http://uri1");
-    EXPECT_EQ(fr_response->mrid,"0FB7");
+    EXPECT_EQ(fr_response->mrid,0);
     EXPECT_EQ(fr_response->description, "description1");
     EXPECT_EQ(fr_response->version, 0);
     EXPECT_EQ(fr_response->creation_time, 1);
