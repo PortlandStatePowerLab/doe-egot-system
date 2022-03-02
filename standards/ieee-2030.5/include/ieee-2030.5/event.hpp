@@ -13,9 +13,9 @@ namespace sep
     // as described in the Time function set section 11.1.
     struct Event : RespondableSubscribableIdentifiedObject 
     {
-        sep::TimeType creation_time;
-        sep::EventStatus event_status;
-        sep::DateTimeInterval interval;
+        TimeType creation_time;
+        EventStatus event_status;
+        DateTimeInterval interval;
     };    
 } // namespace sep
 #endif // __EVENT_H__
