@@ -141,12 +141,9 @@ void HandleRequest(
         return send(bad_request("Illegal request-target"));
 
     // Build the path to the requested file
-    // TODO: convert to entity id string
-    // TODO: write function to switch bettwen resources and create object for ECS
     std::string path = path_cat(*doc_root, req.target());
     if(req.target().back() == '/')
         path.append("dcap");
-    path.append(".xml");
 
     // Attempt to open the file
     beast::error_code ec;

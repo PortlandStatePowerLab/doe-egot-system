@@ -84,7 +84,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            //response = xml::Serialize(*e.get<sep::Registration>());
+            //TODO: response = xml::Serialize(*e.get<sep::Registration>());
         }        
     }; break;
     case (Uri::dstat):
@@ -96,7 +96,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::DeviceStatus>());
+            //TODO: response = xml::Serialize(*e.get<sep::DeviceStatus>());
         }        
     }; break;
     case (Uri::fsa):
@@ -108,7 +108,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::FunctionSetAssignmentsBase>());
+            //TODO: response = xml::Serialize(*e.get<sep::FunctionSetAssignmentsBase>());
         }        
     }; break;
     case (Uri::sub):
@@ -120,7 +120,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::Subscription>());
+            //TODO: response = xml::Serialize(*e.get<sep::Subscription>());
         }        
     }; break;
     case (Uri::ntfy):
@@ -132,7 +132,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::Notification>());
+            //TODO: response = xml::Serialize(*e.get<sep::Notification>());
         }        
     }; break;
     case (Uri::rsps):
@@ -144,7 +144,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::ResponseSet>());
+            //TODO: response = xml::Serialize(*e.get<sep::ResponseSet>());
         }        
     }; break;
     case (Uri::rsp):
@@ -156,7 +156,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::Response>());
+            //TODO: response = xml::Serialize(*e.get<sep::Response>());
         }        
     }; break;
     case (Uri::tm):
@@ -180,7 +180,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::DeviceInformation>());
+            //TODO: response = xml::Serialize(*e.get<sep::DeviceInformation>());
         }        
     }; break;
     case (Uri::loc):
@@ -192,7 +192,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::SupportedLocale>());
+            //TODO: response = xml::Serialize(*e.get<sep::SupportedLocale>());
         }        
     }; break;
     case (Uri::ps):
@@ -204,7 +204,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::PowerStatus>());
+            //TODO: response = xml::Serialize(*e.get<sep::PowerStatus>());
         }        
     }; break;
     case (Uri::ns):
@@ -216,7 +216,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::NetworkStatus>());
+            //TODO: response = xml::Serialize(*e.get<sep::NetworkStatus>());
         }        
     }; break;
     case (Uri::addr):
@@ -228,7 +228,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::IPAddress>());
+            //TODO: response = xml::Serialize(*e.get<sep::IPAddress>());
         }        
     }; break;
     case (Uri::rpl):
@@ -240,7 +240,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::RPLInstance>());
+            //TODO: response = xml::Serialize(*e.get<sep::RPLInstance>());
         }        
     }; break;
     case (Uri::srt):
@@ -252,7 +252,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::RPLSourceRoutes>());
+            //TODO: response = xml::Serialize(*e.get<sep::RPLSourceRoutes>());
         }        
     }; break;
     case (Uri::ll):
@@ -264,7 +264,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::LLinterface>());
+            //TODO: response = xml::Serialize(*e.get<sep::LLinterface>());
         }        
     }; break;
     case (Uri::nbh):
@@ -276,7 +276,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::Neighbor>());
+            //TODO: response = xml::Serialize(*e.get<sep::Neighbor>());
         }        
     }; break;
     case (Uri::lel):
@@ -288,7 +288,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::LogEvent>());
+            //TODO: response = xml::Serialize(*e.get<sep::LogEvent>());
         }        
     }; break;
     case (Uri::cfg):
@@ -300,7 +300,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::Configuration>());
+            //TODO: response = xml::Serialize(*e.get<sep::Configuration>());
         }        
     }; break;
     case (Uri::prcfg):
@@ -312,7 +312,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::PriceResponseCfg>());
+            //TODO: response = xml::Serialize(*e.get<sep::PriceResponseCfg>());
         }        
     }; break;
     case (Uri::file):
@@ -324,7 +324,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::File>());
+            //TODO: response = xml::Serialize(*e.get<sep::File>());
         }        
     }; break;
     case (Uri::fs):
@@ -336,7 +336,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::FileStatus>());
+            //TODO: response = xml::Serialize(*e.get<sep::FileStatus>());
         }        
     }; break;
     case (Uri::dr):
@@ -348,7 +348,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::DemandResponseProgram>());
+            //TODO: response = xml::Serialize(*e.get<sep::DemandResponseProgram>());
         }        
     }; break;
     case (Uri::actedc):
@@ -360,7 +360,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::ActiveEndDeviceControl>());
+            //TODO: response = xml::Serialize(*e.get<sep::ActiveEndDeviceControl>());
         }        
     }; break;
     case (Uri::edc):
@@ -372,7 +372,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::EndDeviceControl>());
+            //TODO: response = xml::Serialize(*e.get<sep::EndDeviceControl>());
         }        
     }; break;
     case (Uri::lsl):
@@ -384,7 +384,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::LoadShedAvailability>());
+            //TODO: response = xml::Serialize(*e.get<sep::LoadShedAvailability>());
         }        
     }; break;
     case (Uri::upt):
@@ -396,7 +396,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::UsagePoint>());
+            //TODO: response = xml::Serialize(*e.get<sep::UsagePoint>());
         }        
     }; break;
     case (Uri::mr):
@@ -408,7 +408,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::MeterReading>());
+            //TODO: response = xml::Serialize(*e.get<sep::MeterReading>());
         }        
     }; break;
     case (Uri::rt):
@@ -420,7 +420,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::ReadingType>());
+            //TODO: response = xml::Serialize(*e.get<sep::ReadingType>());
         }        
     }; break;
     case (Uri::rs):
@@ -432,7 +432,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::ReadingSet>());
+            //TODO: response = xml::Serialize(*e.get<sep::ReadingSet>());
         }        
     }; break;
     case (Uri::r):
@@ -444,7 +444,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::Reading>());
+            //TODO: response = xml::Serialize(*e.get<sep::Reading>());
         }        
     }; break;
     case (Uri::mup):
@@ -456,7 +456,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::MirrorUsagePoint>());
+            //TODO: response = xml::Serialize(*e.get<sep::MirrorUsagePoint>());
         }        
     }; break;
     case (Uri::tp):
@@ -468,7 +468,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::TariffProfile>());
+            //TODO: response = xml::Serialize(*e.get<sep::TariffProfile>());
         }        
     }; break;
     case (Uri::rc):
@@ -480,7 +480,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::RateComponenet>());
+            //TODO: response = xml::Serialize(*e.get<sep::RateComponenet>());
         }        
     }; break;
     case (Uri::acttti):
@@ -492,7 +492,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::ActriveTimeTariffInterval>());
+            //TODO: response = xml::Serialize(*e.get<sep::ActriveTimeTariffInterval>());
         }        
     }; break;
     case (Uri::tti):
@@ -504,7 +504,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::TimeTariffInterval>());
+            //TODO: response = xml::Serialize(*e.get<sep::TimeTariffInterval>());
         }        
     }; break;
     case (Uri::cti):
@@ -516,7 +516,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::ConsumptionTariffInterval>());
+            //TODO: response = xml::Serialize(*e.get<sep::ConsumptionTariffInterval>());
         }        
     }; break;
     case (Uri::msg):
@@ -528,7 +528,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::MessagingProgram>());
+            //TODO: response = xml::Serialize(*e.get<sep::MessagingProgram>());
         }        
     }; break;
     case (Uri::acttxt):
@@ -540,7 +540,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::ActiveTextMessage>());
+            //TODO: response = xml::Serialize(*e.get<sep::ActiveTextMessage>());
         }        
     }; break;
     case (Uri::txt):
@@ -552,7 +552,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::TextMessage>());
+            //TODO: response = xml::Serialize(*e.get<sep::TextMessage>());
         }        
     }; break;
     case (Uri::bill):
@@ -564,7 +564,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::CustomerAccount>());
+            //TODO: response = xml::Serialize(*e.get<sep::CustomerAccount>());
         }        
     }; break;
     case (Uri::ca):
@@ -576,7 +576,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::CustomerAgreement>());
+            //TODO: response = xml::Serialize(*e.get<sep::CustomerAgreement>());
         }        
     }; break;
     case (Uri::actbp):
@@ -588,7 +588,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::ActiveBillingPeriod>());
+            //TODO: response = xml::Serialize(*e.get<sep::ActiveBillingPeriod>());
         }        
     }; break;
     case (Uri::bp):
@@ -600,7 +600,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::BillingPeriod>());
+            //TODO: response = xml::Serialize(*e.get<sep::BillingPeriod>());
         }        
     }; break;
     case (Uri::pro):
@@ -612,7 +612,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::ProjectionReading>());
+            //TODO: response = xml::Serialize(*e.get<sep::ProjectionReading>());
         }        
     }; break;
     case (Uri::brs):
@@ -624,7 +624,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::BillingReadingSet>());
+            //TODO: response = xml::Serialize(*e.get<sep::BillingReadingSet>());
         }        
     }; break;
     case (Uri::br):
@@ -636,7 +636,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::BillingReading>());
+            //TODO: response = xml::Serialize(*e.get<sep::BillingReading>());
         }        
     }; break;
     case (Uri::tar):
@@ -648,7 +648,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::TargetReading>());
+            //TODO: response = xml::Serialize(*e.get<sep::TargetReading>());
         }        
     }; break;
     case (Uri::ver):
@@ -660,7 +660,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::HistoricalReading>());
+            //TODO: response = xml::Serialize(*e.get<sep::HistoricalReading>());
         }        
     }; break;
     case (Uri::ss):
@@ -672,7 +672,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::>());
+            //TODO: response = xml::Serialize(*e.get<sep::ServiceSupplier>());
         }        
     }; break;
     case (Uri::ppy):
@@ -684,7 +684,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::Prepayment>());
+            //TODO: response = xml::Serialize(*e.get<sep::Prepayment>());
         }        
     }; break;
     case (Uri::ab):
@@ -696,7 +696,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::AccountBalance>());
+            //TODO: response = xml::Serialize(*e.get<sep::AccountBalance>());
         }        
     }; break;
     case (Uri::os):
@@ -708,7 +708,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::PrepayOperationStatus>());
+            //TODO: response = xml::Serialize(*e.get<sep::PrepayOperationStatus>());
         }        
     }; break;
     case (Uri::actsi):
@@ -720,7 +720,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::SupplyInterruptionOverride>());
+            //TODO: response = xml::Serialize(*e.get<sep::SupplyInterruptionOverride>());
         }        
     }; break;
     case (Uri::si):
@@ -732,7 +732,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::SupplyInterruptionOverride>());
+            //TODO: response = xml::Serialize(*e.get<sep::SupplyInterruptionOverride>());
         }        
     }; break;
     case (Uri::cr):
@@ -744,7 +744,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::CreditRegister>());
+            //TODO: response = xml::Serialize(*e.get<sep::CreditRegister>());
         }        
     }; break;
     case (Uri::frq):
@@ -780,7 +780,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::DER>());
+            //TODO: response = xml::Serialize(*e.get<sep::DER>());
         }        
     }; break;
     case (Uri::aupt):
@@ -792,7 +792,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::UsagePoint>());
+            //TODO: response = xml::Serialize(*e.get<sep::UsagePoint>());
         }        
     }; break;
     case (Uri::derp):
@@ -804,7 +804,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::DERProgram>());
+            //TODO: response = xml::Serialize(*e.get<sep::DERProgram>());
         }        
     }; break;
     case (Uri::cdp):
@@ -816,7 +816,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::DERProgram>());
+            //TODO: response = xml::Serialize(*e.get<sep::DERProgram>());
         }        
     }; break;
     case (Uri::derg):
@@ -828,7 +828,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::DERSettings>());
+            //TODO: response = xml::Serialize(*e.get<sep::DERSettings>());
         }        
     }; break;
     case (Uri::ders):
@@ -840,7 +840,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::DERStatus>());
+            //TODO: response = xml::Serialize(*e.get<sep::DERStatus>());
         }        
     }; break;
     case (Uri::dercap):
@@ -852,7 +852,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::DERCapability>());
+            //TODO: response = xml::Serialize(*e.get<sep::DERCapability>());
         }        
     }; break;
     case (Uri::actderc):
@@ -864,7 +864,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::DERControl>());
+            //TODO: response = xml::Serialize(*e.get<sep::DERControl>());
         }        
     }; break;
     case (Uri::dderc):
@@ -876,7 +876,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::DefaultDERControl>());
+            //TODO: response = xml::Serialize(*e.get<sep::DefaultDERControl>());
         }        
     }; break;
     case (Uri::dc):
@@ -888,7 +888,7 @@ std::string World::Get(const Href &href)
         }
         else 
         {
-            response = xml::Serialize(*e.get<sep::DERCurve>());
+            //TODO: response = xml::Serialize(*e.get<sep::DERCurve>());
         }        
     }; break;
     default:

@@ -12,7 +12,7 @@ namespace sep
     struct Response : Resource
     {
         TimeType create_date_time;
-        boost::multiprecision::uint256_t end_device_lfdi;
+        boost::multiprecision::uint256_t lfdi;
         uint8_t status;
         MRIDType subject;
     };

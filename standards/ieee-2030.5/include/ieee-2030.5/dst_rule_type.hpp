@@ -1,6 +1,8 @@
 #ifndef __DST_RULE_TYPE_H__
 #define __DST_RULE_TYPE_H__
 
+#include <cstdint>
+
 namespace sep
 {
     // Bit map encoded rule from which is calculated the start or end time, 
@@ -24,7 +26,7 @@ namespace sep
         uint8_t hours;
         uint8_t day_of_the_week;
         uint8_t day_of_the_month;
-        Operator operator;
+        Operator op_code;
         uint8_t month;
     };
       

@@ -10,9 +10,9 @@ namespace sep
     // and duration SHALL be randomized.
     struct RandomizableEvent
     {
-        sep::Event event;
-        sep::OneHourRangeType randomize_duration;
-        sep::OneHourRangeType randomize_start;
+        Event event;
+        OneHourRangeType randomize_duration;
+        OneHourRangeType randomize_start;
     };
 };     // namespace sep
 #endif // __RANDOMIZE_EVENT_H__

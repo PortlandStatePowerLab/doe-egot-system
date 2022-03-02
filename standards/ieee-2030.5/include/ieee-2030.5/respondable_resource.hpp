@@ -6,19 +6,19 @@
 
 namespace sep
 {
-    enum class ResponseRequired : uint8_t
-    {
-        kRecieved,
-        kSpecificResponse,
-        kResponseRequired
-    };
-
     // A Resource to which a Response can be requested.
     struct RespondableResource : Resource
     {
-        sep::Resource resource;
+        enum class ResponseRequired : uint8_t
+        {
+            kRecieved,
+            kSpecificResponse,
+            kResponseRequired
+        };
+
+        Resource resource;
         std::string reply_to;
-        sep::ResponseRequired response_required;
+        ResponseRequired response_required;
     };
 };     // namespace sep
 #endif // __RESPONDABLE_RESOURCE_H__

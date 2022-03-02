@@ -10,7 +10,7 @@ namespace sep
     // current relative to voltage.
     struct ReactivePower
     {
-        sep::PowerOfTenMultiplierType multiplier;
+        PowerOfTenMultiplierType multiplier;
         int16_t value;
     };
 };     // namespace sep

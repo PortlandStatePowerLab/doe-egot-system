@@ -31,7 +31,7 @@ namespace sep
     // maintain its consumption below the specified limit for the specified period.
     struct TargetReduction
     {
-        sep::UnitType unit_type;
+        UnitType unit_type;
         uint16_t value;
     };
 };     // namespace sep

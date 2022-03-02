@@ -2,6 +2,8 @@
 #define __FUNCTION_SET_ASSIGNMENTS_BASE_H__
 #include <string>
 #include "resource.hpp"
+#include "link.hpp"
+#include "list_link.hpp"
 
 namespace sep
 {
@@ -9,16 +11,16 @@ namespace sep
     // devices as indicated by the EndDevice object(s) of the server.
     struct FunctionSetAssignmentsBase : Resource
     {
-        std::string customer_account_list_link;
-        std::string demand_response_program_list_link;
-        std::string der_program_list_link;
-        std::string file_list_link;
-        std::string messaging_program_list_link;
-        std::string prepayment_list_link;
-        std::string response_set_list_link;
-        std::string tariff_profile_list_link;
-        std::string time_link;
-        std::string usage_point_list_link;
+        ListLink customer_account_list_link;
+        ListLink demand_response_program_list_link;
+        ListLink der_program_list_link;
+        ListLink file_list_link;
+        ListLink messaging_program_list_link;
+        ListLink prepayment_list_link;
+        ListLink response_set_list_link;
+        ListLink tariff_profile_list_link;
+        Link time_link;
+        ListLink usage_point_list_link;
     };
     
 } // namespace sep

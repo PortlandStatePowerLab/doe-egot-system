@@ -12,7 +12,7 @@ namespace sep
     {
         uint16_t displacement;
         bool excitation;
-        sep::PowerOfTenMultiplierType multiplier;
+        PowerOfTenMultiplierType multiplier;
     };
 };     // namespace sep
 #endif // __POWER_FACTOR_WITH_EXCITATION_H__

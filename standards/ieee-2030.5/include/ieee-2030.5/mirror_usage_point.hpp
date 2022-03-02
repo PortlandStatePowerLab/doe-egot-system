@@ -9,7 +9,7 @@ namespace sep
     // A parallel to UsagePoint to support mirroring
     struct MirrorUsagePoint : UsagePointBase
     {
-        boost::multiprecision::uint256_t device_lfdi;
+        boost::multiprecision::uint256_t lfdi;
         MirrorMeterReading mirror_meter_reading;
         uint32_t post_rate;
     };

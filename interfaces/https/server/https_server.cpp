@@ -70,6 +70,7 @@ HttpsServer::HttpsServer(const std::string &address, uint16_t port, const std::s
     , acceptor_(io_ctx_, {net::ip::make_address(address_), port_})
 {
     load_server_certificate(doc_root, ssl_ctx_);
+    
 }
 
 HttpsServer::~HttpsServer() 

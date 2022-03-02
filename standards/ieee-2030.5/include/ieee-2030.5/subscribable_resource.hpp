@@ -9,7 +9,7 @@ namespace sep
     // A Resource to which a Subscription can be requested.
     struct SubscribableResource : Resource
     {
-        sep::SubscribableType subscribable;
+        SubscribableType subscribable;
     };
 };     // namespace sep
 #endif // __SUBSCRIBABLE_RESOURCE_H__

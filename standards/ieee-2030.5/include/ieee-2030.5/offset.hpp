@@ -26,7 +26,7 @@ namespace sep
     {
         uint8_t cooling_offset;
         uint8_t heating_offset;
-        sep::PerCent load_adjustment_percentage_offset;
+        PerCent load_adjustment_percentage_offset;
     };
 }; // namespace sep
 

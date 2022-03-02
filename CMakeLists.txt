@@ -35,6 +35,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest flecs)
 
+add_subdirectory(ecs)
 add_subdirectory(interfaces)
 add_subdirectory(standards)
 #add_subdirectory(dcm)

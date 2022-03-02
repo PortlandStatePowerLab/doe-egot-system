@@ -22,7 +22,6 @@
 #include <memory>
 #include <string>
 #include <thread>
-#include <flecs.hpp>
 
 namespace beast = boost::beast;         // from <boost/beast.hpp>
 namespace http = beast::http;           // from <boost/beast/http.hpp>
@@ -36,7 +35,7 @@ public:
     // rule of 5
     HttpsServer(HttpsServer& other) = delete;       // clonable
     void operator=(const HttpsServer&) = delete;    // assignable
-    HttpsServer(const std::string &address, uint16_t port, flecs::world& world);
+    HttpsServer(const std::string &address, uint16_t port, const std::string &doc_root);
     ~HttpsServer();
     void Run ();
 

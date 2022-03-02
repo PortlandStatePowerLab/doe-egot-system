@@ -3,16 +3,17 @@
 #include <string>
 #include "respondable_resource.hpp"
 #include "subscribable_type.hpp"
+#include "mrid_type.hpp"
 
 namespace sep
 {
     // An IdentifiedObject to which a Response can be requested.
     struct RespondableSubscribableIdentifiedObject : RespondableResource
     {
-        std::string mrid;
+        MRIDType mrid;
         std::string description;
         uint16_t version;
-        sep::SubscribableType subscribable;
+        SubscribableType subscribable;
     };
 };     // namespace sep
 #endif // __RESPONDABLE_SUBSCRIBABLE_IDENTIFIED_OBJECT_H__

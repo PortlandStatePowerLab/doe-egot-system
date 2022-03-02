@@ -2,6 +2,8 @@ set(COMPONENT_NAME flecs_world)
 
 add_library(${COMPONENT_NAME} STATIC
   world.cpp
+  sep_common_module.cpp
+  sep_smart_energy_module.cpp
   sep_support_module.cpp
 )
 
@@ -24,5 +26,3 @@ target_include_directories(${COMPONENT_NAME} PUBLIC
   ${XML_Validator_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
 )
-
-add_subdirectory(tests)
