@@ -273,7 +273,7 @@ namespace xml
         pt.put("DeviceCapability.ResponseSetListLink.<xmlattr>.href", dcap.response_set_list_link.href);
         pt.put("DeviceCapability.ResponseSetListLink.<xmlattr>.all", dcap.response_set_list_link.all);
         pt.put("DeviceCapability.TariffProfileListLink.<xmlattr>.href", dcap.tariff_profile_list_link.href);
-        pt.put("DeviceCapability.TariffProfileListLink.<xmlattr>.href", dcap.tariff_profile_list_link.all);
+        pt.put("DeviceCapability.TariffProfileListLink.<xmlattr>.all", dcap.tariff_profile_list_link.all);
         pt.put("DeviceCapability.TimeLink.<xmlattr>.href", dcap.time_link.href);
         pt.put("DeviceCapability.UsagePointListLink.<xmlattr>.href", dcap.usage_point_list_link.href);
         pt.put("DeviceCapability.UsagePointListLink.<xmlattr>.all", dcap.usage_point_list_link.all);

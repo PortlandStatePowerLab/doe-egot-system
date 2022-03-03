@@ -1,5 +1,7 @@
 #include "include/world/world.hpp"
 #include "include/world/sep_support_module.hpp"
+#include "include/world/sep_common_module.hpp"
+#include "include/world/sep_smart_energy_module.hpp"
 #include "include/world/uri.hpp"
 #include <xml/adapter.hpp>
 #include <sstream>
@@ -14,7 +16,9 @@ std::string prependLFDI(const Href& href)
 
 World::World()
 {
+    world.import<sep::CommonModule>();
     world.import<sep::SupportModule>();
+    world.import<sep::SmartEnergyModule>();
 };
 
 World::~World()
@@ -895,4 +899,5 @@ std::string World::Get(const Href &href)
         // response = "";
         break;
     }
+    return response;
 };

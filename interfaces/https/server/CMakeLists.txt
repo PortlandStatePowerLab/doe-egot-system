@@ -10,7 +10,8 @@ add_library( ${PROJECT_NAME}::${COMPONENT_NAME} ALIAS ${COMPONENT_NAME} )
 target_link_libraries(${COMPONENT_NAME} PUBLIC
   Boost::boost
   OpenSSL::SSL
-  flecs
+  flecs_world
+  SEP_Models
   pthread
 )
 
@@ -19,7 +20,8 @@ target_include_directories(${COMPONENT_NAME} PUBLIC
   $<INSTALL_INTERFACE:include> 
 	${Boost_INCLUDE_DIRS}
   ${OpenSSL_INCLUDE_DIRS}
-  ${flecs_INCLUDE_DIRS}
+  ${flecs_world_INCLUDE_DIRS}
+  ${SEP_Models_INCLUDE_DIRS}
 )
 
 add_subdirectory(tests)

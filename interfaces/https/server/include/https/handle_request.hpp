@@ -7,6 +7,7 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/config.hpp>
+#include <world/world.hpp>
 #include <cstdlib>
 #include <iostream>
 #include <memory>
@@ -131,7 +132,9 @@ void HandleRequest(
 
     // Make sure we can handle the method
     if (req.method() != http::verb::get &&
-        req.method() != http::verb::post)
+        req.method() != http::verb::post && 
+        req.method() != http::verb::put &&
+        req.method() != http::verb::delete_ )
         return send(bad_request("Unknown HTTP-method"));
 
     // Request path must be absolute and not contain "..".
@@ -140,42 +143,48 @@ void HandleRequest(
         req.target().find("..") != beast::string_view::npos)
         return send(bad_request("Illegal request-target"));
 
-    // Build the path to the requested file
-    std::string path = path_cat(*doc_root, req.target());
+    // If open path "/" then default to dcap
+    std::string path = path_cat("",req.target());
     if(req.target().back() == '/')
         path.append("dcap");
 
-    // Attempt to open the file
-    beast::error_code ec;
-    http::file_body::value_type body;
-    body.open(path.c_str(), beast::file_mode::scan, ec);
+    // build href query for ecs
+    // TODO: build regex for req.target()
+    Href href;
+    href.lfdi = "0FB7"; // TODO
+    href.uri = path;
+    href.query = {0,0,0};
 
-    // Handle the case where the file doesn't exist
+/*     // Handle the case where the file doesn't exist
     if(ec == beast::errc::no_such_file_or_directory)
         return send(not_found(req.target()));
 
     // Handle an unknown error
     if(ec)
-        return send(server_error(ec.message()));
-
-    // Cache the size since we need it after the move
-    auto const size = body.size();
+        return send(server_error(ec.message())); */
 
     if (req.method() == http::verb::get)
     {
+        // attempt to access resource
+        World *ecs = World::getInstance();
+        std::string body = ecs->Get(href);
+
+        // Cache the size since we need it after the move
+        auto const size = body.size();
+
         // Respond to GET request
-        http::response<http::file_body> res{
+        http::response<http::string_body> res{
             std::piecewise_construct,
             std::make_tuple(std::move(body)),
             std::make_tuple(http::status::ok, req.version())};
         res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
-        res.set(http::field::content_type, mime_type(path));
+        res.set(http::field::content_type, "application/sep+xml");
         res.content_length(size);
         res.keep_alive(req.keep_alive());
         return send(std::move(res));
     }
 
-    if (req.method() == http::verb::post)
+/*     if (req.method() == http::verb::post)
     {
         boost::beast::string_view content_type = req[http::field::content_type];
 		if (content_type != "application/sep+xml")
@@ -194,10 +203,10 @@ void HandleRequest(
         res.set(http::field::location, req.target());
         res.keep_alive(req.keep_alive());
         return send(std::move(res));
-    }
+    } */
 
-    // Handle an unknown error
+/*     // Handle an unknown error
     if (ec)
-        return send(server_error(ec.message()));
+        return send(server_error(ec.message())); */
 
 }

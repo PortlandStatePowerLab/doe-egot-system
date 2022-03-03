@@ -38,8 +38,10 @@ public:
     HttpsServer(const std::string &address, uint16_t port, const std::string &doc_root);
     ~HttpsServer();
     void Run ();
+    void Stop ();
 
 private:
+    bool stop;
     std::string address_;
     uint16_t port_;
     std::shared_ptr<std::string> doc_root_;

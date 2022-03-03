@@ -1,0 +1,113 @@
+[==========] Running 36 tests from 7 test suites.
+[----------] Global test environment set-up.
+[----------] 7 tests from TestActivePowerXML
+[ RUN      ] TestActivePowerXML.IsSampleValid
+[       OK ] TestActivePowerXML.IsSampleValid (30 ms)
+[ RUN      ] TestActivePowerXML.IsAdapterValid
+[       OK ] TestActivePowerXML.IsAdapterValid (23 ms)
+[ RUN      ] TestActivePowerXML.IsAdapterTranslationAccurate
+[       OK ] TestActivePowerXML.IsAdapterTranslationAccurate (2 ms)
+[ RUN      ] TestActivePowerXML.CheckAdapterMultiplierMaxInclusive
+at line 178 column 178, value '10' must be less than or equal to maxInclusive facet value '9'
+[       OK ] TestActivePowerXML.CheckAdapterMultiplierMaxInclusive (23 ms)
+[ RUN      ] TestActivePowerXML.CheckAdapterMultiplierMinInclusive
+at line 179 column 179, value '-10' must be greater than or equal to minInclusive facet value '-9'
+[       OK ] TestActivePowerXML.CheckAdapterMultiplierMinInclusive (22 ms)
+[ RUN      ] TestActivePowerXML.CheckAdapterValueMaxInclusive
+at line 197 column 197, value '32768' must be less than or equal to maxInclusive facet value '32767'
+[       OK ] TestActivePowerXML.CheckAdapterValueMaxInclusive (23 ms)
+[ RUN      ] TestActivePowerXML.CheckAdapterValueMinInclusive
+at line 198 column 198, value '-32769' must be greater than or equal to minInclusive facet value '-32768'
+[       OK ] TestActivePowerXML.CheckAdapterValueMinInclusive (22 ms)
+[----------] 7 tests from TestActivePowerXML (147 ms total)
+
+[----------] 5 tests from TestFlowReservationRequestXML
+[ RUN      ] TestFlowReservationRequestXML.IsSampleValid
+[       OK ] TestFlowReservationRequestXML.IsSampleValid (22 ms)
+[ RUN      ] TestFlowReservationRequestXML.IsAdapterValid
+[       OK ] TestFlowReservationRequestXML.IsAdapterValid (22 ms)
+[ RUN      ] TestFlowReservationRequestXML.IsAdapterTranslationAccurate
+[       OK ] TestFlowReservationRequestXML.IsAdapterTranslationAccurate (2 ms)
+[ RUN      ] TestFlowReservationRequestXML.CheckAdapterStatusMaxInclusive
+at line 621 column 621, value '2' must be less than or equal to maxInclusive facet value '1'
+[       OK ] TestFlowReservationRequestXML.CheckAdapterStatusMaxInclusive (21 ms)
+[ RUN      ] TestFlowReservationRequestXML.CheckAdapterStatusMinInclusive
+at line 622 column 622, value '-1' must be greater than or equal to minInclusive facet value '0'
+[       OK ] TestFlowReservationRequestXML.CheckAdapterStatusMinInclusive (22 ms)
+[----------] 5 tests from TestFlowReservationRequestXML (91 ms total)
+
+[----------] 9 tests from TestFlowReservationResponseXML
+[ RUN      ] TestFlowReservationResponseXML.IsSampleValid
+[       OK ] TestFlowReservationResponseXML.IsSampleValid (22 ms)
+[ RUN      ] TestFlowReservationResponseXML.IsAdapterValid
+[       OK ] TestFlowReservationResponseXML.IsAdapterValid (22 ms)
+[ RUN      ] TestFlowReservationResponseXML.IsAdapterTranslationAccurate
+[       OK ] TestFlowReservationResponseXML.IsAdapterTranslationAccurate (2 ms)
+[ RUN      ] TestFlowReservationResponseXML.CheckAdapterSubscribableMaxInclusive
+at line 243 column 243, value '4' not in enumeration
+[       OK ] TestFlowReservationResponseXML.CheckAdapterSubscribableMaxInclusive (22 ms)
+[ RUN      ] TestFlowReservationResponseXML.CheckAdapterSubscribableMinInclusive
+at line 244 column 244, value '-1' not in enumeration
+[       OK ] TestFlowReservationResponseXML.CheckAdapterSubscribableMinInclusive (22 ms)
+[ RUN      ] TestFlowReservationResponseXML.CheckAdapterResponseRequiredMaxInclusive
+at line 243 column 243, value '04' not in enumeration
+[       OK ] TestFlowReservationResponseXML.CheckAdapterResponseRequiredMaxInclusive (22 ms)
+[ RUN      ] TestFlowReservationResponseXML.CheckAdapterResponseRequiredNonHex
+at line 242 column 242, value '0' is invalid Hex-encoded binary
+[       OK ] TestFlowReservationResponseXML.CheckAdapterResponseRequiredNonHex (23 ms)
+[ RUN      ] TestFlowReservationResponseXML.CheckAdapterResponseCurrentStatusMaxInclusive
+at line 394 column 394, value '5' not in enumeration
+[       OK ] TestFlowReservationResponseXML.CheckAdapterResponseCurrentStatusMaxInclusive (23 ms)
+[ RUN      ] TestFlowReservationResponseXML.CheckAdapterResponseCurrentStatusMinInclusive
+at line 395 column 395, value '-1' not in enumeration
+[       OK ] TestFlowReservationResponseXML.CheckAdapterResponseCurrentStatusMinInclusive (22 ms)
+[----------] 9 tests from TestFlowReservationResponseXML (184 ms total)
+
+[----------] 3 tests from TestDeviceCapabilityXML
+[ RUN      ] TestDeviceCapabilityXML.IsSampleValid
+[       OK ] TestDeviceCapabilityXML.IsSampleValid (21 ms)
+[ RUN      ] TestDeviceCapabilityXML.IsAdapterValid
+[       OK ] TestDeviceCapabilityXML.IsAdapterValid (22 ms)
+[ RUN      ] TestDeviceCapabilityXML.IsAdapterTranslationAccurate
+[       OK ] TestDeviceCapabilityXML.IsAdapterTranslationAccurate (2 ms)
+[----------] 3 tests from TestDeviceCapabilityXML (47 ms total)
+
+[----------] 4 tests from TestEndDeviceXML
+[ RUN      ] TestEndDeviceXML.IsSampleValid
+[       OK ] TestEndDeviceXML.IsSampleValid (22 ms)
+[ RUN      ] TestEndDeviceXML.IsAdapterValid
+[       OK ] TestEndDeviceXML.IsAdapterValid (23 ms)
+[ RUN      ] TestEndDeviceXML.IsAdapterTranslationAccurate
+[       OK ] TestEndDeviceXML.IsAdapterTranslationAccurate (2 ms)
+[ RUN      ] TestEndDeviceXML.CheckAdapterDeviceCategoryMaxValue
+at line 305 column 305, value '4000000' does not match regular expression facet '[0-3]?[0-9A-F]{0,6}'
+[       OK ] TestEndDeviceXML.CheckAdapterDeviceCategoryMaxValue (22 ms)
+[----------] 4 tests from TestEndDeviceXML (70 ms total)
+
+[----------] 3 tests from TestSelfDeviceXML
+[ RUN      ] TestSelfDeviceXML.IsSampleValid
+[       OK ] TestSelfDeviceXML.IsSampleValid (21 ms)
+[ RUN      ] TestSelfDeviceXML.IsAdapterValid
+[       OK ] TestSelfDeviceXML.IsAdapterValid (22 ms)
+[ RUN      ] TestSelfDeviceXML.IsAdapterTranslationAccurate
+[       OK ] TestSelfDeviceXML.IsAdapterTranslationAccurate (2 ms)
+[----------] 3 tests from TestSelfDeviceXML (47 ms total)
+
+[----------] 5 tests from TestTimeXML
+[ RUN      ] TestTimeXML.IsSampleValid
+[       OK ] TestTimeXML.IsSampleValid (24 ms)
+[ RUN      ] TestTimeXML.IsAdapterValid
+[       OK ] TestTimeXML.IsAdapterValid (23 ms)
+[ RUN      ] TestTimeXML.IsAdapterTranslationAccurate
+[       OK ] TestTimeXML.IsAdapterTranslationAccurate (2 ms)
+[ RUN      ] TestTimeXML.CheckAdapterQualityMinValue
+at line 320 column 320, value '2' must be greater than or equal to minInclusive facet value '3'
+[       OK ] TestTimeXML.CheckAdapterQualityMinValue (22 ms)
+[ RUN      ] TestTimeXML.CheckAdapterQualityMaxValue
+at line 320 column 320, value '8' must be less than or equal to maxInclusive facet value '7'
+[       OK ] TestTimeXML.CheckAdapterQualityMaxValue (23 ms)
+[----------] 5 tests from TestTimeXML (95 ms total)
+
+[----------] Global test environment tear-down
+[==========] 36 tests from 7 test suites ran. (684 ms total)
+[  PASSED  ] 36 tests.

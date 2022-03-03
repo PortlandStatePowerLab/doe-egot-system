@@ -1,0 +1,16 @@
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HttpsServerTests
+[ RUN      ] HttpsServerTests.GetDeviceCapability
+Validator: 1
+GET /dcap HTTP/1.1
+Host: 0.0.0.0
+
+
+HTTP/1.1 200 OK
+Server: Boost.Beast/313
+Content-Type: application/sep+xml
+Content-Length: 819
+
+<?xml version="1.0" encoding="utf-8"?>
+<DeviceCapability pollRate="900" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ieee:std:2030.5:ns sep.xsd"><CustomerAccountListLink href="http://uri1" all="0"/><DemandResponseProgramListLink href="http://uri1" all="0"/><DERProgramListLink href="http://uri1" all="0"/><FileListLink href="http://uri1" all="0"/><MessagingProgramListLink href="http://uri1" all="0"/><PrepaymentListLink href="http://uri1" all="0"/><ResponseSetListLink href="http://uri1" all="0"/><TariffProfileListLink href="http://uri1" all="0"/><TimeLink href="http://uri1"/><UsagePointListLink href="http://uri1" all="0"/><MirrorUsagePointListLink href="http://uri1" all="0"/><SelfDeviceLink href="http://uri1"/></DeviceCapability>

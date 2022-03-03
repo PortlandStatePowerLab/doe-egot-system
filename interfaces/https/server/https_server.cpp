@@ -3,6 +3,9 @@
 #include "include/https/send_lambda.hpp"
 #include "include/https/handle_request.hpp"
 #include <boost/asio/ssl/rfc2818_verification.hpp>
+#include <world/world.hpp>
+#include <xml/adapter.hpp>
+#include <fstream>
 
 void Fail(beast::error_code ec, char const* what) 
 {
@@ -62,7 +65,8 @@ void DoSession(
 }
 
 HttpsServer::HttpsServer(const std::string &address, uint16_t port, const std::string &doc_root) 
-    : address_(address)
+    : stop(false)
+    , address_(address)
     , port_(port)
     , doc_root_(std::make_shared<std::string>(doc_root))
     , io_ctx_(1)
@@ -70,7 +74,27 @@ HttpsServer::HttpsServer(const std::string &address, uint16_t port, const std::s
     , acceptor_(io_ctx_, {net::ip::make_address(address_), port_})
 {
     load_server_certificate(doc_root, ssl_ctx_);
-    
+
+    World *ecs = World::getInstance();
+
+    // read in the sample file
+    std::string xml_str;
+    std::ifstream ifs(doc_root + "/sep_xml/DeviceCapability.xml");
+    if (ifs)
+    {
+        std::ostringstream oss;
+        oss << ifs.rdbuf();
+        xml_str = oss.str();    
+    }
+    else
+    {
+        std::cout << "couldn't open xml file" << std::endl;
+    };
+
+    sep::DeviceCapability *dcap = new sep::DeviceCapability;
+    xml::Parse(xml_str, dcap);
+    ecs->world.entity("/dcap")
+         .set<sep::DeviceCapability>(*dcap);
 }
 
 HttpsServer::~HttpsServer() 
@@ -80,7 +104,7 @@ HttpsServer::~HttpsServer()
 
 void HttpsServer::Run() 
 {
-    for(;;)
+    while(!stop)
     {
         // This will receive the new connection
         net::ip::tcp::socket socket{io_ctx_};
@@ -95,4 +119,10 @@ void HttpsServer::Run()
             std::ref(ssl_ctx_),
             doc_root_)}.detach();
     }
+}
+
+void HttpsServer::Stop()
+{
+    stop = true;
+    io_ctx_.stop();
 }

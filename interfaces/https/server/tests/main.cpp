@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <string>
+#include <https/https_server.hpp>
 
 std::string g_program_path;
 

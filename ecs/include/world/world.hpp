@@ -22,7 +22,7 @@ public:
     void Put(const Href& href, const std::string& message);
     void Delete(const Href& href);
 
-private:
+public:
     flecs::world world;
 
 private:
