@@ -92,8 +92,6 @@ void HandleRequest(
     http::request<Body, http::basic_fields<Allocator>> &&req,
     Send &&send)
 {
-    std::cout << req << std::endl;
-
     // Returns a bad request response
     auto const bad_request =
         [&req](beast::string_view why) {

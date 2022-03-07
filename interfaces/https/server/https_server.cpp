@@ -90,11 +90,6 @@ HttpsServer::HttpsServer(const std::string &address, uint16_t port, const std::s
     {
         std::cout << "couldn't open xml file" << std::endl;
     };
-
-    sep::DeviceCapability *dcap = new sep::DeviceCapability;
-    xml::Parse(xml_str, dcap);
-    ecs->world.entity("/dcap")
-         .set<sep::DeviceCapability>(*dcap);
 }
 
 HttpsServer::~HttpsServer() 
@@ -119,10 +114,12 @@ void HttpsServer::Run()
             std::ref(ssl_ctx_),
             doc_root_)}.detach();
     }
+
 }
 
 void HttpsServer::Stop()
 {
     stop = true;
     io_ctx_.stop();
+    acceptor_.close();
 }

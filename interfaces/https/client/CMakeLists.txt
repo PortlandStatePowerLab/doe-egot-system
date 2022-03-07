@@ -19,5 +19,3 @@ target_include_directories(${COMPONENT_NAME} PUBLIC
   ${Boost_INCLUDE_DIRS}
   ${OpenSSL_INCLUDE_DIRS}
 )
-
-add_subdirectory(tests)

@@ -23,5 +23,3 @@ target_include_directories(${COMPONENT_NAME} PUBLIC
   ${flecs_world_INCLUDE_DIRS}
   ${SEP_Models_INCLUDE_DIRS}
 )
-
-add_subdirectory(tests)

@@ -1,8 +1,8 @@
-set(COMPONENT_NAME https_server_tests)
+set(COMPONENT_NAME https_tests)
 
 add_executable (${COMPONENT_NAME}
     main.cpp
-    server.cpp
+    dcap_tests.cpp
 )
 
 target_link_libraries(${COMPONENT_NAME} 
