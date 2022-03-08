@@ -5,7 +5,6 @@
 #include <cstdint>
 #include <mutex>
 #include <flecs.h>
-#include <ieee-2030.5/support_models.hpp>
 
 class World
 {

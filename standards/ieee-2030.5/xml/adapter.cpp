@@ -46,14 +46,15 @@ namespace xml
         std::string Hexify(T number) 
         {
             std::string hex_str;
-            if (std::is_integral<T>::value)
+            if (std::is_integral<T>::value | boost::multiprecision::is_number<T>::value)
             {
                 std::stringstream ss;
                 ss << std::uppercase << std::hex << number;
                 hex_str = ss.str();
                 if (hex_str.length() % 2 > 0)
                 {
-                    hex_str.append("0");
+                    //hex_str.append("0");
+                    hex_str.insert(0,"0");
                     return hex_str;
                 }
             }
@@ -93,7 +94,7 @@ namespace xml
         pt.put("AbstractDevice.LogEventListLink.<xmlattr>.all",abstract_device.log_event_list_link.all);
         pt.put("AbstractDevice.LogEventListLink.<xmlattr>.href",abstract_device.log_event_list_link.href);
         pt.put("AbstractDevice.PowerStatusLink.<xmlattr>.href",abstract_device.power_status_link.href);
-        pt.put("AbstractDevice.sFDI",xml::util::Hexify(abstract_device.sfdi));
+        pt.put("AbstractDevice.sFDI",abstract_device.sfdi);
         xml::util::SetSchema(&pt);
         return xml::util::Stringify(pt);
     };
@@ -122,7 +123,7 @@ namespace xml
         abstract_device->log_event_list_link.all = pt.get<uint32_t>("AbstractDevice.LogEventListLink.<xmlattr>.all", 0);
         abstract_device->log_event_list_link.href = pt.get<std::string>("AbstractDevice.LogEventListLink.<xmlattr>.href", "");
         abstract_device->power_status_link.href = pt.get<std::string>("AbstractDevice.PowerStatusLink.<xmlattr>.href", "");
-        abstract_device->sfdi = xml::util::Dehexify<uint64_t>(pt.get<std::string>("AbstractDevice.sFDI", ""));
+        abstract_device->sfdi = pt.get<uint64_t>("AbstractDevice.sFDI", 0);
     };
 
     // Active Power
@@ -329,7 +330,7 @@ namespace xml
         pt.put("EndDevice.FileStatusLink.<xmlattr>.href", edev.file_status_link.href);
         pt.put("EndDevice.IPInterfaceListLink.<xmlattr>.href", edev.ip_interface_list_link.href);
         pt.put("EndDevice.IPInterfaceListLink.<xmlattr>.all", edev.ip_interface_list_link.all);
-        pt.put("EndDevice.lFDI", edev.lfdi);
+        pt.put("EndDevice.lFDI", xml::util::Hexify(edev.lfdi));
         pt.put("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.href", edev.load_shed_availability_list_link.href);
         pt.put("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.all", edev.load_shed_availability_list_link.all);
         pt.put("EndDevice.LogEventListLink.<xmlattr>.href", edev.log_event_list_link.href);
@@ -377,7 +378,7 @@ namespace xml
         edev->log_event_list_link.href  = pt.get<std::string>("EndDevice.LogEventListLink.<xmlattr>.href", "");
         edev->log_event_list_link.all  = pt.get<uint32_t>("EndDevice.LogEventListLink.<xmlattr>.all", 0);
         edev->power_status_link.href  = pt.get<std::string>("EndDevice.PowerStatusLink.<xmlattr>.href", "");
-        edev->sfdi = xml::util::Dehexify<uint64_t>(pt.get<std::string>("EndDevice.sFDI", ""));
+        edev->sfdi = pt.get<uint64_t>("EndDevice.sFDI", 0);
         edev->changed_time = pt.get<sep::TimeType>("EndDevice.changedTime", 0);
         edev->enabled = pt.get<bool>("EndDevice.enabled", false);
         edev->flow_reservation_request_list_link.href  = pt.get<std::string>("EndDevice.FlowReservationRequestListLink.<xmlattr>.href", "");
@@ -407,7 +408,7 @@ namespace xml
         pt.put("SelfDevice.FileStatusLink.<xmlattr>.href", sdev.file_status_link.href);
         pt.put("SelfDevice.IPInterfaceListLink.<xmlattr>.href", sdev.ip_interface_list_link.href);
         pt.put("SelfDevice.IPInterfaceListLink.<xmlattr>.all", sdev.ip_interface_list_link.all);
-        pt.put("SelfDevice.lFDI", sdev.lfdi);
+        pt.put("SelfDevice.lFDI", xml::util::Hexify(sdev.lfdi));
         pt.put("SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.href", sdev.load_shed_availability_list_link.href);
         pt.put("SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.all", sdev.load_shed_availability_list_link.all);
         pt.put("SelfDevice.LogEventListLink.<xmlattr>.href", sdev.log_event_list_link.href);
@@ -444,7 +445,7 @@ namespace xml
         sdev->log_event_list_link.href  = pt.get<std::string>("SelfDevice.LogEventListLink.<xmlattr>.href", "");
         sdev->log_event_list_link.all  = pt.get<uint32_t>("SelfDevice.LogEventListLink.<xmlattr>.all", 0);
         sdev->power_status_link.href  = pt.get<std::string>("SelfDevice.PowerStatusLink.<xmlattr>.href", "");
-        sdev->sfdi = xml::util::Dehexify<uint64_t>(pt.get<std::string>("SelfDevice.sFDI", ""));
+        sdev->sfdi = pt.get<uint64_t>("SelfDevice.sFDI", 0);
     }
     
     std::string Serialize(const sep::Time &time) 

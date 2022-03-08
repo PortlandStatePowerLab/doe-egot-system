@@ -3,6 +3,7 @@ find_package(Boost REQUIRED)
 add_executable (xml_tests
     main.cpp
     device_capability_tests.cpp
+    self_device_tests.cpp
 )
 
 target_link_libraries(xml_tests gtest gtest_main SEP_Models XML_Validator Boost::boost pthread)

@@ -22,7 +22,7 @@ namespace sep
         ListLink load_shed_availability_list_link;
         ListLink log_event_list_link;
         Link power_status_link;
-        uint8_t sfdi; 
+        uint64_t sfdi; 
     };
         
 } // namespace sep

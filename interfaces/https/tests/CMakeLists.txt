@@ -3,6 +3,7 @@ set(COMPONENT_NAME https_tests)
 add_executable (${COMPONENT_NAME}
     main.cpp
     dcap_tests.cpp
+    sdev_tests.cpp
 )
 
 target_link_libraries(${COMPONENT_NAME} 
@@ -11,6 +12,7 @@ target_link_libraries(${COMPONENT_NAME}
     https_server 
     https_client
     XML_Validator
+    flecs_world
     pthread)
 
 target_include_directories(
@@ -19,4 +21,5 @@ target_include_directories(
     ${https_server_INCLUDE_DIRS}
     ${https_client_INCLUDE_DIRS}
     ${XML_Validator_INCLUDE_DIRS}
+    f${lecs_world_INCLUDE_DIRS}
 )

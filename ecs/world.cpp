@@ -45,23 +45,6 @@ World::World()
     // dcap.response_set_list_link.all = 1;
     // dcap.response_set_list_link.href = "/rsps";
     // dcap.self_device_link.href = "/sdev";
-
-    // read in the sample file
-    std::ifstream ifs(g_program_path + "/sep_xml/DeviceCapability.xml");
-    if (ifs)
-    {
-        std::ostringstream oss;
-        oss << ifs.rdbuf();
-
-        sep::DeviceCapability dcap;
-        xml::Parse(oss.str(), &dcap);
-        world.entity("/dcap")
-            .set<sep::DeviceCapability>(dcap);
-    }
-    else
-    {
-        std::cout << "couldn't open xml file" << std::endl;
-    };
 };
 
 World::~World()
@@ -89,7 +72,7 @@ std::string World::Get(const Href &href)
     case (Uri::dcap):
     {
         auto e = world.lookup(href.uri.c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -101,8 +84,8 @@ std::string World::Get(const Href &href)
     break;
     case (Uri::sdev):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        auto e = world.lookup(href.uri.c_str());
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -115,7 +98,7 @@ std::string World::Get(const Href &href)
     case (Uri::edev):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -128,7 +111,7 @@ std::string World::Get(const Href &href)
     case (Uri::rg):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -141,7 +124,7 @@ std::string World::Get(const Href &href)
     case (Uri::dstat):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -154,7 +137,7 @@ std::string World::Get(const Href &href)
     case (Uri::fsa):
     {
         auto e = world.lookup(href.uri.c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -167,7 +150,7 @@ std::string World::Get(const Href &href)
     case (Uri::sub):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -180,7 +163,7 @@ std::string World::Get(const Href &href)
     case (Uri::ntfy):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -193,7 +176,7 @@ std::string World::Get(const Href &href)
     case (Uri::rsps):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -206,7 +189,7 @@ std::string World::Get(const Href &href)
     case (Uri::rsp):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -219,7 +202,7 @@ std::string World::Get(const Href &href)
     case (Uri::tm):
     {
         auto e = world.lookup(href.uri.c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -232,7 +215,7 @@ std::string World::Get(const Href &href)
     case (Uri::di):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -245,7 +228,7 @@ std::string World::Get(const Href &href)
     case (Uri::loc):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -258,7 +241,7 @@ std::string World::Get(const Href &href)
     case (Uri::ps):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -271,7 +254,7 @@ std::string World::Get(const Href &href)
     case (Uri::ns):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -284,7 +267,7 @@ std::string World::Get(const Href &href)
     case (Uri::addr):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -297,7 +280,7 @@ std::string World::Get(const Href &href)
     case (Uri::rpl):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -310,7 +293,7 @@ std::string World::Get(const Href &href)
     case (Uri::srt):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -323,7 +306,7 @@ std::string World::Get(const Href &href)
     case (Uri::ll):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -336,7 +319,7 @@ std::string World::Get(const Href &href)
     case (Uri::nbh):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -349,7 +332,7 @@ std::string World::Get(const Href &href)
     case (Uri::lel):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -362,7 +345,7 @@ std::string World::Get(const Href &href)
     case (Uri::cfg):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -375,7 +358,7 @@ std::string World::Get(const Href &href)
     case (Uri::prcfg):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -388,7 +371,7 @@ std::string World::Get(const Href &href)
     case (Uri::file):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -401,7 +384,7 @@ std::string World::Get(const Href &href)
     case (Uri::fs):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -414,7 +397,7 @@ std::string World::Get(const Href &href)
     case (Uri::dr):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -427,7 +410,7 @@ std::string World::Get(const Href &href)
     case (Uri::actedc):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -440,7 +423,7 @@ std::string World::Get(const Href &href)
     case (Uri::edc):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -453,7 +436,7 @@ std::string World::Get(const Href &href)
     case (Uri::lsl):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -466,7 +449,7 @@ std::string World::Get(const Href &href)
     case (Uri::upt):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -479,7 +462,7 @@ std::string World::Get(const Href &href)
     case (Uri::mr):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -492,7 +475,7 @@ std::string World::Get(const Href &href)
     case (Uri::rt):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -505,7 +488,7 @@ std::string World::Get(const Href &href)
     case (Uri::rs):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -518,7 +501,7 @@ std::string World::Get(const Href &href)
     case (Uri::r):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -531,7 +514,7 @@ std::string World::Get(const Href &href)
     case (Uri::mup):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -544,7 +527,7 @@ std::string World::Get(const Href &href)
     case (Uri::tp):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -557,7 +540,7 @@ std::string World::Get(const Href &href)
     case (Uri::rc):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -570,7 +553,7 @@ std::string World::Get(const Href &href)
     case (Uri::acttti):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -583,7 +566,7 @@ std::string World::Get(const Href &href)
     case (Uri::tti):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -596,7 +579,7 @@ std::string World::Get(const Href &href)
     case (Uri::cti):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -609,7 +592,7 @@ std::string World::Get(const Href &href)
     case (Uri::msg):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -622,7 +605,7 @@ std::string World::Get(const Href &href)
     case (Uri::acttxt):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -635,7 +618,7 @@ std::string World::Get(const Href &href)
     case (Uri::txt):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -648,7 +631,7 @@ std::string World::Get(const Href &href)
     case (Uri::bill):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -661,7 +644,7 @@ std::string World::Get(const Href &href)
     case (Uri::ca):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -674,7 +657,7 @@ std::string World::Get(const Href &href)
     case (Uri::actbp):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -687,7 +670,7 @@ std::string World::Get(const Href &href)
     case (Uri::bp):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -700,7 +683,7 @@ std::string World::Get(const Href &href)
     case (Uri::pro):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -713,7 +696,7 @@ std::string World::Get(const Href &href)
     case (Uri::brs):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -726,7 +709,7 @@ std::string World::Get(const Href &href)
     case (Uri::br):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -739,7 +722,7 @@ std::string World::Get(const Href &href)
     case (Uri::tar):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -752,7 +735,7 @@ std::string World::Get(const Href &href)
     case (Uri::ver):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -765,7 +748,7 @@ std::string World::Get(const Href &href)
     case (Uri::ss):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -778,7 +761,7 @@ std::string World::Get(const Href &href)
     case (Uri::ppy):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -791,7 +774,7 @@ std::string World::Get(const Href &href)
     case (Uri::ab):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -804,7 +787,7 @@ std::string World::Get(const Href &href)
     case (Uri::os):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -817,7 +800,7 @@ std::string World::Get(const Href &href)
     case (Uri::actsi):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -830,7 +813,7 @@ std::string World::Get(const Href &href)
     case (Uri::si):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -843,7 +826,7 @@ std::string World::Get(const Href &href)
     case (Uri::cr):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -856,7 +839,7 @@ std::string World::Get(const Href &href)
     case (Uri::frq):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -869,7 +852,7 @@ std::string World::Get(const Href &href)
     case (Uri::frp):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -882,7 +865,7 @@ std::string World::Get(const Href &href)
     case (Uri::der):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -895,7 +878,7 @@ std::string World::Get(const Href &href)
     case (Uri::aupt):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -908,7 +891,7 @@ std::string World::Get(const Href &href)
     case (Uri::derp):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -921,7 +904,7 @@ std::string World::Get(const Href &href)
     case (Uri::cdp):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -934,7 +917,7 @@ std::string World::Get(const Href &href)
     case (Uri::derg):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -947,7 +930,7 @@ std::string World::Get(const Href &href)
     case (Uri::ders):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -960,7 +943,7 @@ std::string World::Get(const Href &href)
     case (Uri::dercap):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -973,7 +956,7 @@ std::string World::Get(const Href &href)
     case (Uri::actderc):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -986,7 +969,7 @@ std::string World::Get(const Href &href)
     case (Uri::dderc):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }
@@ -999,7 +982,7 @@ std::string World::Get(const Href &href)
     case (Uri::dc):
     {
         auto e = world.lookup(prependLFDI(href).c_str());
-        if (e == NULL)
+        if (e.id() == 0)
         {
             response = "";
         }

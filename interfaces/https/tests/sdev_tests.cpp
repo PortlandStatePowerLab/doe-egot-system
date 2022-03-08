@@ -6,11 +6,11 @@
 #include <https/https_client.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
-#include <ieee-2030.5/device_capability.hpp>
+#include <ieee-2030.5/self_device.hpp>
 
 extern std::string g_program_path;
 
-class HttpsDeviceCapabilityTests : public ::testing::Test
+class HttpsSelfDeviceTests : public ::testing::Test
 {
 protected:
     void SetUp() override
@@ -18,13 +18,13 @@ protected:
         validator = new XmlValidator(g_program_path + "/sep_xml/sep.xsd");
 
         // read in the sample file
-        std::ifstream ifs(g_program_path + "/sep_xml/DeviceCapability.xml");
+        std::ifstream ifs(g_program_path + "/sep_xml/SelfDevice.xml");
         if (ifs)
         {
             std::ostringstream oss;
             oss << ifs.rdbuf();
             xml_str = oss.str();
-            xml::Parse(xml_str, &dcap_control);
+            xml::Parse(xml_str, &sdev_control);
         }
         else
         {
@@ -41,20 +41,20 @@ protected:
 protected:
     XmlValidator *validator;
     std::string xml_str;
-    sep::DeviceCapability dcap_control;
+    sep::SelfDevice sdev_control;
 };
 
-TEST_F(HttpsDeviceCapabilityTests, GetDeviceCapability)
+TEST_F(HttpsSelfDeviceTests, GetSelfDevice)
 {
     HttpsClient *client = HttpsClient::getInstance(g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client->Get("/dcap");
+        auto resp = client->Get("/sdev");    
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
-
-        sep::DeviceCapability dcap_test;
-        xml::Parse(msg, &dcap_test);
-        EXPECT_TRUE(dcap_control == dcap_test);
+        
+        sep::SelfDevice sdev_test;
+        xml::Parse(msg, &sdev_test);
+        EXPECT_TRUE(sdev_control == sdev_test);
     }
     catch (const std::exception &e)
     {
@@ -62,17 +62,17 @@ TEST_F(HttpsDeviceCapabilityTests, GetDeviceCapability)
     }
 }
 
-TEST_F(HttpsDeviceCapabilityTests, PostDeviceCapability)
+TEST_F(HttpsSelfDeviceTests, PostSelfDevice)
 {
     EXPECT_TRUE(false);
 }
 
-TEST_F(HttpsDeviceCapabilityTests, PutDeviceCapability)
+TEST_F(HttpsSelfDeviceTests, PutSelfDevice)
 {
     EXPECT_TRUE(false);
 }
 
-TEST_F(HttpsDeviceCapabilityTests, DeleteDeviceCapability)
+TEST_F(HttpsSelfDeviceTests, DeleteSelfDevice)
 {
     EXPECT_TRUE(false);
 }
