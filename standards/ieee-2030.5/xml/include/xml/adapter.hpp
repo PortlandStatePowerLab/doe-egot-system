@@ -55,6 +55,10 @@ namespace xml
     std::string Serialize(const sep::SelfDevice &sdev);
     void Parse(const std::string &xml_str, sep::SelfDevice *sdev);
 
+    // Registration
+    std::string Serialize(const sep::Registration &rg);
+    void Parse (const std::string &xml_str, sep::Registration* rg);
+
     // Time
     std::string Serialize(const sep::Time &time);
     void Parse(const std::string &xml_str, sep::Time *time);

@@ -117,7 +117,7 @@ std::string World::Get(const Href &href)
         }
         else
         {
-            // TODO: response = xml::Serialize(*e.get<sep::Registration>());
+            response = xml::Serialize(*e.get<sep::Registration>());
         }
     };
     break;

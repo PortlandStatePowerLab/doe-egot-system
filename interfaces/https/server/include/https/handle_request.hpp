@@ -148,6 +148,7 @@ void HandleRequest(
 
     // build href query for ecs
     // TODO: build regex for req.target()
+    // TODO: make sure lfdi is set through the verify_callback function
     Href href;
     href.lfdi = "0FB7"; // TODO
     href.uri = path;

@@ -55,6 +55,22 @@ int main(int argc, char **argv)
 
     world->world.entity("/sdev")
         .set<sep::SelfDevice>(sdev);
+
+    sample = readFile(g_program_path + "/sep_xml/EndDevice.xml");
+    sep::EndDevice edev;
+    xml::Parse(sample, &edev);
+
+    // TODO: This will need to be handled during the ECS registration system
+    world->world.entity("/0FB7/edev")
+        .set<sep::EndDevice>(edev);
+
+    sample = readFile(g_program_path + "/sep_xml/Registration.xml");
+    sep::Registration rg;
+    xml::Parse(sample, &rg);
+
+    // TODO: This will need to be handled during the ECS registration system
+    world->world.entity("/0FB7/rg")
+        .set<sep::Registration>(rg);
     
     // run server in seperate thread and detach for auto cleanup
     HttpsServer* https_server = new HttpsServer("0.0.0.0", 8080, g_program_path);

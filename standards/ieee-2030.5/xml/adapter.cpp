@@ -447,7 +447,28 @@ namespace xml
         sdev->power_status_link.href  = pt.get<std::string>("SelfDevice.PowerStatusLink.<xmlattr>.href", "");
         sdev->sfdi = pt.get<uint64_t>("SelfDevice.sFDI", 0);
     }
+
+     std::string Serialize(const sep::Registration &rg) 
+    {
+        boost::property_tree::ptree pt;
+        pt.put("Registration.<xmlattr>.pollRate", rg.poll_rate);
+        pt.put("Registration.<xmlattr>.href", rg.href);
+        pt.put("Registration.dateTimeRegistered", rg.date_time_registered);
+        pt.put("Registration.pIN", rg.pin);
+
+        xml::util::SetSchema(&pt);
+        return xml::util::Stringify(pt);
+    }
     
+    void Parse(const std::string &xml_str, sep::Registration *rg) 
+    {
+        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        rg->poll_rate = pt.get<uint32_t>("Registration.<xmlattr>.pollRate", 900);
+        rg->href = pt.get<std::string>("Registration.<xmlattr>.href", "");
+        rg->date_time_registered = pt.get<sep::TimeType>("Registration.dateTimeRegistered", 0);
+        rg->pin = pt.get<sep::PINType>("Registration.pIN", 0);
+    }
+
     std::string Serialize(const sep::Time &time) 
     {
         boost::property_tree::ptree pt;

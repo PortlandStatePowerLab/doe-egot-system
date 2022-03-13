@@ -12,6 +12,15 @@ namespace sep
         TimeType date_time_registered;
         PINType pin;
         uint32_t poll_rate = 900;
+
+        friend bool operator == (const Registration& lhs, const Registration& rhs)
+        {
+            return
+                (lhs.poll_rate == rhs.poll_rate)
+                && (lhs.href == rhs.href)
+                && (lhs.date_time_registered == rhs.date_time_registered)
+                && (lhs.pin == rhs.pin);
+        };
     };
     
 } // namespace sep

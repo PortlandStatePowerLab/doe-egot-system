@@ -4,6 +4,8 @@ add_executable (${COMPONENT_NAME}
     main.cpp
     dcap_tests.cpp
     sdev_tests.cpp
+    edev_tests.cpp
+    rg_tests.cpp
 )
 
 target_link_libraries(${COMPONENT_NAME} 
