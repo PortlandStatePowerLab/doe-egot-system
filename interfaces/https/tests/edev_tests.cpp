@@ -18,7 +18,7 @@ protected:
         validator = new XmlValidator(g_program_path + "/sep_xml/sep.xsd");
 
         // read in the sample file
-        std::ifstream ifs(g_program_path + "/sep_xml/EndDevice.xml");
+        std::ifstream ifs(g_program_path + "/registration/6cd635a28e6f38dcd68c2681f2ab61a0fe1a6048/EndDevice.xml");
         if (ifs)
         {
             std::ostringstream oss;

@@ -16,6 +16,7 @@
 #include <cstddef>
 #include <memory>
 #include <iostream>
+#include <sstream>
 
 /*  Load a signed certificate into the ssl context, and configure
     the context for use with a server.
@@ -26,52 +27,6 @@
     accompanying the Beast certificate for more details.
 */
 
-
-
-// This is temporary since I was struggling to get rfc 2818 to validate with self
-// signed certificates on the localhost.
-static bool verify_certificate_simple(bool preverified, boost::asio::ssl::verify_context& ctx)
-{
-    X509_STORE_CTX *cts = ctx.native_handle();
-    char subject_name[256];
-    X509* cert = X509_STORE_CTX_get_current_cert(cts);
-    X509_NAME_oneline(X509_get_subject_name(cert), subject_name, 256);
-
-    // fingerprint
-    const EVP_MD *digest = EVP_get_digestbyname("sha256");
-    unsigned char md[EVP_MAX_MD_SIZE];
-    unsigned int n;
-    X509_digest(cert, digest, md, &n);
-
-    switch (X509_STORE_CTX_get_error(cts))
-    {
-    case X509_V_ERR_UNABLE_TO_DECRYPT_CERT_SIGNATURE:
-        std::cout << "the certificate signature could not be decrypted" << std::endl;
-        preverified = false;
-        break;
-    case X509_V_ERR_UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY:
-        std::cout << "the public key in the certificate SubjectPublicKeyInfo could not be read" << std::endl;
-        preverified = false;
-        break;
-    case X509_V_ERR_CERT_SIGNATURE_FAILURE:
-        std::cout << "the signature of the certificate is invalid" << std::endl;
-        preverified = false;
-        break;
-    case X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT:
-        std::cout << "the passed certificate is self signed and the same certificate cannot be found in the list of trusted certificates" << std::endl;
-        preverified = false;
-        break;
-    case X509_V_ERR_SUBJECT_ISSUER_MISMATCH:
-        std::cout << "the current candidate issuer certificate was rejected because its subject name did not match the issuer name of the current certificate" << std::endl;
-        preverified = false;
-        break;
-    default:
-        //std::cout << "error: " <<  X509_STORE_CTX_get_error(cts) << std::endl;
-        preverified = true;
-        break;
-    }
-}
-
 inline void
 load_server_certificate(const std::string &root, boost::asio::ssl::context &ctx)
 {
@@ -80,13 +35,8 @@ load_server_certificate(const std::string &root, boost::asio::ssl::context &ctx)
     ctx.use_certificate_file(root + "/root-ca/server.crt", boost::asio::ssl::context::pem);
     ctx.use_private_key_file(root + "/root-ca/private/server.key", boost::asio::ssl::context::pem);
     ctx.set_options(
-      boost::asio::ssl::context::default_workarounds |
-      boost::asio::ssl::context::single_dh_use
-    );
-
-    ctx.set_verify_callback(
-        boost::bind(&verify_certificate_simple, true, _2)
-    );
+        boost::asio::ssl::context::default_workarounds |
+        boost::asio::ssl::context::single_dh_use);
 
     std::string const dh =
         "-----BEGIN DH PARAMETERS-----\n"

@@ -88,6 +88,7 @@ path_cat(
 // caller to pass a generic lambda for receiving the response.
 template <class Body, class Allocator, class Send>
 void HandleRequest(
+    const std::string fingerprint,
     std::shared_ptr<std::string> doc_root,
     http::request<Body, http::basic_fields<Allocator>> &&req,
     Send &&send)
@@ -150,9 +151,11 @@ void HandleRequest(
     // TODO: build regex for req.target()
     // TODO: make sure lfdi is set through the verify_callback function
     Href href;
-    href.lfdi = "0FB7"; // TODO
+    href.lfdi = fingerprint; // TODO
     href.uri = path;
     href.query = {0,0,0};
+
+    std::cout << "HREF Fingerprint: " << href.lfdi << std::endl;
 
 /*     // Handle the case where the file doesn't exist
     if(ec == beast::errc::no_such_file_or_directory)

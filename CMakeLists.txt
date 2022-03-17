@@ -45,8 +45,8 @@ add_subdirectory(interfaces)
 # install resources for programs
 execute_process(
     COMMAND ${CMAKE_COMMAND} -E copy_directory 
-    ${CMAKE_CURRENT_SOURCE_DIR}/resources/sep_xml/
-    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/sep_xml
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/
 )
 
 execute_process(
