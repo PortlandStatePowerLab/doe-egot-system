@@ -1,3 +1,4 @@
+#define BOOST_BIND_GLOBAL_PLACEHOLDERS // had to to remove boost warning
 #include "include/https/https_server.hpp"
 #include "include/https/server_certificates.hpp"
 #include "include/https/send_lambda.hpp"
@@ -7,6 +8,8 @@
 #include <xml/adapter.hpp>
 #include <fstream>
 #include <boost/asio/ssl.hpp>
+#include <boost/bind/bind.hpp>
+
 
 void Fail(beast::error_code ec, char const *what)
 {
@@ -29,20 +32,20 @@ void DoSession(
     auto VerifyCallback = [&fingerprint](bool preverified, boost::asio::ssl::verify_context &ctx) mutable
     {
         X509_STORE_CTX *cts = ctx.native_handle();
-        char subject_name[256];
         X509 *cert = X509_STORE_CTX_get_current_cert(cts);
-        X509_NAME_oneline(X509_get_subject_name(cert), subject_name, 256);
+        std::cout << "PKEY: " << X509_get_X509_PUBKEY(cert) << std::endl;
 
         // fingerprint
-        const EVP_MD *digest = EVP_get_digestbyname("sha256");
-        unsigned char md[20]; // 40 hex character length
+        unsigned char md[EVP_MAX_MD_SIZE];
         unsigned int n;
-        X509_digest(cert, digest, md, &n);
+        X509_digest(cert, EVP_sha256(), md, &n);
+    
 
+        // 40 hex character length for fingerprint
         std::ostringstream oss;
-        for (auto m : md)
+        for (size_t i=0; i<20 || i>n; i++)
         {
-            oss << std::hex << (int)m;
+            oss << std::hex << (int)md[i];
         };
         fingerprint = oss.str();
 
@@ -73,7 +76,7 @@ void DoSession(
     };
 
     ctx.set_verify_callback(
-        boost::bind<bool>(VerifyCallback, false, _2)
+        boost::bind<bool>(VerifyCallback, false, boost::placeholders::_2)
     );
 
     // Construct the stream around the socket
