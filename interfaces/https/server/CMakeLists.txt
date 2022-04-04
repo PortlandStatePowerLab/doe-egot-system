@@ -9,6 +9,7 @@ add_library( ${PROJECT_NAME}::${COMPONENT_NAME} ALIAS ${COMPONENT_NAME} )
 
 target_link_libraries(${COMPONENT_NAME} PUBLIC
   Boost::boost
+  Boost::filesystem
   OpenSSL::SSL
   flecs_world
   SEP_Models

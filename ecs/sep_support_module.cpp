@@ -17,8 +17,7 @@ SupportModule::SupportModule(flecs::world& ecs)
     ecs.component<sep::SelfDevice>();
     ecs.component<sep::Response>();
 
-    /* Register system */
-    
+    /* Register system */    
 }
 
 } // namespace sep

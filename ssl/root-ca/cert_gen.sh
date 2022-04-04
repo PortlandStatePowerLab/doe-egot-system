@@ -12,6 +12,10 @@ openssl ca -batch\
     -in client$ctr.csr \
     -out client$ctr.crt \
     -extensions client_ext
+    
+# create resources/registration/LFDI
+# generate enddevice.xml
+# generate registration.xml
 
 ((ctr++))
 done

@@ -9,6 +9,7 @@
 #include <fstream>
 #include <boost/asio/ssl.hpp>
 #include <boost/bind/bind.hpp>
+#include <boost/filesystem.hpp>
 
 
 void Fail(beast::error_code ec, char const *what)
@@ -33,7 +34,6 @@ void DoSession(
     {
         X509_STORE_CTX *cts = ctx.native_handle();
         X509 *cert = X509_STORE_CTX_get_current_cert(cts);
-        std::cout << "PKEY: " << X509_get_X509_PUBKEY(cert) << std::endl;
 
         // fingerprint
         unsigned char md[EVP_MAX_MD_SIZE];
@@ -126,11 +126,35 @@ HttpsServer::HttpsServer(const std::string &address, uint16_t port, const std::s
     : stop(false), address_(address), port_(port), doc_root_(std::make_shared<std::string>(doc_root)), io_ctx_(1), ssl_ctx_(boost::asio::ssl::context::tlsv12_server), acceptor_(io_ctx_, {net::ip::make_address(address_), port_})
 {
     load_server_certificate(doc_root, ssl_ctx_);
+    Initialize(doc_root);
 }
 
 HttpsServer::~HttpsServer()
 {
     // do nothing
+}
+
+void HttpsServer::Initialize(const std::string& doc_root)
+{
+    boost::filesystem::path p = doc_root + "/root-ca";
+    if (boost::filesystem::exists(p))    // does path p actually exist?
+    {
+        if (boost::filesystem::is_directory(p))      // is path p a directory?
+        {
+            for(auto& entry : boost::make_iterator_range(boost::filesystem::directory_iterator(p), {}))
+            {
+                std::cout << entry << "\n";
+            }
+        }
+        else
+        {
+            std::cout << p << " exists, but is not a regular file or directory\n";
+        }
+    }
+    else
+    {
+        std::cout << p << " does not exist\n";
+    }
 }
 
 void HttpsServer::Run()

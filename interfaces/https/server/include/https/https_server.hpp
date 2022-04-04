@@ -37,6 +37,7 @@ public:
     void operator=(const HttpsServer&) = delete;    // assignable
     HttpsServer(const std::string &address, uint16_t port, const std::string &doc_root);
     ~HttpsServer();
+    void Initialize(const std::string &doc_root);
     void Run ();
     void Stop ();
 
