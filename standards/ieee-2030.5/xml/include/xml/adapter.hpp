@@ -24,7 +24,11 @@ namespace xml
         std::string Hexify (T number);
         template <typename T>
         T Dehexify (const std::string hexidecimal);
-
+        template <typename T>
+        uint8_t Checksum (T value);
+        bool validateSFDI (const uint64_t sfdi);
+        uint64_t getSFDI (const std::string& lfdi);
+        uint32_t generatePIN (const std::string& lfdi);
     } // namespace util
 
     // Active Power

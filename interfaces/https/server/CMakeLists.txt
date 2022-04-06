@@ -13,6 +13,7 @@ target_link_libraries(${COMPONENT_NAME} PUBLIC
   OpenSSL::SSL
   flecs_world
   SEP_Models
+  utilities
   pthread
 )
 
@@ -23,4 +24,5 @@ target_include_directories(${COMPONENT_NAME} PUBLIC
   ${OpenSSL_INCLUDE_DIRS}
   ${flecs_world_INCLUDE_DIRS}
   ${SEP_Models_INCLUDE_DIRS}
+  ${utilities_INCLUDE_DIRS}
 )

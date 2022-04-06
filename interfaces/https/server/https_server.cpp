@@ -6,11 +6,19 @@
 #include <boost/asio/ssl/rfc2818_verification.hpp>
 #include <world/world.hpp>
 #include <xml/adapter.hpp>
+#include <ieee-2030.5/models.hpp>
 #include <fstream>
 #include <boost/asio/ssl.hpp>
 #include <boost/bind/bind.hpp>
 #include <boost/filesystem.hpp>
+#include <utilities/utilities.hpp>
 
+bool isClientCertification(const boost::filesystem::directory_entry &entry)
+{
+    std::string filename = entry.path().filename().string();
+    return filename.find("client") != std::string::npos &&
+           entry.path().extension() == ".crt";
+}
 
 void Fail(beast::error_code ec, char const *what)
 {
@@ -39,11 +47,10 @@ void DoSession(
         unsigned char md[EVP_MAX_MD_SIZE];
         unsigned int n;
         X509_digest(cert, EVP_sha256(), md, &n);
-    
 
         // 40 hex character length for fingerprint
         std::ostringstream oss;
-        for (size_t i=0; i<20 || i>n; i++)
+        for (size_t i = 0; i < 20 || i > n; i++)
         {
             oss << std::hex << (int)md[i];
         };
@@ -76,8 +83,7 @@ void DoSession(
     };
 
     ctx.set_verify_callback(
-        boost::bind<bool>(VerifyCallback, false, boost::placeholders::_2)
-    );
+        boost::bind<bool>(VerifyCallback, false, boost::placeholders::_2));
 
     // Construct the stream around the socket
     beast::ssl_stream<net::ip::tcp::socket &> stream{socket, ctx};
@@ -134,29 +140,6 @@ HttpsServer::~HttpsServer()
     // do nothing
 }
 
-void HttpsServer::Initialize(const std::string& doc_root)
-{
-    boost::filesystem::path p = doc_root + "/root-ca";
-    if (boost::filesystem::exists(p))    // does path p actually exist?
-    {
-        if (boost::filesystem::is_directory(p))      // is path p a directory?
-        {
-            for(auto& entry : boost::make_iterator_range(boost::filesystem::directory_iterator(p), {}))
-            {
-                std::cout << entry << "\n";
-            }
-        }
-        else
-        {
-            std::cout << p << " exists, but is not a regular file or directory\n";
-        }
-    }
-    else
-    {
-        std::cout << p << " does not exist\n";
-    }
-}
-
 void HttpsServer::Run()
 {
     while (!stop)
@@ -182,4 +165,102 @@ void HttpsServer::Stop()
     stop = true;
     io_ctx_.stop();
     acceptor_.close();
+}
+
+void HttpsServer::generateEndDevice(const std::string &lfdi)
+{
+    sep::EndDevice edev;
+    edev.subscribable = sep::SubscribableType::kNone;
+    edev.href = "/edev";
+    edev.configuration_link.href = "/cfg";
+    edev.der_list_link.all = 0;
+    edev.der_list_link.href = "/der";
+    edev.device_category = sep::DeviceCategoryType::kSmartAppliance;
+    edev.device_information_link.href = "/di";
+    edev.device_status_link.href = "/ds";
+    edev.file_status_link.href = "/fs";
+    edev.ip_interface_list_link.all = 0;
+    edev.ip_interface_list_link.href = "/ns";
+    edev.lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(lfdi);
+    edev.load_shed_availability_list_link.all = 0;
+    edev.load_shed_availability_list_link.href = "/lsl";
+    edev.log_event_list_link.all = 0;
+    edev.log_event_list_link.href = "/lel";
+    edev.power_status_link.href = "/ps";
+    edev.sfdi = xml::util::getSFDI(lfdi);
+    edev.changed_time = psu::utilities::getTime();
+    edev.enabled = true;
+    edev.flow_reservation_request_list_link.all = 0;
+    edev.flow_reservation_request_list_link.href = "/frq";
+    edev.flow_reservation_response_list_link.all = 0;
+    edev.flow_reservation_response_list_link.href = "/frp";
+    edev.function_set_assignments_list_link.all = 0;
+    edev.function_set_assignments_list_link.href = "/fsa";
+    edev.post_rate = 900;
+    edev.registration_link.href = "/rg";
+    edev.subscription_list_link.all = 0;
+    edev.subscription_list_link.href = "/sub";
+
+    std::string entity_id = "/" + lfdi + edev.href;
+    World* ecs = World::getInstance();
+    ecs->world.entity(entity_id.c_str()).set<sep::EndDevice>(edev);
+}
+
+void HttpsServer::generateRegistration(const std::string &lfdi)
+{
+    sep::Registration rg;
+    rg.href = "/rg";
+    rg.poll_rate = 900;
+    rg.date_time_registered = psu::utilities::getTime();
+    rg.pin = xml::util::generatePIN(lfdi);
+
+    std::string entity_id = "/" + lfdi + rg.href;
+    World* ecs = World::getInstance();
+    ecs->world.entity(entity_id.c_str()).set<sep::Registration>(rg);
+}
+
+void HttpsServer::Initialize(const std::string &doc_root)
+{
+    boost::filesystem::path p = doc_root + "/root-ca";
+    if (boost::filesystem::exists(p)) // does path p actually exist?
+    {
+        if (boost::filesystem::is_directory(p)) // is path p a directory?
+        {
+            for (auto &entry : boost::make_iterator_range(boost::filesystem::directory_iterator(p), {}))
+            {
+                if (isClientCertification(entry))
+                {
+                    FILE *fp = fopen(entry.path().c_str(), "r");
+                    X509 *cert = PEM_read_X509(fp, NULL, NULL, NULL);
+
+                    // fingerprint
+                    unsigned char md[EVP_MAX_MD_SIZE];
+                    unsigned int n;
+                    X509_digest(cert, EVP_sha256(), md, &n);
+
+                    // 40 hex character length for fingerprint
+                    std::ostringstream oss;
+                    for (size_t i = 0; i < n; i++)
+                    {
+                        oss << std::hex << (int)md[i];
+                    };
+                    std::string lfdi = oss.str().substr(0, 40);
+
+                    generateEndDevice(lfdi);
+                    generateRegistration(lfdi);
+                    
+                    X509_free(cert);
+                    fclose(fp);
+                }
+            }
+        }
+        else
+        {
+            std::cout << p << " exists, but is not a regular file or directory\n";
+        }
+    }
+    else
+    {
+        std::cout << p << " does not exist\n";
+    }
 }

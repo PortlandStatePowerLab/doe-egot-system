@@ -70,6 +70,45 @@ namespace xml
             ss >> number;
             return number;
         };
+
+        template <typename T>
+        uint8_t Checksum (T value)
+        {
+            T remainder, total;
+            for (total = 0; value > 0; value = value / 10)
+            {
+                remainder = value % 10;
+                total += remainder;
+            }
+
+            uint8_t checksum = total % 10;
+            if (checksum == 0)
+            {
+                return checksum;
+            }
+            return 10 - (total % 10);
+        }
+
+        bool validateSFDI (const uint64_t sfdi)
+        {
+            return Checksum(sfdi) == 0;
+        }
+
+        uint64_t getSFDI (const std::string& lfdi)
+        {
+            uint64_t sfdi = Dehexify<uint64_t>(lfdi.substr(0,9));
+            uint8_t checksum = Checksum(sfdi);
+            return (sfdi*10) + checksum;
+        }
+
+        uint32_t generatePIN (const std::string& lfdi)
+        {
+            uint64_t sfdi = Dehexify<uint64_t>(lfdi.substr(0,9));
+            std::string pin = std::to_string(sfdi);
+            sfdi = std::stol(pin.substr(0,5));
+            uint8_t checksum = Checksum(sfdi);
+            return (sfdi*10) + checksum;
+        }
                 
         }; // namespace util
 
