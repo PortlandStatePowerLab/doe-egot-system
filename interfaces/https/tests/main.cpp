@@ -7,13 +7,184 @@
 #include <xml/adapter.hpp>
 #include <world/world.hpp>
 #include <utilities/utilities.hpp>
+#include <boost/filesystem.hpp>
 
 std::string g_program_path;
+
+
+bool isClientCertification(const boost::filesystem::directory_entry &entry)
+{
+    std::string filename = entry.path().filename().string();
+    return filename.find("client") != std::string::npos &&
+           entry.path().extension() == ".crt";
+}
+
+void generateDeviceCapabilities ()
+{
+    sep::DeviceCapability dcap;
+    dcap.poll_rate = 900;
+    dcap.href = "/dcap";
+    dcap.customer_account_list_link.all = 0;
+    dcap.customer_account_list_link.href = "/bill";
+    dcap.demand_response_program_list_link.all = 0;
+    dcap.demand_response_program_list_link.href = "/dr";
+    dcap.der_program_list_link.all = 0;
+    dcap.der_program_list_link.href = "/derp";
+    dcap.file_list_link.all = 0;
+    dcap.file_list_link.href = "/file";
+    dcap.messaging_program_list_link.all = 0;
+    dcap.messaging_program_list_link.href = "/msg";
+    dcap.prepayment_list_link.all = 0;
+    dcap.prepayment_list_link.href = "/ppy";
+    dcap.response_set_list_link.all = 0;
+    dcap.response_set_list_link.href = "/rsps";
+    dcap.tariff_profile_list_link.all = 0;
+    dcap.tariff_profile_list_link.href = "/tp";
+    dcap.time_link.href = "/tm";
+    dcap.usage_point_list_link.all = 0;
+    dcap.usage_point_list_link.href = "/upt";
+    dcap.end_device_list_link.all = 0;
+    dcap.end_device_list_link.href = "/edev";
+    dcap.mirror_usage_point_list_link.all = 0;
+    dcap.mirror_usage_point_list_link.href = "/mup";
+    dcap.self_device_link.href = "/sdev";
+
+    World* ecs = World::getInstance();
+    ecs->world.entity(dcap.href.c_str()).set<sep::DeviceCapability>(dcap);
+};
+
+void generateEndDevice(const std::string &lfdi)
+{
+    sep::EndDevice edev;
+    edev.subscribable = sep::SubscribableType::kNone;
+    edev.href = "/edev";
+    edev.configuration_link.href = "/cfg";
+    edev.der_list_link.all = 0;
+    edev.der_list_link.href = "/der";
+    edev.device_category = sep::DeviceCategoryType::kSmartAppliance;
+    edev.device_information_link.href = "/di";
+    edev.device_status_link.href = "/ds";
+    edev.file_status_link.href = "/fs";
+    edev.ip_interface_list_link.all = 0;
+    edev.ip_interface_list_link.href = "/ns";
+    edev.lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(lfdi);
+    edev.load_shed_availability_list_link.all = 0;
+    edev.load_shed_availability_list_link.href = "/lsl";
+    edev.log_event_list_link.all = 0;
+    edev.log_event_list_link.href = "/lel";
+    edev.power_status_link.href = "/ps";
+    edev.sfdi = xml::util::getSFDI(lfdi);
+    edev.changed_time = psu::utilities::getTime();
+    edev.enabled = true;
+    edev.flow_reservation_request_list_link.all = 0;
+    edev.flow_reservation_request_list_link.href = "/frq";
+    edev.flow_reservation_response_list_link.all = 0;
+    edev.flow_reservation_response_list_link.href = "/frp";
+    edev.function_set_assignments_list_link.all = 0;
+    edev.function_set_assignments_list_link.href = "/fsa";
+    edev.post_rate = 900;
+    edev.registration_link.href = "/rg";
+    edev.subscription_list_link.all = 0;
+    edev.subscription_list_link.href = "/sub";
+
+    std::string entity_id = "/" + lfdi + edev.href;
+    World* ecs = World::getInstance();
+    ecs->world.entity(entity_id.c_str()).set<sep::EndDevice>(edev);
+};
+
+void generateSelfDevice (const std::string& lfdi)
+{
+    sep::SelfDevice sdev;
+    sdev.subscribable = sep::SubscribableType::kNone;
+    sdev.href = "/sdev";
+    sdev.configuration_link.href = "/cfg";
+    sdev.der_list_link.all = 0;
+    sdev.der_list_link.href = "/der";
+    sdev.device_category = sep::DeviceCategoryType::kSmartAppliance;
+    sdev.device_information_link.href = "/di";
+    sdev.device_status_link.href = "/ds";
+    sdev.file_status_link.href = "/fs";
+    sdev.ip_interface_list_link.all = 0;
+    sdev.ip_interface_list_link.href = "/ns";
+    sdev.lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(lfdi);
+    sdev.load_shed_availability_list_link.all = 0;
+    sdev.load_shed_availability_list_link.href = "/lsl";
+    sdev.log_event_list_link.all = 0;
+    sdev.log_event_list_link.href = "/lel";
+    sdev.power_status_link.href = "/ps";
+    sdev.sfdi = xml::util::getSFDI(lfdi);
+
+    std::string entity_id = "/" + lfdi + sdev.href;
+    World* ecs = World::getInstance();
+    ecs->world.entity(entity_id.c_str()).set<sep::SelfDevice>(sdev);
+};
+
+void generateRegistration(const std::string &lfdi)
+{
+    sep::Registration rg;
+    rg.href = "/rg";
+    rg.poll_rate = 900;
+    rg.date_time_registered = psu::utilities::getTime();
+    rg.pin = xml::util::generatePIN(lfdi);
+
+    std::string entity_id = "/" + lfdi + rg.href;
+    World* ecs = World::getInstance();
+    ecs->world.entity(entity_id.c_str()).set<sep::Registration>(rg);
+};
+
+void Initialize(const std::string &doc_root)
+{
+    generateDeviceCapabilities();
+    
+    boost::filesystem::path p = doc_root + "/root-ca";
+    if (boost::filesystem::exists(p)) // does path p actually exist?
+    {
+        if (boost::filesystem::is_directory(p)) // is path p a directory?
+        {
+            for (auto &entry : boost::make_iterator_range(boost::filesystem::directory_iterator(p), {}))
+            {
+                if (isClientCertification(entry))
+                {
+                    FILE *fp = fopen(entry.path().c_str(), "r");
+                    X509 *cert = PEM_read_X509(fp, NULL, NULL, NULL);
+
+                    // fingerprint
+                    unsigned char md[EVP_MAX_MD_SIZE];
+                    unsigned int n;
+                    X509_digest(cert, EVP_sha256(), md, &n);
+
+                    // 40 hex character length for fingerprint
+                    std::ostringstream oss;
+                    for (size_t i = 0; i < n; i++)
+                    {
+                        oss << std::hex << (int)md[i];
+                    };
+                    std::string lfdi = oss.str().substr(0, 40);
+
+                    generateEndDevice(lfdi);
+                    generateSelfDevice(lfdi);
+                    generateRegistration(lfdi);
+                    
+                    X509_free(cert);
+                    fclose(fp);
+                }
+            }
+        }
+        else
+        {
+            std::cout << p << " exists, but is not a regular file or directory\n";
+        }
+    }
+    else
+    {
+        std::cout << p << " does not exist\n";
+    }
+};
 
 int main(int argc, char **argv) 
 {
     g_program_path = psu::utilities::getProgramPath(argv);
-    World* world = World::getInstance();
+    Initialize(g_program_path);
     
     // run server in seperate thread and detach for auto cleanup
     HttpsServer* https_server = new HttpsServer("0.0.0.0", 8080, g_program_path);
