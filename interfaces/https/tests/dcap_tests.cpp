@@ -16,21 +16,6 @@ protected:
     void SetUp() override
     {
         validator = new XmlValidator(g_program_path + "/sep_xml/sep.xsd");
-
-        // read in the sample file
-        std::ifstream ifs(g_program_path + "/sep_xml/DeviceCapability.xml");
-        if (ifs)
-        {
-            std::ostringstream oss;
-            oss << ifs.rdbuf();
-            xml_str = oss.str();
-            xml::Parse(xml_str, &dcap_control);
-        }
-        else
-        {
-            std::cout << "couldn't open xml file" << std::endl;
-        };
-        ifs.close();
     }
 
     void TearDown() override
@@ -40,21 +25,20 @@ protected:
 
 protected:
     XmlValidator *validator;
-    std::string xml_str;
-    sep::DeviceCapability dcap_control;
 };
 
 TEST_F(HttpsDeviceCapabilityTests, GetDeviceCapability)
 {
-    HttpsClient *client = HttpsClient::getInstance(g_program_path, "0.0.0.0", "8080");
+    HttpsClient *client = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
         auto resp = client->Get("/dcap");
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
+        EXPECT_TRUE(validator->ValidateXml(msg));
 
-        sep::DeviceCapability dcap_test;
-        xml::Parse(msg, &dcap_test);
-        EXPECT_TRUE(dcap_control == dcap_test);
+        sep::DeviceCapability dcap;
+        xml::Parse(msg, &dcap);
+        EXPECT_TRUE(dcap.href == "/dcap");       
     }
     catch (const std::exception &e)
     {

@@ -50,11 +50,11 @@ void DoSession(
 
         // 40 hex character length for fingerprint
         std::ostringstream oss;
-        for (size_t i = 0; i < 20 || i > n; i++)
+        for (size_t i = 0; i < n; i++)
         {
             oss << std::hex << (int)md[i];
         };
-        fingerprint = oss.str();
+        fingerprint = oss.str().substr(0, 40);
 
         // This switch will capture all errors we find relavent and if
         // they are not found then we verify the certificate.
@@ -167,6 +167,40 @@ void HttpsServer::Stop()
     acceptor_.close();
 }
 
+void HttpsServer::generateDeviceCapabilities ()
+{
+    sep::DeviceCapability dcap;
+    dcap.poll_rate = 900;
+    dcap.href = "/dcap";
+    dcap.customer_account_list_link.all = 0;
+    dcap.customer_account_list_link.href = "/bill";
+    dcap.demand_response_program_list_link.all = 0;
+    dcap.demand_response_program_list_link.href = "/dr";
+    dcap.der_program_list_link.all = 0;
+    dcap.der_program_list_link.href = "/derp";
+    dcap.file_list_link.all = 0;
+    dcap.file_list_link.href = "/file";
+    dcap.messaging_program_list_link.all = 0;
+    dcap.messaging_program_list_link.href = "/msg";
+    dcap.prepayment_list_link.all = 0;
+    dcap.prepayment_list_link.href = "/ppy";
+    dcap.response_set_list_link.all = 0;
+    dcap.response_set_list_link.href = "/rsps";
+    dcap.tariff_profile_list_link.all = 0;
+    dcap.tariff_profile_list_link.href = "/tp";
+    dcap.time_link.href = "/tm";
+    dcap.usage_point_list_link.all = 0;
+    dcap.usage_point_list_link.href = "/upt";
+    dcap.end_device_list_link.all = 0;
+    dcap.end_device_list_link.href = "/edev";
+    dcap.mirror_usage_point_list_link.all = 0;
+    dcap.mirror_usage_point_list_link.href = "/mup";
+    dcap.self_device_link.href = "/sdev";
+
+    World* ecs = World::getInstance();
+    ecs->world.entity(dcap.href.c_str()).set<sep::DeviceCapability>(dcap);
+}
+
 void HttpsServer::generateEndDevice(const std::string &lfdi)
 {
     sep::EndDevice edev;
@@ -206,6 +240,33 @@ void HttpsServer::generateEndDevice(const std::string &lfdi)
     ecs->world.entity(entity_id.c_str()).set<sep::EndDevice>(edev);
 }
 
+void HttpsServer::generateSelfDevice (const std::string& lfdi)
+{
+    sep::SelfDevice sdev;
+    sdev.subscribable = sep::SubscribableType::kNone;
+    sdev.href = "/sdev";
+    sdev.configuration_link.href = "/cfg";
+    sdev.der_list_link.all = 0;
+    sdev.der_list_link.href = "/der";
+    sdev.device_category = sep::DeviceCategoryType::kSmartAppliance;
+    sdev.device_information_link.href = "/di";
+    sdev.device_status_link.href = "/ds";
+    sdev.file_status_link.href = "/fs";
+    sdev.ip_interface_list_link.all = 0;
+    sdev.ip_interface_list_link.href = "/ns";
+    sdev.lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(lfdi);
+    sdev.load_shed_availability_list_link.all = 0;
+    sdev.load_shed_availability_list_link.href = "/lsl";
+    sdev.log_event_list_link.all = 0;
+    sdev.log_event_list_link.href = "/lel";
+    sdev.power_status_link.href = "/ps";
+    sdev.sfdi = xml::util::getSFDI(lfdi);
+
+    std::string entity_id = "/" + lfdi + sdev.href;
+    World* ecs = World::getInstance();
+    ecs->world.entity(entity_id.c_str()).set<sep::SelfDevice>(sdev);
+}
+
 void HttpsServer::generateRegistration(const std::string &lfdi)
 {
     sep::Registration rg;
@@ -221,6 +282,8 @@ void HttpsServer::generateRegistration(const std::string &lfdi)
 
 void HttpsServer::Initialize(const std::string &doc_root)
 {
+    generateDeviceCapabilities();
+    
     boost::filesystem::path p = doc_root + "/root-ca";
     if (boost::filesystem::exists(p)) // does path p actually exist?
     {
@@ -247,6 +310,7 @@ void HttpsServer::Initialize(const std::string &doc_root)
                     std::string lfdi = oss.str().substr(0, 40);
 
                     generateEndDevice(lfdi);
+                    generateSelfDevice(lfdi);
                     generateRegistration(lfdi);
                     
                     X509_free(cert);

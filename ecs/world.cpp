@@ -84,7 +84,7 @@ std::string World::Get(const Href &href)
     break;
     case (Uri::sdev):
     {
-        auto e = world.lookup(href.uri.c_str());
+        auto e = world.lookup(prependLFDI(href).c_str());
         if (e.id() == 0)
         {
             response = "";

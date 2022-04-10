@@ -16,21 +16,6 @@ protected:
     void SetUp() override
     {
         validator = new XmlValidator(g_program_path + "/sep_xml/sep.xsd");
-
-        // read in the sample file
-        std::ifstream ifs(g_program_path + "/registration/6cd635a28e6f38dcd68c2681f2ab61a0fe1a6048/EndDevice.xml");
-        if (ifs)
-        {
-            std::ostringstream oss;
-            oss << ifs.rdbuf();
-            xml_str = oss.str();
-            xml::Parse(xml_str, &edev_control);
-        }
-        else
-        {
-            std::cout << "couldn't open xml file" << std::endl;
-        };
-        ifs.close();
     }
 
     void TearDown() override
@@ -40,21 +25,41 @@ protected:
 
 protected:
     XmlValidator *validator;
-    std::string xml_str;
-    sep::EndDevice edev_control;
 };
 
 TEST_F(HttpsEndDeviceTests, GetEndDevice)
 {
-    HttpsClient *client = HttpsClient::getInstance(g_program_path, "0.0.0.0", "8080");
+    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client->Get("/edev");    
+        auto resp = client1->Get("/edev");    
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
-        
-        sep::EndDevice edev_test;
-        xml::Parse(msg, &edev_test);
-        EXPECT_TRUE(edev_control == edev_test);
+        EXPECT_TRUE(validator->ValidateXml(msg));
+
+        sep::EndDevice edev;
+        xml::Parse(msg, &edev);
+        EXPECT_TRUE(edev.href == "/edev");
+        EXPECT_EQ(edev.lfdi,client1->getLFDI());
+    }
+    catch (const std::exception &e)
+    {
+        ASSERT_ANY_THROW(e.what());
+    }
+
+    try
+    {
+        auto resp = client1->Get("/edev");    
+        std::string msg = boost::beast::buffers_to_string(resp.body().data());
+    }
+    catch (const std::exception &e)
+    {
+        ASSERT_ANY_THROW(e.what());
+    }
+
+    try
+    {
+        auto resp = client1->Get("/edev");    
+        std::string msg = boost::beast::buffers_to_string(resp.body().data());
     }
     catch (const std::exception &e)
     {

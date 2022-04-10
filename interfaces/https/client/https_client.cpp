@@ -1,6 +1,8 @@
+#define BOOST_BIND_GLOBAL_PLACEHOLDERS // had to to remove boost warning
 #include "include/https/https_client.hpp"
 #include "include/https/root_certificates.hpp"
 #include <boost/asio/ssl/rfc2818_verification.hpp>
+#include <xml/adapter.hpp>
 
 // alias to make things easier to read
 namespace bb = boost::beast;
@@ -10,14 +12,18 @@ namespace ssl = net::ssl;
 HttpsClient* HttpsClient::instance_{nullptr};
 std::mutex HttpsClient::mutex_;
 
-HttpsClient::HttpsClient(const std::string &root, const std::string &host, const std::string &port) 
-    : root_(root),
+HttpsClient::HttpsClient(const std::string& id, const std::string &root, const std::string &host, const std::string &port) 
+    : id_(id),
+    root_(root),
     host_(host), 
-    port_(port), 
+    port_(port),
+    lfdi_(0), 
     ssl_context_(ssl::context::tlsv12_client), 
     resolver_(io_context_)
 {
-    load_root_certificates(root_, ssl_context_);  
+    std::string root_ca = root + "/root-ca";
+    readLFDI(root_ca);
+    load_root_certificates(id, root_ca, ssl_context_);  
 }
 
 HttpsClient::~HttpsClient ()
@@ -25,14 +31,19 @@ HttpsClient::~HttpsClient ()
     delete instance_;
 }
 
-HttpsClient* HttpsClient::getInstance(const std::string &root, const std::string &host,const std::string &port)
+HttpsClient* HttpsClient::getInstance(const std::string& id, const std::string &root, const std::string &host,const std::string &port)
 {
     std::lock_guard<std::mutex> lock(mutex_);
     if (instance_ == nullptr)
     {
-        instance_ = new HttpsClient(root, host, port);
+        instance_ = new HttpsClient(id, root, host, port);
     }
     return instance_;
+};
+
+boost::multiprecision::uint256_t HttpsClient::getLFDI ()
+{
+    return lfdi_;
 };
 
 bb::http::response <bb::http::dynamic_body>
@@ -91,6 +102,27 @@ HttpsClient::Delete(const std::string& target)
     req.prepare_payload();
 
     return HttpsClient::Send (req);
+}
+
+void HttpsClient::readLFDI(const std::string& root)
+{
+    std::string cert_file = root + "/client" + id_ + ".crt";
+    FILE *fp = fopen(cert_file.c_str(), "r");
+    X509 *cert = PEM_read_X509(fp, NULL, NULL, NULL);
+
+    // fingerprint
+    unsigned char md[EVP_MAX_MD_SIZE];
+    unsigned int n;
+    X509_digest(cert, EVP_sha256(), md, &n);
+
+    // 40 hex character length for fingerprint
+    std::ostringstream oss;
+    for (size_t i = 0; i < n; i++)
+    {
+        oss << std::hex << (int)md[i];
+    };
+
+    lfdi_ = xml::util::Dehexify<boost::multiprecision::uint256_t>(oss.str().substr(0, 40));
 }
 
 bb::ssl_stream<bb::tcp_stream> HttpsClient::Connect() 

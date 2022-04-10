@@ -41,7 +41,9 @@ public:
     void Stop ();
 
 private:
+    void generateDeviceCapabilities ();
     void generateEndDevice (const std::string& lfdi);
+    void generateSelfDevice (const std::string& lfdi);
     void generateRegistration (const std::string& lfdi);
     void Initialize(const std::string &doc_root);
 private:

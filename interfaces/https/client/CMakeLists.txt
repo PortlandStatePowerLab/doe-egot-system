@@ -10,6 +10,7 @@ add_library( ${PROJECT_NAME}::${COMPONENT_NAME} ALIAS ${COMPONENT_NAME} )
 target_link_libraries(${COMPONENT_NAME} PUBLIC 
   Boost::boost
   OpenSSL::SSL
+  XML_Validator
   pthread
 )
 
@@ -18,4 +19,5 @@ target_include_directories(${COMPONENT_NAME} PUBLIC
   $<INSTALL_INTERFACE:include>
   ${Boost_INCLUDE_DIRS}
   ${OpenSSL_INCLUDE_DIRS}
+  ${XML_Validator_INCLUDE_DIRS}
 )

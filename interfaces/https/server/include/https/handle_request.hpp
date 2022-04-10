@@ -151,11 +151,9 @@ void HandleRequest(
     // TODO: build regex for req.target()
     // TODO: make sure lfdi is set through the verify_callback function
     Href href;
-    href.lfdi = fingerprint; // TODO
+    href.lfdi = fingerprint;
     href.uri = path;
-    href.query = {0,0,0};
-
-    std::cout << "HREF Fingerprint: " << href.lfdi << std::endl;
+    href.query = {0,0,0};  // TODO
 
 /*     // Handle the case where the file doesn't exist
     if(ec == beast::errc::no_such_file_or_directory)

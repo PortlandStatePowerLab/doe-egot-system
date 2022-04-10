@@ -9,6 +9,7 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/error.hpp>
 #include <boost/asio/ssl/stream.hpp>
+#include <boost/multiprecision/cpp_int.hpp>
 
 #include <string>
 #include <memory>
@@ -19,46 +20,41 @@ class HttpsClient
 {
 public:
     // rule of 5
-    HttpsClient(HttpsClient& other) = delete;       // clonable
-    void operator=(const HttpsClient&) = delete;    // assignable
+    HttpsClient(HttpsClient &other) = delete;     // clonable
+    void operator=(const HttpsClient &) = delete; // assignable
 
-    static HttpsClient* getInstance(const std::string &root, const std::string &host,const std::string &port);
+    static HttpsClient *getInstance(const std::string& id,const std::string &root,const std::string &host,const std::string &port);
 
-    boost::beast::http::response <boost::beast::http::dynamic_body> Get
-    (
-        const std::string& target, const std::string& query = ""
-    );
+    boost::multiprecision::uint256_t getLFDI ();
 
-    boost::beast::http::response <boost::beast::http::dynamic_body> Post
-    (
-        const std::string& target, const std::string& resource
-    );
+    boost::beast::http::response<boost::beast::http::dynamic_body> Get(
+        const std::string &target, const std::string &query = "");
 
-    boost::beast::http::response <boost::beast::http::dynamic_body> Put
-    (
-        const std::string& target, const std::string& resource
-    );
+    boost::beast::http::response<boost::beast::http::dynamic_body> Post(
+        const std::string &target, const std::string &resource);
 
-    boost::beast::http::response <boost::beast::http::dynamic_body> Delete
-    (
-        const std::string& target
-    );
+    boost::beast::http::response<boost::beast::http::dynamic_body> Put(
+        const std::string &target, const std::string &resource);
+
+    boost::beast::http::response<boost::beast::http::dynamic_body> Delete(
+        const std::string &target);
 
 protected:
-    HttpsClient (const std::string &root, const std::string &host, const std::string &port);
-    ~HttpsClient () noexcept;
+    HttpsClient(const std::string& id, const std::string &root, const std::string &host, const std::string &port);
+    ~HttpsClient() noexcept;
 
 private:
-    boost::beast::ssl_stream<boost::beast::tcp_stream> Connect ();
-    boost::beast::http::response <boost::beast::http::dynamic_body> Send
-    (
-        boost::beast::http::request <boost::beast::http::string_body>& req
-    );
+    void readLFDI (const std::string& root);
+    boost::beast::ssl_stream<boost::beast::tcp_stream> Connect();
+    boost::beast::http::response<boost::beast::http::dynamic_body> Send(
+        boost::beast::http::request<boost::beast::http::string_body> &req);
 
 private:
+    std::string id_;
     std::string root_;
     std::string host_;
     std::string port_;
+    boost::multiprecision::uint256_t lfdi_;
 
     // required for all boost beast I/O
     boost::asio::io_context io_context_;
@@ -67,7 +63,7 @@ private:
 
 private:
     // thread-safe singleton instance
-    static HttpsClient* instance_;
+    static HttpsClient *instance_;
     static std::mutex mutex_;
 };
 

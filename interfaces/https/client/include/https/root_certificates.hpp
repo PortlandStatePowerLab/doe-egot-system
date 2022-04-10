@@ -84,24 +84,26 @@ bool verify_certificate_simple(bool preverified, boost::asio::ssl::verify_contex
         preverified = true;
         break;
     }
+
+    return preverified;
 }
 
 namespace detail
 {
 
     inline void
-    load_root_certificates(const std::string & root, boost::asio::ssl::context &ctx, boost::system::error_code &ec)
+    load_root_certificates(const std::string & id, const std::string & root, boost::asio::ssl::context &ctx, boost::system::error_code &ec)
     {
         ctx.set_verify_mode(boost::asio::ssl::verify_peer);
 
-        ctx.add_verify_path(root + "/root-ca/certs");
+        ctx.add_verify_path(root + "/certs");
 
-        ctx.use_certificate_file(root + "/root-ca/client2.crt" , boost::asio::ssl::context::pem);
+        ctx.use_certificate_file(root + "/client" + id + ".crt" , boost::asio::ssl::context::pem);
 
-        ctx.use_private_key_file(root + "/root-ca/private/client2.key", boost::asio::ssl::context::pem);
+        ctx.use_private_key_file(root + "/private/client" + id + ".key", boost::asio::ssl::context::pem);
 
         ctx.set_verify_callback(
-          boost::bind(&verify_certificate_simple, true, _2)
+            boost::bind<bool>(verify_certificate_simple, false, boost::placeholders::_2)
         );
     }
 
@@ -110,16 +112,16 @@ namespace detail
 // Load the root certificates into an ssl::context
 
 inline void
-load_root_certificates(const std::string & root, boost::asio::ssl::context &ctx, boost::system::error_code &ec)
+load_root_certificates(const std::string & id, const std::string & root, boost::asio::ssl::context &ctx, boost::system::error_code &ec)
 {
-    detail::load_root_certificates(root, ctx, ec);
+    detail::load_root_certificates(id, root, ctx, ec);
 }
 
 inline void
-load_root_certificates(const std::string &root, boost::asio::ssl::context &ctx)
+load_root_certificates(const std::string & id, const std::string &root, boost::asio::ssl::context &ctx)
 {
     boost::system::error_code ec;
-    detail::load_root_certificates(root, ctx, ec);
+    detail::load_root_certificates(id, root, ctx, ec);
     if (ec)
         throw boost::system::system_error{ec};
 }
