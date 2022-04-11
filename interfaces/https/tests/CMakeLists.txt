@@ -6,6 +6,13 @@ add_executable (${COMPONENT_NAME}
     sdev_tests.cpp
     edev_tests.cpp
     rg_tests.cpp
+    dstat_tests.cpp
+    fsa_tests.cpp
+    sub_tests.cpp
+    ntfy_tests.cpp
+    rsps_tests.cpp
+    rsp_tests.cpp
+    tm_tests.cpp
 )
 
 target_link_libraries(${COMPONENT_NAME} 

@@ -39,6 +39,7 @@ namespace psu
             auto time = std::chrono::system_clock::now();
             return time.time_since_epoch().count();
         }
+
     } // namespace utilities
 
 } // namespace psu
