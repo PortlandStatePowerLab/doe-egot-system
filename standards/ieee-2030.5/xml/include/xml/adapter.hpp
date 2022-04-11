@@ -63,6 +63,14 @@ namespace xml
     std::string Serialize(const sep::Registration &rg);
     void Parse (const std::string &xml_str, sep::Registration* rg);
 
+    // Response
+    std::string Serialize(const sep::Response &rsp);
+    void Parse (const std::string &xml_str, sep::Response* rsp);
+
+    // Response Set
+    std::string Serialize(const sep::ResponseSet &rsps);
+    void Parse (const std::string &xml_str, sep::ResponseSet* rsps);
+
     // Time
     std::string Serialize(const sep::Time &time);
     void Parse(const std::string &xml_str, sep::Time *time);

@@ -27,12 +27,13 @@ protected:
     XmlValidator *validator;
 };
 
-TEST_F(HttpsResponseTests, GetResponse)
+TEST_F(HttpsResponseTests, PostResponse)
 {
+    sep::Response rsp;
     EXPECT_TRUE(false);
 }
 
-TEST_F(HttpsResponseTests, PostResponse)
+TEST_F(HttpsResponseTests, GetResponse)
 {
     EXPECT_TRUE(false);
 }

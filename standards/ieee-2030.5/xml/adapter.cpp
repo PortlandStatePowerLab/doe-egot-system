@@ -37,13 +37,13 @@ namespace xml
 
         // c++23 helper
         template <class Enum>
-        underlying_type_t <Enum> ToUnderlyingType (Enum e)
+        underlying_type_t<Enum> ToUnderlyingType(Enum e)
         {
             return static_cast<underlying_type_t<Enum>>(e);
         };
 
-        template<typename T>
-        std::string Hexify(T number) 
+        template <typename T>
+        std::string Hexify(T number)
         {
             std::string hex_str;
             if (std::is_integral<T>::value | boost::multiprecision::is_number<T>::value)
@@ -53,16 +53,16 @@ namespace xml
                 hex_str = ss.str();
                 if (hex_str.length() % 2 > 0)
                 {
-                    //hex_str.append("0");
-                    hex_str.insert(0,"0");
+                    // hex_str.append("0");
+                    hex_str.insert(0, "0");
                     return hex_str;
                 }
             }
             return hex_str;
         }
-        
-        template<typename T>
-        T Dehexify(const std::string hexidecimal) 
+
+        template <typename T>
+        T Dehexify(const std::string hexidecimal)
         {
             T number;
             std::stringstream ss;
@@ -72,7 +72,7 @@ namespace xml
         };
 
         template <typename T>
-        uint8_t Checksum (T value)
+        uint8_t Checksum(T value)
         {
             T remainder, total;
             for (total = 0; value > 0; value = value / 10)
@@ -89,28 +89,28 @@ namespace xml
             return 10 - (total % 10);
         }
 
-        bool validateSFDI (const uint64_t sfdi)
+        bool validateSFDI(const uint64_t sfdi)
         {
             return Checksum(sfdi) == 0;
         }
 
-        uint64_t getSFDI (const std::string& lfdi)
+        uint64_t getSFDI(const std::string &lfdi)
         {
-            uint64_t sfdi = Dehexify<uint64_t>(lfdi.substr(0,9));
+            uint64_t sfdi = Dehexify<uint64_t>(lfdi.substr(0, 9));
             uint8_t checksum = Checksum(sfdi);
-            return (sfdi*10) + checksum;
+            return (sfdi * 10) + checksum;
         }
 
-        uint32_t generatePIN (const std::string& lfdi)
+        uint32_t generatePIN(const std::string &lfdi)
         {
-            uint64_t sfdi = Dehexify<uint64_t>(lfdi.substr(0,9));
+            uint64_t sfdi = Dehexify<uint64_t>(lfdi.substr(0, 9));
             std::string pin = std::to_string(sfdi);
-            sfdi = std::stol(pin.substr(0,5));
+            sfdi = std::stol(pin.substr(0, 5));
             uint8_t checksum = Checksum(sfdi);
-            return (sfdi*10) + checksum;
+            return (sfdi * 10) + checksum;
         }
-                
-        }; // namespace util
+
+    }; // namespace util
 
     // Abstract Device
     std::string Serialize(const sep::AbstractDevice &abstract_device)
@@ -123,17 +123,17 @@ namespace xml
         pt.put("AbstractDevice.DERListLink", abstract_device.der_list_link.href);
         pt.put("AbstractDevice.deviceCategory", xml::util::ToUnderlyingType(abstract_device.device_category));
         pt.put("AbstractDevice.DeviceInformationLink.<xmlattr>.href", abstract_device.device_information_link.href);
-        pt.put("AbstractDevice.DeviceStatusLink.<xmlattr>.href",abstract_device.device_status_link.href);
-        pt.put("AbstractDevice.FileStatusLink.<xmlattr>.href",abstract_device.file_status_link.href);
-        pt.put("AbstractDevice.IPInterfaceListLink.<xmlattr>.all",abstract_device.ip_interface_list_link.all);
-        pt.put("AbstractDevice.IPInterfaceListLink.<xmlattr>.href",abstract_device.ip_interface_list_link.href);
-        pt.put("AbstractDevice.lFDI",xml::util::Hexify(abstract_device.lfdi));
-        pt.put("AbstractDevice.LoadShedAvailabilityListLink.<xmlattr>.all",abstract_device.load_shed_availability_list_link.all);
-        pt.put("AbstractDevice.LoadShedAvailabilityListLink.<xmlattr>.href",abstract_device.load_shed_availability_list_link.href);
-        pt.put("AbstractDevice.LogEventListLink.<xmlattr>.all",abstract_device.log_event_list_link.all);
-        pt.put("AbstractDevice.LogEventListLink.<xmlattr>.href",abstract_device.log_event_list_link.href);
-        pt.put("AbstractDevice.PowerStatusLink.<xmlattr>.href",abstract_device.power_status_link.href);
-        pt.put("AbstractDevice.sFDI",abstract_device.sfdi);
+        pt.put("AbstractDevice.DeviceStatusLink.<xmlattr>.href", abstract_device.device_status_link.href);
+        pt.put("AbstractDevice.FileStatusLink.<xmlattr>.href", abstract_device.file_status_link.href);
+        pt.put("AbstractDevice.IPInterfaceListLink.<xmlattr>.all", abstract_device.ip_interface_list_link.all);
+        pt.put("AbstractDevice.IPInterfaceListLink.<xmlattr>.href", abstract_device.ip_interface_list_link.href);
+        pt.put("AbstractDevice.lFDI", xml::util::Hexify(abstract_device.lfdi));
+        pt.put("AbstractDevice.LoadShedAvailabilityListLink.<xmlattr>.all", abstract_device.load_shed_availability_list_link.all);
+        pt.put("AbstractDevice.LoadShedAvailabilityListLink.<xmlattr>.href", abstract_device.load_shed_availability_list_link.href);
+        pt.put("AbstractDevice.LogEventListLink.<xmlattr>.all", abstract_device.log_event_list_link.all);
+        pt.put("AbstractDevice.LogEventListLink.<xmlattr>.href", abstract_device.log_event_list_link.href);
+        pt.put("AbstractDevice.PowerStatusLink.<xmlattr>.href", abstract_device.power_status_link.href);
+        pt.put("AbstractDevice.sFDI", abstract_device.sfdi);
         xml::util::SetSchema(&pt);
         return xml::util::Stringify(pt);
     };
@@ -142,15 +142,13 @@ namespace xml
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         abstract_device->subscribable = static_cast<sep::SubscribableType>(
-            pt.get<uint8_t>("AbstractDevice.<xmlattr>.subscribable", 0)
-        );
+            pt.get<uint8_t>("AbstractDevice.<xmlattr>.subscribable", 0));
         abstract_device->href = pt.get<std::string>("AbstractDevice.<xmlattr>.href", "");
         abstract_device->configuration_link.href = pt.get<std::string>("AbstractDevice.ConfigurationLink.<xmlattr>.href", "");
         abstract_device->der_list_link.all = pt.get<uint32_t>("AbstractDevice.DERListLink.<xmlattr>.all", 0);
         abstract_device->der_list_link.href = pt.get<std::string>("AbstractDevice.DERListLink.<xmlattr>.href", "");
         abstract_device->device_category = static_cast<sep::DeviceCategoryType>(
-            pt.get<uint32_t>("AbstractDevice.deviceCategory", 0)
-        );
+            pt.get<uint32_t>("AbstractDevice.deviceCategory", 0));
         abstract_device->device_information_link.href = pt.get<std::string>("AbstractDevice.DeviceInformationLink.<xmlattr>.href", "");
         abstract_device->device_status_link.href = pt.get<std::string>("AbstractDevice.DeviceStatusLink.<xmlattr>.href", "");
         abstract_device->file_status_link.href = pt.get<std::string>("AbstractDevice.FileStatusLink.<xmlattr>.href", "");
@@ -182,13 +180,13 @@ namespace xml
         active_power->value = pt.get<int16_t>("ActivePower.value", 0);
     };
 
-     // Flow Reservation Request
+    // Flow Reservation Request
     std::string Serialize(const sep::FlowReservationRequest &fr_request)
     {
         boost::property_tree::ptree pt;
         pt.put("FlowReservationRequest.<xmlattr>.href", "http://uri1");
         pt.put("FlowReservationRequest.mRID", xml::util::Hexify(fr_request.mrid));
-        pt.put("FlowReservationRequest.description",fr_request.description);
+        pt.put("FlowReservationRequest.description", fr_request.description);
         pt.put("FlowReservationRequest.version", fr_request.version);
         pt.put("FlowReservationRequest.creationTime", fr_request.creation_time);
         pt.put("FlowReservationRequest.durationRequested", fr_request.duration_requested);
@@ -200,9 +198,8 @@ namespace xml
         pt.put("FlowReservationRequest.powerRequested.value", fr_request.power_requested.value);
         pt.put("FlowReservationRequest.RequestStatus.dateTime", fr_request.request_status.datetime);
         pt.put(
-            "FlowReservationRequest.RequestStatus.requestStatus", 
-            xml::util::ToUnderlyingType(fr_request.request_status.status)
-        );
+            "FlowReservationRequest.RequestStatus.requestStatus",
+            xml::util::ToUnderlyingType(fr_request.request_status.status));
         xml::util::SetSchema(&pt);
         return xml::util::Stringify(pt);
     };
@@ -220,33 +217,30 @@ namespace xml
         fr_request->energy_requested.value = pt.get<int64_t>("FlowReservationRequest.energyRequested.value", 0);
         fr_request->interval_requested.duration = pt.get<uint32_t>("FlowReservationRequest.intervalRequested.duration", 0);
         fr_request->interval_requested.start = pt.get<sep::TimeType>("FlowReservationRequest.intervalRequested.start", 0);
-        fr_request->power_requested.multiplier =  pt.get<sep::PowerOfTenMultiplierType>("FlowReservationRequest.powerRequested.multiplier", 0);
-        fr_request->power_requested.value =  pt.get<sep::PowerOfTenMultiplierType>("FlowReservationRequest.powerRequested.value", 0);
-        fr_request->request_status.datetime =   pt.get<sep::TimeType>("FlowReservationRequest.RequestStatus.dateTime", 0);
-        fr_request->request_status.status =  static_cast<sep::RequestStatus::Status>(pt.get<uint8_t>("FlowReservationRequest.RequestStatus.requestStatus", 0));
+        fr_request->power_requested.multiplier = pt.get<sep::PowerOfTenMultiplierType>("FlowReservationRequest.powerRequested.multiplier", 0);
+        fr_request->power_requested.value = pt.get<sep::PowerOfTenMultiplierType>("FlowReservationRequest.powerRequested.value", 0);
+        fr_request->request_status.datetime = pt.get<sep::TimeType>("FlowReservationRequest.RequestStatus.dateTime", 0);
+        fr_request->request_status.status = static_cast<sep::RequestStatus::Status>(pt.get<uint8_t>("FlowReservationRequest.RequestStatus.requestStatus", 0));
     }
 
-    std::string Serialize(const sep::FlowReservationResponse &fr_response) 
+    std::string Serialize(const sep::FlowReservationResponse &fr_response)
     {
         boost::property_tree::ptree pt;
         pt.put(
-            "FlowReservationResponse.<xmlattr>.subscribable", 
-             xml::util::ToUnderlyingType(fr_response.subscribable)
-        );
+            "FlowReservationResponse.<xmlattr>.subscribable",
+            xml::util::ToUnderlyingType(fr_response.subscribable));
         pt.put("FlowReservationResponse.<xmlattr>.replyTo", fr_response.reply_to);
         pt.put(
-            "FlowReservationResponse.<xmlattr>.responseRequired", 
-             xml::util::Hexify(xml::util::ToUnderlyingType(fr_response.response_required))
-        );
+            "FlowReservationResponse.<xmlattr>.responseRequired",
+            xml::util::Hexify(xml::util::ToUnderlyingType(fr_response.response_required)));
         pt.put("FlowReservationResponse.<xmlattr>.href", fr_response.href);
         pt.put("FlowReservationResponse.mRID", xml::util::Hexify(fr_response.mrid));
         pt.put("FlowReservationResponse.description", fr_response.description);
         pt.put("FlowReservationResponse.version", fr_response.version);
         pt.put("FlowReservationResponse.creationTime", fr_response.creation_time);
         pt.put(
-            "FlowReservationResponse.EventStatus.currentStatus", 
-             xml::util::ToUnderlyingType(fr_response.event_status.current_status)
-        );
+            "FlowReservationResponse.EventStatus.currentStatus",
+            xml::util::ToUnderlyingType(fr_response.event_status.current_status));
         pt.put("FlowReservationResponse.EventStatus.dateTime", fr_response.event_status.date_time);
         pt.put("FlowReservationResponse.EventStatus.potentiallySuperseded", fr_response.event_status.potentially_superseded);
         pt.put("FlowReservationResponse.EventStatus.potentiallySupersededTime", fr_response.event_status.potentially_superseded_time);
@@ -259,27 +253,24 @@ namespace xml
         pt.put("FlowReservationResponse.powerAvailable.value", fr_response.power_available.value);
         pt.put("FlowReservationResponse.subject", fr_response.subject);
         xml::util::SetSchema(&pt);
-        return xml::util::Stringify(pt); 
+        return xml::util::Stringify(pt);
     }
-    
-    void Parse(const std::string &xml_str, sep::FlowReservationResponse *fr_response) 
+
+    void Parse(const std::string &xml_str, sep::FlowReservationResponse *fr_response)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         fr_response->subscribable = static_cast<sep::SubscribableType>(
-            pt.get<uint8_t>("FlowReservationResponse.<xmlattr>.subscribable", 0)
-        );
+            pt.get<uint8_t>("FlowReservationResponse.<xmlattr>.subscribable", 0));
         fr_response->reply_to = pt.get<std::string>("FlowReservationResponse.<xmlattr>.replyTo", "");
         fr_response->response_required = static_cast<sep::RespondableResource::ResponseRequired>(
-            xml::util::Dehexify<uint8_t>(pt.get<std::string>("FlowReservationResponse.<xmlattr>.responseRequired", "00"))
-        );
+            xml::util::Dehexify<uint8_t>(pt.get<std::string>("FlowReservationResponse.<xmlattr>.responseRequired", "00")));
         fr_response->href = pt.get<std::string>("FlowReservationResponse.<xmlattr>.href", "");
         fr_response->mrid = pt.get<sep::MRIDType>("FlowReservationResponse.mRID", 0);
         fr_response->description = pt.get<std::string>("FlowReservationResponse.description", "");
         fr_response->version = pt.get<uint16_t>("FlowReservationResponse.version", 0);
         fr_response->creation_time = pt.get<uint16_t>("FlowReservationResponse.creationTime", 0);
         fr_response->event_status.current_status = static_cast<sep::CurrentStatus>(
-            pt.get<uint8_t>("FlowReservationResponse.EventStatus.currentStatus", 0)
-        );
+            pt.get<uint8_t>("FlowReservationResponse.EventStatus.currentStatus", 0));
         fr_response->event_status.date_time = pt.get<uint8_t>("FlowReservationResponse.EventStatus.dateTime", 0);
         fr_response->event_status.potentially_superseded = pt.get<bool>("FlowReservationResponse.EventStatus.potentiallySuperseded", false);
         fr_response->event_status.potentially_superseded_time = pt.get<sep::TimeType>("FlowReservationResponse.EventStatus.potentiallySupersededTime", 0);
@@ -292,8 +283,8 @@ namespace xml
         fr_response->power_available.value = pt.get<int16_t>("FlowReservationResponse.powerAvailable.value", 0);
         fr_response->subject = pt.get<std::string>("FlowReservationResponse.subject", "");
     }
-    
-    std::string Serialize(const sep::DeviceCapability &dcap) 
+
+    std::string Serialize(const sep::DeviceCapability &dcap)
     {
         boost::property_tree::ptree pt;
         pt.put("DeviceCapability.<xmlattr>.pollRate", dcap.poll_rate);
@@ -322,10 +313,10 @@ namespace xml
         pt.put("DeviceCapability.SelfDeviceLink.<xmlattr>.href", dcap.demand_response_program_list_link.href);
 
         xml::util::SetSchema(&pt);
-        return xml::util::Stringify(pt); 
+        return xml::util::Stringify(pt);
     }
-    
-    void Parse(const std::string &xml_str, sep::DeviceCapability *dcap) 
+
+    void Parse(const std::string &xml_str, sep::DeviceCapability *dcap)
     {
 
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
@@ -354,8 +345,8 @@ namespace xml
         dcap->mirror_usage_point_list_link.all = pt.get<uint32_t>("DeviceCapability.MirrorUsagePointListLink.<xmlattr>.all", 0);
         dcap->self_device_link.href = pt.get<std::string>("DeviceCapability.SelfDeviceLink.<xmlattr>.href", "");
     }
-    
-    std::string Serialize(const sep::EndDevice &edev) 
+
+    std::string Serialize(const sep::EndDevice &edev)
     {
         boost::property_tree::ptree pt;
         pt.put("EndDevice.<xmlattr>.subscribable", xml::util::ToUnderlyingType(edev.subscribable));
@@ -363,7 +354,7 @@ namespace xml
         pt.put("EndDevice.ConfigurationLink.<xmlattr>.href", edev.configuration_link.href);
         pt.put("EndDevice.DERListLink.<xmlattr>.href", edev.der_list_link.href);
         pt.put("EndDevice.DERListLink.<xmlattr>.all", edev.der_list_link.all);
-        pt.put("EndDevice.deviceCategory",  xml::util::Hexify(xml::util::ToUnderlyingType(edev.device_category)));
+        pt.put("EndDevice.deviceCategory", xml::util::Hexify(xml::util::ToUnderlyingType(edev.device_category)));
         pt.put("EndDevice.DeviceInformationLink.<xmlattr>.href", edev.device_information_link.href);
         pt.put("EndDevice.DeviceStatusLink.<xmlattr>.href", edev.device_status_link.href);
         pt.put("EndDevice.FileStatusLink.<xmlattr>.href", edev.file_status_link.href);
@@ -390,49 +381,47 @@ namespace xml
         pt.put("EndDevice.SubscriptionListLink.<xmlattr>.all", edev.subscription_list_link.all);
 
         xml::util::SetSchema(&pt);
-        return xml::util::Stringify(pt); 
+        return xml::util::Stringify(pt);
     }
-    
-    void Parse(const std::string &xml_str, sep::EndDevice *edev) 
+
+    void Parse(const std::string &xml_str, sep::EndDevice *edev)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         edev->subscribable = static_cast<sep::SubscribableType>(
-            pt.get<uint8_t>("EndDevice.<xmlattr>.subscribable", 0)
-        );
+            pt.get<uint8_t>("EndDevice.<xmlattr>.subscribable", 0));
         edev->href = pt.get<std::string>("EndDevice.<xmlattr>.href", "");
         edev->configuration_link.href = pt.get<std::string>("EndDevice.ConfigurationLink.<xmlattr>.href", "");
         edev->der_list_link.href = pt.get<std::string>("EndDevice.DERListLink.<xmlattr>.href", "");
         edev->der_list_link.all = pt.get<uint32_t>("EndDevice.DERListLink.<xmlattr>.all", 0);
         edev->device_category = static_cast<sep::DeviceCategoryType>(
-            xml::util::Dehexify<uint32_t>(pt.get<std::string>("EndDevice.deviceCategory", "00"))
-        );
+            xml::util::Dehexify<uint32_t>(pt.get<std::string>("EndDevice.deviceCategory", "00")));
         edev->device_information_link.href = pt.get<std::string>("EndDevice.DeviceInformationLink.<xmlattr>.href", "");
-        edev->device_status_link.href  = pt.get<std::string>("EndDevice.DeviceStatusLink.<xmlattr>.href", "");
-        edev->file_status_link.href  = pt.get<std::string>("EndDevice.FileStatusLink.<xmlattr>.href", "");
-        edev->ip_interface_list_link.href  = pt.get<std::string>("EndDevice.IPInterfaceListLink.<xmlattr>.href", "");
+        edev->device_status_link.href = pt.get<std::string>("EndDevice.DeviceStatusLink.<xmlattr>.href", "");
+        edev->file_status_link.href = pt.get<std::string>("EndDevice.FileStatusLink.<xmlattr>.href", "");
+        edev->ip_interface_list_link.href = pt.get<std::string>("EndDevice.IPInterfaceListLink.<xmlattr>.href", "");
         edev->ip_interface_list_link.all = pt.get<uint32_t>("EndDevice.IPInterfaceListLink.<xmlattr>.all", 0);
         edev->lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(pt.get<std::string>("EndDevice.lFDI", ""));
-        edev->load_shed_availability_list_link.href  = pt.get<std::string>("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.href", "");
-        edev->load_shed_availability_list_link.all  = pt.get<uint32_t>("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.all", 0);
-        edev->log_event_list_link.href  = pt.get<std::string>("EndDevice.LogEventListLink.<xmlattr>.href", "");
-        edev->log_event_list_link.all  = pt.get<uint32_t>("EndDevice.LogEventListLink.<xmlattr>.all", 0);
-        edev->power_status_link.href  = pt.get<std::string>("EndDevice.PowerStatusLink.<xmlattr>.href", "");
+        edev->load_shed_availability_list_link.href = pt.get<std::string>("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.href", "");
+        edev->load_shed_availability_list_link.all = pt.get<uint32_t>("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.all", 0);
+        edev->log_event_list_link.href = pt.get<std::string>("EndDevice.LogEventListLink.<xmlattr>.href", "");
+        edev->log_event_list_link.all = pt.get<uint32_t>("EndDevice.LogEventListLink.<xmlattr>.all", 0);
+        edev->power_status_link.href = pt.get<std::string>("EndDevice.PowerStatusLink.<xmlattr>.href", "");
         edev->sfdi = pt.get<uint64_t>("EndDevice.sFDI", 0);
         edev->changed_time = pt.get<sep::TimeType>("EndDevice.changedTime", 0);
         edev->enabled = pt.get<bool>("EndDevice.enabled", false);
-        edev->flow_reservation_request_list_link.href  = pt.get<std::string>("EndDevice.FlowReservationRequestListLink.<xmlattr>.href", "");
-        edev->flow_reservation_request_list_link.all  = pt.get<uint32_t>("EndDevice.FlowReservationRequestListLink.<xmlattr>.all", 0);
-        edev->flow_reservation_response_list_link.href  = pt.get<std::string>("EndDevice.FlowReservationResponseListLink.<xmlattr>.href", "");
-        edev->flow_reservation_response_list_link.all  = pt.get<uint32_t>("EndDevice.FlowReservationResponseListLink.<xmlattr>.all", 0);
-        edev->function_set_assignments_list_link.href  = pt.get<std::string>("EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.href", "");
-        edev->function_set_assignments_list_link.all  = pt.get<uint32_t>("EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.all", 0);
+        edev->flow_reservation_request_list_link.href = pt.get<std::string>("EndDevice.FlowReservationRequestListLink.<xmlattr>.href", "");
+        edev->flow_reservation_request_list_link.all = pt.get<uint32_t>("EndDevice.FlowReservationRequestListLink.<xmlattr>.all", 0);
+        edev->flow_reservation_response_list_link.href = pt.get<std::string>("EndDevice.FlowReservationResponseListLink.<xmlattr>.href", "");
+        edev->flow_reservation_response_list_link.all = pt.get<uint32_t>("EndDevice.FlowReservationResponseListLink.<xmlattr>.all", 0);
+        edev->function_set_assignments_list_link.href = pt.get<std::string>("EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.href", "");
+        edev->function_set_assignments_list_link.all = pt.get<uint32_t>("EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.all", 0);
         edev->post_rate = pt.get<uint32_t>("EndDevice.postRate", 0);
-        edev->registration_link.href  = pt.get<std::string>("EndDevice.RegistrationLink.<xmlattr>.href", "");
-        edev->subscription_list_link.href  = pt.get<std::string>("EndDevice.SubscriptionListLink.<xmlattr>.href", "");
-        edev->subscription_list_link.all  = pt.get<uint32_t>("EndDevice.SubscriptionListLink.<xmlattr>.all", 0);
+        edev->registration_link.href = pt.get<std::string>("EndDevice.RegistrationLink.<xmlattr>.href", "");
+        edev->subscription_list_link.href = pt.get<std::string>("EndDevice.SubscriptionListLink.<xmlattr>.href", "");
+        edev->subscription_list_link.all = pt.get<uint32_t>("EndDevice.SubscriptionListLink.<xmlattr>.all", 0);
     }
-    
-    std::string Serialize(const sep::SelfDevice &sdev) 
+
+    std::string Serialize(const sep::SelfDevice &sdev)
     {
         boost::property_tree::ptree pt;
         pt.put("SelfDevice.<xmlattr>.pollRate", sdev.poll_rate);
@@ -441,7 +430,7 @@ namespace xml
         pt.put("SelfDevice.ConfigurationLink.<xmlattr>.href", sdev.configuration_link.href);
         pt.put("SelfDevice.DERListLink.<xmlattr>.href", sdev.der_list_link.href);
         pt.put("SelfDevice.DERListLink.<xmlattr>.all", sdev.der_list_link.all);
-        pt.put("SelfDevice.deviceCategory",  xml::util::Hexify(xml::util::ToUnderlyingType(sdev.device_category)));
+        pt.put("SelfDevice.deviceCategory", xml::util::Hexify(xml::util::ToUnderlyingType(sdev.device_category)));
         pt.put("SelfDevice.DeviceInformationLink.<xmlattr>.href", sdev.device_information_link.href);
         pt.put("SelfDevice.DeviceStatusLink.<xmlattr>.href", sdev.device_status_link.href);
         pt.put("SelfDevice.FileStatusLink.<xmlattr>.href", sdev.file_status_link.href);
@@ -456,38 +445,36 @@ namespace xml
         pt.put("SelfDevice.sFDI", sdev.sfdi);
 
         xml::util::SetSchema(&pt);
-        return xml::util::Stringify(pt); 
+        return xml::util::Stringify(pt);
     }
-    
-    void Parse(const std::string &xml_str, sep::SelfDevice *sdev) 
+
+    void Parse(const std::string &xml_str, sep::SelfDevice *sdev)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         sdev->poll_rate = pt.get<uint32_t>("SelfDevice.<xmlattr>.pollRate", 900);
         sdev->subscribable = static_cast<sep::SubscribableType>(
-            pt.get<uint8_t>("SelfDevice.<xmlattr>.subscribable", 0)
-        );
+            pt.get<uint8_t>("SelfDevice.<xmlattr>.subscribable", 0));
         sdev->href = pt.get<std::string>("SelfDevice.<xmlattr>.href", "");
-        sdev->configuration_link.href  = pt.get<std::string>("SelfDevice.ConfigurationLink.<xmlattr>.href", "");
-        sdev->der_list_link.href  = pt.get<std::string>("SelfDevice.DERListLink.<xmlattr>.href", "");
-        sdev->der_list_link.all  = pt.get<uint32_t>("SelfDevice.DERListLink.<xmlattr>.all", 0);
+        sdev->configuration_link.href = pt.get<std::string>("SelfDevice.ConfigurationLink.<xmlattr>.href", "");
+        sdev->der_list_link.href = pt.get<std::string>("SelfDevice.DERListLink.<xmlattr>.href", "");
+        sdev->der_list_link.all = pt.get<uint32_t>("SelfDevice.DERListLink.<xmlattr>.all", 0);
         sdev->device_category = static_cast<sep::DeviceCategoryType>(
-            xml::util::Dehexify<uint32_t>(pt.get<std::string>("SelfDevice.deviceCategory", "00"))
-        );
-        sdev->device_information_link.href  = pt.get<std::string>("SelfDevice.DeviceInformationLink.<xmlattr>.href", "");
-        sdev->device_status_link.href  = pt.get<std::string>("SelfDevice.DeviceStatusLink.<xmlattr>.href", "");
-        sdev->file_status_link.href  = pt.get<std::string>("SelfDevice.FileStatusLink.<xmlattr>.href", "");
-        sdev->ip_interface_list_link.href  = pt.get<std::string>("SelfDevice.IPInterfaceListLink.<xmlattr>.href", "");
-        sdev->ip_interface_list_link.all  = pt.get<uint32_t>("SelfDevice.IPInterfaceListLink.<xmlattr>.all", 0);
+            xml::util::Dehexify<uint32_t>(pt.get<std::string>("SelfDevice.deviceCategory", "00")));
+        sdev->device_information_link.href = pt.get<std::string>("SelfDevice.DeviceInformationLink.<xmlattr>.href", "");
+        sdev->device_status_link.href = pt.get<std::string>("SelfDevice.DeviceStatusLink.<xmlattr>.href", "");
+        sdev->file_status_link.href = pt.get<std::string>("SelfDevice.FileStatusLink.<xmlattr>.href", "");
+        sdev->ip_interface_list_link.href = pt.get<std::string>("SelfDevice.IPInterfaceListLink.<xmlattr>.href", "");
+        sdev->ip_interface_list_link.all = pt.get<uint32_t>("SelfDevice.IPInterfaceListLink.<xmlattr>.all", 0);
         sdev->lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(pt.get<std::string>("SelfDevice.lFDI", ""));
-        sdev->load_shed_availability_list_link.href  = pt.get<std::string>("SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.href", "");
-        sdev->load_shed_availability_list_link.all  = pt.get<uint32_t>("SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.all", 0);
-        sdev->log_event_list_link.href  = pt.get<std::string>("SelfDevice.LogEventListLink.<xmlattr>.href", "");
-        sdev->log_event_list_link.all  = pt.get<uint32_t>("SelfDevice.LogEventListLink.<xmlattr>.all", 0);
-        sdev->power_status_link.href  = pt.get<std::string>("SelfDevice.PowerStatusLink.<xmlattr>.href", "");
+        sdev->load_shed_availability_list_link.href = pt.get<std::string>("SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.href", "");
+        sdev->load_shed_availability_list_link.all = pt.get<uint32_t>("SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.all", 0);
+        sdev->log_event_list_link.href = pt.get<std::string>("SelfDevice.LogEventListLink.<xmlattr>.href", "");
+        sdev->log_event_list_link.all = pt.get<uint32_t>("SelfDevice.LogEventListLink.<xmlattr>.all", 0);
+        sdev->power_status_link.href = pt.get<std::string>("SelfDevice.PowerStatusLink.<xmlattr>.href", "");
         sdev->sfdi = pt.get<uint64_t>("SelfDevice.sFDI", 0);
     }
 
-     std::string Serialize(const sep::Registration &rg) 
+    std::string Serialize(const sep::Registration &rg)
     {
         boost::property_tree::ptree pt;
         pt.put("Registration.<xmlattr>.pollRate", rg.poll_rate);
@@ -498,8 +485,8 @@ namespace xml
         xml::util::SetSchema(&pt);
         return xml::util::Stringify(pt);
     }
-    
-    void Parse(const std::string &xml_str, sep::Registration *rg) 
+
+    void Parse(const std::string &xml_str, sep::Registration *rg)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         rg->poll_rate = pt.get<uint32_t>("Registration.<xmlattr>.pollRate", 900);
@@ -508,7 +495,55 @@ namespace xml
         rg->pin = pt.get<sep::PINType>("Registration.pIN", 0);
     }
 
-    std::string Serialize(const sep::Time &time) 
+    void Parse(const std::string &xml_str, sep::Response *rsp)
+    {
+        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        rsp->href = pt.get<std::string>("Response.<xmlattr>.href","");
+        rsp->created_date_time = pt.get<sep::TimeType>("Response.createdDateTime",0);
+        rsp->end_device_lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(pt.get<std::string>("Response.endDeviceLFDI", ""));
+        rsp->status = static_cast<sep::Response::Status>(pt.get<uint8_t>("Response.status",0));
+        rsp->subject = pt.get<sep::MRIDType>("Response.subject",0);
+    }
+
+    std::string Serialize(const sep::Response &rsp)
+    {
+        boost::property_tree::ptree pt;
+        pt.put("Response.<xmlattr>.href", rsp.href);
+        pt.put("Response.createdDateTime", rsp.created_date_time);
+        pt.put("Response.endDeviceLFDI", xml::util::Hexify(rsp.end_device_lfdi));
+        pt.put("Response.status", xml::util::ToUnderlyingType(rsp.status));
+        pt.put("Response.subject", xml::util::Hexify(rsp.subject));
+
+        xml::util::SetSchema(&pt);
+        return xml::util::Stringify(pt);
+    }
+
+    void Parse(const std::string &xml_str, sep::ResponseSet *rsps)
+    {
+        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        rsps->href = pt.get<std::string>("ResponseSet.<xmlattr>.href","");
+        rsps->mrid = pt.get<sep::MRIDType>("ResponseSet.mRID", 0);
+        rsps->description = pt.get<std::string>("ResponseSet.description","");
+        rsps->version = pt.get<uint16_t>("ResponseSet.version",0);
+        rsps->response_list_link.all = pt.get<uint32_t>("ResponseSet.ResponseListLink.all",0);
+        rsps->response_list_link.href = pt.get<std::string>("ResponseSet.ResponseListLink.href","");
+    }
+
+    std::string Serialize(const sep::ResponseSet &rsps)
+    {
+        boost::property_tree::ptree pt;
+        pt.put("ResponseSet.<xmlattr>.href",rsps.href);
+        pt.put("ResponseSet.mRID", xml::util::Hexify(rsps.mrid));
+        pt.put("ResponseSet.description", rsps.description);
+        pt.put("ResponseSet.version", rsps.version);
+        pt.put("ResponseSet.ResponseListLink.all", rsps.response_list_link.all);
+        pt.put("ResponseSet.ResponseListLink.href", rsps.response_list_link.href);
+
+        xml::util::SetSchema(&pt);
+        return xml::util::Stringify(pt);
+    }
+
+    std::string Serialize(const sep::Time &time)
     {
         boost::property_tree::ptree pt;
         pt.put("Time.<xmlattr>.pollRate", time.poll_rate);
@@ -524,8 +559,8 @@ namespace xml
         xml::util::SetSchema(&pt);
         return xml::util::Stringify(pt);
     }
-    
-    void Parse(const std::string &xml_str, sep::Time *time) 
+
+    void Parse(const std::string &xml_str, sep::Time *time)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         time->poll_rate = pt.get<uint32_t>("Time.<xmlattr>.pollRate", 900);

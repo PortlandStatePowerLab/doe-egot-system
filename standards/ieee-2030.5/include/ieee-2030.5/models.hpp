@@ -9,5 +9,7 @@
 #include "self_device.hpp"
 #include "time.hpp"
 #include "registration.hpp"
+#include "response.hpp"
+#include "response_set.hpp"
 
 #endif // __MODELS_H__
