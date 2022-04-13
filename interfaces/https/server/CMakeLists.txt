@@ -14,6 +14,7 @@ target_link_libraries(${COMPONENT_NAME} PUBLIC
   flecs_world
   SEP_Models
   utilities
+  SEP_WADL
   pthread
 )
 
@@ -25,4 +26,5 @@ target_include_directories(${COMPONENT_NAME} PUBLIC
   ${flecs_world_INCLUDE_DIRS}
   ${SEP_Models_INCLUDE_DIRS}
   ${utilities_INCLUDE_DIRS}
+  ${SEP_WADL_INCLUDE_DIRS}
 )

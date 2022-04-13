@@ -13,7 +13,6 @@
 #include <boost/filesystem.hpp>
 #include <utilities/utilities.hpp>
 
-
 void Fail(beast::error_code ec, char const *what)
 {
     std::cerr << what << ": " << ec.message() << "\n";

@@ -30,11 +30,25 @@ protected:
 TEST_F(HttpsResponseTests, PostResponse)
 {
     sep::Response rsp;
+    rsp.href = "/rsp";
+    rsp.end_device_lfdi = 123456789;
+    rsp.status = sep::Response::Status::kEventAcknowledged;
+    rsp.subject = 12345;
+
+    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
+    auto resp = client1->Post(rsp.href, xml::Serialize(rsp));
+
+    std::cout << resp << std::endl;
     EXPECT_TRUE(false);
 }
 
 TEST_F(HttpsResponseTests, GetResponse)
 {
+    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
+    auto resp = client1->Get("/rsp");
+
+    std::cout << resp << std::endl;
+
     EXPECT_TRUE(false);
 }
 

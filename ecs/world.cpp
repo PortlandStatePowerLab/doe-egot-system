@@ -998,3 +998,28 @@ std::string World::Get(const Href &href)
     }
     return response;
 };
+
+void World::Post(const Href &href, const std::string& message)
+{
+    switch (uri_map.at(href.uri))
+    {
+        case (Uri::rsp):
+        {
+            std::cout << href.uri << " : " << message << std::endl;
+        };
+        break;
+        case (Uri::rsps):
+        {
+            std::cout << href.uri << " : " << message << std::endl;
+        };
+        break;
+        case (Uri::frq):
+        {
+            std::cout << href.uri << " : " << message << std::endl;
+        };
+        break;
+        default:
+            // response = "";
+            break;
+    };
+};

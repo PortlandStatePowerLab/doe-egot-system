@@ -10,4 +10,5 @@ target_include_directories(
 )
 
 add_subdirectory(xml)
+add_subdirectory(wadl)
 add_subdirectory(tests)

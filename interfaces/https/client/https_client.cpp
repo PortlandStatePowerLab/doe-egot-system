@@ -68,7 +68,7 @@ HttpsClient::Post(const std::string& target, const std::string& resource)
         bb::http::verb::post, target, 11
     };
     req.set(bb::http::field::host, host_);
-
+    req.set(bb::http::field::content_type, "application/sep+xml");
     req.body() = resource;
     req.prepare_payload();
 
