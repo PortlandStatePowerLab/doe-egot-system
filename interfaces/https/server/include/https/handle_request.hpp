@@ -186,26 +186,26 @@ void HandleRequest(
     }
 
     // verify method is legal for specific resource
-    if (wadl_access & static_cast<uint16_t>(req.method()) == 0)
+    if (wadl_access & 1<<static_cast<uint16_t>(req.method()) == 0)
     {
         std::string allowed;
-        if ((wadl_access & 1) > 0)
+        if ((wadl_access & 1<<0) > 0)
         {
             allowed += "DELETE, ";
         }
-        if ((wadl_access & 2) > 0)
+        if ((wadl_access & 1<<1) > 0)
         {
             allowed += "GET, ";
         }
-        if ((wadl_access & 3) > 0)
+        if ((wadl_access & 1<<2) > 0)
         {
             allowed += "HEAD, ";
         }
-        if ((wadl_access & 4) > 0)
+        if ((wadl_access & 1<<3) > 0)
         {
             allowed += "POST, ";
         }
-        if ((wadl_access & 5) > 0)
+        if ((wadl_access & 1<<4) > 0)
         {
             allowed += "PUT";
         }
@@ -217,6 +217,20 @@ void HandleRequest(
     href.lfdi = fingerprint;
     href.uri = path;
     href.query = {0, 0, 0}; // TODO
+
+    // Respond to HEAD request
+    if(req.method() == http::verb::delete_)
+    {
+        // attempt to access resource
+        World *ecs = World::getInstance();
+        ecs->Delete(href);
+
+        http::response<http::empty_body> res{http::status::ok, req.version()};
+        res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
+        res.set(http::field::content_type, "application/sep+xml");
+        res.keep_alive(req.keep_alive());
+        return send(std::move(res));
+    }
 
     if (req.method() == http::verb::get)
     {
@@ -239,6 +253,24 @@ void HandleRequest(
         return send(std::move(res));
     }
 
+    // Respond to HEAD request
+    if(req.method() == http::verb::head)
+    {
+        // attempt to access resource
+        World *ecs = World::getInstance();
+        std::string body = ecs->Get(href);
+
+        // Cache the size since we need it after the move
+        auto const size = body.size();
+
+        http::response<http::empty_body> res{http::status::ok, req.version()};
+        res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
+        res.set(http::field::content_type, "application/sep+xml");
+        res.content_length(size);
+        res.keep_alive(req.keep_alive());
+        return send(std::move(res));
+    }
+
     if (req.method() == http::verb::post)
     {
         boost::beast::string_view content_type = req[http::field::content_type];
@@ -252,6 +284,26 @@ void HandleRequest(
         ecs->Post(href, req.body());
 
         http::response<http::string_body> res{http::status::created, req.version()};
+        res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
+        res.set(http::field::content_type, "text/html");
+        res.keep_alive(req.keep_alive());
+        res.prepare_payload();
+        return send(std::move(res));
+    }
+
+    if (req.method() == http::verb::put)
+    {
+        boost::beast::string_view content_type = req[http::field::content_type];
+        if (content_type != "application/sep+xml")
+        {
+            return send(bad_request("Bad content_type"));
+        }
+
+        // attempt to access resource
+        World *ecs = World::getInstance();
+        ecs->Put(href, req.body());
+
+        http::response<http::string_body> res{http::status::ok, req.version()};
         res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
         res.set(http::field::content_type, "text/html");
         res.keep_alive(req.keep_alive());

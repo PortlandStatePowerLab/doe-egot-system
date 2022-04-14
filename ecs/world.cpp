@@ -1023,3 +1023,56 @@ void World::Post(const Href &href, const std::string& message)
             break;
     };
 };
+
+void World::Put(const Href &href, const std::string& message)
+{
+    switch (uri_map.at(href.uri))
+    {
+        case (Uri::rsp):
+        {
+            std::cout << href.uri << " : " << message << std::endl;
+        };
+        break;
+        case (Uri::rsps):
+        {
+            std::cout << href.uri << " : " << message << std::endl;
+        };
+        break;
+        case (Uri::frq):
+        {
+            std::cout << href.uri << " : " << message << std::endl;
+        };
+        break;
+        default:
+            // response = "";
+            break;
+    };
+};
+
+void World::Delete(const Href &href)
+{
+    switch (uri_map.at(href.uri))
+    {
+        case (Uri::rsp):
+        {
+            auto e = world.lookup(prependLFDI(href).c_str());
+            e.destruct();
+        };
+        break;
+        case (Uri::rsps):
+        {
+            auto e = world.lookup(prependLFDI(href).c_str());
+            e.destruct();
+        };
+        break;
+        case (Uri::frq):
+        {
+            auto e = world.lookup(prependLFDI(href).c_str());
+            e.destruct();
+        };
+        break;
+        default:
+            // response = "";
+            break;
+    };
+};
