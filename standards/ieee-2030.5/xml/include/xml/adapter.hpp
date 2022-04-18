@@ -41,39 +41,47 @@ namespace xml
 
     // Flow Reservation Request
     std::string Serialize(const sep::FlowReservationRequest &fr_request);
-    std::string Serialize(const std::vector<sep::FlowReservationRequest> &fr_request);
+    void Objectify(const boost::property_tree::ptree &pt, sep::FlowReservationRequest *fr_request);
     void Parse(const std::string &xml_str, sep::FlowReservationRequest *fr_request);
 
     // Flow Reservation Response
     std::string Serialize(const sep::FlowReservationResponse &fr_response);
+    void Objectify(const boost::property_tree::ptree &pt, sep::FlowReservationResponse *fr_response);
     void Parse(const std::string &xml_str, sep::FlowReservationResponse *fr_response);
 
     // Device Capability
     std::string Serialize(const sep::DeviceCapability &dcap);
+    void Objectify(const boost::property_tree::ptree &pt, sep::DeviceCapability *dcap);
     void Parse(const std::string &xml_str, sep::DeviceCapability *dcap);
 
     // End Device
     std::string Serialize(const sep::EndDevice &edev);
+    void Objectify(const boost::property_tree::ptree &pt, sep::EndDevice *edev);
     void Parse(const std::string &xml_str, sep::EndDevice *edev);
 
     // Self Device
     std::string Serialize(const sep::SelfDevice &sdev);
+    void Objectify(const boost::property_tree::ptree &pt, sep::SelfDevice *sdev);
     void Parse(const std::string &xml_str, sep::SelfDevice *sdev);
 
     // Registration
     std::string Serialize(const sep::Registration &rg);
+    void Objectify(const boost::property_tree::ptree &pt, sep::Registration* rg);
     void Parse (const std::string &xml_str, sep::Registration* rg);
 
     // Response
     std::string Serialize(const sep::Response &rsp);
+    void Objectify(const boost::property_tree::ptree &pt, sep::Response* rsp);
     void Parse (const std::string &xml_str, sep::Response* rsp);
 
     // Response Set
     std::string Serialize(const sep::ResponseSet &rsps);
+    void Objectify(const boost::property_tree::ptree &pt, sep::ResponseSet* rsps);
     void Parse (const std::string &xml_str, sep::ResponseSet* rsps);
 
     // Time
     std::string Serialize(const sep::Time &time);
+    void Objectify(const boost::property_tree::ptree &pt, sep::Time *time);
     void Parse(const std::string &xml_str, sep::Time *time);
 } // namespace xml
 

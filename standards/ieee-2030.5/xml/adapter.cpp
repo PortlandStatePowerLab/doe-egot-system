@@ -204,43 +204,8 @@ namespace xml
         return xml::util::Stringify(pt);
     };
 
-    // Flow Reservation Request
-    std::string Serialize(const std::vector<sep::FlowReservationRequest> &fr_request)
+    void Objectify(const boost::property_tree::ptree &pt, sep::FlowReservationRequest *fr_request)
     {
-        boost::property_tree::ptree pt;
-        // TODO: figure out how these values will be passed to the function
-        pt.put("FlowReservationRequestList.<xmlattr>.href", "/frq");
-        pt.put("FlowReservationRequestList.<xmlattr>.all", fr_request.size());  // need total from full list
-        pt.put("FlowReservationRequestList.<xmlattr>.pollRate", 900);
-        pt.put("FlowReservationRequestList.<xmlattr>.results", 0);
-        pt.put("FlowReservationRequestList.<xmlattr>.results", fr_request.size());
-
-        for (auto& frq : fr_request)
-        {
-            pt.put("FlowReservationRequestList.FlowReservationRequest.<xmlattr>.href", "http://uri1");
-            pt.put("FlowReservationRequestList.FlowReservationRequest.mRID", xml::util::Hexify(frq.mrid));
-            pt.put("FlowReservationRequestList.FlowReservationRequest.description", frq.description);
-            pt.put("FlowReservationRequestList.FlowReservationRequest.version", frq.version);
-            pt.put("FlowReservationRequestList.FlowReservationRequest.creationTime", frq.creation_time);
-            pt.put("FlowReservationRequestList.FlowReservationRequest.durationRequested", frq.duration_requested);
-            pt.put("FlowReservationRequestList.FlowReservationRequest.energyRequested.multiplier", frq.energy_requested.multiplier);
-            pt.put("FlowReservationRequestList.FlowReservationRequest.energyRequested.value", frq.energy_requested.value);
-            pt.put("FlowReservationRequestList.FlowReservationRequest.intervalRequested.duration", frq.interval_requested.duration);
-            pt.put("FlowReservationRequestList.FlowReservationRequest.intervalRequested.start", frq.interval_requested.start);
-            pt.put("FlowReservationRequestList.FlowReservationRequest.powerRequested.multiplier", frq.power_requested.multiplier);
-            pt.put("FlowReservationRequestList.FlowReservationRequest.powerRequested.value", frq.power_requested.value);
-            pt.put("FlowReservationRequestList.FlowReservationRequest.RequestStatus.dateTime", frq.request_status.datetime);
-            pt.put(
-                "FlowReservationRequestList.FlowReservationRequest.RequestStatus.requestStatus",
-                xml::util::ToUnderlyingType(frq.request_status.status));
-        }
-
-        xml::util::SetSchema(&pt);
-        return xml::util::Stringify(pt);
-    }
-    void Parse(const std::string &xml_str, sep::FlowReservationRequest *fr_request)
-    {
-        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         fr_request->href = pt.get<std::string>("FlowReservationRequest.<xmlattr>.href", "");
         fr_request->mrid = pt.get<sep::MRIDType>("FlowReservationRequest.mRID", 0);
         fr_request->description = pt.get<std::string>("FlowReservationRequest.description", "");
@@ -255,7 +220,13 @@ namespace xml
         fr_request->power_requested.value = pt.get<sep::PowerOfTenMultiplierType>("FlowReservationRequest.powerRequested.value", 0);
         fr_request->request_status.datetime = pt.get<sep::TimeType>("FlowReservationRequest.RequestStatus.dateTime", 0);
         fr_request->request_status.status = static_cast<sep::RequestStatus::Status>(pt.get<uint8_t>("FlowReservationRequest.RequestStatus.requestStatus", 0));
-    }
+    };
+
+    void Parse(const std::string &xml_str, sep::FlowReservationRequest *fr_request)
+    {
+        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        Objectify(pt, fr_request);
+    };
 
     std::string Serialize(const sep::FlowReservationResponse &fr_response)
     {
@@ -290,9 +261,8 @@ namespace xml
         return xml::util::Stringify(pt);
     }
 
-    void Parse(const std::string &xml_str, sep::FlowReservationResponse *fr_response)
+    void Objectify(const boost::property_tree::ptree &pt, sep::FlowReservationResponse *fr_response)
     {
-        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         fr_response->subscribable = static_cast<sep::SubscribableType>(
             pt.get<uint8_t>("FlowReservationResponse.<xmlattr>.subscribable", 0));
         fr_response->reply_to = pt.get<std::string>("FlowReservationResponse.<xmlattr>.replyTo", "");
@@ -316,6 +286,12 @@ namespace xml
         fr_response->power_available.multiplier = pt.get<uint8_t>("FlowReservationResponse.powerAvailable.multiplier", 0);
         fr_response->power_available.value = pt.get<int16_t>("FlowReservationResponse.powerAvailable.value", 0);
         fr_response->subject = pt.get<std::string>("FlowReservationResponse.subject", "");
+    };
+
+    void Parse(const std::string &xml_str, sep::FlowReservationResponse *fr_response)
+    {
+        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        Objectify(pt, fr_response);
     }
 
     std::string Serialize(const sep::DeviceCapability &dcap)
@@ -350,10 +326,8 @@ namespace xml
         return xml::util::Stringify(pt);
     }
 
-    void Parse(const std::string &xml_str, sep::DeviceCapability *dcap)
+    void Objectify(const boost::property_tree::ptree &pt, sep::DeviceCapability *dcap)
     {
-
-        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         dcap->poll_rate = pt.get<uint32_t>("DeviceCapability.<xmlattr>.pollRate", 900);
         dcap->href = pt.get<std::string>("DeviceCapability.<xmlattr>.href", "");
         dcap->customer_account_list_link.href = pt.get<std::string>("DeviceCapability.CustomerAccountListLink.<xmlattr>.href", "");
@@ -378,6 +352,12 @@ namespace xml
         dcap->mirror_usage_point_list_link.href = pt.get<std::string>("DeviceCapability.MirrorUsagePointListLink.<xmlattr>.href", "");
         dcap->mirror_usage_point_list_link.all = pt.get<uint32_t>("DeviceCapability.MirrorUsagePointListLink.<xmlattr>.all", 0);
         dcap->self_device_link.href = pt.get<std::string>("DeviceCapability.SelfDeviceLink.<xmlattr>.href", "");
+    }
+
+    void Parse(const std::string &xml_str, sep::DeviceCapability *dcap)
+    {
+        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        Objectify(pt, dcap);
     }
 
     std::string Serialize(const sep::EndDevice &edev)
@@ -418,9 +398,8 @@ namespace xml
         return xml::util::Stringify(pt);
     }
 
-    void Parse(const std::string &xml_str, sep::EndDevice *edev)
+    void Objectify(const boost::property_tree::ptree &pt, sep::EndDevice *edev)
     {
-        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         edev->subscribable = static_cast<sep::SubscribableType>(
             pt.get<uint8_t>("EndDevice.<xmlattr>.subscribable", 0));
         edev->href = pt.get<std::string>("EndDevice.<xmlattr>.href", "");
@@ -455,6 +434,12 @@ namespace xml
         edev->subscription_list_link.all = pt.get<uint32_t>("EndDevice.SubscriptionListLink.<xmlattr>.all", 0);
     }
 
+    void Parse(const std::string &xml_str, sep::EndDevice *edev)
+    {
+        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        Objectify(pt, edev);
+    }
+
     std::string Serialize(const sep::SelfDevice &sdev)
     {
         boost::property_tree::ptree pt;
@@ -482,9 +467,8 @@ namespace xml
         return xml::util::Stringify(pt);
     }
 
-    void Parse(const std::string &xml_str, sep::SelfDevice *sdev)
+    void Objectify(const boost::property_tree::ptree &pt, sep::SelfDevice *sdev)
     {
-        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         sdev->poll_rate = pt.get<uint32_t>("SelfDevice.<xmlattr>.pollRate", 900);
         sdev->subscribable = static_cast<sep::SubscribableType>(
             pt.get<uint8_t>("SelfDevice.<xmlattr>.subscribable", 0));
@@ -508,6 +492,12 @@ namespace xml
         sdev->sfdi = pt.get<uint64_t>("SelfDevice.sFDI", 0);
     }
 
+    void Parse(const std::string &xml_str, sep::SelfDevice *sdev)
+    {
+        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        Objectify(pt, sdev);
+    }
+
     std::string Serialize(const sep::Registration &rg)
     {
         boost::property_tree::ptree pt;
@@ -520,23 +510,18 @@ namespace xml
         return xml::util::Stringify(pt);
     }
 
-    void Parse(const std::string &xml_str, sep::Registration *rg)
+    void Objectify(const boost::property_tree::ptree &pt, sep::Registration *rg)
     {
-        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         rg->poll_rate = pt.get<uint32_t>("Registration.<xmlattr>.pollRate", 900);
         rg->href = pt.get<std::string>("Registration.<xmlattr>.href", "");
         rg->date_time_registered = pt.get<sep::TimeType>("Registration.dateTimeRegistered", 0);
         rg->pin = pt.get<sep::PINType>("Registration.pIN", 0);
     }
 
-    void Parse(const std::string &xml_str, sep::Response *rsp)
+    void Parse(const std::string &xml_str, sep::Registration *rg)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
-        rsp->href = pt.get<std::string>("Response.<xmlattr>.href","");
-        rsp->created_date_time = pt.get<sep::TimeType>("Response.createdDateTime",0);
-        rsp->end_device_lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(pt.get<std::string>("Response.endDeviceLFDI", ""));
-        rsp->status = static_cast<sep::Response::Status>(pt.get<uint8_t>("Response.status",0));
-        rsp->subject = pt.get<sep::MRIDType>("Response.subject",0);
+        Objectify(pt, rg);
     }
 
     std::string Serialize(const sep::Response &rsp)
@@ -552,21 +537,25 @@ namespace xml
         return xml::util::Stringify(pt);
     }
 
-    void Parse(const std::string &xml_str, sep::ResponseSet *rsps)
+    void Objectify(const boost::property_tree::ptree &pt, sep::Response *rsp)
+    {
+        rsp->href = pt.get<std::string>("Response.<xmlattr>.href", "");
+        rsp->created_date_time = pt.get<sep::TimeType>("Response.createdDateTime", 0);
+        rsp->end_device_lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(pt.get<std::string>("Response.endDeviceLFDI", ""));
+        rsp->status = static_cast<sep::Response::Status>(pt.get<uint8_t>("Response.status", 0));
+        rsp->subject = pt.get<sep::MRIDType>("Response.subject", 0);
+    }
+
+    void Parse(const std::string &xml_str, sep::Response *rsp)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
-        rsps->href = pt.get<std::string>("ResponseSet.<xmlattr>.href","");
-        rsps->mrid = pt.get<sep::MRIDType>("ResponseSet.mRID", 0);
-        rsps->description = pt.get<std::string>("ResponseSet.description","");
-        rsps->version = pt.get<uint16_t>("ResponseSet.version",0);
-        rsps->response_list_link.all = pt.get<uint32_t>("ResponseSet.ResponseListLink.all",0);
-        rsps->response_list_link.href = pt.get<std::string>("ResponseSet.ResponseListLink.href","");
+        Objectify(pt, rsp);
     }
 
     std::string Serialize(const sep::ResponseSet &rsps)
     {
         boost::property_tree::ptree pt;
-        pt.put("ResponseSet.<xmlattr>.href",rsps.href);
+        pt.put("ResponseSet.<xmlattr>.href", rsps.href);
         pt.put("ResponseSet.mRID", xml::util::Hexify(rsps.mrid));
         pt.put("ResponseSet.description", rsps.description);
         pt.put("ResponseSet.version", rsps.version);
@@ -575,6 +564,22 @@ namespace xml
 
         xml::util::SetSchema(&pt);
         return xml::util::Stringify(pt);
+    }
+
+    void Objectify(const boost::property_tree::ptree &pt, sep::ResponseSet *rsps)
+    {
+        rsps->href = pt.get<std::string>("ResponseSet.<xmlattr>.href", "");
+        rsps->mrid = pt.get<sep::MRIDType>("ResponseSet.mRID", 0);
+        rsps->description = pt.get<std::string>("ResponseSet.description", "");
+        rsps->version = pt.get<uint16_t>("ResponseSet.version", 0);
+        rsps->response_list_link.all = pt.get<uint32_t>("ResponseSet.ResponseListLink.all", 0);
+        rsps->response_list_link.href = pt.get<std::string>("ResponseSet.ResponseListLink.href", "");
+    }
+
+    void Parse(const std::string &xml_str, sep::ResponseSet *rsps)
+    {
+        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        Objectify(pt, rsps);
     }
 
     std::string Serialize(const sep::Time &time)
@@ -594,9 +599,8 @@ namespace xml
         return xml::util::Stringify(pt);
     }
 
-    void Parse(const std::string &xml_str, sep::Time *time)
+    void Objectify(const boost::property_tree::ptree &pt, sep::Time *time)
     {
-        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         time->poll_rate = pt.get<uint32_t>("Time.<xmlattr>.pollRate", 900);
         time->href = pt.get<std::string>("Time.<xmlattr>.href", "");
         time->current_time = pt.get<sep::TimeType>("Time.currentTime", 0);
@@ -607,4 +611,10 @@ namespace xml
         time->quality = pt.get<uint8_t>("Time.quality", 7);
         time->tz_offset = pt.get<sep::TimeOffsetType>("Time.tzOffset", 7);
     }
-};
+
+    void Parse(const std::string &xml_str, sep::Time *time)
+    {
+        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        Objectify(pt, time);
+    }
+}; // namespace sep
