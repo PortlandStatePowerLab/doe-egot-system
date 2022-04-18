@@ -178,8 +178,7 @@ void HandleRequest(
 
     // verify the path is legal
     std::string wadl_path = *doc_root + "/sep_xml/sep_wadl.xml";
-    sep::WADL* wadl = sep::WADL::getInstance(wadl_path);
-    uint16_t wadl_access = wadl->getAccess(path);
+    uint16_t wadl_access = sep::WADL::getInstance(wadl_path)->getAccess(path);
     if (wadl_access == 0)
     {
         return send(not_found(path));
@@ -207,8 +206,10 @@ void HandleRequest(
         }
         if ((wadl_access & 1<<4) > 0)
         {
-            allowed += "PUT";
+            allowed += "PUT, ";
         }
+        allowed.pop_back(); // remove space
+        allowed.pop_back(); // remove comma
         return send(method_not_allowed(allowed));
     }
 
@@ -218,7 +219,7 @@ void HandleRequest(
     href.uri = path;
     href.query = {0, 0, 0}; // TODO
 
-    // Respond to HEAD request
+    // Respond to DELETE request
     if(req.method() == http::verb::delete_)
     {
         // attempt to access resource

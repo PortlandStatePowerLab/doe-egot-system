@@ -204,6 +204,40 @@ namespace xml
         return xml::util::Stringify(pt);
     };
 
+    // Flow Reservation Request
+    std::string Serialize(const std::vector<sep::FlowReservationRequest> &fr_request)
+    {
+        boost::property_tree::ptree pt;
+        // TODO: figure out how these values will be passed to the function
+        pt.put("FlowReservationRequestList.<xmlattr>.href", "/frq");
+        pt.put("FlowReservationRequestList.<xmlattr>.all", fr_request.size());  // need total from full list
+        pt.put("FlowReservationRequestList.<xmlattr>.pollRate", 900);
+        pt.put("FlowReservationRequestList.<xmlattr>.results", 0);
+        pt.put("FlowReservationRequestList.<xmlattr>.results", fr_request.size());
+
+        for (auto& frq : fr_request)
+        {
+            pt.put("FlowReservationRequestList.FlowReservationRequest.<xmlattr>.href", "http://uri1");
+            pt.put("FlowReservationRequestList.FlowReservationRequest.mRID", xml::util::Hexify(frq.mrid));
+            pt.put("FlowReservationRequestList.FlowReservationRequest.description", frq.description);
+            pt.put("FlowReservationRequestList.FlowReservationRequest.version", frq.version);
+            pt.put("FlowReservationRequestList.FlowReservationRequest.creationTime", frq.creation_time);
+            pt.put("FlowReservationRequestList.FlowReservationRequest.durationRequested", frq.duration_requested);
+            pt.put("FlowReservationRequestList.FlowReservationRequest.energyRequested.multiplier", frq.energy_requested.multiplier);
+            pt.put("FlowReservationRequestList.FlowReservationRequest.energyRequested.value", frq.energy_requested.value);
+            pt.put("FlowReservationRequestList.FlowReservationRequest.intervalRequested.duration", frq.interval_requested.duration);
+            pt.put("FlowReservationRequestList.FlowReservationRequest.intervalRequested.start", frq.interval_requested.start);
+            pt.put("FlowReservationRequestList.FlowReservationRequest.powerRequested.multiplier", frq.power_requested.multiplier);
+            pt.put("FlowReservationRequestList.FlowReservationRequest.powerRequested.value", frq.power_requested.value);
+            pt.put("FlowReservationRequestList.FlowReservationRequest.RequestStatus.dateTime", frq.request_status.datetime);
+            pt.put(
+                "FlowReservationRequestList.FlowReservationRequest.RequestStatus.requestStatus",
+                xml::util::ToUnderlyingType(frq.request_status.status));
+        }
+
+        xml::util::SetSchema(&pt);
+        return xml::util::Stringify(pt);
+    }
     void Parse(const std::string &xml_str, sep::FlowReservationRequest *fr_request)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);

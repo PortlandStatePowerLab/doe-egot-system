@@ -1,18 +1,11 @@
 #include <gtest/gtest.h>
-#include "global.hpp"
+#include <utilities/utilities.hpp>
 
 std::string g_program_path;
 
-void GetParentPath(char** arg)
-{
-    g_program_path = arg[0];
-    std::size_t found = g_program_path.find_last_of("/\\");
-    g_program_path = g_program_path.substr(0,found) + "/sep_xml";
-};
-
 int main(int argc, char **argv) 
 {
-    GetParentPath(argv);
+    g_program_path = psu::utilities::getProgramPath(argv);
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

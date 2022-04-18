@@ -21,30 +21,6 @@ World::World()
     world.import<sep::CommonModule>();
     world.import<sep::SupportModule>();
     world.import<sep::SmartEnergyModule>();
-
-    // TODO: move to an initialization/registration system
-    // sep::DeviceCapability dcap;
-    // dcap.customer_account_list_link.all = 1;
-    // dcap.customer_account_list_link.href = "/bill";
-    // dcap.demand_response_program_list_link.all = 1;
-    // dcap.demand_response_program_list_link.href = "/dr";
-    // dcap.der_program_list_link.all = 1;
-    // dcap.der_program_list_link.href = "/derp";
-    // dcap.end_device_list_link.all = 1;
-    // dcap.end_device_list_link.href = "/edev";
-    // dcap.file_list_link.all = 1;
-    // dcap.file_list_link.href = "/file";
-    // dcap.href = "/dcap";
-    // dcap.messaging_program_list_link.all = 1;
-    // dcap.messaging_program_list_link.href = "/msg";
-    // dcap.mirror_usage_point_list_link.all = 1;
-    // dcap.mirror_usage_point_list_link.href = "/mup";
-    // dcap.poll_rate = 900;
-    // dcap.prepayment_list_link.all = 1;
-    // dcap.prepayment_list_link.href = "/ppy";
-    // dcap.response_set_list_link.all = 1;
-    // dcap.response_set_list_link.href = "/rsps";
-    // dcap.self_device_link.href = "/sdev";
 };
 
 World::~World()
@@ -72,6 +48,10 @@ std::string World::Get(const Href &href)
     case (Uri::dcap):
     {
         auto e = world.lookup(href.uri.c_str());
+        // For simple queries the each function can be used
+/*         world.each([](flecs::entity& e, sep::DeviceCapability& dcap) { // flecs::entity argument is optional
+            e.name() == "/dcap";
+        }); */
         if (e.id() == 0)
         {
             response = "";
@@ -195,7 +175,8 @@ std::string World::Get(const Href &href)
         }
         else
         {
-            // TODO: response = xml::Serialize(*e.get<sep::Response>());
+
+            response = xml::Serialize(*e.get<sep::Response>());
         }
     };
     break;
@@ -1005,17 +986,27 @@ void World::Post(const Href &href, const std::string& message)
     {
         case (Uri::rsp):
         {
-            std::cout << href.uri << " : " << message << std::endl;
+            std::cout << message << std::endl;
+            sep::Response rsp;
+            xml::Parse(message, &rsp);
+            std::string entity_id = prependLFDI(href) + "/" + xml::util::Hexify(rsp.subject);
+            world.entity(entity_id.c_str()).set<sep::Response>(rsp);
         };
         break;
         case (Uri::rsps):
         {
-            std::cout << href.uri << " : " << message << std::endl;
+            sep::ResponseSet *rsps;
+            xml::Parse(message, rsps);
+            std::string entity_id = prependLFDI(href) + "/" + xml::util::Hexify(rsps->mrid);
+            world.entity(entity_id.c_str()).set<sep::ResponseSet>(*rsps);
         };
         break;
         case (Uri::frq):
         {
-            std::cout << href.uri << " : " << message << std::endl;
+            sep::FlowReservationRequest *frq;
+            xml::Parse(message, frq);
+            std::string entity_id = prependLFDI(href) + "/" + xml::util::Hexify(frq->mrid);
+            world.entity(entity_id.c_str()).set<sep::FlowReservationRequest>(*frq);
         };
         break;
         default:
@@ -1030,17 +1021,26 @@ void World::Put(const Href &href, const std::string& message)
     {
         case (Uri::rsp):
         {
-            std::cout << href.uri << " : " << message << std::endl;
+            sep::Response *rsp;
+            xml::Parse(message, rsp);
+            std::string entity_id = prependLFDI(href) + "/" + xml::util::Hexify(rsp->subject);
+            world.entity(entity_id.c_str()).set<sep::Response>(*rsp);
         };
         break;
         case (Uri::rsps):
         {
-            std::cout << href.uri << " : " << message << std::endl;
+            sep::ResponseSet *rsps;
+            xml::Parse(message, rsps);
+            std::string entity_id = prependLFDI(href) + "/" + xml::util::Hexify(rsps->mrid);
+            world.entity(entity_id.c_str()).set<sep::ResponseSet>(*rsps);
         };
         break;
         case (Uri::frq):
         {
-            std::cout << href.uri << " : " << message << std::endl;
+            sep::FlowReservationRequest *frq;
+            xml::Parse(message, frq);
+            std::string entity_id = prependLFDI(href) + "/" + xml::util::Hexify(frq->mrid);
+            world.entity(entity_id.c_str()).set<sep::FlowReservationRequest>(*frq);
         };
         break;
         default:
@@ -1055,20 +1055,32 @@ void World::Delete(const Href &href)
     {
         case (Uri::rsp):
         {
+            std::string entity_id = prependLFDI(href);
             auto e = world.lookup(prependLFDI(href).c_str());
-            e.destruct();
+            if (e != 0)
+            {
+                e.destruct();
+            }
         };
         break;
         case (Uri::rsps):
         {
+            std::string entity_id = prependLFDI(href);
             auto e = world.lookup(prependLFDI(href).c_str());
-            e.destruct();
+            if (e != 0)
+            {
+                e.destruct();
+            }
         };
         break;
         case (Uri::frq):
         {
+            std::string entity_id = prependLFDI(href);
             auto e = world.lookup(prependLFDI(href).c_str());
-            e.destruct();
+            if (e != 0)
+            {
+                e.destruct();
+            }
         };
         break;
         default:

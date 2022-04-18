@@ -41,6 +41,7 @@ namespace xml
 
     // Flow Reservation Request
     std::string Serialize(const sep::FlowReservationRequest &fr_request);
+    std::string Serialize(const std::vector<sep::FlowReservationRequest> &fr_request);
     void Parse(const std::string &xml_str, sep::FlowReservationRequest *fr_request);
 
     // Flow Reservation Response

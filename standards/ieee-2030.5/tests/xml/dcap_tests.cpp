@@ -8,27 +8,18 @@
 #include <ieee-2030.5/models.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
-#include "global.hpp"
+#include <utilities/utilities.hpp>
+
+extern std::string g_program_path;
 
 class TestDeviceCapabilityXML : public ::testing::Test 
 {
 protected:
     void SetUp() override 
     {        
-        validator = new XmlValidator(g_program_path + "/sep.xsd");
+        validator = new XmlValidator(g_program_path + "/sep_xml/sep.xsd");
 
-        // read in the sample file
-        std::ifstream ifs(g_program_path + "/DeviceCapability.xml");
-        if (ifs)
-        {
-            std::ostringstream oss;
-            oss << ifs.rdbuf();
-            xml_str = oss.str();        
-        }
-        else
-        {
-            std::cout << "couldn't open xml file" << std::endl;
-        };
+        xml_str = psu::utilities::readFile(g_program_path+"/sep_xml/DeviceCapability.xml");;
     }
 
     void TearDown() override
