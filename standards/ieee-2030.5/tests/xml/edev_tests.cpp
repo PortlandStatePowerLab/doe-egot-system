@@ -116,6 +116,6 @@ TEST_F(TestEndDeviceXML, CheckAdapterDeviceCategoryMaxValue)
     pt.put("EndDevice.SubscriptionListLink.<xmlattr>.href", "http://uri1");
     pt.put("EndDevice.SubscriptionListLink.<xmlattr>.all", 0);
 
-    std::string xml_adapter = xml::util::Stringify(pt);
+    std::string xml_adapter = xml::util::Stringify(&pt);
     EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }

@@ -4,7 +4,16 @@ find_package(Boost REQUIRED)
 
 set(COMPONENT_NAME XML_Validator)
 add_library(${COMPONENT_NAME} STATIC
-    adapter.cpp
+    device_capability_adapter.cpp
+    end_device_adapter.cpp
+    flow_reservation_response_adapter.cpp
+    flow_reservation_request_adapter.cpp
+    registration_adapter.cpp
+    response_adapter.cpp
+    response_set_adapter.cpp
+    self_device_adapter.cpp
+    time_adapter.cpp
+    utilities.cpp
     xml_validator.cpp
 )
 

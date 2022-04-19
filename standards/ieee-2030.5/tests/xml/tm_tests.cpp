@@ -74,7 +74,7 @@ TEST_F(TestTimeXML, CheckAdapterQualityMinValue)
     pt.put("Time.quality", 2);
     pt.put("Time.tzOffset", 1);
 
-    std::string xml_adapter = xml::util::Stringify(pt);
+    std::string xml_adapter = xml::util::Stringify(&pt);
     EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }
 
@@ -91,6 +91,6 @@ TEST_F(TestTimeXML, CheckAdapterQualityMaxValue)
     pt.put("Time.quality", 8);
     pt.put("Time.tzOffset", 1);
 
-    std::string xml_adapter = xml::util::Stringify(pt);
+    std::string xml_adapter = xml::util::Stringify(&pt);
     EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }

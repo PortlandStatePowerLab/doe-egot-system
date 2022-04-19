@@ -96,7 +96,7 @@ TEST_F(TestFlowReservationResponseXML, CheckAdapterSubscribableMaxInclusive)
     pt.put("FlowReservationResponse.powerAvailable.value", 1);
     pt.put("FlowReservationResponse.subject", "0FB7");
 
-    std::string xml_adapter = xml::util::Stringify(pt);
+    std::string xml_adapter = xml::util::Stringify(&pt);
     EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }
 
@@ -124,7 +124,7 @@ TEST_F(TestFlowReservationResponseXML, CheckAdapterSubscribableMinInclusive)
     pt.put("FlowReservationResponse.powerAvailable.value", 1);
     pt.put("FlowReservationResponse.subject", "0FB7");
 
-    std::string xml_adapter = xml::util::Stringify(pt);
+    std::string xml_adapter = xml::util::Stringify(&pt);
     EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }
 
@@ -152,7 +152,7 @@ TEST_F(TestFlowReservationResponseXML, CheckAdapterResponseRequiredMaxInclusive)
     pt.put("FlowReservationResponse.powerAvailable.value", 1);
     pt.put("FlowReservationResponse.subject", "0FB7");
 
-    std::string xml_adapter = xml::util::Stringify(pt);
+    std::string xml_adapter = xml::util::Stringify(&pt);
     EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }
 
@@ -180,7 +180,7 @@ TEST_F(TestFlowReservationResponseXML, CheckAdapterResponseRequiredNonHex)
     pt.put("FlowReservationResponse.powerAvailable.value", 1);
     pt.put("FlowReservationResponse.subject", "0FB7");
 
-    std::string xml_adapter = xml::util::Stringify(pt);
+    std::string xml_adapter = xml::util::Stringify(&pt);
     EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }
 
@@ -208,7 +208,7 @@ TEST_F(TestFlowReservationResponseXML, CheckAdapterResponseCurrentStatusMaxInclu
     pt.put("FlowReservationResponse.powerAvailable.value", 1);
     pt.put("FlowReservationResponse.subject", "0FB7");
 
-    std::string xml_adapter = xml::util::Stringify(pt);
+    std::string xml_adapter = xml::util::Stringify(&pt);
     EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }
 
@@ -236,6 +236,6 @@ TEST_F(TestFlowReservationResponseXML, CheckAdapterResponseCurrentStatusMinInclu
     pt.put("FlowReservationResponse.powerAvailable.value", 1);
     pt.put("FlowReservationResponse.subject", "0FB7");
 
-    std::string xml_adapter = xml::util::Stringify(pt);
+    std::string xml_adapter = xml::util::Stringify(&pt);
     EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }

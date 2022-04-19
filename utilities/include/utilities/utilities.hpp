@@ -1,5 +1,5 @@
-#ifndef __UTILITIES_H__
-#define __UTILITIES_H__
+#ifndef __PSU_UTILITIES_H__
+#define __PSU_UTILITIES_H__
 #include <string>
 #include <cstdint>
 
@@ -14,4 +14,4 @@ namespace psu
 
 } // namespace psu
 
-#endif // __UTILITIES_H__
+#endif // __PSU_UTILITIES_H__

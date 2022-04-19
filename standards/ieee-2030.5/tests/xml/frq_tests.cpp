@@ -83,7 +83,7 @@ TEST_F(TestFlowReservationRequestXML, CheckAdapterStatusMaxInclusive)
     pt.put("FlowReservationRequest.RequestStatus.dateTime", 1);
     pt.put("FlowReservationRequest.RequestStatus.requestStatus", 2);
 
-    std::string xml_adapter = xml::util::Stringify(pt);
+    std::string xml_adapter = xml::util::Stringify(&pt);
     EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }
 
@@ -104,6 +104,6 @@ TEST_F(TestFlowReservationRequestXML, CheckAdapterStatusMinInclusive)
     pt.put("FlowReservationRequest.RequestStatus.dateTime", 1);
     pt.put("FlowReservationRequest.RequestStatus.requestStatus", -1);
 
-    std::string xml_adapter = xml::util::Stringify(pt);
+    std::string xml_adapter = xml::util::Stringify(&pt);
     EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }

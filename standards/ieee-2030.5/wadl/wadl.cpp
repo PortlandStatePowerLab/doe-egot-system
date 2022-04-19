@@ -1,7 +1,8 @@
 #include "include/wadl/wadl.hpp"
-#include <xml/adapter.hpp>
 #include <utilities/utilities.hpp>
+#include <xml/utilities.hpp>
 #include <boost/foreach.hpp>
+#include <iostream>
 
 static std::unordered_map <std::string, std::string> uri_map = 
 {
