@@ -1,8 +1,9 @@
 #ifndef __FLOW_RESERVATION_REQUEST_ADAPTER_H__
 #define __FLOW_RESERVATION_REQUEST_ADAPTER_H__
 
-#include "utilities.hpp"
 #include <ieee-2030.5/models.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/xml_parser.hpp>
 
 namespace xml
 {

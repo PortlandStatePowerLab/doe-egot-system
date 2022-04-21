@@ -1,4 +1,5 @@
 #include "include/xml/time_adapter.hpp"
+#include "include/xml/utilities.hpp"
 
 namespace xml
 {
@@ -30,11 +31,11 @@ namespace xml
 
     std::string Serialize(const sep::Time &tm)
     {
-        boost::property_tree::ptree* pt;
-        TreeMap(tm, pt);
+        boost::property_tree::ptree pt;
+        TreeMap(tm, &pt);
 
-        xml::util::SetSchema(pt);
-        return xml::util::Stringify(pt);
+        xml::util::SetSchema(&pt);
+        return xml::util::Stringify(&pt);
     };
 
     void Parse(const std::string &xml_str, sep::Time *tm)

@@ -1,5 +1,6 @@
 #include "include/xml/flow_reservation_response_adapter.hpp"
 #include <boost/foreach.hpp>
+#include "include/xml/utilities.hpp"
 
 namespace xml
 {
@@ -62,11 +63,11 @@ namespace xml
 
     std::string Serialize(const sep::FlowReservationResponse &frp)
     {
-        boost::property_tree::ptree* pt;
-        TreeMap(frp, pt);
+        boost::property_tree::ptree pt;
+        TreeMap(frp, &pt);
 
-        xml::util::SetSchema(pt);
-        return xml::util::Stringify(pt);
+        xml::util::SetSchema(&pt);
+        return xml::util::Stringify(&pt);
     };
 
     void Parse(const std::string &xml_str, sep::FlowReservationResponse *frp)
@@ -77,28 +78,35 @@ namespace xml
 
     std::string Serialize(const std::vector<sep::FlowReservationResponse> &frp_list)
     {
-        boost::property_tree::ptree* pt;
-        pt->put("FlowReservationResponseList.<xmlattr>.results", frp_list.size());
+        boost::property_tree::ptree pt;
+        pt.put("FlowReservationResponseList.<xmlattr>.results", frp_list.size());
 
         for (const auto& frp : frp_list)
         {
             boost::property_tree::ptree pt2;
             TreeMap(frp, &pt2);
-            pt->add_child("FlowReservationResponseList.FlowReservationResponse", pt2);
+            pt.add_child("FlowReservationResponseList.FlowReservationResponse", pt2.get_child("FlowReservationResponse"));
         }
         
-        xml::util::SetSchema(pt);
-        return xml::util::Stringify(pt);
+        xml::util::SetSchema(&pt);
+        return xml::util::Stringify(&pt);
     };  
 
     void Parse(const std::string &xml_str, std::vector<sep::FlowReservationResponse> *frp_list)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
-        BOOST_FOREACH (boost::property_tree::ptree::value_type &subtree, pt.get_child("FlowReservationResponseList.FlowReservationResponse"))
+        BOOST_FOREACH (boost::property_tree::ptree::value_type &subtree, pt.get_child("FlowReservationResponseList"))
         {
-            sep::FlowReservationResponse* frp;
-            ObjectMap(subtree.second, frp);
-            frp_list->emplace_back(*frp);
+            if (subtree.first == "FlowReservationResponse")
+            {
+                boost::property_tree::ptree temp;
+                temp.add_child("FlowReservationResponse", subtree.second);
+                
+                sep::FlowReservationResponse frp;
+                ObjectMap(subtree.second, &frp);
+                frp_list->emplace_back(frp);
+            }
+            
         }
     };
 

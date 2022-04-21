@@ -20,6 +20,7 @@ protected:
         validator = new XmlValidator(g_program_path + "/sep_xml/sep.xsd");
 
         xml_str = psu::utilities::readFile(g_program_path + "/sep_xml/FlowReservationResponse.xml");
+        list_xml_str = psu::utilities::readFile(g_program_path + "/sep_xml/FlowReservationResponseList.xml");
     }
 
     void TearDown() override
@@ -29,6 +30,7 @@ protected:
 
 protected:
     std::string xml_str;
+    std::string list_xml_str;
     XmlValidator *validator;
 };
 
@@ -238,4 +240,16 @@ TEST_F(TestFlowReservationResponseXML, CheckAdapterResponseCurrentStatusMinInclu
 
     std::string xml_adapter = xml::util::Stringify(&pt);
     EXPECT_FALSE(validator->ValidateXml(xml_adapter));
+}
+
+TEST_F(TestFlowReservationResponseXML, IsListSampleValid) 
+{   
+    EXPECT_TRUE(validator->ValidateXml(list_xml_str));      
+}
+
+TEST_F(TestFlowReservationResponseXML, IsListAdapterValid) 
+{   
+    std::vector<sep::FlowReservationResponse> frp_list;
+    xml::Parse(list_xml_str, &frp_list);
+    EXPECT_TRUE(validator->ValidateXml(xml::Serialize(frp_list)));
 }

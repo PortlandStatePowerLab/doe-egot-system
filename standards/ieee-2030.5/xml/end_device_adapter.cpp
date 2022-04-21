@@ -1,5 +1,6 @@
 #include "include/xml/end_device_adapter.hpp"
 #include <boost/foreach.hpp>
+#include "include/xml/utilities.hpp"
 
 namespace xml
 {
@@ -76,11 +77,11 @@ namespace xml
 
     std::string Serialize(const sep::EndDevice &edev)
     {
-        boost::property_tree::ptree *pt;
-        TreeMap(edev, pt);
+        boost::property_tree::ptree pt;
+        TreeMap(edev, &pt);
 
-        xml::util::SetSchema(pt);
-        return xml::util::Stringify(pt);
+        xml::util::SetSchema(&pt);
+        return xml::util::Stringify(&pt);
     };
 
     void Parse(const std::string &xml_str, sep::EndDevice *edev)
@@ -91,28 +92,34 @@ namespace xml
 
     std::string Serialize(const std::vector<sep::EndDevice> &edev_list)
     {
-        boost::property_tree::ptree* pt;
-        pt->put("EndDeviceList.<xmlattr>.results", edev_list.size());
+        boost::property_tree::ptree pt;
+        pt.put("EndDeviceList.<xmlattr>.results", edev_list.size());
 
         for (const auto& edev : edev_list)
         {
             boost::property_tree::ptree pt2;
             TreeMap(edev, &pt2);
-            pt->add_child("EndDeviceList.EndDevice", pt2);
+            pt.add_child("EndDeviceList.EndDevice", pt2.get_child("EndDevice"));
         }
         
-        xml::util::SetSchema(pt);
-        return xml::util::Stringify(pt);
+        xml::util::SetSchema(&pt);
+        return xml::util::Stringify(&pt);
     };
 
     void Parse(const std::string &xml_str, std::vector<sep::EndDevice> *edevs)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
-        BOOST_FOREACH (boost::property_tree::ptree::value_type &subtree, pt.get_child("EndDeviceList.EndDevice"))
+        BOOST_FOREACH (boost::property_tree::ptree::value_type &subtree, pt.get_child("EndDeviceList"))
         {
-            sep::EndDevice* edev;
-            ObjectMap(subtree.second, edev);
-            edevs->emplace_back(*edev);
+            if (subtree.first == "EndDevice")
+            {
+                boost::property_tree::ptree temp;
+                temp.add_child("EndDevice", subtree.second);
+
+                sep::EndDevice edev;
+                ObjectMap(temp, &edev);
+                edevs->emplace_back(edev);
+            }
         }
     };
 } // namespace xml

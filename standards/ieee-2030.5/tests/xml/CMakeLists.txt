@@ -8,6 +8,8 @@ add_executable (xml_tests
     rg_tests.cpp
     dstat_tests.cpp
     fsa_tests.cpp
+    frp_tests.cpp 
+    frq_tests.cpp
     sub_tests.cpp
     ntfy_tests.cpp
     rsps_tests.cpp

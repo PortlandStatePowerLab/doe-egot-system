@@ -13,7 +13,6 @@ add_library(${COMPONENT_NAME} STATIC
     response_set_adapter.cpp
     self_device_adapter.cpp
     time_adapter.cpp
-    utilities.cpp
     xml_validator.cpp
 )
 

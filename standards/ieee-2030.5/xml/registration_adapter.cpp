@@ -1,4 +1,5 @@
 #include "include/xml/registration_adapter.hpp"
+#include "include/xml/utilities.hpp"
 
 namespace xml
 {
@@ -20,11 +21,11 @@ namespace xml
 
     std::string Serialize(const sep::Registration &rg)
     {
-        boost::property_tree::ptree* pt;
-        TreeMap(rg, pt);
+        boost::property_tree::ptree pt;
+        TreeMap(rg, &pt);
 
-        xml::util::SetSchema(pt);
-        return xml::util::Stringify(pt);
+        xml::util::SetSchema(&pt);
+        return xml::util::Stringify(&pt);
     };
 
     void Parse (const std::string &xml_str, sep::Registration* rg)

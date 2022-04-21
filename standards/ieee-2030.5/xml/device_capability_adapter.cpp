@@ -61,11 +61,11 @@ namespace xml
 
     std::string Serialize(const sep::DeviceCapability &dcap)
     {
-        boost::property_tree::ptree *pt;
-        TreeMap(dcap, pt);
+        boost::property_tree::ptree pt;
+        TreeMap(dcap, &pt);
 
-        xml::util::SetSchema(pt);
-        return xml::util::Stringify(pt);
+        xml::util::SetSchema(&pt);
+        return xml::util::Stringify(&pt);
     }
 
     void Parse(const std::string &xml_str, sep::DeviceCapability *dcap)

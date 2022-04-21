@@ -1,5 +1,6 @@
 #include "include/xml/self_device_adapter.hpp"
 #include <boost/foreach.hpp>
+#include "include/xml/utilities.hpp"
 
 namespace xml
 {
@@ -53,43 +54,16 @@ namespace xml
 
     std::string Serialize(const sep::SelfDevice &sdev)
     {
-        boost::property_tree::ptree* pt;
-        TreeMap(sdev, pt);
+        boost::property_tree::ptree pt;
+        TreeMap(sdev, &pt);
 
-        xml::util::SetSchema(pt);
-        return xml::util::Stringify(pt);
+        xml::util::SetSchema(&pt);
+        return xml::util::Stringify(&pt);
     };
 
     void Parse(const std::string &xml_str, sep::SelfDevice *sdev)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         ObjectMap(pt, sdev);
-    };
-
-    std::string Serialize(const std::vector<sep::SelfDevice> &sdev_list)
-    {
-        boost::property_tree::ptree* pt;
-        pt->put("ResponseSetList.<xmlattr>.results", sdev_list.size());
-
-        for (const auto& sdev : sdev_list)
-        {
-            boost::property_tree::ptree pt2;
-            TreeMap(sdev, &pt2);
-            pt->add_child("ResponseSetList.ResponseSet", pt2);
-        }
-        
-        xml::util::SetSchema(pt);
-        return xml::util::Stringify(pt);
-    };  
-
-    void Parse(const std::string &xml_str, std::vector<sep::SelfDevice> *sdev_list)
-    {
-        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
-        BOOST_FOREACH (boost::property_tree::ptree::value_type &subtree, pt.get_child("ResponseSetList.ResponseSet"))
-        {
-            sep::SelfDevice* sdev;
-            ObjectMap(subtree.second, sdev);
-            sdev_list->emplace_back(*sdev);
-        }
     };
 } // namespace xml

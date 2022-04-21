@@ -20,6 +20,7 @@ protected:
         validator = new XmlValidator(g_program_path + "/sep_xml/sep.xsd");
 
         xml_str = psu::utilities::readFile(g_program_path + "/sep_xml/EndDevice.xml");
+        list_xml_str = psu::utilities::readFile(g_program_path + "/sep_xml/EndDeviceList.xml");
     }
 
     void TearDown() override
@@ -29,6 +30,7 @@ protected:
 
 protected:
     std::string xml_str;
+    std::string list_xml_str;
     XmlValidator *validator;
 };
 
@@ -118,4 +120,16 @@ TEST_F(TestEndDeviceXML, CheckAdapterDeviceCategoryMaxValue)
 
     std::string xml_adapter = xml::util::Stringify(&pt);
     EXPECT_FALSE(validator->ValidateXml(xml_adapter));
+}
+
+TEST_F(TestEndDeviceXML, IsListSampleValid) 
+{   
+    EXPECT_TRUE(validator->ValidateXml(list_xml_str));      
+}
+
+TEST_F(TestEndDeviceXML, IsListAdapterValid) 
+{   
+    std::vector<sep::EndDevice> edev_list;
+    xml::Parse(list_xml_str, &edev_list);
+    EXPECT_TRUE(validator->ValidateXml(xml::Serialize(edev_list)));
 }
