@@ -1,4 +1,5 @@
 #include "include/world/world.hpp"
+#include "include/world/access_module.hpp"
 #include "include/world/sep_support_module.hpp"
 #include "include/world/sep_common_module.hpp"
 #include "include/world/sep_smart_energy_module.hpp"
@@ -18,6 +19,7 @@ std::string prependLFDI(const Href &href)
 
 World::World()
 {
+    world.import<AccessModule>();
     world.import<sep::CommonModule>();
     world.import<sep::SupportModule>();
     world.import<sep::SmartEnergyModule>();
@@ -49,9 +51,9 @@ std::string World::Get(const Href &href)
     {
         auto e = world.lookup(href.uri.c_str());
         // For simple queries the each function can be used
-/*         world.each([](flecs::entity& e, sep::DeviceCapability& dcap) { // flecs::entity argument is optional
+        world.each([](flecs::entity& e, sep::DeviceCapability& dcap) { // flecs::entity argument is optional
             e.name() == "/dcap";
-        }); */
+        });
         if (e.id() == 0)
         {
             response = "";
@@ -77,15 +79,30 @@ std::string World::Get(const Href &href)
     break;
     case (Uri::edev):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            response = xml::Serialize(*e.get<sep::EndDevice>());
-        }
+        std::vector<sep::EndDevice> edev_list;
+        sep::List list;
+        //auto e = world.lookup(prependLFDI(href).c_str());
+
+        // More complex filters can first be created, then iterated
+        auto f = world.filter<sep::EndDevice, AccessModule::Fingerprint>();
+
+        f.iter([&edev_list,href](flecs::iter& it, sep::EndDevice* edev, AccessModule::Fingerprint *lfdi) 
+        {        
+            for (auto i : it) 
+            {
+                // this should probably be its own compare lambda function
+                if (lfdi[i].value == href.lfdi)
+                {
+                    edev_list.emplace_back(edev[i]);
+                }
+            }
+        });
+
+        list.href = href.uri;
+        list.all = edev_list.size();
+        list.results = edev_list.size();
+
+        response = xml::Serialize(edev_list, list);
     };
     break;
     case (Uri::rg):

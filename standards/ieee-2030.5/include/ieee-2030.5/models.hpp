@@ -11,5 +11,6 @@
 #include "registration.hpp"
 #include "response.hpp"
 #include "response_set.hpp"
+#include "list.hpp"
 
 #endif // __MODELS_H__

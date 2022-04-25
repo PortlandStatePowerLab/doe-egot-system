@@ -90,10 +90,12 @@ namespace xml
         ObjectMap(pt, edev);
     };
 
-    std::string Serialize(const std::vector<sep::EndDevice> &edev_list)
+    std::string Serialize(const std::vector<sep::EndDevice> &edev_list, const sep::List& list)
     {
         boost::property_tree::ptree pt;
-        pt.put("EndDeviceList.<xmlattr>.results", edev_list.size());
+        pt.put("EndDeviceList.<xmlattr>.all", list.all);
+        pt.put("EndDeviceList.<xmlattr>.results", list.results);
+        pt.put("EndDeviceList.<xmlattr>.href", list.href);
 
         for (const auto& edev : edev_list)
         {

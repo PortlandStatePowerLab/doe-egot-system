@@ -13,7 +13,7 @@ namespace xml
     std::string Serialize(const sep::EndDevice &edev);
     void Parse(const std::string &xml_str, sep::EndDevice *edev);
 
-    std::string Serialize(const std::vector<sep::EndDevice> &edev_list);
+    std::string Serialize(const std::vector<sep::EndDevice> &edev_list, const sep::List& list);
     void Parse(const std::string &xml_str, std::vector<sep::EndDevice> *edevs);
 } // namespace xml
 

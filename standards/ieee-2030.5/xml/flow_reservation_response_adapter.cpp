@@ -76,10 +76,12 @@ namespace xml
         ObjectMap(pt, frp);
     };
 
-    std::string Serialize(const std::vector<sep::FlowReservationResponse> &frp_list)
+    std::string Serialize(const std::vector<sep::FlowReservationResponse> &frp_list, const sep::List& list)
     {
         boost::property_tree::ptree pt;
-        pt.put("FlowReservationResponseList.<xmlattr>.results", frp_list.size());
+        pt.put("FlowReservationResponseList.<xmlattr>.all", list.all);
+        pt.put("FlowReservationResponseList.<xmlattr>.results", list.results);
+        pt.put("FlowReservationResponseList.<xmlattr>.href", list.href);
 
         for (const auto& frp : frp_list)
         {

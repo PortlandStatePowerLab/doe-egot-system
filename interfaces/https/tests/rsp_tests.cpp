@@ -31,7 +31,7 @@ protected:
 TEST_F(HttpsResponseTests, PostResponse)
 {
     sep::Response rsp;
-    rsp.href = "/rsp";
+    rsp.href = "/123456789/rsp/12345";
     rsp.end_device_lfdi = 123456789;
     rsp.status = sep::Response::Status::kEventAcknowledged;
     rsp.subject = 12345;

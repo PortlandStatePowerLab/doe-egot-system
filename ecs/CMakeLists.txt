@@ -2,6 +2,7 @@ set(COMPONENT_NAME flecs_world)
 
 add_library(${COMPONENT_NAME} STATIC
   world.cpp
+  access_module.cpp
   sep_common_module.cpp
   sep_smart_energy_module.cpp
   sep_support_module.cpp

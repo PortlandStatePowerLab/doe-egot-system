@@ -13,7 +13,7 @@ namespace xml
     std::string Serialize(const sep::ResponseSet &rsps);
     void Parse (const std::string &xml_str, sep::ResponseSet* rsps);
 
-    std::string Serialize(const std::vector<sep::ResponseSet> &rsps_list);    
+    std::string Serialize(const std::vector<sep::ResponseSet> &rsps_list, const sep::List& list);    
     void Parse(const std::string &xml_str, std::vector<sep::ResponseSet> *rsps_list);
 } // namespace xml
 

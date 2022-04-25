@@ -37,10 +37,12 @@ namespace xml
         ObjectMap(pt, rsp);
     };
 
-    std::string Serialize(const std::vector<sep::Response> &rsp_list)
+    std::string Serialize(const std::vector<sep::Response> &rsp_list, const sep::List& list)
     {
         boost::property_tree::ptree pt;
-        pt.put("ResponseList.<xmlattr>.results", rsp_list.size());
+        pt.put("ResponseList.<xmlattr>.all", list.all);
+        pt.put("ResponseList.<xmlattr>.results", list.results);
+        pt.put("ResponseList.<xmlattr>.href", list.href);
 
         for (const auto& rsp : rsp_list)
         {
