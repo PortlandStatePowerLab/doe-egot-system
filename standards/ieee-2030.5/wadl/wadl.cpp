@@ -8,82 +8,101 @@ static std::unordered_map <std::string, std::string> uri_map =
 {
     {"DeviceCapability", "/dcap"},
     {"SelfDevice", "/sdev"},
-    {"EndDevice", "/edev"},
+    {"EndDeviceList", "/edev"},
     {"Registration", "/rg"},
     {"DeviceStatus", "/dstat"},
-    {"FunctionSetAssignments", "/fsa"},
-    {"Subscription", "/sub"},
-    {"Notification", "/ntfy"},
-    {"ResponseSet", "/rsps"},
-    {"Response", "/rsp"},
+    {"FunctionSetAssignmentsList", "/fsa"},
+    {"SubscriptionList", "/sub"},
+    {"NotificationList", "/ntfy"},
+    {"ResponseSetList", "/rsps"},
+    {"ResponseList", "/rsp"},
     {"Time", "/tm"},
     {"DeviceInformation", "/di"},
-    {"SupportedLocale", "/loc"},
+    {"SupportedLocaleList", "/loc"},
     {"PowerStatus", "/ps"},
-    {"IPAddr", "/addr"},
-    {"RPLInstance", "/rpl"},
-    {"LLInterface", "/ll"},
-    {"Neighbor", "/nbh"},
-    {"LogEvent", "/lel"},
+    {"IPInterfaceList", "/ns"},
+    {"IPAddrList", "/addr"},
+    {"RPLInstanceList", "/rpl"},
+    {"RPLSourceRoutesList", "/srt"},
+    {"LLInterfaceList", "/ll"},
+    {"NeighborList", "/nbh"},
+    {"LogEventList", "/lel"},
     {"Configuration", "/cfg"},
-    {"PriceResponseCfg", "/prcfg"},
-    {"File", "/file"},
+    {"PriceResponseCfgList", "/prcfg"},
+    {"FileList", "/file"},
     {"FileStatus", "/fs"},
-    {"ActiveEndDeviceControl", "/actedc"},
-    {"EndDeviceControl", "/edc"},
-    {"LoadShedAvailability", "/lsl"},
-    {"UsagePoint", "/upt"},
-    {"MeterReading", "/mr"},
+    {"DemandResponseProgramList", "/dr"},
+    {"ActiveEndDeviceControlList", "/actedc"},
+    {"EndDeviceControlList", "/edc"},
+    {"LoadShedAvailabilityList", "/lsl"},
+    {"UsagePointList", "/upt"},
+    {"MeterReadingList", "/mr"},
     {"ReadingType", "/rt"},
-    {"ReadingSet", "/rs"},
-    {"Reading", "/r"},
-    {"MirrorUsagePoint", "/mup"},
-    {"TariffProfile", "/tp"},
-    {"RateComponent", "/rc"},
-    {"ActiveTimeTariffInterval","/acttti"},
-    {"TimeTariffInterval", "/tti"},
-    {"ConsumptionTariffInterval", "/cti"},
-    {"MessagingProgram", "/msg"},
-    {"ActiveTextMessage", "/acttxt"},
-    {"TextMessage", "/txt"},
-    {"CustomerAccount", "/bill"},
-    {"CustomerAgreement", "/ca"},
-    {"ActiveBillingPeriod", "/actbp"},
-    {"BillingPeriod", "/bp"},
-    {"ProjectionReading", "/pro"},
-    {"BillingReadingSet", "/brs"},
-    {"BillingReading", "/br"},
-    {"TargetReading", "/tar"},
-    {"HistoricalReading", "/ver"},
+    {"ReadingSetList", "/rs"},
+    {"ReadingList", "/r"},
+    {"MirrorUsagePointList", "/mup"},
+    {"TariffProfileList", "/tp"},
+    {"RateComponentList", "/rc"},
+    {"ActiveTimeTariffIntervalList","/acttti"},
+    {"TimeTariffIntervalList", "/tti"},
+    {"ConsumptionTariffIntervalList", "/cti"},
+    {"MessagingProgramList", "/msg"},
+    {"ActiveTextMessageList", "/acttxt"},
+    {"TextMessageList", "/txt"},
+    {"CustomerAccountList", "/bill"},
+    {"CustomerAgreementList", "/ca"},
+    {"ActiveBillingPeriodList", "/actbp"},
+    {"BillingPeriodList", "/bp"},
+    {"ProjectionReadingList", "/pro"},
+    {"BillingReadingSetList", "/brs"},
+    {"BillingReadingList", "/br"},
+    {"TargetReadingList", "/tar"},
+    {"HistoricalReadingList", "/ver"},
     {"ServiceSupplier", "/ss"},
-    {"Prepayment", "/ppy"},
+    {"PrepaymentList", "/ppy"},
     {"AccountBalance", "/ab"},
     {"PrepayOperationStatus", "/os"},
-    {"ActiveSupplyInterruptionOverride","/actsi"},
-    {"SupplyInterruptionOverride", "/si"},
-    {"CreditRegister", "/cr"},
-    {"FlowReservationRequest", "/frq"},
-    {"FlowReservationResponse", "/frp"},
-    {"DER", "/der"},
-    {"AssociatedUsagePoint", "/aupt"},
-    {"DERProgram", "/derp"},
+    {"ActiveSupplyInterruptionOverrideList","/actsi"},
+    {"SupplyInterruptionOverrideList", "/si"},
+    {"CreditRegisterList", "/cr"},
+    {"FlowReservationRequestList", "/frq"},
+    {"FlowReservationResponseList", "/frp"},
+    {"DERList", "/der"},
+    {"AssociatedUsagePointList", "/aupt"},
+    {"DERProgramList", "/derp"},
     {"CurrentDERProgram", "/cdp"},
     {"DERSettings", "/derg"},
     {"DERStatus", "/ders"},
     {"DERAvailability", "/dera"},
     {"DERCapability", "/dercap"},
     {"ActiveDERControlList", "/actderc"},
-    {"DERControl", "/derc"},
+    {"DERControlList", "/derc"},
     {"DefaultDERControl", "/dderc"},
-    {"DERCurve", "/dc"}
+    {"DERCurveList", "/dc"}
+};
+
+void recursiveTree(const boost::property_tree::ptree& tree, const std::string &tag, int level)
+{
+    if (tree.empty())
+    {
+        std::cout << tag << " : " << tree.data() << std::endl;
+    }
+    else
+    {
+        for (const auto it : tree)
+        {
+            recursiveTree(it.second, it.first, level++);
+        }
+    }
+    return;    
 };
 
 // Using boost::beast verb enums this bitset will create a bit mask that can be used
 // to determine if the request method is acceptable.
-void bitSet(boost::property_tree::ptree::value_type& tree, std::unordered_map<std::string, uint16_t> *wadl)
+void bitSet(boost::property_tree::ptree::value_type& tree, std::unordered_map<std::string, sep::WADLResource> *wadl)
 {
     std::string key = "";
-    uint16_t result;
+    sep::WADLResource resource;
     bool skip = false;
     BOOST_FOREACH (boost::property_tree::ptree::value_type &subtree, tree.second.get_child(""))
     {
@@ -103,43 +122,47 @@ void bitSet(boost::property_tree::ptree::value_type& tree, std::unordered_map<st
         {
             std::string method = subtree.second.get<std::string>("<xmlattr>.name");
             std::string mode = subtree.second.get<std::string>("<xmlattr>.wx:mode");
+
             if (method == "GET" && (mode == "M" || mode == "O"))
             {
-                result += 1 << 2;
+                std::string content_type = subtree.second.get<std::string>("<xmlattr>.wx:mode", "");
+                resource.methods_bit_mask += 1 << 2;
             }
 
             if (method == "HEAD" && (mode == "M" || mode == "O"))
             {
-                result += 1 << 3;
+                resource.methods_bit_mask += 1 << 3;
             }
 
             if (method == "PUT" && (mode == "M" || mode == "O"))
             {
-                result += 1 << 5;
+                resource.methods_bit_mask += 1 << 5;
             }
 
             if (method == "POST" && (mode == "M" || mode == "O"))
             {
-                result += 1 << 4;
+                resource.methods_bit_mask += 1 << 4;
             }
 
             if (method == "DELETE" && (mode == "M" || mode == "O"))
             {
-                result += 1 << 1;
+                resource.methods_bit_mask += 1 << 1;
             }
         }
     };
 
     if (!key.empty())
     {
-        wadl->emplace(key, result);
+        wadl->emplace(key, resource);
     }
 };
 
-void loadWADL(const std::string &wadl_path, std::unordered_map<std::string, uint16_t> *wadl)
+void loadWADL(const std::string &wadl_path, std::unordered_map<std::string, sep::WADLResource> *wadl)
 {
     std::string wadl_file = psu::utilities::readFile(wadl_path);
     boost::property_tree::ptree pt = xml::util::Treeify(wadl_file);
+
+    recursiveTree(pt, "", 1);
 
     BOOST_FOREACH (boost::property_tree::ptree::value_type &tree, pt.get_child("application.resources"))
     {
@@ -148,11 +171,6 @@ void loadWADL(const std::string &wadl_path, std::unordered_map<std::string, uint
             bitSet(tree, wadl);
         }
     };
-
-    for (const auto& ele : *wadl)
-    {
-        std::cout << ele.first << " : " << ele.second << "\n";
-    }
 };
 
 namespace sep
@@ -180,14 +198,13 @@ namespace sep
         return instance_;
     }
 
-    uint16_t WADL::getAccess(const std::string& uri)
+    WADLResource WADL::getResource(const std::string& uri)
     {
-        uint16_t value = wadl_.count(uri);
-        if (value == 0)
+        if (wadl_.count(uri) > 0)
         {
-            return value;
+            return wadl_.at(uri);
         }
-        return wadl_.at(uri);
+        return WADLResource();
     }
 } // namespace sep
 

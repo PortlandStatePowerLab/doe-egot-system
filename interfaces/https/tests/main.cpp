@@ -53,7 +53,7 @@ void generateDeviceCapabilities ()
     dcap.self_device_link.href = "/sdev";
 
     World* ecs = World::getInstance();
-    ecs->world.entity(dcap.href.c_str()).set<sep::DeviceCapability>(dcap);
+    ecs->world.entity().set<sep::DeviceCapability>(dcap);
 };
 
 void generateEndDevice(const std::string &lfdi)
@@ -90,9 +90,13 @@ void generateEndDevice(const std::string &lfdi)
     edev.subscription_list_link.all = 0;
     edev.subscription_list_link.href = "/sub";
 
-    std::string entity_id = "/" + lfdi + edev.href;
     World* ecs = World::getInstance();
-    ecs->world.entity(entity_id.c_str()).set<sep::EndDevice>(edev);
+    auto e = ecs->world.entity();
+    e.set<sep::EndDevice>(edev);
+
+    AccessModule::Fingerprint fingerprint;
+    fingerprint.value = lfdi;
+    e.set<AccessModule::Fingerprint>(fingerprint);
 };
 
 void generateSelfDevice (const std::string& lfdi)
@@ -117,9 +121,13 @@ void generateSelfDevice (const std::string& lfdi)
     sdev.power_status_link.href = "/ps";
     sdev.sfdi = xml::util::getSFDI(lfdi);
 
-    std::string entity_id = "/" + lfdi + sdev.href;
     World* ecs = World::getInstance();
-    ecs->world.entity(entity_id.c_str()).set<sep::SelfDevice>(sdev);
+    auto e = ecs->world.entity();
+    e.set<sep::SelfDevice>(sdev);
+
+    AccessModule::Fingerprint fingerprint;
+    fingerprint.value = lfdi;
+    e.set<AccessModule::Fingerprint>(fingerprint);
 };
 
 void generateRegistration(const std::string &lfdi)
@@ -130,9 +138,13 @@ void generateRegistration(const std::string &lfdi)
     rg.date_time_registered = psu::utilities::getTime();
     rg.pin = xml::util::generatePIN(lfdi);
 
-    std::string entity_id = "/" + lfdi + rg.href;
     World* ecs = World::getInstance();
-    ecs->world.entity(entity_id.c_str()).set<sep::Registration>(rg);
+    auto e = ecs->world.entity();
+    e.set<sep::Registration>(rg);
+
+    AccessModule::Fingerprint fingerprint;
+    fingerprint.value = lfdi;
+    e.set<AccessModule::Fingerprint>(fingerprint);
 };
 
 void generateTime()
@@ -158,7 +170,7 @@ void generateTime()
     tm.tz_offset = (tz_ptr->base_utc_offset()).total_seconds();
 
     World* ecs = World::getInstance();
-    ecs->world.entity(tm.href.c_str()).set<sep::Time>(tm);
+    ecs->world.entity().set<sep::Time>(tm);
 };
 
 void Initialize(const std::string &doc_root)

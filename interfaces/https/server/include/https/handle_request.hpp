@@ -115,8 +115,6 @@ void HandleRequest(
     http::request<Body, http::basic_fields<Allocator>> &&req,
     Send &&send)
 {
-
-    std::cout << "[DEBUG] : Handle Request Started" << std::endl;
     // Returns a bad request response
     auto const bad_request =
         [&req](beast::string_view why)
@@ -178,40 +176,40 @@ void HandleRequest(
 
     // verify the path is legal
     std::string wadl_path = *doc_root + "/sep_xml/sep_wadl.xml";
-    uint16_t wadl_access = sep::WADL::getInstance(wadl_path)->getAccess(path);
-    if (wadl_access == 0)
+    sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
+    if (wadl_access.methods.at(0).content_type.at(0) == "")
     {
         return send(not_found(path));
     }
 
-    // verify method is legal for specific resource
-    if (wadl_access & 1<<static_cast<uint16_t>(req.method()) == 0)
+    /* // verify method is legal for specific resource
+    if ((wadl_access & (1<<static_cast<int>(req.method()))) == 0)
     {
         std::string allowed;
-        if ((wadl_access & 1<<0) > 0)
+        if ((wadl_access & 1<<1) > 0)
         {
             allowed += "DELETE, ";
         }
-        if ((wadl_access & 1<<1) > 0)
+        if ((wadl_access & 1<<2) > 0)
         {
             allowed += "GET, ";
         }
-        if ((wadl_access & 1<<2) > 0)
+        if ((wadl_access & 1<<3) > 0)
         {
             allowed += "HEAD, ";
         }
-        if ((wadl_access & 1<<3) > 0)
+        if ((wadl_access & 1<<4) > 0)
         {
             allowed += "POST, ";
         }
-        if ((wadl_access & 1<<4) > 0)
+        if ((wadl_access & 1<<5) > 0)
         {
             allowed += "PUT, ";
         }
         allowed.pop_back(); // remove space
         allowed.pop_back(); // remove comma
         return send(method_not_allowed(allowed));
-    }
+    } */
 
     // build href query for ecs
     Href href;

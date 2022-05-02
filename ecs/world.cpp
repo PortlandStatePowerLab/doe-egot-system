@@ -43,38 +43,32 @@ World *World::getInstance()
 
 std::string World::Get(const Href &href)
 {
-    std::string response;
+    std::string response = "";
 
     switch (uri_map.at(href.uri))
     {
     case (Uri::dcap):
     {
-        auto e = world.lookup(href.uri.c_str());
-        // For simple queries the each function can be used
-        world.each([](flecs::entity& e, sep::DeviceCapability& dcap) { // flecs::entity argument is optional
-            e.name() == "/dcap";
+        // More complex filters can first be created, then iterated
+        auto f = world.filter<sep::DeviceCapability>();
+
+        f.each([&response](const sep::DeviceCapability& dcap) 
+        {        
+            response = xml::Serialize(dcap);
         });
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            response = xml::Serialize(*e.get<sep::DeviceCapability>());
-        }
     };
     break;
     case (Uri::sdev):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            response = xml::Serialize(*e.get<sep::SelfDevice>());
-        }
+        auto f = world.filter<sep::SelfDevice, AccessModule::Fingerprint>();
+
+        f.each([&response, href](const sep::SelfDevice& sdev, const AccessModule::Fingerprint& lfdi) 
+        {        
+            if (href.lfdi == lfdi.value)
+            {
+                response = xml::Serialize(sdev);
+            }
+        });
     };
     break;
     case (Uri::edev):
@@ -107,891 +101,443 @@ std::string World::Get(const Href &href)
     break;
     case (Uri::rg):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            response = xml::Serialize(*e.get<sep::Registration>());
-        }
+        auto f = world.filter<sep::Registration, AccessModule::Fingerprint>();
+
+        f.each([&response, href](const sep::Registration& rg, const AccessModule::Fingerprint& lfdi) 
+        {        
+            if (href.lfdi == lfdi.value)
+            {
+                response = xml::Serialize(rg);
+            }
+        });
     };
     break;
     case (Uri::dstat):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::DeviceStatus>());
-        }
+        // TODO
     };
     break;
     case (Uri::fsa):
     {
-        auto e = world.lookup(href.uri.c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::FunctionSetAssignmentsBase>());
-        }
+        // TODO
     };
     break;
     case (Uri::sub):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::Subscription>());
-        }
+        // TODO
     };
     break;
     case (Uri::ntfy):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::Notification>());
-        }
+        // TODO
     };
     break;
     case (Uri::rsps):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::ResponseSet>());
-        }
+        std::vector<sep::ResponseSet> rsps_list;
+        sep::List list;
+
+        auto f = world.filter<sep::ResponseSet, AccessModule::Fingerprint>();
+
+        f.iter([&rsps_list,href](flecs::iter& it, sep::ResponseSet* rsps, AccessModule::Fingerprint *lfdi) 
+        {        
+            for (auto i : it) 
+            {
+                // this should probably be its own compare lambda function
+                if (lfdi[i].value == href.lfdi)
+                {
+                    rsps_list.emplace_back(rsps[i]);
+                }
+            }
+        });
+
+        list.href = href.uri;
+        list.all = rsps_list.size();
+        list.results = rsps_list.size();
+
+        response = xml::Serialize(rsps_list, list);
     };
     break;
     case (Uri::rsp):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
+        std::vector<sep::Response> rsp_list;
+        sep::List list;
 
-            response = xml::Serialize(*e.get<sep::Response>());
-        }
+        auto f = world.filter<sep::Response, AccessModule::Fingerprint>();
+
+        f.iter([&rsp_list,href](flecs::iter& it, sep::Response* rsp, AccessModule::Fingerprint *lfdi) 
+        {        
+            for (auto i : it) 
+            {
+                // this should probably be its own compare lambda function
+                if (lfdi[i].value == href.lfdi)
+                {
+                    rsp_list.emplace_back(rsp[i]);
+                }
+            }
+        });
+
+        list.href = href.uri;
+        list.all = rsp_list.size();
+        list.results = rsp_list.size();
+
+        response = xml::Serialize(rsp_list, list);
     };
     break;
     case (Uri::tm):
     {
-        auto e = world.lookup(href.uri.c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            response = xml::Serialize(*e.get<sep::Time>());
-        }
+        auto f = world.filter<sep::Time>();
+
+        f.each([&response, href](const sep::Time& tm) 
+        {        
+            response = xml::Serialize(tm);
+        });
     };
     break;
     case (Uri::di):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::DeviceInformation>());
-        }
+        // TODO
     };
     break;
     case (Uri::loc):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::SupportedLocale>());
-        }
+        // TODO
     };
     break;
     case (Uri::ps):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::PowerStatus>());
-        }
+        // TODO
     };
     break;
     case (Uri::ns):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::NetworkStatus>());
-        }
+        // TODO
     };
     break;
     case (Uri::addr):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::IPAddress>());
-        }
+        // TODO
     };
     break;
     case (Uri::rpl):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::RPLInstance>());
-        }
+        // TODO
     };
     break;
     case (Uri::srt):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::RPLSourceRoutes>());
-        }
+        // TODO
     };
     break;
     case (Uri::ll):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::LLinterface>());
-        }
+        // TODO
     };
     break;
     case (Uri::nbh):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::Neighbor>());
-        }
+        // TODO
     };
     break;
     case (Uri::lel):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::LogEvent>());
-        }
+        // TODO
     };
     break;
     case (Uri::cfg):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::Configuration>());
-        }
+        // TODO
     };
     break;
     case (Uri::prcfg):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::PriceResponseCfg>());
-        }
+        // TODO
     };
     break;
     case (Uri::file):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::File>());
-        }
+        // TODO
     };
     break;
     case (Uri::fs):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::FileStatus>());
-        }
+        // TODO
     };
     break;
     case (Uri::dr):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::DemandResponseProgram>());
-        }
+        // TODO
     };
     break;
     case (Uri::actedc):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::ActiveEndDeviceControl>());
-        }
+        // TODO
     };
     break;
     case (Uri::edc):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::EndDeviceControl>());
-        }
+        // TODO
     };
     break;
     case (Uri::lsl):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::LoadShedAvailability>());
-        }
+        // TODO
     };
     break;
     case (Uri::upt):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::UsagePoint>());
-        }
+        // TODO
     };
     break;
     case (Uri::mr):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::MeterReading>());
-        }
+        // TODO
     };
     break;
     case (Uri::rt):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::ReadingType>());
-        }
+        // TODO
     };
     break;
     case (Uri::rs):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::ReadingSet>());
-        }
+        // TODO
     };
     break;
     case (Uri::r):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::Reading>());
-        }
+        // TODO
     };
     break;
     case (Uri::mup):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::MirrorUsagePoint>());
-        }
+        // TODO
     };
     break;
     case (Uri::tp):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::TariffProfile>());
-        }
+        // TODO
     };
     break;
     case (Uri::rc):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::RateComponenet>());
-        }
+        // TODO
     };
     break;
     case (Uri::acttti):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::ActriveTimeTariffInterval>());
-        }
+        // TODO
     };
     break;
     case (Uri::tti):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::TimeTariffInterval>());
-        }
+        // TODO
     };
     break;
     case (Uri::cti):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::ConsumptionTariffInterval>());
-        }
+        // TODO
     };
     break;
     case (Uri::msg):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::MessagingProgram>());
-        }
+        // TODO
     };
     break;
     case (Uri::acttxt):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::ActiveTextMessage>());
-        }
+        // TODO
     };
     break;
     case (Uri::txt):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::TextMessage>());
-        }
+        // TODO
     };
     break;
     case (Uri::bill):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::CustomerAccount>());
-        }
+        // TODO
     };
     break;
     case (Uri::ca):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::CustomerAgreement>());
-        }
+        // TODO
     };
     break;
     case (Uri::actbp):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::ActiveBillingPeriod>());
-        }
+        // TODO
     };
     break;
     case (Uri::bp):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::BillingPeriod>());
-        }
+        // TODO
     };
     break;
     case (Uri::pro):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::ProjectionReading>());
-        }
+        // TODO
     };
     break;
     case (Uri::brs):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::BillingReadingSet>());
-        }
+        // TODO
     };
     break;
     case (Uri::br):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::BillingReading>());
-        }
+        // TODO
     };
     break;
     case (Uri::tar):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::TargetReading>());
-        }
+        // TODO
     };
     break;
     case (Uri::ver):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::HistoricalReading>());
-        }
+        // TODO
     };
     break;
     case (Uri::ss):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::ServiceSupplier>());
-        }
+        // TODO
     };
     break;
     case (Uri::ppy):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::Prepayment>());
-        }
+        // TODO
     };
     break;
     case (Uri::ab):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::AccountBalance>());
-        }
+        // TODO
     };
     break;
     case (Uri::os):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::PrepayOperationStatus>());
-        }
+        // TODO
     };
     break;
     case (Uri::actsi):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::SupplyInterruptionOverride>());
-        }
+        // TODO
     };
     break;
     case (Uri::si):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::SupplyInterruptionOverride>());
-        }
+        // TODO
     };
     break;
     case (Uri::cr):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::CreditRegister>());
-        }
+        // TODO
     };
     break;
     case (Uri::frq):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            response = xml::Serialize(*e.get<sep::FlowReservationRequest>());
-        }
+        std::vector<sep::FlowReservationRequest> frq_list;
+        sep::List list;
+
+        auto f = world.filter<sep::FlowReservationRequest, AccessModule::Fingerprint>();
+
+        f.iter([&frq_list,href](flecs::iter& it, sep::FlowReservationRequest* frq, AccessModule::Fingerprint *lfdi) 
+        {        
+            for (auto i : it) 
+            {
+                // this should probably be its own compare lambda function
+                if (lfdi[i].value == href.lfdi)
+                {
+                    frq_list.emplace_back(frq[i]);
+                }
+            }
+        });
+
+        list.href = href.uri;
+        list.all = frq_list.size();
+        list.results = frq_list.size();
+
+        response = xml::Serialize(frq_list, list);
     };
     break;
     case (Uri::frp):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            response = xml::Serialize(*e.get<sep::FlowReservationResponse>());
-        }
+        std::vector<sep::FlowReservationResponse> frp_list;
+        sep::List list;
+
+        auto f = world.filter<sep::FlowReservationResponse, AccessModule::Fingerprint>();
+
+        f.iter([&frp_list,href](flecs::iter& it, sep::FlowReservationResponse* frp, AccessModule::Fingerprint *lfdi) 
+        {        
+            for (auto i : it) 
+            {
+                // this should probably be its own compare lambda function
+                if (lfdi[i].value == href.lfdi)
+                {
+                    frp_list.emplace_back(frp[i]);
+                }
+            }
+        });
+
+        list.href = href.uri;
+        list.all = frp_list.size();
+        list.results = frp_list.size();
+
+        response = xml::Serialize(frp_list, list);
     };
     break;
     case (Uri::der):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::DER>());
-        }
+        // TODO
     };
     break;
     case (Uri::aupt):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::UsagePoint>());
-        }
+        // TODO
     };
     break;
     case (Uri::derp):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::DERProgram>());
-        }
+        // TODO
     };
     break;
     case (Uri::cdp):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::DERProgram>());
-        }
+        // TODO
     };
     break;
     case (Uri::derg):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::DERSettings>());
-        }
+        // TODO
     };
     break;
     case (Uri::ders):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::DERStatus>());
-        }
+        // TODO
     };
     break;
     case (Uri::dercap):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::DERCapability>());
-        }
+        // TODO
     };
     break;
     case (Uri::actderc):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::DERControl>());
-        }
+        // TODO
     };
     break;
     case (Uri::dderc):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::DefaultDERControl>());
-        }
+        // TODO
     };
     break;
     case (Uri::dc):
     {
-        auto e = world.lookup(prependLFDI(href).c_str());
-        if (e.id() == 0)
-        {
-            response = "";
-        }
-        else
-        {
-            // TODO: response = xml::Serialize(*e.get<sep::DERCurve>());
-        }
+        // TODO
     };
     break;
     default:
-        // response = "";
+        // TODO
         break;
     }
     return response;

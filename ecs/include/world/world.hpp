@@ -2,6 +2,7 @@
 #define __WORLD_H__
 
 #include "href.hpp"
+#include "access_module.hpp"
 #include <cstdint>
 #include <mutex>
 #include <flecs.h>

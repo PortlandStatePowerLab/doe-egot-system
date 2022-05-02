@@ -6,6 +6,7 @@
 #include <https/https_client.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
+#include <utilities/utilities.hpp>
 #include <ieee-2030.5/device_capability.hpp>
 
 extern std::string g_program_path;
@@ -16,6 +17,8 @@ protected:
     void SetUp() override
     {
         validator = new XmlValidator(g_program_path + "/sep_xml/sep.xsd");
+        std::string wadl_file = psu::utilities::readFile(g_program_path + "/sep_xml/sep_wadl.xml");
+        wadl = xml::util::Treeify(wadl_file);
     }
 
     void TearDown() override
@@ -25,6 +28,7 @@ protected:
 
 protected:
     XmlValidator *validator;
+    boost::property_tree::ptree wadl;
 };
 
 TEST_F(HttpsDeviceCapabilityTests, GetDeviceCapability)
@@ -38,7 +42,7 @@ TEST_F(HttpsDeviceCapabilityTests, GetDeviceCapability)
 
         sep::DeviceCapability dcap;
         xml::Parse(msg, &dcap);
-        EXPECT_TRUE(dcap.href == "/dcap");       
+        EXPECT_TRUE(dcap.href == "/dcap");  
     }
     catch (const std::exception &e)
     {
