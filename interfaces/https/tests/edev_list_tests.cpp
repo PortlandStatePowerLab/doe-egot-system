@@ -6,14 +6,13 @@
 #include <https/https_client.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
-#include <ieee-2030.5/response.hpp>
-#include <utilities/utilities.hpp>
 #include <wadl/wadl.hpp>
+#include <ieee-2030.5/end_device.hpp>
 #include "wadl_check.hpp"
 
 extern std::string g_program_path;
 
-class HttpsResponseTests : public ::testing::Test
+class HttpsEndDeviceListTests : public ::testing::Test
 {
 protected:
     void SetUp() override
@@ -28,24 +27,50 @@ protected:
 
 protected:
     XmlValidator *validator;
-    std::string path = "/rsp";
+    std::string path = "/edev";
 };
 
-TEST_F(HttpsResponseTests, PostResponse)
+TEST_F(HttpsEndDeviceListTests, GetEndDeviceList)
 {
     HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-            
-        sep::Response rsp;
-        rsp.href = "";
-        rsp.end_device_lfdi = client1->getLFDI();
-        rsp.status = sep::Response::Status::kEventAcknowledged;
-        rsp.subject = 12345;
-        rsp.created_date_time = psu::utilities::getTime();
+        auto resp = client1->Get(path);
 
-        auto resp = client1->Post(path, xml::Serialize(rsp));
+        std::string msg = boost::beast::buffers_to_string(resp.body().data());
+
+        std::vector<sep::EndDevice> edev_list;
+        xml::Parse(msg, &edev_list);
+
+        EXPECT_EQ(edev_list[0].lfdi, client1->getLFDI());
+
+        std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
+        sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
+
+        std::string method = "GET";
+        // EXPECT_TRUE(checkContentType(resp.at("Content-Type").to_string(), wadl_access.properties[method].content_type));
+        EXPECT_TRUE(checkStatus(resp.base().result_int(), wadl_access.properties[method].status));
+        EXPECT_TRUE(checkParams(headerFields(resp), wadl_access.properties[method].params));
+    }
+    catch (const std::exception &e)
+    {
+        ASSERT_ANY_THROW(e.what());
+    }
+}
+
+TEST_F(HttpsEndDeviceListTests, PostEndDeviceList)
+{
+    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
+    try
+    {
+        auto resp = client1->Get(path);    
+        std::string msg = boost::beast::buffers_to_string(resp.body().data());
+
+        std::vector<sep::EndDevice> edev_list;
+        xml::Parse(msg, &edev_list);
         
+        resp = client1->Post(path, xml::Serialize(edev_list[0]));
+
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
         
@@ -60,52 +85,26 @@ TEST_F(HttpsResponseTests, PostResponse)
     }
 }
 
-TEST_F(HttpsResponseTests, GetResponse)
+TEST_F(HttpsEndDeviceListTests, PutEndDeviceList)
 {
     HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client1->Get(path);
+        auto resp = client1->Get(path);    
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
-        sep::Response rsp;
-        xml::Parse(msg, &rsp);
+        std::vector<sep::EndDevice> edev_list;
+        xml::Parse(msg, &edev_list);
         
+        resp = client1->Put(path, xml::Serialize(edev_list[0]));
+
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
-        
-        std::string method = "GET";
-        // EXPECT_TRUE(checkContentType(resp.at("Content-Type").to_string(), wadl_access.properties[method].content_type));
-        EXPECT_TRUE(checkStatus(resp.base().result_int(), wadl_access.properties[method].status));
-        EXPECT_TRUE(checkParams(headerFields(resp), wadl_access.properties[method].params));      
-    }
-    catch (const std::exception &e)
-    {
-        ASSERT_ANY_THROW(e.what());
-    }
-}
 
-TEST_F(HttpsResponseTests, PutResponse)
-{
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
-    try
-    {
-        sep::Response rsp;
-        rsp.href = "";
-        rsp.end_device_lfdi = client1->getLFDI();
-        rsp.status = sep::Response::Status::kEventAcknowledged;
-        rsp.subject = 12345;
-        rsp.created_date_time = psu::utilities::getTime();
-
-        auto resp = client1->Put(path, xml::Serialize(rsp));
-        
-        std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
-        sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
-        
         std::string method = "PUT";
         // EXPECT_TRUE(checkContentType(resp.at("Content-Type").to_string(), wadl_access.properties[method].content_type));
         EXPECT_TRUE(checkStatus(resp.base().result_int(), wadl_access.properties[method].status));
-        EXPECT_TRUE(checkParams(headerFields(resp), wadl_access.properties[method].params));      
+        EXPECT_TRUE(checkParams(headerFields(resp), wadl_access.properties[method].params));
     }
     catch (const std::exception &e)
     {
@@ -113,20 +112,26 @@ TEST_F(HttpsResponseTests, PutResponse)
     }
 }
 
-TEST_F(HttpsResponseTests, DeleteResponse)
+TEST_F(HttpsEndDeviceListTests, DeleteEndDeviceList)
 {
     HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client1->Delete(path);
+        auto resp = client1->Get(path);    
+        std::string msg = boost::beast::buffers_to_string(resp.body().data());
+
+        std::vector<sep::EndDevice> edev_list;
+        xml::Parse(msg, &edev_list);
         
+        resp = client1->Delete(path);
+
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
-        
+
         std::string method = "DELETE";
         // EXPECT_TRUE(checkContentType(resp.at("Content-Type").to_string(), wadl_access.properties[method].content_type));
         EXPECT_TRUE(checkStatus(resp.base().result_int(), wadl_access.properties[method].status));
-        EXPECT_TRUE(checkParams(headerFields(resp), wadl_access.properties[method].params));      
+        EXPECT_TRUE(checkParams(headerFields(resp), wadl_access.properties[method].params));
     }
     catch (const std::exception &e)
     {

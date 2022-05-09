@@ -1,13 +1,16 @@
 #include <string>
 #include <thread>
 #include <fstream>
+#include <algorithm>
 #include <gtest/gtest.h>
 #include <https/https_server.hpp>
 #include <https/https_client.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
+#include <wadl/wadl.hpp>
 #include <utilities/utilities.hpp>
 #include <ieee-2030.5/device_capability.hpp>
+#include "wadl_check.hpp"
 
 extern std::string g_program_path;
 
@@ -17,8 +20,6 @@ protected:
     void SetUp() override
     {
         validator = new XmlValidator(g_program_path + "/sep_xml/sep.xsd");
-        std::string wadl_file = psu::utilities::readFile(g_program_path + "/sep_xml/sep_wadl.xml");
-        wadl = xml::util::Treeify(wadl_file);
     }
 
     void TearDown() override
@@ -28,7 +29,7 @@ protected:
 
 protected:
     XmlValidator *validator;
-    boost::property_tree::ptree wadl;
+    std::string path = "/dcap";
 };
 
 TEST_F(HttpsDeviceCapabilityTests, GetDeviceCapability)
@@ -36,13 +37,19 @@ TEST_F(HttpsDeviceCapabilityTests, GetDeviceCapability)
     HttpsClient *client = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client->Get("/dcap");
+        auto resp = client->Get(path);
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
-        EXPECT_TRUE(validator->ValidateXml(msg));
 
         sep::DeviceCapability dcap;
         xml::Parse(msg, &dcap);
-        EXPECT_TRUE(dcap.href == "/dcap");  
+
+        std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
+        sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
+
+        std::string method = "GET";
+        EXPECT_TRUE(checkContentType(resp.at("Content-Type").to_string(), wadl_access.properties[method].content_type));
+        EXPECT_TRUE(checkStatus(resp.base().result_int(), wadl_access.properties[method].status));
+        EXPECT_TRUE(checkParams(headerFields(resp), wadl_access.properties[method].params));
     }
     catch (const std::exception &e)
     {
@@ -52,15 +59,75 @@ TEST_F(HttpsDeviceCapabilityTests, GetDeviceCapability)
 
 TEST_F(HttpsDeviceCapabilityTests, PostDeviceCapability)
 {
-    EXPECT_TRUE(false);
+    HttpsClient *client = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
+    try
+    {
+        auto resp = client->Get(path);
+        std::string msg = boost::beast::buffers_to_string(resp.body().data());
+
+        sep::DeviceCapability dcap;
+        xml::Parse(msg, &dcap);
+        
+        resp = client->Post(path, xml::Serialize(dcap));
+
+        std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
+        sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
+
+        std::string method = "POST";
+        // EXPECT_TRUE(checkContentType(resp.at("Content-Type").to_string(), wadl_access.properties[method].content_type));
+        EXPECT_TRUE(checkStatus(resp.base().result_int(), wadl_access.properties[method].status));
+        EXPECT_TRUE(checkParams(headerFields(resp), wadl_access.properties[method].params));
+    }
+    catch (const std::exception &e)
+    {
+        ASSERT_ANY_THROW(e.what());
+    }
 }
 
 TEST_F(HttpsDeviceCapabilityTests, PutDeviceCapability)
 {
-    EXPECT_TRUE(false);
+    HttpsClient *client = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
+    try
+    {
+        auto resp = client->Get(path);
+        std::string msg = boost::beast::buffers_to_string(resp.body().data());
+
+        sep::DeviceCapability dcap;
+        xml::Parse(msg, &dcap);
+
+        resp = client->Put(path, xml::Serialize(dcap));
+
+        std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
+        sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
+
+        std::string method = "PUT";
+        // EXPECT_TRUE(checkContentType(resp.at("Content-Type").to_string(), wadl_access.properties[method].content_type));
+        EXPECT_TRUE(checkStatus(resp.base().result_int(), wadl_access.properties[method].status));
+        EXPECT_TRUE(checkParams(headerFields(resp), wadl_access.properties[method].params));
+    }
+    catch (const std::exception &e)
+    {
+        ASSERT_ANY_THROW(e.what());
+    }
 }
 
 TEST_F(HttpsDeviceCapabilityTests, DeleteDeviceCapability)
 {
-    EXPECT_TRUE(false);
+    HttpsClient *client = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
+    try
+    {       
+        auto resp = client->Delete("/dcap");
+
+        std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
+        sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
+
+        std::string method = "DELETE";
+        // EXPECT_TRUE(checkContentType(resp.at("Content-Type").to_string(), wadl_access.properties[method].content_type));
+        EXPECT_TRUE(checkStatus(resp.base().result_int(), wadl_access.properties[method].status));
+        EXPECT_TRUE(checkParams(headerFields(resp), wadl_access.properties[method].params));
+    }
+    catch (const std::exception &e)
+    {
+        ASSERT_ANY_THROW(e.what());
+    }
 }

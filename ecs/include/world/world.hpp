@@ -18,8 +18,8 @@ public:
 
     static World *getInstance();
     std::string Get(const Href &href);
-    void Post(const Href& href, const std::string& message);
-    void Put(const Href& href, const std::string& message);
+    std::string Post(const Href& href, const std::string& message);
+    std::string Put(const Href& href, const std::string& message);
     void Delete(const Href& href);
 
 public:

@@ -10,15 +10,16 @@ namespace sep
 {
     struct WADLResource
     {
-        struct Method
+        struct Properties
         {
+            bool allow;
             std::vector <std::string> content_type;
-            std::vector <std::string> status;
+            std::vector <unsigned int> status;
             std::vector <std::string> params;
         };
                
         uint16_t methods_bit_mask;
-        std::unordered_map<uint8_t, Method> methods;
+        std::unordered_map<std::string, Properties> properties;
     };
 
     class WADL

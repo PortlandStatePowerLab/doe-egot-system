@@ -439,9 +439,9 @@ std::string World::Get(const Href &href)
         std::vector<sep::FlowReservationRequest> frq_list;
         sep::List list;
 
-        auto f = world.filter<sep::FlowReservationRequest, AccessModule::Fingerprint>();
+        auto f = world.filter<sep::FlowReservationRequest, AccessModule::Fingerprint, AccessModule::Subject>();
 
-        f.iter([&frq_list,href](flecs::iter& it, sep::FlowReservationRequest* frq, AccessModule::Fingerprint *lfdi) 
+        f.iter([&frq_list,href](flecs::iter& it, sep::FlowReservationRequest* frq, AccessModule::Fingerprint *lfdi, AccessModule::Subject* mrid) 
         {        
             for (auto i : it) 
             {
@@ -543,7 +543,44 @@ std::string World::Get(const Href &href)
     return response;
 };
 
-void World::Post(const Href &href, const std::string& message)
+std::string World::Post(const Href &href, const std::string& message)
+{
+    switch (uri_map.at(href.uri))
+    {
+        case (Uri::rsp):
+        {
+            sep::Response rsp;
+            xml::Parse(message, &rsp);
+            std::string entity_id = href.uri + "/" + xml::util::Hexify(rsp.subject);
+            world.entity(entity_id.c_str()).set<sep::Response>(rsp);
+            return entity_id;
+        };
+        break;
+        case (Uri::rsps):
+        {
+            sep::ResponseSet *rsps;
+            xml::Parse(message, rsps);
+            std::string entity_id = href.uri + "/" + xml::util::Hexify(rsps->mrid);
+            world.entity(entity_id.c_str()).set<sep::ResponseSet>(*rsps);
+            return entity_id;
+        };
+        break;
+        case (Uri::frq):
+        {
+            sep::FlowReservationRequest *frq;
+            xml::Parse(message, frq);
+            std::string entity_id = href.uri + "/" + xml::util::Hexify(frq->mrid);
+            world.entity(entity_id.c_str()).set<sep::FlowReservationRequest>(*frq);
+            return entity_id;
+        };
+        break;
+        default:
+            return "";
+            break;
+    };
+};
+
+std::string World::Put(const Href &href, const std::string& message)
 {
     switch (uri_map.at(href.uri))
     {
@@ -552,62 +589,31 @@ void World::Post(const Href &href, const std::string& message)
             std::cout << message << std::endl;
             sep::Response rsp;
             xml::Parse(message, &rsp);
-            std::string entity_id = prependLFDI(href) + "/" + xml::util::Hexify(rsp.subject);
+            std::string entity_id = href.uri + "/" + xml::util::Hexify(rsp.subject);
             world.entity(entity_id.c_str()).set<sep::Response>(rsp);
+            return entity_id;
         };
         break;
         case (Uri::rsps):
         {
             sep::ResponseSet *rsps;
             xml::Parse(message, rsps);
-            std::string entity_id = prependLFDI(href) + "/" + xml::util::Hexify(rsps->mrid);
+            std::string entity_id = href.uri + "/" + xml::util::Hexify(rsps->mrid);
             world.entity(entity_id.c_str()).set<sep::ResponseSet>(*rsps);
+            return entity_id;
         };
         break;
         case (Uri::frq):
         {
             sep::FlowReservationRequest *frq;
             xml::Parse(message, frq);
-            std::string entity_id = prependLFDI(href) + "/" + xml::util::Hexify(frq->mrid);
+            std::string entity_id = href.uri + "/" + xml::util::Hexify(frq->mrid);
             world.entity(entity_id.c_str()).set<sep::FlowReservationRequest>(*frq);
+            return entity_id;
         };
         break;
         default:
-            // response = "";
-            break;
-    };
-};
-
-void World::Put(const Href &href, const std::string& message)
-{
-    switch (uri_map.at(href.uri))
-    {
-        case (Uri::rsp):
-        {
-            sep::Response *rsp;
-            xml::Parse(message, rsp);
-            std::string entity_id = prependLFDI(href) + "/" + xml::util::Hexify(rsp->subject);
-            world.entity(entity_id.c_str()).set<sep::Response>(*rsp);
-        };
-        break;
-        case (Uri::rsps):
-        {
-            sep::ResponseSet *rsps;
-            xml::Parse(message, rsps);
-            std::string entity_id = prependLFDI(href) + "/" + xml::util::Hexify(rsps->mrid);
-            world.entity(entity_id.c_str()).set<sep::ResponseSet>(*rsps);
-        };
-        break;
-        case (Uri::frq):
-        {
-            sep::FlowReservationRequest *frq;
-            xml::Parse(message, frq);
-            std::string entity_id = prependLFDI(href) + "/" + xml::util::Hexify(frq->mrid);
-            world.entity(entity_id.c_str()).set<sep::FlowReservationRequest>(*frq);
-        };
-        break;
-        default:
-            // response = "";
+            return "";
             break;
     };
 };

@@ -4,6 +4,7 @@ add_executable (${COMPONENT_NAME}
     main.cpp
     dcap_tests.cpp
     sdev_tests.cpp
+    edev_list_tests.cpp
     edev_tests.cpp
     rg_tests.cpp
     dstat_tests.cpp

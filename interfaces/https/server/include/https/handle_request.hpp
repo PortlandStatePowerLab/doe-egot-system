@@ -14,68 +14,12 @@
 #include <memory>
 #include <string>
 #include <thread>
+#include <regex>
 
 namespace beast = boost::beast;   // from <boost/beast.hpp>
 namespace http = beast::http;     // from <boost/beast/http.hpp>
 namespace net = boost::asio;      // from <boost/asio.hpp>
 namespace ssl = boost::asio::ssl; // from <boost/asio/ssl.hpp>
-
-// Return a reasonable mime type based on the extension of a file.
-beast::string_view
-mime_type(beast::string_view path)
-{
-    using beast::iequals;
-    auto const ext = [&path]
-    {
-        auto const pos = path.rfind(".");
-        if (pos == beast::string_view::npos)
-            return beast::string_view{};
-        return path.substr(pos);
-    }();
-    if (iequals(ext, ".htm"))
-        return "text/html";
-    if (iequals(ext, ".html"))
-        return "text/html";
-    if (iequals(ext, ".php"))
-        return "text/html";
-    if (iequals(ext, ".css"))
-        return "text/css";
-    if (iequals(ext, ".txt"))
-        return "text/plain";
-    if (iequals(ext, ".js"))
-        return "application/javascript";
-    if (iequals(ext, ".json"))
-        return "application/json";
-    if (iequals(ext, ".xml"))
-        return "application/xml";
-    if (iequals(ext, ".swf"))
-        return "application/x-shockwave-flash";
-    if (iequals(ext, ".flv"))
-        return "video/x-flv";
-    if (iequals(ext, ".png"))
-        return "image/png";
-    if (iequals(ext, ".jpe"))
-        return "image/jpeg";
-    if (iequals(ext, ".jpeg"))
-        return "image/jpeg";
-    if (iequals(ext, ".jpg"))
-        return "image/jpeg";
-    if (iequals(ext, ".gif"))
-        return "image/gif";
-    if (iequals(ext, ".bmp"))
-        return "image/bmp";
-    if (iequals(ext, ".ico"))
-        return "image/vnd.microsoft.icon";
-    if (iequals(ext, ".tiff"))
-        return "image/tiff";
-    if (iequals(ext, ".tif"))
-        return "image/tiff";
-    if (iequals(ext, ".svg"))
-        return "image/svg+xml";
-    if (iequals(ext, ".svgz"))
-        return "image/svg+xml";
-    return "application/text";
-}
 
 // Append an HTTP rel-path to a local filesystem path.
 // The returned path is normalized for the platform.
@@ -102,6 +46,84 @@ path_cat(
     result.append(path.data(), path.size());
 #endif
     return result;
+}
+
+std::string seperateQuery(const std::string& target, Href* href)
+{
+    std::vector <std::string> parts;
+    size_t pos = target.find("?");
+    if (pos != std::string::npos)
+    {
+        std::string base_uri = target.substr(0,pos);
+        std::string query = target.substr(pos);
+
+        std::regex start_regex("(s=(\\d+))");
+        std::regex after_regex("(a=(\\d+))");
+        std::regex limit_regex("(l=(\\d+))");
+        std::smatch match;
+
+        std::regex_search(query, match, start_regex);
+        if(match.size() == 1)
+        {
+            href->query.start = std::stol(match[0].str());
+        }
+
+        std::regex_search(query, match, after_regex);
+        if(match.size() == 1)
+        {
+            href->query.after = std::stoull(match[0].str());
+        }
+
+        std::regex_search(query, match, limit_regex);
+        if(match.size() == 1)
+        {
+            href->query.limit = std::stoull(match[0].str());
+        }
+
+        return base_uri;
+    }
+    return target;
+}
+
+void seperateUri(const std::string& target, Href* href)
+{
+    std::regex path_regex("((\\/\\w+))");
+    std::smatch match;
+
+    std::regex_search(target, match, path_regex);
+
+    href->uri = match[0].str();
+
+    switch (match.size())
+    {
+    case (1):
+    {
+        href->uri = match[0].str();
+    } break;
+    case (2):
+    {
+        href->uri = match[0].str() + "/*";
+        href->subject = match[1].str();
+    } break;
+    default:
+        href->uri = "/dcap";
+        break;
+    }
+
+    if(match.size() > 1)
+    {
+        href->subject = match[1].str();
+    }
+}
+
+Href extractHref (const std::string& target, const std::string& fingerprint)
+{
+    Href href;
+    href.lfdi = fingerprint;
+
+    std::string uri = seperateQuery(target, &href);
+    seperateUri(uri, &href);
+    return href;
 }
 
 // This function produces an HTTP response for the given
@@ -169,53 +191,38 @@ void HandleRequest(
 
     // If open path "/" then default to dcap
     std::string path = path_cat("", req.target());
-    if (req.target().back() == '/')
-    {
-        path.append("dcap");
-    }
+    Href href = extractHref(path, fingerprint);
 
-    // verify the path is legal
-    std::string wadl_path = *doc_root + "/sep_xml/sep_wadl.xml";
-    sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
-    if (wadl_access.methods.at(0).content_type.at(0) == "")
+    // verify the path is legal, might still send not_found when
+    // the ECS actually tries to get the resource.
+    std::string wadl_path = *doc_root + "/sep_xml/sep_wadl.xml";   
+    sep::WADL* wadl = sep::WADL::getInstance(wadl_path);
+    sep::WADLResource wadl_res = wadl->getResource(href.uri);
+    
+    if(wadl_res.properties.empty())
     {
         return send(not_found(path));
     }
 
-    /* // verify method is legal for specific resource
-    if ((wadl_access & (1<<static_cast<int>(req.method()))) == 0)
+    // verify method is legal for specific resource
+    std::stringstream ss;
+    ss << req.method();
+
+    if (wadl_res.properties[ss.str()].allow == false)
     {
         std::string allowed;
-        if ((wadl_access & 1<<1) > 0)
+        for (const auto& methods : wadl_res.properties)
         {
-            allowed += "DELETE, ";
+            if (methods.second.allow)
+            {
+                allowed += methods.first + ", ";
+            }
         }
-        if ((wadl_access & 1<<2) > 0)
-        {
-            allowed += "GET, ";
-        }
-        if ((wadl_access & 1<<3) > 0)
-        {
-            allowed += "HEAD, ";
-        }
-        if ((wadl_access & 1<<4) > 0)
-        {
-            allowed += "POST, ";
-        }
-        if ((wadl_access & 1<<5) > 0)
-        {
-            allowed += "PUT, ";
-        }
+
         allowed.pop_back(); // remove space
         allowed.pop_back(); // remove comma
         return send(method_not_allowed(allowed));
-    } */
-
-    // build href query for ecs
-    Href href;
-    href.lfdi = fingerprint;
-    href.uri = path;
-    href.query = {0, 0, 0}; // TODO
+    }
 
     // Respond to DELETE request
     if(req.method() == http::verb::delete_)
@@ -226,7 +233,7 @@ void HandleRequest(
 
         http::response<http::empty_body> res{http::status::ok, req.version()};
         res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
-        res.set(http::field::content_type, "application/sep+xml");
+        res.set(http::field::content_type, "text/html");
         res.keep_alive(req.keep_alive());
         return send(std::move(res));
     }
@@ -259,12 +266,14 @@ void HandleRequest(
         World *ecs = World::getInstance();
         std::string body = ecs->Get(href);
 
+        // TODO if body == "" then send not found
+
         // Cache the size since we need it after the move
         auto const size = body.size();
 
         http::response<http::empty_body> res{http::status::ok, req.version()};
         res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
-        res.set(http::field::content_type, "application/sep+xml");
+        res.set(http::field::content_type, "text/html");
         res.content_length(size);
         res.keep_alive(req.keep_alive());
         return send(std::move(res));
@@ -275,16 +284,17 @@ void HandleRequest(
         boost::beast::string_view content_type = req[http::field::content_type];
         if (content_type != "application/sep+xml")
         {
-            return send(bad_request("Bad content_type"));
+            return send(bad_request("Bad Content-Type"));
         }
 
         // attempt to access resource
         World *ecs = World::getInstance();
-        ecs->Post(href, req.body());
+        std::string loc = ecs->Post(href, req.body());
 
         http::response<http::string_body> res{http::status::created, req.version()};
         res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
         res.set(http::field::content_type, "text/html");
+        res.set(http::field::location, loc);
         res.keep_alive(req.keep_alive());
         res.prepare_payload();
         return send(std::move(res));
@@ -295,16 +305,17 @@ void HandleRequest(
         boost::beast::string_view content_type = req[http::field::content_type];
         if (content_type != "application/sep+xml")
         {
-            return send(bad_request("Bad content_type"));
+            return send(bad_request("Bad Content-Type"));
         }
 
         // attempt to access resource
         World *ecs = World::getInstance();
-        ecs->Put(href, req.body());
+        std::string loc = ecs->Put(href, req.body());
 
         http::response<http::string_body> res{http::status::ok, req.version()};
         res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
         res.set(http::field::content_type, "text/html");
+        res.set(http::field::location, loc);
         res.keep_alive(req.keep_alive());
         res.prepare_payload();
         return send(std::move(res));

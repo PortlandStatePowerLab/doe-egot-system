@@ -60,7 +60,7 @@ void generateEndDevice(const std::string &lfdi)
 {
     sep::EndDevice edev;
     edev.subscribable = sep::SubscribableType::kNone;
-    edev.href = "/edev";
+    edev.href = "/edev/" + lfdi;
     edev.configuration_link.href = "/cfg";
     edev.der_list_link.all = 0;
     edev.der_list_link.href = "/der";
@@ -103,7 +103,7 @@ void generateSelfDevice (const std::string& lfdi)
 {
     sep::SelfDevice sdev;
     sdev.subscribable = sep::SubscribableType::kNone;
-    sdev.href = "/sdev";
+    sdev.href = "/sdev/" + lfdi;
     sdev.configuration_link.href = "/cfg";
     sdev.der_list_link.all = 0;
     sdev.der_list_link.href = "/der";
@@ -133,7 +133,7 @@ void generateSelfDevice (const std::string& lfdi)
 void generateRegistration(const std::string &lfdi)
 {
     sep::Registration rg;
-    rg.href = "/rg";
+    rg.href = "/rg/" + lfdi;
     rg.poll_rate = 900;
     rg.date_time_registered = psu::utilities::getTime();
     rg.pin = xml::util::generatePIN(lfdi);

@@ -7,14 +7,15 @@
 struct Query
 {
     uint16_t start;
-    uint16_t after;
-    uint16_t length;
+    uint64_t after;
+    uint16_t limit;
 };
 
 struct Href
 {
     std::string lfdi;
     std::string uri;
+    std::string subject;
     Query query;
 };
 
