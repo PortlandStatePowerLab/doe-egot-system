@@ -97,6 +97,10 @@ void generateEndDevice(const std::string &lfdi)
     AccessModule::Fingerprint fingerprint;
     fingerprint.value = lfdi;
     e.set<AccessModule::Fingerprint>(fingerprint);
+
+    AccessModule::Subject subject;
+    subject.value = lfdi;
+    e.set<AccessModule::Subject>(subject);
 };
 
 void generateSelfDevice (const std::string& lfdi)
@@ -128,6 +132,10 @@ void generateSelfDevice (const std::string& lfdi)
     AccessModule::Fingerprint fingerprint;
     fingerprint.value = lfdi;
     e.set<AccessModule::Fingerprint>(fingerprint);
+
+    AccessModule::Subject subject;
+    subject.value = lfdi;
+    e.set<AccessModule::Subject>(subject);
 };
 
 void generateRegistration(const std::string &lfdi)
@@ -145,6 +153,10 @@ void generateRegistration(const std::string &lfdi)
     AccessModule::Fingerprint fingerprint;
     fingerprint.value = lfdi;
     e.set<AccessModule::Fingerprint>(fingerprint);
+
+    AccessModule::Subject subject;
+    subject.value = lfdi;
+    e.set<AccessModule::Subject>(subject);
 };
 
 void generateTime()

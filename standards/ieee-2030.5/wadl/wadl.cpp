@@ -7,7 +7,7 @@
 static std::unordered_map <std::string, std::string> uri_map = 
 {
     {"DeviceCapability", "/dcap"},
-    {"SelfDevice", "/sdev"},
+    {"SelfDevice", "/sdev/*"},
     {"EndDeviceList", "/edev"},
     {"EndDevice", "/edev/*"},
     {"Registration", "/rg"},
@@ -244,7 +244,7 @@ namespace sep
     {
         if (wadl_.count(uri) > 0)
         {
-            return wadl_.at(uri);
+            return wadl_[uri];
         }
         return WADLResource();
     }

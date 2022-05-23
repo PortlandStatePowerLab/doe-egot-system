@@ -62,20 +62,17 @@ std::string seperateQuery(const std::string& target, Href* href)
         std::regex limit_regex("(l=(\\d+))");
         std::smatch match;
 
-        std::regex_search(query, match, start_regex);
-        if(match.size() == 1)
+        if(std::regex_search(query, match, start_regex))
         {
             href->query.start = std::stol(match[0].str());
         }
 
-        std::regex_search(query, match, after_regex);
-        if(match.size() == 1)
+        if(std::regex_search(query, match, after_regex))
         {
             href->query.after = std::stoull(match[0].str());
         }
 
-        std::regex_search(query, match, limit_regex);
-        if(match.size() == 1)
+        if(std::regex_search(query, match, limit_regex))
         {
             href->query.limit = std::stoull(match[0].str());
         }
@@ -90,29 +87,16 @@ void seperateUri(const std::string& target, Href* href)
     std::regex path_regex("((\\/\\w+))");
     std::smatch match;
 
-    std::regex_search(target, match, path_regex);
-
-    href->uri = match[0].str();
-
-    switch (match.size())
+    if(std::regex_search(target, match, path_regex))
     {
-    case (1):
-    {
-        href->uri = match[0].str();
-    } break;
-    case (2):
-    {
-        href->uri = match[0].str() + "/*";
-        href->subject = match[1].str();
-    } break;
-    default:
-        href->uri = "/dcap";
-        break;
+        href->uri = match.str();
     }
 
-    if(match.size() > 1)
+    std::string subject = match.suffix();
+    if(std::regex_search(subject, match, path_regex))
     {
-        href->subject = match[1].str();
+        href->uri += "/*";
+        href->subject = match.str().substr(1);
     }
 }
 
@@ -122,6 +106,7 @@ Href extractHref (const std::string& target, const std::string& fingerprint)
     href.lfdi = fingerprint;
 
     std::string uri = seperateQuery(target, &href);
+
     seperateUri(uri, &href);
     return href;
 }
@@ -198,7 +183,7 @@ void HandleRequest(
     std::string wadl_path = *doc_root + "/sep_xml/sep_wadl.xml";   
     sep::WADL* wadl = sep::WADL::getInstance(wadl_path);
     sep::WADLResource wadl_res = wadl->getResource(href.uri);
-    
+
     if(wadl_res.properties.empty())
     {
         return send(not_found(path));

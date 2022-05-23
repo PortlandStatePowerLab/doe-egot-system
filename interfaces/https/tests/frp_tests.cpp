@@ -12,7 +12,7 @@
 
 extern std::string g_program_path;
 
-class HttpsResponseSetTests : public ::testing::Test
+class HttpsFlowReservationResponseTests : public ::testing::Test
 {
 protected:
     void SetUp() override
@@ -27,10 +27,10 @@ protected:
 
 protected:
     XmlValidator *validator;
-    std::string path = "/rsps";
+    std::string path = "/frp";
 };
 
-TEST_F(HttpsResponseSetTests, GetResponseSet)
+TEST_F(HttpsFlowReservationResponseTests, GetResponseSet)
 {
     HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
@@ -40,8 +40,8 @@ TEST_F(HttpsResponseSetTests, GetResponseSet)
 
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
-        sep::ResponseSet rsps;
-        xml::Parse(msg, &rsps);
+        sep::FlowReservationResponse frp;
+        xml::Parse(msg, &frp);
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path+"/*");
@@ -57,7 +57,7 @@ TEST_F(HttpsResponseSetTests, GetResponseSet)
     }
 }
 
-TEST_F(HttpsResponseSetTests, PostResponseSet)
+TEST_F(HttpsFlowReservationResponseTests, PostResponseSet)
 {
     HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
@@ -69,10 +69,10 @@ TEST_F(HttpsResponseSetTests, PostResponseSet)
 
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
-        sep::ResponseSet rsps;
-        xml::Parse(msg, &rsps);
+        sep::FlowReservationResponse frp;
+        xml::Parse(msg, &frp);
 
-        resp = client1->Post(uri, xml::Serialize(rsps));
+        resp = client1->Post(uri, xml::Serialize(frp));
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path+"/*");
@@ -88,7 +88,7 @@ TEST_F(HttpsResponseSetTests, PostResponseSet)
     }
 }
 
-TEST_F(HttpsResponseSetTests, PutResponseSet)
+TEST_F(HttpsFlowReservationResponseTests, PutResponseSet)
 {
     HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
@@ -98,10 +98,10 @@ TEST_F(HttpsResponseSetTests, PutResponseSet)
 
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
-        sep::ResponseSet rsps;
-        xml::Parse(msg, &rsps);
+        sep::FlowReservationResponse frp;
+        xml::Parse(msg, &frp);
 
-        resp = client1->Put(uri, xml::Serialize(rsps));
+        resp = client1->Put(uri, xml::Serialize(frp));
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path+"/*");
@@ -117,7 +117,7 @@ TEST_F(HttpsResponseSetTests, PutResponseSet)
     }
 }
 
-TEST_F(HttpsResponseSetTests, DeleteResponseSet)
+TEST_F(HttpsFlowReservationResponseTests, DeleteResponseSet)
 {
     HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try

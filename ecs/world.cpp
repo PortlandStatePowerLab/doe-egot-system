@@ -12,6 +12,16 @@ extern std::string g_program_path;
 World *World::instance_{nullptr};
 std::mutex World::mutex_;
 
+bool accessMatch(const AccessModule::Fingerprint& lfdi, const AccessModule::Subject& subject, const Href &href)
+{
+    return lfdi.value == href.lfdi && subject.value == href.subject;
+}
+
+bool accessMatch(const AccessModule::Fingerprint& lfdi, const Href &href)
+{
+    return lfdi.value == href.lfdi;
+}
+
 std::string prependLFDI(const Href &href)
 {
     return "/" + href.lfdi + href.uri;
@@ -45,6 +55,11 @@ std::string World::Get(const Href &href)
 {
     std::string response = "";
 
+    if (uri_map.count(href.uri) == 0)
+    {
+        return response;
+    }
+
     switch (uri_map.at(href.uri))
     {
     case (Uri::dcap):
@@ -60,18 +75,47 @@ std::string World::Get(const Href &href)
     break;
     case (Uri::sdev):
     {
-        auto f = world.filter<sep::SelfDevice, AccessModule::Fingerprint>();
+        auto f = world.filter<sep::SelfDevice, AccessModule::Fingerprint, AccessModule::Subject>();
 
-        f.each([&response, href](const sep::SelfDevice& sdev, const AccessModule::Fingerprint& lfdi) 
+        f.iter([&response, href](flecs::iter& it, sep::SelfDevice* sdev, AccessModule::Fingerprint *lfdi, AccessModule::Subject *subject) 
         {        
-            if (href.lfdi == lfdi.value)
+            std::cout << "SDEV : " << it.count() << std::endl;
+            for (auto i : it) 
             {
-                response = xml::Serialize(sdev);
+                if (accessMatch(lfdi[i],href))
+                {
+                    std::cout << href.subject << " : " << subject[i].value << std::endl;
+                }
+
+                // this should probably be its own compare lambda function
+                if (accessMatch(lfdi[i], subject[i], href))
+                {
+                    std::cout << "SDEV : " << std::endl;
+                    response = xml::Serialize(sdev[i]);
+                }
             }
         });
     };
     break;
     case (Uri::edev):
+    {
+        // More complex filters can first be created, then iterated
+        auto f = world.filter<sep::EndDevice, AccessModule::Fingerprint, AccessModule::Subject>();
+
+        f.iter([&response,href](flecs::iter& it, sep::EndDevice* edev, AccessModule::Fingerprint *lfdi, AccessModule::Subject *subject) 
+        {        
+            for (auto i : it) 
+            {
+                // this should probably be its own compare lambda function
+                if (accessMatch(lfdi[i], subject[i], href))
+                {
+                    response = xml::Serialize(edev[i]);
+                }
+            }
+        });
+    };
+    break;
+    case (Uri::edev_list):
     {
         std::vector<sep::EndDevice> edev_list;
         sep::List list;
@@ -84,8 +128,7 @@ std::string World::Get(const Href &href)
         {        
             for (auto i : it) 
             {
-                // this should probably be its own compare lambda function
-                if (lfdi[i].value == href.lfdi)
+                if (accessMatch(lfdi[i], href))
                 {
                     edev_list.emplace_back(edev[i]);
                 }
@@ -105,7 +148,7 @@ std::string World::Get(const Href &href)
 
         f.each([&response, href](const sep::Registration& rg, const AccessModule::Fingerprint& lfdi) 
         {        
-            if (href.lfdi == lfdi.value)
+            if (accessMatch(lfdi, href))
             {
                 response = xml::Serialize(rg);
             }
@@ -134,6 +177,19 @@ std::string World::Get(const Href &href)
     break;
     case (Uri::rsps):
     {
+        auto f = world.filter<sep::ResponseSet, AccessModule::Fingerprint, AccessModule::Subject>();
+
+        f.each([&response, href](const sep::ResponseSet& rsps, const AccessModule::Fingerprint& lfdi, const AccessModule::Subject& subject) 
+        {        
+            if (accessMatch(lfdi, subject, href))
+            {
+                response = xml::Serialize(rsps);
+            }
+        });
+    };
+    break;
+    case (Uri::rsps_list):
+    {
         std::vector<sep::ResponseSet> rsps_list;
         sep::List list;
 
@@ -144,7 +200,7 @@ std::string World::Get(const Href &href)
             for (auto i : it) 
             {
                 // this should probably be its own compare lambda function
-                if (lfdi[i].value == href.lfdi)
+                if (accessMatch(lfdi[i], href))
                 {
                     rsps_list.emplace_back(rsps[i]);
                 }
@@ -160,6 +216,19 @@ std::string World::Get(const Href &href)
     break;
     case (Uri::rsp):
     {
+        auto f = world.filter<sep::Response, AccessModule::Fingerprint, AccessModule::Subject>();
+
+        f.each([&response, href](const sep::Response& rsp, const AccessModule::Fingerprint& lfdi, const AccessModule::Subject& subject) 
+        {        
+            if (accessMatch(lfdi, subject, href))
+            {
+                response = xml::Serialize(rsp);
+            }
+        });
+    };
+    break;
+    case (Uri::rsp_list):
+    {
         std::vector<sep::Response> rsp_list;
         sep::List list;
 
@@ -170,7 +239,7 @@ std::string World::Get(const Href &href)
             for (auto i : it) 
             {
                 // this should probably be its own compare lambda function
-                if (lfdi[i].value == href.lfdi)
+                if (accessMatch(lfdi[i], href))
                 {
                     rsp_list.emplace_back(rsp[i]);
                 }
@@ -436,17 +505,31 @@ std::string World::Get(const Href &href)
     break;
     case (Uri::frq):
     {
+        auto f = world.filter<sep::FlowReservationRequest, AccessModule::Fingerprint, AccessModule::Subject>();
+
+        f.each([&response, href](const sep::FlowReservationRequest& frq, const AccessModule::Fingerprint &lfdi, const AccessModule::Subject& subject) 
+        {        
+            // this should probably be its own compare lambda function
+            if (accessMatch(lfdi, subject, href))
+            {
+                response = xml::Serialize(frq);
+            }
+        });
+    };
+    break;
+    case (Uri::frq_list):
+    {
         std::vector<sep::FlowReservationRequest> frq_list;
         sep::List list;
 
-        auto f = world.filter<sep::FlowReservationRequest, AccessModule::Fingerprint, AccessModule::Subject>();
+        auto f = world.filter<sep::FlowReservationRequest, AccessModule::Fingerprint>();
 
-        f.iter([&frq_list,href](flecs::iter& it, sep::FlowReservationRequest* frq, AccessModule::Fingerprint *lfdi, AccessModule::Subject* mrid) 
+        f.iter([&frq_list,href](flecs::iter& it, sep::FlowReservationRequest* frq, AccessModule::Fingerprint *lfdi) 
         {        
             for (auto i : it) 
             {
                 // this should probably be its own compare lambda function
-                if (lfdi[i].value == href.lfdi)
+                if (accessMatch(lfdi[i],href))
                 {
                     frq_list.emplace_back(frq[i]);
                 }
@@ -462,6 +545,20 @@ std::string World::Get(const Href &href)
     break;
     case (Uri::frp):
     {
+        auto f = world.filter<sep::FlowReservationResponse, AccessModule::Fingerprint, AccessModule::Subject>();
+
+        f.each([&response, href](const sep::FlowReservationResponse& frp, const AccessModule::Fingerprint &lfdi, const AccessModule::Subject& subject) 
+        {        
+            // this should probably be its own compare lambda function
+            if (accessMatch(lfdi, subject, href))
+            {
+                response = xml::Serialize(frp);
+            }
+        });
+    };
+    break;
+    case (Uri::frp_list):
+    {
         std::vector<sep::FlowReservationResponse> frp_list;
         sep::List list;
 
@@ -472,7 +569,7 @@ std::string World::Get(const Href &href)
             for (auto i : it) 
             {
                 // this should probably be its own compare lambda function
-                if (lfdi[i].value == href.lfdi)
+                if (accessMatch(lfdi[i], href))
                 {
                     frp_list.emplace_back(frp[i]);
                 }
@@ -549,29 +646,56 @@ std::string World::Post(const Href &href, const std::string& message)
     {
         case (Uri::rsp):
         {
+            auto e = world.entity();
+
             sep::Response rsp;
             xml::Parse(message, &rsp);
-            std::string entity_id = href.uri + "/" + xml::util::Hexify(rsp.subject);
-            world.entity(entity_id.c_str()).set<sep::Response>(rsp);
-            return entity_id;
+            e.set<sep::Response>(rsp);
+
+            AccessModule::Fingerprint fingerprint;
+            fingerprint.value = href.lfdi;
+            e.set<AccessModule::Fingerprint>(fingerprint);
+
+            AccessModule::Subject subject;
+            subject.value = rsp.subject.convert_to<std::string>();
+            e.set<AccessModule::Subject>(subject);
+            return href.uri + "/" + subject.value;
         };
         break;
         case (Uri::rsps):
         {
-            sep::ResponseSet *rsps;
-            xml::Parse(message, rsps);
-            std::string entity_id = href.uri + "/" + xml::util::Hexify(rsps->mrid);
-            world.entity(entity_id.c_str()).set<sep::ResponseSet>(*rsps);
-            return entity_id;
+            auto e = world.entity();
+
+            sep::ResponseSet rsps;
+            xml::Parse(message, &rsps);
+            e.set<sep::ResponseSet>(rsps);
+
+            AccessModule::Fingerprint fingerprint;
+            fingerprint.value = href.lfdi;
+            e.set<AccessModule::Fingerprint>(fingerprint);
+
+            AccessModule::Subject subject;
+            subject.value = rsps.mrid.convert_to<std::string>();
+            e.set<AccessModule::Subject>(subject);
+            return href.uri + "/" + subject.value;
         };
         break;
         case (Uri::frq):
         {
-            sep::FlowReservationRequest *frq;
-            xml::Parse(message, frq);
-            std::string entity_id = href.uri + "/" + xml::util::Hexify(frq->mrid);
-            world.entity(entity_id.c_str()).set<sep::FlowReservationRequest>(*frq);
-            return entity_id;
+            auto e = world.entity();
+
+            sep::FlowReservationRequest frq;
+            xml::Parse(message, &frq);
+            e.set<sep::FlowReservationRequest>(frq);
+
+            AccessModule::Fingerprint fingerprint;
+            fingerprint.value = href.lfdi;
+            e.set<AccessModule::Fingerprint>(fingerprint);
+
+            AccessModule::Subject subject;
+            subject.value = frq.mrid.convert_to<std::string>();
+            e.set<AccessModule::Subject>(subject);
+            return href.uri + "/" + subject.value;
         };
         break;
         default:
@@ -586,70 +710,127 @@ std::string World::Put(const Href &href, const std::string& message)
     {
         case (Uri::rsp):
         {
-            std::cout << message << std::endl;
+            auto e = world.entity();
+
             sep::Response rsp;
             xml::Parse(message, &rsp);
-            std::string entity_id = href.uri + "/" + xml::util::Hexify(rsp.subject);
-            world.entity(entity_id.c_str()).set<sep::Response>(rsp);
-            return entity_id;
+
+            AccessModule::Fingerprint lfdi;
+            lfdi.value = xml::util::Hexify(rsp.end_device_lfdi);
+
+            AccessModule::Subject subject;
+            subject.value = xml::util::Hexify(rsp.subject);
+
+            if (accessMatch(lfdi, subject, href))
+            {
+                e.set<sep::Response>(rsp);
+                e.set<AccessModule::Fingerprint>(lfdi);
+                e.set<AccessModule::Subject>(subject);
+                return href.uri + "/" + subject.value;
+            }
         };
         break;
         case (Uri::rsps):
         {
-            sep::ResponseSet *rsps;
-            xml::Parse(message, rsps);
-            std::string entity_id = href.uri + "/" + xml::util::Hexify(rsps->mrid);
-            world.entity(entity_id.c_str()).set<sep::ResponseSet>(*rsps);
-            return entity_id;
+            auto e = world.entity();
+
+            sep::ResponseSet rsps;
+            xml::Parse(message, &rsps);
+
+            AccessModule::Fingerprint lfdi;
+            lfdi.value = href.lfdi;
+
+            AccessModule::Subject subject;
+            subject.value = xml::util::Hexify(rsps.mrid);
+
+            if (accessMatch(lfdi, subject, href))
+            {
+                e.set<sep::ResponseSet>(rsps);
+                e.set<AccessModule::Fingerprint>(lfdi);
+                e.set<AccessModule::Subject>(subject);
+                return href.uri + "/" + subject.value;
+            }
         };
         break;
         case (Uri::frq):
         {
-            sep::FlowReservationRequest *frq;
-            xml::Parse(message, frq);
-            std::string entity_id = href.uri + "/" + xml::util::Hexify(frq->mrid);
-            world.entity(entity_id.c_str()).set<sep::FlowReservationRequest>(*frq);
-            return entity_id;
+            auto e = world.entity();
+
+            sep::FlowReservationRequest frq;
+            xml::Parse(message, &frq);
+
+            AccessModule::Fingerprint lfdi;
+            lfdi.value = href.lfdi;
+
+            AccessModule::Subject subject;
+            subject.value = xml::util::Hexify(frq.mrid);
+
+            if (accessMatch(lfdi, subject, href))
+            {
+                e.set<sep::FlowReservationRequest>(frq);
+                e.set<AccessModule::Fingerprint>(lfdi);
+                e.set<AccessModule::Subject>(subject);
+                return href.uri + "/" + subject.value;
+            }
         };
         break;
         default:
             return "";
             break;
     };
+    return "";
 };
 
 void World::Delete(const Href &href)
 {
     switch (uri_map.at(href.uri))
     {
+        case (Uri::edev):
+        {
+            world.each([href](flecs::entity& e, sep::EndDevice &rsp, AccessModule::Fingerprint &lfdi, AccessModule::Subject& subject) 
+            {        
+                // this should probably be its own compare lambda function
+                if (accessMatch(lfdi, subject, href))
+                {
+                    e.destruct();
+                }
+            });
+        };
+        break;
         case (Uri::rsp):
         {
-            std::string entity_id = prependLFDI(href);
-            auto e = world.lookup(prependLFDI(href).c_str());
-            if (e != 0)
-            {
-                e.destruct();
-            }
+            world.each([href](flecs::entity& e, sep::Response &rsp, AccessModule::Fingerprint &lfdi, AccessModule::Subject& subject) 
+            {        
+                // this should probably be its own compare lambda function
+                if (accessMatch(lfdi, subject, href))
+                {
+                    e.destruct();
+                }
+            });
         };
         break;
         case (Uri::rsps):
         {
-            std::string entity_id = prependLFDI(href);
-            auto e = world.lookup(prependLFDI(href).c_str());
-            if (e != 0)
-            {
-                e.destruct();
-            }
+            world.each([href](flecs::entity& e, sep::ResponseSet &rsps, AccessModule::Fingerprint &lfdi, AccessModule::Subject& subject) 
+            {        
+                // this should probably be its own compare lambda function
+                if (accessMatch(lfdi, subject, href))
+                {
+                    e.destruct();
+                }
+            });
         };
         break;
         case (Uri::frq):
         {
-            std::string entity_id = prependLFDI(href);
-            auto e = world.lookup(prependLFDI(href).c_str());
-            if (e != 0)
-            {
-                e.destruct();
-            }
+            world.each([href](flecs::entity& e, sep::FlowReservationRequest &frq, AccessModule::Fingerprint &lfdi, AccessModule::Subject& subject) 
+            {        
+                // this should probably be its own compare lambda function
+                if (accessMatch(lfdi, subject, href))
+                {
+                    e.destruct();
+                }
+            });
         };
         break;
         default:

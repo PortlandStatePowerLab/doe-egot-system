@@ -4,15 +4,21 @@ add_executable (${COMPONENT_NAME}
     main.cpp
     dcap_tests.cpp
     sdev_tests.cpp
-    edev_list_tests.cpp
     edev_tests.cpp
+    edev_list_tests.cpp
+    frp_list_tests.cpp 
+    frp_tests.cpp 
+    frq_list_tests.cpp 
+    frq_tests.cpp 
     rg_tests.cpp
     dstat_tests.cpp
     fsa_tests.cpp
     sub_tests.cpp
     ntfy_tests.cpp
     rsps_tests.cpp
+    rsps_list_tests.cpp 
     rsp_tests.cpp
+    rsp_list_tests.cpp
     tm_tests.cpp
 )
 

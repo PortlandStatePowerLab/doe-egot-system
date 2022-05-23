@@ -58,7 +58,7 @@ namespace xml
             if (std::is_integral<T>::value | boost::multiprecision::is_number<T>::value)
             {
                 std::stringstream ss;
-                ss << std::uppercase << std::hex << number;
+                ss << std::hex << number;
                 hex_str = ss.str();
                 if (hex_str.length() % 2 > 0)
                 {

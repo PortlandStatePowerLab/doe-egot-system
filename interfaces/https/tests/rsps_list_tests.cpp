@@ -12,7 +12,7 @@
 
 extern std::string g_program_path;
 
-class HttpsResponseSetTests : public ::testing::Test
+class HttpsResponseSetListTests : public ::testing::Test
 {
 protected:
     void SetUp() override
@@ -30,21 +30,22 @@ protected:
     std::string path = "/rsps";
 };
 
-TEST_F(HttpsResponseSetTests, GetResponseSet)
+TEST_F(HttpsResponseSetListTests, GetResponseSet)
 {
     HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        std::string uri = path + "/" + xml::util::Hexify(client1->getLFDI());
-        auto resp = client1->Get(uri);
+        auto resp = client1->Get(path);
 
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
-        sep::ResponseSet rsps;
-        xml::Parse(msg, &rsps);
+        std::vector<sep::ResponseSet> rsps_list;
+        xml::Parse(msg, &rsps_list);
+
+        EXPECT_EQ(rsps_list[0].mrid, client1->getLFDI());
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
-        sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path+"/*");
+        sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
 
         std::string method = "GET";
         // EXPECT_TRUE(checkContentType(resp.at("Content-Type").to_string(), wadl_access.properties[method].content_type));
@@ -57,25 +58,22 @@ TEST_F(HttpsResponseSetTests, GetResponseSet)
     }
 }
 
-TEST_F(HttpsResponseSetTests, PostResponseSet)
+TEST_F(HttpsResponseSetListTests, PostResponseSet)
 {
     HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        std::string uri = path + "/" + xml::util::Hexify(client1->getLFDI());
-        auto resp = client1->Get(uri);
-
-        std::cout << resp << std::endl;
+        auto resp = client1->Get(path);
 
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
-        sep::ResponseSet rsps;
-        xml::Parse(msg, &rsps);
+        std::vector<sep::ResponseSet> rsps_list;
+        xml::Parse(msg, &rsps_list);
 
-        resp = client1->Post(uri, xml::Serialize(rsps));
+        resp = client1->Post(path, xml::Serialize(rsps_list[0]));
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
-        sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path+"/*");
+        sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
 
         std::string method = "POST";
         // EXPECT_TRUE(checkContentType(resp.at("Content-Type").to_string(), wadl_access.properties[method].content_type));
@@ -88,23 +86,22 @@ TEST_F(HttpsResponseSetTests, PostResponseSet)
     }
 }
 
-TEST_F(HttpsResponseSetTests, PutResponseSet)
+TEST_F(HttpsResponseSetListTests, PutResponseSet)
 {
     HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        std::string uri = path + "/" + xml::util::Hexify(client1->getLFDI());
-        auto resp = client1->Get(uri);
+        auto resp = client1->Get(path);
 
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
-        sep::ResponseSet rsps;
-        xml::Parse(msg, &rsps);
+        std::vector<sep::ResponseSet> rsps_list;
+        xml::Parse(msg, &rsps_list);
 
-        resp = client1->Put(uri, xml::Serialize(rsps));
+        resp = client1->Put(path, xml::Serialize(rsps_list[0]));
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
-        sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path+"/*");
+        sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
 
         std::string method = "PUT";
         // EXPECT_TRUE(checkContentType(resp.at("Content-Type").to_string(), wadl_access.properties[method].content_type));
@@ -117,16 +114,22 @@ TEST_F(HttpsResponseSetTests, PutResponseSet)
     }
 }
 
-TEST_F(HttpsResponseSetTests, DeleteResponseSet)
+TEST_F(HttpsResponseSetListTests, DeleteResponseSet)
 {
     HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        std::string uri = path + "/" + xml::util::Hexify(client1->getLFDI());
-        auto resp = client1->Delete(uri);
+        auto resp = client1->Get(path);
+
+        std::string msg = boost::beast::buffers_to_string(resp.body().data());
+
+        std::vector<sep::ResponseSet> rsps_list;
+        xml::Parse(msg, &rsps_list);
+
+        resp = client1->Delete(path);
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
-        sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path+"/*");
+        sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
 
         std::string method = "DELETE";
         // EXPECT_TRUE(checkContentType(resp.at("Content-Type").to_string(), wadl_access.properties[method].content_type));

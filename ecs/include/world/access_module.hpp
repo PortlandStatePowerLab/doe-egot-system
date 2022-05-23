@@ -16,6 +16,8 @@ struct AccessModule
         std::string value;
     };
 
+    struct Done{};
+
     AccessModule(flecs::world &ecs);
 };
 
