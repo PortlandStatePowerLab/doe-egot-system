@@ -11,19 +11,15 @@ namespace psu
         {
             std::string content;
 
-            std::ifstream ifs(filename);
-            if (ifs)
+            std::ifstream open_file(filename);
+            if (!open_file)
             {
-                std::ostringstream oss;
-                oss << ifs.rdbuf();
-
-                content = oss.str();
+                return "";
             }
-            else
-            {
-                content = "";
-            };
-            ifs.close();
+
+            std::ostringstream oss;
+            oss << open_file.rdbuf();
+            content = oss.str();
             return content;
         }
 

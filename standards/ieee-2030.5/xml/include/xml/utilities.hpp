@@ -28,8 +28,7 @@ namespace xml
         static boost::property_tree::ptree Treeify(const std::string &xml_str)
         {
             // utility function to help translate strings to/from objects
-            std::stringstream ss;
-            ss << xml_str;
+            std::stringstream ss (xml_str);
             boost::property_tree::ptree pt;
             boost::property_tree::xml_parser::read_xml(ss, pt);
             return pt;
@@ -55,18 +54,23 @@ namespace xml
         static std::string Hexify(T number)
         {
             std::string hex_str;
-            if (std::is_integral<T>::value | boost::multiprecision::is_number<T>::value)
+            bool type_is_number = std::is_integral<T>::value || boost::multiprecision::is_number<T>::value;
+            if (!type_is_number)
             {
-                std::stringstream ss;
-                ss << std::hex << number;
-                hex_str = ss.str();
-                if (hex_str.length() % 2 > 0)
-                {
-                    // hex_str.append("0");
-                    hex_str.insert(0, "0");
-                    return hex_str;
-                }
+                return "";
+                
             }
+
+            std::stringstream ss;
+            ss << std::hex << number;
+            hex_str = ss.str();
+
+            bool needs_padding = hex_str.length() % 2 > 0;
+            if (needs_padding) 
+            {
+                hex_str.insert(0,"0");
+            }
+
             return hex_str;
         };
 
@@ -91,11 +95,9 @@ namespace xml
             }
 
             uint8_t checksum = total % 10;
-            if (checksum == 0)
-            {
-                return checksum;
-            }
-            return 10 - (total % 10);
+            return (checksum == 0)
+                ? checksum
+                : 10 - (total % 10);
         };
 
         static bool validateSFDI(const uint64_t sfdi)

@@ -158,7 +158,6 @@ void recursiveMethod(
             recursiveMethod(it.second, name, it.first, wadl);
         }
     }
-    return;    
 };
 
 // Using boost::beast verb enums this bitset will create a bit mask that can be used

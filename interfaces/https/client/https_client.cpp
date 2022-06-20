@@ -54,8 +54,8 @@ HttpsClient::Get(const std::string& target, const std::string& query)
     {
         bb::http::verb::get, href, 11
     };
-    req.set(bb::http::field::host, host_);
 
+    req.set(bb::http::field::host, host_);
     req.prepare_payload();
     return HttpsClient::Send (req);
 }
@@ -67,11 +67,11 @@ HttpsClient::Post(const std::string& target, const std::string& resource)
     {
         bb::http::verb::post, target, 11
     };
+
     req.set(bb::http::field::host, host_);
     req.set(bb::http::field::content_type, "application/sep+xml");
     req.body() = resource;
     req.prepare_payload();
-
     return HttpsClient::Send (req);
 }
 
@@ -82,11 +82,10 @@ HttpsClient::Put(const std::string& target, const std::string& resource)
     {
         bb::http::verb::put, target, 11
     };
-    req.set(bb::http::field::host, host_);
 
+    req.set(bb::http::field::host, host_);
     req.body() = resource;
     req.prepare_payload();
-
     return HttpsClient::Send (req);
 }
 
@@ -97,10 +96,9 @@ HttpsClient::Delete(const std::string& target)
     {
         bb::http::verb::delete_, target, 11
     };
+    
     req.set(bb::http::field::host, host_);
-
     req.prepare_payload();
-
     return HttpsClient::Send (req);
 }
 
@@ -138,9 +136,7 @@ bb::ssl_stream<bb::tcp_stream> HttpsClient::Connect()
 
     // Make the connection on the IP address we get from a lookup
     bb::get_lowest_layer(stream).connect(resolver_.resolve(host_, port_));
-    
     stream.handshake(ssl::stream_base::client);
-
     return stream;
 }
 
@@ -163,16 +159,16 @@ HttpsClient::Send(bb::http::request<bb::http::string_body>& req)
 
     boost::system::error_code ec;
     stream.shutdown(ec);
-    if(ec == net::error::eof)
+
+    if(ec && ec != net::error::eof)
+    {
+        throw bb::system_error{ec};
+    }
+    else 
     {
         // Rationale:
         // http://stackoverflow.com/questions/25587403/boost-asio-ssl-async-shutdown-always-finishes-with-an-error
         ec = {};
+        return res;
     }
-    if(ec)
-    {
-        throw bb::system_error{ec};
-    }
-
-	return res;
 }
