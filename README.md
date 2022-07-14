@@ -1,6 +1,23 @@
 # doe-egot-system
 Department of Energy - Energy Grid of Things System
 
+## Development
+
+### Docker
+
+run docker file 
+
+### Linux OS
+
+run setup.sh
+
+## Project Organization
+
+Compartmentalize all functions into their own folders. 
+Build as static or dynamic libraries. 
+Allows for easy unit testing
+Reduce duplication of work within the main GSP, DCM, and DTM
+
 ## Primary Updates
 
 * [ecs](https://github.com/PortlandStatePowerLab/doe-egot-system/tree/temp-system-updates/ecs)
