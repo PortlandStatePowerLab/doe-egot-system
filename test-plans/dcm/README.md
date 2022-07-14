@@ -1,7 +1,7 @@
 # DCM Test Plans
 
 1. The DCM SHALL periodically request a list of controls from its GSP.
-    - [ x ] Development
+    - [x] Development
     - [ ] Testing
     - [ ] Complete
 2. The DCM SHALL record DER properties during a scheduled service.
