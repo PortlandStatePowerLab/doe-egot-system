@@ -1,7 +1,7 @@
 # CTA 2045
 This is an implementation of CTA 2045 functions for Portland State University's Energy Grid of Things (EGoT).
 
-## Reference
+## References
 The reference information can be found at the following links:
 
 CTA 2045 Standard:
