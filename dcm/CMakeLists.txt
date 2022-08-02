@@ -12,4 +12,3 @@ FetchContent_MakeAvailable(flecs)
 
 # project dirs
 add_subdirectory(src)
-add_subdirectory(tests)
