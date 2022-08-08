@@ -7,13 +7,16 @@
 
 namespace cta2045
 {
+    using commodity_map = std::unordered_map<size_t, cea2045::cea2045CommodityData>;
+
     enum class Commodity : uint8_t
     {
         kElectricityConsumed,
         kElectricityProduced,
-        kNaturalGas,
+        kNaturalGasCubicFeet,
         kWaterGallons,
-        kNaturalGasLiters,
+        kNaturalGasCubicMeters,
+        kWaterLiters,
         kTotalEnergy,
         kPresentEnergy,
         kRatedMaxPowerConsumption,
@@ -21,6 +24,37 @@ namespace cta2045
         kTotalLoadUp,
         kPresentLoadup
     };
+
+        enum class DeviceType : uint8_t
+    {
+        kUnspecified,
+        kWaterHeaterGas,
+        kWaterHeaterElectric,
+        kWaterHeaterHeatPump
+    }; 
+
+    enum class CapabilityBitMap : uint8_t
+    {
+        kCycling,
+        kTierMode,
+        kPriceMode,
+        kTemperatureOffset,
+        kContinuouslyVariablePower,
+        kEfficiencyLevel
+    };
+
+    struct DeviceInfo
+    {
+        uint32_t device_type;
+        uint32_t capability_map;
+        uint32_t vendor_id;
+        uint32_t firmware_year;
+        uint32_t firmware_month;
+        uint32_t firmware_day;
+        uint32_t firmware_major;
+        uint32_t firmware_minor;
+    };
+
 } // namespace cta2045
 
 class UCM : public cea2045::IUCM
@@ -53,8 +87,8 @@ public:
     virtual void processIncompleteMessage(const unsigned char *buffer, unsigned int byte_count);
 
     cea2045::MaxPayloadLengthCode max_payload_;
-    cea2045::cea2045DeviceInfoResponse device_info_;
-    std::unordered_map<cta2045::Commodity, cea2045::cea2045CommodityData> commodities_;
+    cta2045::DeviceInfo device_info_;
+    cta2045::commodity_map commodities_;
     cea2045::cea2045GetTemperateOffsetResponse temperature_offset_;
     cea2045::cea2045GetSetpointsResponse1 setpoint_1_;
     cea2045::cea2045GetSetpointsResponse2 setpoint_2_;

@@ -35,7 +35,15 @@ void UCM::processMaxPayloadResponse(MaxPayloadLengthCode payload)
 
 void UCM::processDeviceInfoResponse(cea2045DeviceInfoResponse *message)
 {
-    device_info_ = *message;
+    //device_info_ = *message;
+    device_info_.device_type = message->getDeviceType();
+    device_info_.capability_map = (uint32_t)message->capability;
+    device_info_.vendor_id = message->getVendorID();
+    device_info_.firmware_day = (uint32_t)message->firmwareDay;
+    device_info_.firmware_month = (uint32_t)message->firmwareMonth;
+    device_info_.firmware_year = 2000 + (uint32_t)message->firmwareYear20xx;
+    device_info_.firmware_minor = (uint32_t)message->firmwareMinor;
+    device_info_.firmware_major = (uint32_t)message->firmwareMajor;
 }
 
 void UCM::processCommodityResponse(cea2045CommodityResponse *message)
@@ -43,92 +51,95 @@ void UCM::processCommodityResponse(cea2045CommodityResponse *message)
     size_t count = message->getCommodityDataCount();
     for (size_t i = 0; i < count; i++)
     {
-        cea2045CommodityData *data = message->getCommodityData(i);
-        commodities_[cta2045::Commodity(data->commodityCode)] = *data;
+        cea2045CommodityData data = *message->getCommodityData(i);
+        size_t key = (size_t)data.commodityCode;
+        std::cout << key << " : cumulative = " << data.getCumulativeAmount() << "\n";
+        std::cout << key << " : inst. rate = " << data.getInstantaneousRate() << "\n";
+        commodities_[key] = data;
     }
 }
 
 void UCM::processSetEnergyPriceResponse(cea2045IntermediateResponse *message)
 {
-    // TODO
+    std::cout << "CTA2045 processSetEnergyPriceResponse\n";
 }
 
 void UCM::processSetTemperatureOffsetResponse(cea2045IntermediateResponse *message)
 {
-    // TODO
+    std::cout << "CTA2045 processSetTemperatureOffsetResponse\n";
 }
 
 void UCM::processGetTemperatureOffsetResponse(cea2045GetTemperateOffsetResponse *message)
 {
-    // TODO
+    std::cout << "CTA2045 processGetTemperatureOffsetResponse\n";
 }
 
 void UCM::processSetSetpointsResponse(cea2045IntermediateResponse *message)
 {
-    // TODO
+    std::cout << "CTA2045 processSetSetpointsResponse\n";
 }
 
 void UCM::processGetSetpointsResponse(cea2045GetSetpointsResponse1 *message)
 {
-    // TODO
+    std::cout << "CTA2045 processGetSetpointsResponse\n";
 }
 
 void UCM::processGetSetpointsResponse(cea2045GetSetpointsResponse2 *message)
 {
-    // TODO
+    std::cout << "CTA2045 processGetSetpointsResponse\n";
 }
 
 void UCM::processStartCyclingResponse(cea2045IntermediateResponse *message)
 {
-    // TODO
+    std::cout << "CTA2045 processStartCyclingResponse\n";
 }
 
 void UCM::processTerminateCyclingResponse(cea2045IntermediateResponse *message)
 {
-    // TODO
+    std::cout << "CTA2045 processTerminateCyclingResponse\n";
 }
 
 void UCM::processGetPresentTemperatureResponse(cea2045GetPresentTemperatureResponse *message)
 {
-    // TODO
+    std::cout << "CTA2045 processGetPresentTemperatureResponse\n";
 }
 
 void UCM::processGetUTCTimeResponse(cea2045GetUTCTimeResponse *message)
 {
-    // TODO
+    std::cout << "CTA2045 processGetUTCTimeResponse\n";
 }
 
 void UCM::processAckReceived(MessageCode code)
 {
-    // TODO
+    std::cout << "CTA2045 processAckReceived\n";
 }
 
 void UCM::processNakReceived(LinkLayerNakCode nak, MessageCode code)
 {
-    // TODO
+    std::cout << "CTA2045 processNakReceived\n";
 }
 
 void UCM::processAppAckReceived(cea2045Basic *message)
 {
-    // TODO
+    std::cout << "CTA2045 processAppAckReceived\n";
 }
 
 void UCM::processAppNakReceived(cea2045Basic *message)
 {
-    // TODO
+    std::cout << "CTA2045 processAppNakReceived\n";
 }
 
 void UCM::processOperationalStateReceived(cea2045Basic *message)
 {
-    // TODO
+    std::cout << "CTA2045 processOperationalStateReceived\n";
 }
 
 void UCM::processAppCustomerOverride(cea2045Basic *message)
 {
-    // TODO
+    std::cout << "CTA2045 processAppCustomerOverride\n";
 }
 
 void UCM::processIncompleteMessage(const unsigned char *buffer, unsigned int byte_count)
 {
-    // TODO
+    std::cout << "CTA2045 processIncompleteMessage\n";
 }

@@ -39,9 +39,10 @@ add_subdirectory(utilities)
 add_subdirectory(standards)
 add_subdirectory(ecs)
 add_subdirectory(interfaces)
+add_subdirectory(dtm)
 #add_subdirectory(gsp)
 add_subdirectory(dcm)
-#add_subdirectory(dtm)
+
 
 # install resources for programs
 execute_process(
