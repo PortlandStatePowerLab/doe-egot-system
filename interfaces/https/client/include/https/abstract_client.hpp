@@ -37,6 +37,7 @@ public:
     (
         const std::string& target
     ) = 0;
+
 };
 
 #endif // __ABSTRACT_CLIENT_H__

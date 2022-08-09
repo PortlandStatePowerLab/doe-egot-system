@@ -1,6 +1,7 @@
 set(COMPONENT_NAME https_client)
 
 add_library(${COMPONENT_NAME} STATIC
+  client.cpp
   https_client.cpp
 )
 

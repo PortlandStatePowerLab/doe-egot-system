@@ -7,7 +7,7 @@
 
 namespace cta2045
 {
-    using commodity_map = std::unordered_map<size_t, cea2045::cea2045CommodityData>;
+    using commodity_map = std::unordered_map<uint8_t, cea2045::cea2045CommodityData>;
 
     enum class Commodity : uint8_t
     {

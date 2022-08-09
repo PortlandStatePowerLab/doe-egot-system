@@ -59,12 +59,15 @@ int main(int argc, char const *argv[])
   // device_->shutDown();
   // delete device_;
 
+  cta2045::Device::getInstance(serial_port)->endShed();
+
   int energy_take = 1;
   while (energy_take > 0){
     cta2045::Device* device = cta2045::Device::getInstance(serial_port);
     cta2045::commodity_map commodities = device->getCommodity();
     cea2045::cea2045CommodityData data = commodities.at(psu::utilities::ToUnderlyingType(cta2045::Commodity::kPresentEnergy));
     energy_take = data.getCumulativeAmount();
+    std::cout << "Energy : " << energy_take << "\n";
     device->loadUp();
     std::this_thread::sleep_for(std::chrono::seconds(10));
   }

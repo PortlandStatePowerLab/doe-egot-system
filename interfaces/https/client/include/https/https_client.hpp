@@ -15,8 +15,10 @@
 #include <memory>
 #include <mutex>
 
+#include "abstract_client.hpp"
+
 // Singleton Design Pattern
-class HttpsClient
+class HttpsClient : public AbstractClient
 {
 public:
     // rule of 5
@@ -28,16 +30,16 @@ public:
     boost::multiprecision::uint256_t getLFDI ();
 
     boost::beast::http::response<boost::beast::http::dynamic_body> Get(
-        const std::string &target, const std::string &query = "");
+        const std::string &target, const std::string &query = "") override;
 
     boost::beast::http::response<boost::beast::http::dynamic_body> Post(
-        const std::string &target, const std::string &resource);
+        const std::string &target, const std::string &resource) override;
 
     boost::beast::http::response<boost::beast::http::dynamic_body> Put(
-        const std::string &target, const std::string &resource);
+        const std::string &target, const std::string &resource) override;
 
     boost::beast::http::response<boost::beast::http::dynamic_body> Delete(
-        const std::string &target);
+        const std::string &target) override;
 
 protected:
     HttpsClient(const std::string& id, const std::string &root, const std::string &host, const std::string &port);

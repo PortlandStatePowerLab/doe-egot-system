@@ -52,91 +52,88 @@ void UCM::processCommodityResponse(cea2045CommodityResponse *message)
     for (size_t i = 0; i < count; i++)
     {
         cea2045CommodityData data = *message->getCommodityData(i);
-        size_t key = (size_t)data.commodityCode;
-        std::cout << key << " : cumulative = " << data.getCumulativeAmount() << "\n";
-        std::cout << key << " : inst. rate = " << data.getInstantaneousRate() << "\n";
-        commodities_[key] = data;
+        commodities_[(uint8_t)data.commodityCode] = data;
     }
 }
 
 void UCM::processSetEnergyPriceResponse(cea2045IntermediateResponse *message)
 {
-    std::cout << "CTA2045 processSetEnergyPriceResponse\n";
+    // TODO
 }
 
 void UCM::processSetTemperatureOffsetResponse(cea2045IntermediateResponse *message)
 {
-    std::cout << "CTA2045 processSetTemperatureOffsetResponse\n";
+    // TODO
 }
 
 void UCM::processGetTemperatureOffsetResponse(cea2045GetTemperateOffsetResponse *message)
 {
-    std::cout << "CTA2045 processGetTemperatureOffsetResponse\n";
+    // TODO
 }
 
 void UCM::processSetSetpointsResponse(cea2045IntermediateResponse *message)
 {
-    std::cout << "CTA2045 processSetSetpointsResponse\n";
+    // TODO
 }
 
 void UCM::processGetSetpointsResponse(cea2045GetSetpointsResponse1 *message)
 {
-    std::cout << "CTA2045 processGetSetpointsResponse\n";
+    // TODO
 }
 
 void UCM::processGetSetpointsResponse(cea2045GetSetpointsResponse2 *message)
 {
-    std::cout << "CTA2045 processGetSetpointsResponse\n";
+    // TODO
 }
 
 void UCM::processStartCyclingResponse(cea2045IntermediateResponse *message)
 {
-    std::cout << "CTA2045 processStartCyclingResponse\n";
+    // TODO
 }
 
 void UCM::processTerminateCyclingResponse(cea2045IntermediateResponse *message)
 {
-    std::cout << "CTA2045 processTerminateCyclingResponse\n";
+    // TODO
 }
 
 void UCM::processGetPresentTemperatureResponse(cea2045GetPresentTemperatureResponse *message)
 {
-    std::cout << "CTA2045 processGetPresentTemperatureResponse\n";
+    // TODO
 }
 
 void UCM::processGetUTCTimeResponse(cea2045GetUTCTimeResponse *message)
 {
-    std::cout << "CTA2045 processGetUTCTimeResponse\n";
+    // TODO
 }
 
 void UCM::processAckReceived(MessageCode code)
 {
-    std::cout << "CTA2045 processAckReceived\n";
+    // TODO
 }
 
 void UCM::processNakReceived(LinkLayerNakCode nak, MessageCode code)
 {
-    std::cout << "CTA2045 processNakReceived\n";
+    // TODO
 }
 
 void UCM::processAppAckReceived(cea2045Basic *message)
 {
-    std::cout << "CTA2045 processAppAckReceived\n";
+    // TODO
 }
 
 void UCM::processAppNakReceived(cea2045Basic *message)
 {
-    std::cout << "CTA2045 processAppNakReceived\n";
+    // TODO
 }
 
 void UCM::processOperationalStateReceived(cea2045Basic *message)
 {
-    std::cout << "CTA2045 processOperationalStateReceived\n";
+    // TODO
 }
 
 void UCM::processAppCustomerOverride(cea2045Basic *message)
 {
-    std::cout << "CTA2045 processAppCustomerOverride\n";
+    // TODO
 }
 
 void UCM::processIncompleteMessage(const unsigned char *buffer, unsigned int byte_count)
