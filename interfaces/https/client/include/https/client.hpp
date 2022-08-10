@@ -16,18 +16,9 @@
 #include "abstract_client.hpp"
 
 namespace https
-{
-    struct Context
-    {
-        std::string id;
-        std::string root;
-        std::string host;
-        std::string port;
-    };
-    
+{    
     class Client : AbstractClient
     {
-    
     public:
         Client(const Context& context);
         ~Client();

@@ -29,4 +29,10 @@ namespace dtm
         boost::property_tree::xml_parser::write_xml(ss, pt);
         return ss.str();
     };
+
+    std::string Stringify(const Message& message)
+    {
+        // utility function to help translate strings to/from objects
+        return Stringify(Treeify(message));
+    };
 }

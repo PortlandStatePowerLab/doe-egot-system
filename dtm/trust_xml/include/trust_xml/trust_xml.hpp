@@ -19,6 +19,7 @@ namespace dtm
 
     boost::property_tree::ptree Treeify(const Message& message);
     std::string Stringify(const boost::property_tree::ptree& pt);
+    std::string Stringify(const Message& message);
 } // namespace dtm
 
 #endif // __TRUST_struct Message
