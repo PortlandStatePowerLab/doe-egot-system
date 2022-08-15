@@ -1,7 +1,8 @@
 #ifndef __TRUST_HTTPS_H__
 #define __TRUST_HTTPS_H__
 
-#include <https/abstract_client.hpp>
+#include <boost/multiprecision/cpp_int.hpp>
+#include <https/client.hpp>
 
 // Singleton Design Pattern
 class TrustHttps : public https::AbstractClient
@@ -29,12 +30,14 @@ protected:
     https::Client dtm_client_;
 
 private:
-    void readLFDI (const std::string& root);
+    boost::multiprecision::uint256_t lfdi_;
+    void readLFDI (const https::Context& context);
     std::string packGetRequest(const std::string& target, const std::string &query);
     std::string packPostRequest(const std::string& target, const std::string &body);
     std::string packPutRequest(const std::string& target, const std::string &body);
     std::string packDeleteRequest(const std::string& target);
     std::string packResponse(const boost::beast::http::response<boost::beast::http::dynamic_body> &rsp);    
 };
+
 
 #endif // __TRUST_HTTPS_H__

@@ -37,7 +37,7 @@ void UCM::processDeviceInfoResponse(cea2045DeviceInfoResponse *message)
 {
     //device_info_ = *message;
     device_info_.device_type = message->getDeviceType();
-    device_info_.capability_map = (uint32_t)message->capability;
+    device_info_.capability_map = (uint64_t)message->capability;
     device_info_.vendor_id = message->getVendorID();
     device_info_.firmware_day = (uint32_t)message->firmwareDay;
     device_info_.firmware_month = (uint32_t)message->firmwareMonth;

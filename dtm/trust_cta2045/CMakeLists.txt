@@ -1,22 +1,18 @@
-find_package(Boost REQUIRED)
+set(COMPONENT_NAME trust_cta2045)
 
-set(COMPONENT_NAME trust_xml)
 add_library(${COMPONENT_NAME} STATIC
-    trust_xml.cpp
+    trust_cta2045.cpp
 )
 
 # Create ALIAS targets.
 add_library( ${PROJECT_NAME}::${COMPONENT_NAME} ALIAS ${COMPONENT_NAME} )
 
 target_link_libraries(${COMPONENT_NAME} PUBLIC 
-  Boost::boost
-  XML_Validator
-  pthread
+    cea2045_ucm
+    pthread
 )
 
-target_include_directories(
-    ${COMPONENT_NAME} PUBLIC
+target_include_directories(${COMPONENT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>
-    ${Boost_INCLUDE_DIRS}
+    ${cea2045_ucm_INCLUDE_DIRS}
 )

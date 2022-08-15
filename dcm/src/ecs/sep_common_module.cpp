@@ -15,6 +15,5 @@ namespace sep
         ecs.component<Configuration>();
 
         /* Register system */
-        
     };
 } // namespace sep

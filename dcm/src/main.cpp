@@ -72,6 +72,10 @@ int main(int argc, char const *argv[])
     std::this_thread::sleep_for(std::chrono::seconds(10));
   }
 
+  dtm_client;
+  trust_der_client;
+  trust_gsp_client;
+
   return 0;
 }
 
