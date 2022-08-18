@@ -3,6 +3,7 @@ add_library(${COMPONENT_NAME} STATIC
     gsp_client.cpp
     dtm_client.cpp 
     trust_der_client.cpp
+    trust_gsp_client.cpp
 )
 
 # Create ALIAS targets.
@@ -17,6 +18,8 @@ target_link_libraries(${COMPONENT_NAME} PUBLIC
 )
 
 target_include_directories(${COMPONENT_NAME} PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
   ${trust_xml_INCLUDE_DIRS}
   ${cta2045_ucm_INCLUDES_DIRS}
   ${utilities_INCLUDE_DIRS}

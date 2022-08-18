@@ -14,6 +14,8 @@ public:
     static DTMClient* getInstance(const https::Context& context);
     static DTMClient* getInstance();
 
+    boost::multiprecision::uint128_t getLFDI() override;
+
     boost::beast::http::response<boost::beast::http::dynamic_body> Get(
         const std::string &target, const std::string &query = "") override;
 

@@ -27,7 +27,7 @@ public:
 
     static HttpsClient *getInstance(const std::string &id, const std::string &root, const std::string &host, const std::string &port);
 
-    boost::multiprecision::uint256_t getLFDI();
+    boost::multiprecision::uint128_t getLFDI();
 
     boost::beast::http::response<boost::beast::http::dynamic_body> Get(
         const std::string &target, const std::string &query = "") override;
@@ -56,7 +56,7 @@ private:
     std::string root_;
     std::string host_;
     std::string port_;
-    boost::multiprecision::uint256_t lfdi_;
+    boost::multiprecision::uint128_t lfdi_;
 
     // required for all boost beast I/O
     boost::asio::io_context io_context_;

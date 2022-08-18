@@ -1,5 +1,5 @@
-#ifndef __SEP_SUPPORT_MODULE_H__
-#define __SEP_SUPPORT_MODULE_H__
+#ifndef __DCM_SEP_SUPPORT_MODULE_H__
+#define __DCM_SEP_SUPPORT_MODULE_H__
 
 #include <flecs.h>
 
@@ -12,4 +12,4 @@ namespace sep
     };
 } // namespace sep
 
-#endif // __SEP_SUPPORT_MODULE_H__
+#endif // __DCM_SEP_SUPPORT_MODULE_H__

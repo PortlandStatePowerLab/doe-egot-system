@@ -82,6 +82,7 @@ namespace xml
         pt.put("FlowReservationResponseList.<xmlattr>.all", list.all);
         pt.put("FlowReservationResponseList.<xmlattr>.results", list.results);
         pt.put("FlowReservationResponseList.<xmlattr>.href", list.href);
+        pt.put("FlowReservationResponseList.<xmlattr>.pollRate", list.inherited_poll_rate);
 
         for (const auto& frp : frp_list)
         {
@@ -106,6 +107,7 @@ namespace xml
                 
                 sep::FlowReservationResponse frp;
                 ObjectMap(subtree.second, &frp);
+                frp.inherited_poll_rate = pt.get<uint32_t>("FlowReservationResponseList.<xmlattr>.pollRate", 900);
                 frp_list->emplace_back(frp);
             }
             

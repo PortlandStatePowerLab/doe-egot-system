@@ -63,6 +63,7 @@ namespace xml
         pt.put("FlowReservationRequestList.<xmlattr>.all", list.all);
         pt.put("FlowReservationRequestList.<xmlattr>.results", list.results);
         pt.put("FlowReservationRequestList.<xmlattr>.href", list.href);
+        pt.put("FlowReservationRequestList.<xmlattr>.pollRate", list.inherited_poll_rate);
 
         for (const auto& frq : frq_list)
         {
@@ -87,6 +88,7 @@ namespace xml
 
                 sep::FlowReservationRequest frq;
                 ObjectMap(temp, &frq);
+                frq.inherited_poll_rate = pt.get<uint32_t>("FlowReservationRequestList.<xmlattr>.pollRate", 900);
                 frq_list->emplace_back(frq);
             }
             

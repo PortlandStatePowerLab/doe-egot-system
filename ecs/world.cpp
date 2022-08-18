@@ -5,6 +5,7 @@
 #include "include/world/sep_smart_energy_module.hpp"
 #include "include/world/uri.hpp"
 #include <xml/adapter.hpp>
+#include <utilities/utilities.hpp>
 #include <sstream>
 
 extern std::string g_program_path;
@@ -644,7 +645,7 @@ std::string World::Post(const Href &href, const std::string& message)
 {
     switch (uri_map.at(href.uri))
     {
-        case (Uri::rsp):
+        case (Uri::rsp_list):
         {
             auto e = world.entity();
 
@@ -662,7 +663,7 @@ std::string World::Post(const Href &href, const std::string& message)
             return href.uri + "/" + subject.value;
         };
         break;
-        case (Uri::rsps):
+        case (Uri::rsps_list):
         {
             auto e = world.entity();
 
@@ -680,7 +681,7 @@ std::string World::Post(const Href &href, const std::string& message)
             return href.uri + "/" + subject.value;
         };
         break;
-        case (Uri::frq):
+        case (Uri::frq_list):
         {
             auto e = world.entity();
 
@@ -693,8 +694,35 @@ std::string World::Post(const Href &href, const std::string& message)
             e.set<AccessModule::Fingerprint>(fingerprint);
 
             AccessModule::Subject subject;
-            subject.value = frq.mrid.convert_to<std::string>();
+            subject.value = xml::util::Hexify(frq.mrid);
             e.set<AccessModule::Subject>(subject);
+
+            sep::FlowReservationResponse frp;
+            frp.energy_available = frq.energy_requested;
+            frp.power_available = frq.power_requested;
+            frp.subject = xml::util::Hexify(frq.mrid);
+            frp.creation_time = psu::utilities::getTime();
+            frp.event_status.current_status = sep::CurrentStatus::kScheduled;
+            frp.event_status.date_time = frp.creation_time;
+            frp.event_status.potentially_superseded = false;
+            frp.interval.duration = frq.duration_requested;
+            frp.interval.start = frq.interval_requested.start 
+                + frq.interval_requested.duration 
+                - frq.duration_requested;
+            frp.description = frq.description;
+            frp.energy_available = frq.energy_requested;
+            frp.mrid = frq.mrid;
+            frp.description = frq.description;
+            frp.version = frq.version;
+            frp.subscribable = sep::SubscribableType::kNone;
+
+            auto e2 = world.entity();
+            e2.set<sep::FlowReservationResponse>(frp);
+            e2.set<AccessModule::Fingerprint>(fingerprint);
+            e2.set<AccessModule::Subject>(subject);
+
+            std::cout << "FRP: " << frp.mrid << std::endl;
+            std::cout << "FRQ: " << frq.mrid << std::endl;
             return href.uri + "/" + subject.value;
         };
         break;

@@ -1,4 +1,4 @@
-#include "include/world/sep_smart_energy_module.hpp"
+#include "include/sep_smart_energy_module.hpp"
 #include <ieee-2030.5/smart_energy_models.hpp>
 
 namespace sep

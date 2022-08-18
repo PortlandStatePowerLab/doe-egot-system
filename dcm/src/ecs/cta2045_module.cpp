@@ -1,8 +1,9 @@
 #include "include/cta2045_module.hpp"
+#include "include/sep_support_module.hpp"
 #include <ieee-2030.5/models.hpp>
-#include <cta2045/ucm.hpp>
 #include <trust_der_client.hpp>
 #include <trust_gsp_client.hpp>
+#include <xml/adapter.hpp>
 
 namespace cta2045
 {
@@ -10,21 +11,21 @@ namespace cta2045
     {
         /* Register module with world */
         ecs.module<UniversalModule>();
+        ecs.module<sep::SupportModule>();
 
         /* Register components */
         ecs.component<cea2045::cea2045CommodityData>();
 
         /* Register system */
         ecs.system<cea2045::cea2045CommodityData>("EnergyTake")
-            .iter([&](flecs::iter it, const cea2045::cea2045CommodityData &data) {    
-                
-                if((int)data.instantaneousRate >= 1200)
+            .each([&](flecs::entity e, const cea2045::cea2045CommodityData &data) {    
+                if((uint64_t)data.instantaneousRate >= 1200)
                 {
                     sep::FlowReservationRequest frr;
-                    auto resp = GSPClient::getInstance()->Post("/frr", frr);
+                    auto resp = TrustGSPClient::getInstance()->Post("/frr", xml::Serialize(frr));
                     std::string msg = boost::beast::buffers_to_string(resp.body().data());
-                    xml::Parse(msg, dcap[i]);
                     ecs.entity().add<sep::FlowReservationRequest>();
+                    
                 }
             });        
     }

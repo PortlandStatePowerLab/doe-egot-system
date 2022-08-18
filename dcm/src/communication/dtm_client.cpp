@@ -32,6 +32,11 @@ DTMClient* DTMClient::getInstance()
     return instance_;
 }
 
+boost::multiprecision::uint128_t DTMClient::getLFDI()
+{
+    return client_.getLFDI();
+}
+
 boost::beast::http::response<boost::beast::http::dynamic_body> DTMClient::Get(const std::string &target, const std::string &query)
 {
     return client_.Get(target,query);

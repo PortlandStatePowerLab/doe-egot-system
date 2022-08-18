@@ -15,6 +15,7 @@ target_link_libraries(${COMPONENT_NAME} PUBLIC
   SEP_Models
   XML_Validator
   Boost::boost
+  DCM_Comms
   pthread
 )
 
@@ -25,4 +26,5 @@ target_include_directories(${COMPONENT_NAME} PUBLIC
   ${SEP_Models_INCLUDE_DIRS}
   ${XML_Validator_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
+  ${DCM_Comms_INCLUDE_DIRS}
 )

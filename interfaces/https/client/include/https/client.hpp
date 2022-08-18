@@ -21,7 +21,10 @@ namespace https
     {
     public:
         Client(const Context& context);
+
         ~Client();
+
+        boost::multiprecision::uint128_t getLFDI() override;
 
         boost::beast::http::response<boost::beast::http::dynamic_body> Get(
         const std::string &target, const std::string &query = "") override;
@@ -37,6 +40,7 @@ namespace https
 
     private:
         const Context context_;
+        boost::multiprecision::uint128_t lfdi_;
 
         // required for all boost beast I/O
         boost::asio::io_context io_context_;
@@ -44,6 +48,7 @@ namespace https
         boost::asio::ip::tcp::resolver resolver_;
 
     private:
+        void readLFDI();
         boost::beast::ssl_stream<boost::beast::tcp_stream> Connect();
         boost::beast::http::response<boost::beast::http::dynamic_body> Send(
             boost::beast::http::request<boost::beast::http::string_body> &req);

@@ -1,4 +1,4 @@
-#include "include/world/sep_common_module.hpp"
+#include "include/sep_common_module.hpp"
 #include <ieee-2030.5/common_models.hpp>
 
 namespace sep

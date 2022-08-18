@@ -2,6 +2,7 @@
 #include "include/https/client.hpp"
 #include "include/https/root_certificates.hpp"
 #include <boost/asio/ssl/rfc2818_verification.hpp>
+#include <xml/utilities.hpp>
 
 // alias to make things easier to read
 namespace bb = boost::beast;
@@ -15,11 +16,17 @@ Client::Client(const Context& context)
 {
     std::string root_ca = context_.root + "/root-ca";
     load_root_certificates(context_.id, root_ca, ssl_context_);  
+    readLFDI();
 }
 
 Client::~Client ()
 {
     // do nothing
+}
+
+boost::multiprecision::uint128_t Client::getLFDI()
+{
+    return lfdi_;
 }
 
 bb::http::response <bb::http::dynamic_body>
@@ -76,6 +83,27 @@ Client::Delete(const std::string& target)
     req.set(bb::http::field::host, context_.host);
     req.prepare_payload();
     return Client::Send (req);
+}
+
+void Client::readLFDI()
+{
+    std::string cert_file = context_.root + "/client" + context_.id + ".crt";
+    FILE *fp = fopen(cert_file.c_str(), "r");
+    X509 *cert = PEM_read_X509(fp, NULL, NULL, NULL);
+
+    // fingerprint
+    unsigned char md[EVP_MAX_MD_SIZE];
+    unsigned int n;
+    X509_digest(cert, EVP_sha256(), md, &n);
+
+    // 40 hex character length for fingerprint
+    std::ostringstream oss;
+    for (size_t i = 0; i < n; i++)
+    {
+        oss << std::hex << (int)md[i];
+    };
+
+    lfdi_ = xml::util::Dehexify<boost::multiprecision::uint128_t>(oss.str().substr(0, 40));
 }
 
 bb::ssl_stream<bb::tcp_stream> Client::Connect() 

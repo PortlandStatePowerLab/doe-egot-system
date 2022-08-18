@@ -9,6 +9,7 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/error.hpp>
 #include <boost/asio/ssl/stream.hpp>
+#include <boost/multiprecision/cpp_int.hpp>
 
 #include <string>
 #include <memory>
@@ -27,6 +28,8 @@ namespace https
     class AbstractClient
     {
     public:
+        virtual boost::multiprecision::uint128_t getLFDI() = 0;
+        
         virtual boost::beast::http::response<boost::beast::http::dynamic_body> Get(
             const std::string &target, const std::string &query = "") = 0;
 

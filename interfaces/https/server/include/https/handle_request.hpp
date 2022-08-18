@@ -276,6 +276,8 @@ void HandleRequest(
         World *ecs = World::getInstance();
         std::string loc = ecs->Post(href, req.body());
 
+        std::cout << "ECS Post : " << href.uri << std::endl;
+
         http::response<http::string_body> res{http::status::created, req.version()};
         res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
         res.set(http::field::content_type, "text/html");

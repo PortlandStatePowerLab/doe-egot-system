@@ -1,5 +1,5 @@
-#ifndef __SEP_COMMON_MODULE_H__
-#define __SEP_COMMON_MODULE_H__
+#ifndef __DCM_SEP_COMMON_MODULE_H__
+#define __DCM_SEP_COMMON_MODULE_H__
 
 #include <flecs.h>
 
@@ -14,4 +14,4 @@ namespace sep
 
 
 
-#endif // __SEP_COMMON_MODULE_H__
+#endif // __DCM_SEP_COMMON_MODULE_H__

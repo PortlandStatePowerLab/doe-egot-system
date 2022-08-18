@@ -41,7 +41,7 @@ HttpsClient* HttpsClient::getInstance(const std::string& id, const std::string &
     return instance_;
 };
 
-boost::multiprecision::uint256_t HttpsClient::getLFDI ()
+boost::multiprecision::uint128_t HttpsClient::getLFDI ()
 {
     return lfdi_;
 };
@@ -120,7 +120,7 @@ void HttpsClient::readLFDI(const std::string& root)
         oss << std::hex << (int)md[i];
     };
 
-    lfdi_ = xml::util::Dehexify<boost::multiprecision::uint256_t>(oss.str().substr(0, 40));
+    lfdi_ = xml::util::Dehexify<boost::multiprecision::uint128_t>(oss.str().substr(0, 40));
 }
 
 bb::ssl_stream<bb::tcp_stream> HttpsClient::Connect() 

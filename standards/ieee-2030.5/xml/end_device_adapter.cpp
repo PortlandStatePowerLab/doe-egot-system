@@ -96,6 +96,7 @@ namespace xml
         pt.put("EndDeviceList.<xmlattr>.all", list.all);
         pt.put("EndDeviceList.<xmlattr>.results", list.results);
         pt.put("EndDeviceList.<xmlattr>.href", list.href);
+        pt.put("EndDeviceList.<xmlattr>.pollRate", list.inherited_poll_rate);
 
         for (const auto& edev : edev_list)
         {
@@ -120,6 +121,7 @@ namespace xml
 
                 sep::EndDevice edev;
                 ObjectMap(temp, &edev);
+                edev.inherited_poll_rate = pt.get<uint32_t>("EndDeviceList.<xmlattr>.pollRate", 900);
                 edevs->emplace_back(edev);
             }
         }

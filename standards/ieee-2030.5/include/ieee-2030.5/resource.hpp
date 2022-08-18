@@ -9,6 +9,7 @@ namespace sep
     struct Resource
     {
         std::string href; // optional
+        uint32_t inherited_poll_rate;
     };
 }; // namespace sep
 

@@ -3,6 +3,7 @@
 
 namespace sep
 {
+    
     CommonModule::CommonModule(flecs::world &ecs)
     {
         /* Register module with world */
@@ -15,6 +16,6 @@ namespace sep
         ecs.component<Configuration>();
 
         /* Register system */
-        
+
     };
 } // namespace sep

@@ -1,5 +1,5 @@
-#ifndef __CTA2045_MODULE_H__
-#define __CTA2045_MODULE_H__
+#ifndef __DCM_CTA2045_MODULE_H__
+#define __DCM_CTA2045_MODULE_H__
 
 #include <flecs.h>
 
@@ -12,4 +12,4 @@ namespace cta2045
     };
 } // namespace sep
 
-#endif // __CTA2045_MODULE_H__
+#endif // __DCM_CTA2045_MODULE_H__
