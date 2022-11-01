@@ -7,3 +7,9 @@ add_subdirectory(trust_https)
 add_subdirectory(trust_cta2045)
 add_subdirectory(src)
 add_subdirectory(tests)
+
+execute_process(
+    COMMAND ${CMAKE_COMMAND} -E copy_directory 
+    ${CMAKE_CURRENT_SOURCE_DIR}/scripts
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/scripts/
+)

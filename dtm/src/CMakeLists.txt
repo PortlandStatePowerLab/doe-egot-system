@@ -13,15 +13,3 @@ target_include_directories(
     ${COMPONENT_NAME} PUBLIC 
     ${dtm_server_INCLUDE_DIRS}
 )
-
-execute_process(
-    COMMAND ${CMAKE_COMMAND} -E copy_directory 
-    ${CMAKE_CURRENT_SOURCE_DIR}/resources
-    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/dtm/
-)
-
-execute_process(
-    COMMAND ${CMAKE_COMMAND} -E copy_directory 
-    ${CMAKE_CURRENT_SOURCE_DIR}/scripts
-    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/dtm/
-)

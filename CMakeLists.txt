@@ -18,8 +18,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # fetch remote packages for development
-find_package(Boost REQUIRED filesystem python)
-find_package(PythonLibs REQUIRED)
+find_package(Boost REQUIRED filesystem python3)
+find_package(PythonLibs 3 REQUIRED)
 
 include(FetchContent)
 FetchContent_Declare(
