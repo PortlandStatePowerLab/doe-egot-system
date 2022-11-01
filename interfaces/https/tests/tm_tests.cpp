@@ -3,12 +3,13 @@
 #include <fstream>
 #include <gtest/gtest.h>
 #include <https/https_server.hpp>
-#include <https/https_client.hpp>
+#include <https/single_client.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
 #include <ieee-2030.5/time.hpp>
 
 extern std::string g_program_path;
+using namespace https;
 
 class HttpsTimeTests : public ::testing::Test
 {
@@ -29,10 +30,9 @@ protected:
 
 TEST_F(HttpsTimeTests, GetTime)
 {
-    HttpsClient* client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client1->Get("/tm");
+        auto resp = SingleClient::getInstance().Get("/tm");
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
         EXPECT_TRUE(validator->ValidateXml(msg));
 

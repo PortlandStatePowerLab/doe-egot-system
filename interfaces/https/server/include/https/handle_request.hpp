@@ -1,3 +1,6 @@
+#ifndef __HTTPS_SERVER_HANDLE_REQUEST_H__
+#define __HTTPS_SERVER_HANDLE_REQUEST_H__
+
 #include "server_certificates.hpp"
 
 #include <boost/beast/core.hpp>
@@ -23,7 +26,7 @@ namespace ssl = boost::asio::ssl; // from <boost/asio/ssl.hpp>
 
 // Append an HTTP rel-path to a local filesystem path.
 // The returned path is normalized for the platform.
-std::string
+inline std::string
 path_cat(
     beast::string_view base,
     beast::string_view path)
@@ -48,7 +51,7 @@ path_cat(
     return result;
 }
 
-std::string seperateQuery(const std::string& target, Href* href)
+inline std::string seperateQuery(const std::string& target, Href* href)
 {
     std::vector <std::string> parts;
     size_t pos = target.find("?");
@@ -82,7 +85,7 @@ std::string seperateQuery(const std::string& target, Href* href)
     return target;
 }
 
-void seperateUri(const std::string& target, Href* href)
+inline void seperateUri(const std::string& target, Href* href)
 {
     std::regex path_regex("((\\/\\w+))");
     std::smatch match;
@@ -100,7 +103,7 @@ void seperateUri(const std::string& target, Href* href)
     }
 }
 
-Href extractHref (const std::string& target, const std::string& fingerprint)
+inline Href extractHref (const std::string& target, const std::string& fingerprint)
 {
     Href href;
     href.lfdi = fingerprint;
@@ -118,7 +121,7 @@ Href extractHref (const std::string& target, const std::string& fingerprint)
 template <class Body, class Allocator, class Send>
 void HandleRequest(
     const std::string fingerprint,
-    std::shared_ptr<std::string> doc_root,
+    std::shared_ptr<const std::string> doc_root,
     http::request<Body, http::basic_fields<Allocator>> &&req,
     Send &&send)
 {
@@ -213,8 +216,7 @@ void HandleRequest(
     if(req.method() == http::verb::delete_)
     {
         // attempt to access resource
-        World *ecs = World::getInstance();
-        ecs->Delete(href);
+        World::getInstance().Delete(href);
 
         http::response<http::empty_body> res{http::status::ok, req.version()};
         res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
@@ -226,8 +228,7 @@ void HandleRequest(
     if (req.method() == http::verb::get)
     {
         // attempt to access resource
-        World *ecs = World::getInstance();
-        std::string body = ecs->Get(href);
+        std::string body = World::getInstance().Get(href);
 
         // Cache the size since we need it after the move
         auto const size = body.size();
@@ -248,8 +249,7 @@ void HandleRequest(
     if(req.method() == http::verb::head)
     {
         // attempt to access resource
-        World *ecs = World::getInstance();
-        std::string body = ecs->Get(href);
+        std::string body = World::getInstance().Get(href);
 
         // TODO if body == "" then send not found
 
@@ -273,10 +273,7 @@ void HandleRequest(
         }
 
         // attempt to access resource
-        World *ecs = World::getInstance();
-        std::string loc = ecs->Post(href, req.body());
-
-        std::cout << "ECS Post : " << href.uri << std::endl;
+        std::string loc = World::getInstance().Post(href, req.body());
 
         http::response<http::string_body> res{http::status::created, req.version()};
         res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
@@ -296,8 +293,7 @@ void HandleRequest(
         }
 
         // attempt to access resource
-        World *ecs = World::getInstance();
-        std::string loc = ecs->Put(href, req.body());
+        std::string loc = World::getInstance().Put(href, req.body());
 
         http::response<http::string_body> res{http::status::ok, req.version()};
         res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
@@ -314,3 +310,5 @@ void HandleRequest(
     //     return send(server_error(ec.message()));
     // }
 }
+
+#endif // __HTTPS_SERVER_HANDLE_REQUEST_H__

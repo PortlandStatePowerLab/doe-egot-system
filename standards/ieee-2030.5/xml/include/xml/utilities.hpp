@@ -5,6 +5,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/multiprecision/cpp_int.hpp>
+#include <ieee-2030.5/sfdi_type.hpp>
 
 // C++14 helper
 template< class T >
@@ -105,16 +106,16 @@ namespace xml
             return Checksum(sfdi) == 0;
         };
 
-        static uint64_t getSFDI(const std::string &lfdi)
+        static sep::SFDIType getSFDI(const std::string &lfdi)
         {
-            uint64_t sfdi = Dehexify<uint64_t>(lfdi.substr(0, 9));
+            sep::SFDIType sfdi = Dehexify<uint64_t>(lfdi.substr(0, 9));
             uint8_t checksum = Checksum(sfdi);
             return (sfdi * 10) + checksum;
         };
 
         static uint32_t generatePIN(const std::string &lfdi)
         {
-            uint64_t sfdi = Dehexify<uint64_t>(lfdi.substr(0, 9));
+            sep::SFDIType sfdi = Dehexify<sep::SFDIType>(lfdi.substr(0, 9));
             std::string pin = std::to_string(sfdi);
             sfdi = std::stol(pin.substr(0, 5));
             uint8_t checksum = Checksum(sfdi);

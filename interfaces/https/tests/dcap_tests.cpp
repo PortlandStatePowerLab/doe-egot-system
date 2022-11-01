@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <gtest/gtest.h>
 #include <https/https_server.hpp>
-#include <https/https_client.hpp>
+#include <https/single_client.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
 #include <wadl/wadl.hpp>
@@ -13,6 +13,7 @@
 #include "wadl_check.hpp"
 
 extern std::string g_program_path;
+using namespace https;
 
 class HttpsDeviceCapabilityTests : public ::testing::Test
 {
@@ -34,10 +35,9 @@ protected:
 
 TEST_F(HttpsDeviceCapabilityTests, GetDeviceCapability)
 {
-    HttpsClient *client = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client->Get(path);
+        auto resp = SingleClient::getInstance().Get(path);
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
         sep::DeviceCapability dcap;
@@ -59,16 +59,15 @@ TEST_F(HttpsDeviceCapabilityTests, GetDeviceCapability)
 
 TEST_F(HttpsDeviceCapabilityTests, PostDeviceCapability)
 {
-    HttpsClient *client = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client->Get(path);
+        auto resp = SingleClient::getInstance().Get(path);
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
         sep::DeviceCapability dcap;
         xml::Parse(msg, &dcap);
         
-        resp = client->Post(path, xml::Serialize(dcap));
+        resp = SingleClient::getInstance().Post(path, xml::Serialize(dcap));
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -86,16 +85,15 @@ TEST_F(HttpsDeviceCapabilityTests, PostDeviceCapability)
 
 TEST_F(HttpsDeviceCapabilityTests, PutDeviceCapability)
 {
-    HttpsClient *client = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client->Get(path);
+        auto resp = SingleClient::getInstance().Get(path);
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
         sep::DeviceCapability dcap;
         xml::Parse(msg, &dcap);
 
-        resp = client->Put(path, xml::Serialize(dcap));
+        resp = SingleClient::getInstance().Put(path, xml::Serialize(dcap));
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -113,10 +111,9 @@ TEST_F(HttpsDeviceCapabilityTests, PutDeviceCapability)
 
 TEST_F(HttpsDeviceCapabilityTests, DeleteDeviceCapability)
 {
-    HttpsClient *client = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {       
-        auto resp = client->Delete("/dcap");
+        auto resp = SingleClient::getInstance().Delete("/dcap");
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);

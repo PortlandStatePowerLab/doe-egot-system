@@ -24,6 +24,7 @@
 #include <thread>
 #include <unordered_map>
 
+
 namespace beast = boost::beast;         // from <boost/beast.hpp>
 namespace http = beast::http;           // from <boost/beast/http.hpp>
 namespace net = boost::asio;            // from <boost/asio.hpp>
@@ -33,23 +34,14 @@ namespace ssl = boost::asio::ssl;       // from <boost/asio/ssl.hpp>
 class HttpsServer
 {
 public:
-    // rule of 5
-    HttpsServer(HttpsServer& other) = delete;       // clonable
-    void operator=(const HttpsServer&) = delete;    // assignable
-    HttpsServer(const std::string &address, uint16_t port, const std::string &doc_root);
+    HttpsServer(const std::string &address, uint16_t port, const std::string &doc_root, size_t threads);
     ~HttpsServer();
-    void Run ();
-    void Stop ();
     
 private:
     bool stop;
     std::string address_;
     uint16_t port_;
     std::shared_ptr<std::string> doc_root_;
-
-    net::io_context io_ctx_;
-    ssl::context ssl_ctx_;
-    net::ip::tcp::acceptor acceptor_;
 };
 
 

@@ -3,20 +3,17 @@
 
 namespace pt = boost::property_tree;
 
-namespace dtm
+namespace trust
 {
     boost::property_tree::ptree Treeify(const Message& message)
     {
         pt::ptree tree;
         tree.put("message.to", message.to);
         tree.put("message.from", message.from);
-        tree.put("message.command", message.command);
-        tree.put("message.timestamp", message.timestamp);
-
-        for (const auto& arg : message.args)
+        
+        for (const auto& arg : message.contents)
         {
-            tree.put("message.args.key", arg.first);
-            tree.put("message.args.value", arg.second);
+            tree.put("message.contents."+arg.first, arg.second);
         }
 
         return tree;

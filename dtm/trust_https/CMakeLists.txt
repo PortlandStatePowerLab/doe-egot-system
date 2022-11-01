@@ -2,7 +2,6 @@ set(COMPONENT_NAME trust_https)
 
 add_library(${COMPONENT_NAME} STATIC
   trust_https.cpp
-  singleton_trust_https.cpp
 )
 
 # Create ALIAS targets.

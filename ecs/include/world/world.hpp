@@ -16,7 +16,7 @@ public:
     World();
     ~World();
 
-    static World *getInstance();
+    static World &getInstance();
     std::string Get(const Href &href);
     std::string Post(const Href& href, const std::string& message);
     std::string Put(const Href& href, const std::string& message);
@@ -24,11 +24,6 @@ public:
 
 public:
     flecs::world world;
-
-private:
-    // thread-safe singleton instance
-    static World* instance_;
-    static std::mutex mutex_;
 };
 
 

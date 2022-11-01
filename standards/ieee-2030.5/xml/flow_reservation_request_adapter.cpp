@@ -7,7 +7,7 @@ namespace xml
     void ObjectMap (const boost::property_tree::ptree &pt, sep::FlowReservationRequest *frq)
     {
         frq->href = pt.get<std::string>("FlowReservationRequest.<xmlattr>.href", "");
-        frq->mrid = pt.get<sep::MRIDType>("FlowReservationRequest.mRID", 0);
+        frq->mrid = xml::util::Dehexify<sep::MRIDType>(pt.get<std::string>("FlowReservationRequest.mRID", ""));
         frq->description = pt.get<std::string>("FlowReservationRequest.description", "");
         frq->version = pt.get<uint16_t>("FlowReservationRequest.version", 0);
         frq->creation_time = pt.get<sep::TimeType>("FlowReservationRequest.creationTime", 0);

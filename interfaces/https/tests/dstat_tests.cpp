@@ -3,7 +3,7 @@
 #include <fstream>
 #include <gtest/gtest.h>
 #include <https/https_server.hpp>
-#include <https/https_client.hpp>
+#include <https/single_client.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
 

@@ -3,7 +3,7 @@
 #include <fstream>
 #include <gtest/gtest.h>
 #include <https/https_server.hpp>
-#include <https/https_client.hpp>
+#include <https/single_client.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
 #include <wadl/wadl.hpp>
@@ -11,6 +11,7 @@
 #include "wadl_check.hpp"
 
 extern std::string g_program_path;
+using namespace https;
 
 class HttpsSelfDeviceTests : public ::testing::Test
 {
@@ -32,18 +33,17 @@ protected:
 
 TEST_F(HttpsSelfDeviceTests, GetSelfDevice)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        std::string uri = path + "/" + xml::util::Hexify(client1->getLFDI());
-        auto resp = client1->Get(uri); 
-        std::cout << resp << std::endl; 
+        std::string uri = path + "/" + xml::util::Hexify(SingleClient::getInstance().getLFDI());
+        auto resp = SingleClient::getInstance().Get(uri); 
+        
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
         EXPECT_TRUE(validator->ValidateXml(msg));
 
         sep::SelfDevice sdev;
         xml::Parse(msg, &sdev);
-        EXPECT_EQ(sdev.lfdi,client1->getLFDI());
+        EXPECT_EQ(sdev.lfdi,SingleClient::getInstance().getLFDI());
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path+"/*");
@@ -61,18 +61,17 @@ TEST_F(HttpsSelfDeviceTests, GetSelfDevice)
 
 TEST_F(HttpsSelfDeviceTests, PostSelfDevice)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        std::string uri = path + "/" + xml::util::Hexify(client1->getLFDI());
-        auto resp = client1->Get(uri);  
+        std::string uri = path + "/" + xml::util::Hexify(SingleClient::getInstance().getLFDI());
+        auto resp = SingleClient::getInstance().Get(uri);  
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
         EXPECT_TRUE(validator->ValidateXml(msg));
 
         sep::SelfDevice sdev;
         xml::Parse(msg, &sdev);
 
-        resp = client1->Post(uri, xml::Serialize(sdev));
+        resp = SingleClient::getInstance().Post(uri, xml::Serialize(sdev));
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path+"/*");
@@ -90,18 +89,17 @@ TEST_F(HttpsSelfDeviceTests, PostSelfDevice)
 
 TEST_F(HttpsSelfDeviceTests, PutSelfDevice)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        std::string uri = path + "/" + xml::util::Hexify(client1->getLFDI());
-        auto resp = client1->Get(uri);  
+        std::string uri = path + "/" + xml::util::Hexify(SingleClient::getInstance().getLFDI());
+        auto resp = SingleClient::getInstance().Get(uri);  
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
         EXPECT_TRUE(validator->ValidateXml(msg));
 
         sep::SelfDevice sdev;
         xml::Parse(msg, &sdev);
         
-        resp = client1->Put(uri, xml::Serialize(sdev));
+        resp = SingleClient::getInstance().Put(uri, xml::Serialize(sdev));
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path+"/*");
@@ -119,11 +117,10 @@ TEST_F(HttpsSelfDeviceTests, PutSelfDevice)
 
 TEST_F(HttpsSelfDeviceTests, DeleteSelfDevice)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        std::string uri = path + "/" + xml::util::Hexify(client1->getLFDI());
-        auto resp = client1->Delete(uri);  
+        std::string uri = path + "/" + xml::util::Hexify(SingleClient::getInstance().getLFDI());
+        auto resp = SingleClient::getInstance().Delete(uri);  
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path+"/*");

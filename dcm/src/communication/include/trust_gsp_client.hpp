@@ -16,7 +16,7 @@ public:
     static TrustGSPClient* getInstance(const https::Context& gsp, const https::Context& dtm);
     static TrustGSPClient* getInstance();
 
-    boost::multiprecision::uint128_t getLFDI() override;
+    sep::LFDIType getLFDI() override;
 
     boost::beast::http::response<boost::beast::http::dynamic_body> Get(
         const std::string &target, const std::string &query = "") override;

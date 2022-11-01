@@ -35,7 +35,7 @@ TrustGSPClient* TrustGSPClient::getInstance()
     return instance_;
 }
 
-boost::multiprecision::uint128_t TrustGSPClient::getLFDI()
+sep::LFDIType TrustGSPClient::getLFDI()
 {
     return DTMClient::getInstance()->getLFDI();
 }

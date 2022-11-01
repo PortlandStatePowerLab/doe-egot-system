@@ -15,10 +15,8 @@ add_executable (${COMPONENT_NAME}
     fsa_tests.cpp
     sub_tests.cpp
     ntfy_tests.cpp
-    rsps_tests.cpp
-    rsps_list_tests.cpp 
     rsp_tests.cpp
-    rsp_list_tests.cpp
+    rsps_tests.cpp
     tm_tests.cpp
 )
 

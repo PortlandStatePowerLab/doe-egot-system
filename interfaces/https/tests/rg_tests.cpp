@@ -3,7 +3,7 @@
 #include <fstream>
 #include <gtest/gtest.h>
 #include <https/https_server.hpp>
-#include <https/https_client.hpp>
+#include <https/single_client.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
 #include <ieee-2030.5/registration.hpp>
@@ -11,6 +11,7 @@
 #include "wadl_check.hpp"
 
 extern std::string g_program_path;
+using namespace https;
 
 class HttpsRegistrationTests : public ::testing::Test
 {
@@ -32,16 +33,15 @@ protected:
 
 TEST_F(HttpsRegistrationTests, GetRegistration)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client1->Get(path);    
+        auto resp = SingleClient::getInstance().Get(path);    
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
         sep::Registration rg;
         xml::Parse(msg, &rg);
 
-        EXPECT_EQ(rg.pin, xml::util::generatePIN(xml::util::Hexify(client1->getLFDI())));        
+        EXPECT_EQ(rg.pin, xml::util::generatePIN(xml::util::Hexify(SingleClient::getInstance().getLFDI())));        
         
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -59,18 +59,17 @@ TEST_F(HttpsRegistrationTests, GetRegistration)
 
 TEST_F(HttpsRegistrationTests, PostRegistration)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client1->Get(path);    
+        auto resp = SingleClient::getInstance().Get(path);    
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
         sep::Registration rg;
         xml::Parse(msg, &rg);
 
-        resp = client1->Post(path, xml::Serialize(rg));
+        resp = SingleClient::getInstance().Post(path, xml::Serialize(rg));
 
-        EXPECT_EQ(rg.pin, xml::util::generatePIN(xml::util::Hexify(client1->getLFDI())));        
+        EXPECT_EQ(rg.pin, xml::util::generatePIN(xml::util::Hexify(SingleClient::getInstance().getLFDI())));        
         
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -88,18 +87,17 @@ TEST_F(HttpsRegistrationTests, PostRegistration)
 
 TEST_F(HttpsRegistrationTests, PutRegistration)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client1->Get(path);    
+        auto resp = SingleClient::getInstance().Get(path);    
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
         sep::Registration rg;
         xml::Parse(msg, &rg);
 
-        resp = client1->Put(path, xml::Serialize(rg));
+        resp = SingleClient::getInstance().Put(path, xml::Serialize(rg));
 
-        EXPECT_EQ(rg.pin, xml::util::generatePIN(xml::util::Hexify(client1->getLFDI())));        
+        EXPECT_EQ(rg.pin, xml::util::generatePIN(xml::util::Hexify(SingleClient::getInstance().getLFDI())));        
         
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -117,10 +115,9 @@ TEST_F(HttpsRegistrationTests, PutRegistration)
 
 TEST_F(HttpsRegistrationTests, DeleteRegistration)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client1->Delete(path);
+        auto resp = SingleClient::getInstance().Delete(path);
         
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);

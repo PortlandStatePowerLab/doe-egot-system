@@ -32,7 +32,7 @@ DTMClient* DTMClient::getInstance()
     return instance_;
 }
 
-boost::multiprecision::uint128_t DTMClient::getLFDI()
+sep::LFDIType DTMClient::getLFDI()
 {
     return client_.getLFDI();
 }

@@ -3,7 +3,7 @@
 #include <fstream>
 #include <gtest/gtest.h>
 #include <https/https_server.hpp>
-#include <https/https_client.hpp>
+#include <https/single_client.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
 #include <utilities/utilities.hpp>
@@ -11,12 +11,19 @@
 #include "wadl_check.hpp"
 
 extern std::string g_program_path;
+using namespace https;
 
 class HttpsResponseSetListTests : public ::testing::Test
 {
 protected:
     void SetUp() override
     {
+        rsps.description = "HttpsResponseSetListTests";
+        rsps.href = path;
+        rsps.inherited_poll_rate = 900;
+        rsps.mrid = 0x9999;
+        rsps.response_list_link;
+
         validator = new XmlValidator(g_program_path + "/sep_xml/sep.xsd");
     }
 
@@ -28,21 +35,21 @@ protected:
 protected:
     XmlValidator *validator;
     std::string path = "/rsps";
+    sep::ResponseSet rsps;
 };
 
 TEST_F(HttpsResponseSetListTests, GetResponseSet)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client1->Get(path);
+        auto resp = SingleClient::getInstance().Get(path);
 
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
         std::vector<sep::ResponseSet> rsps_list;
         xml::Parse(msg, &rsps_list);
 
-        EXPECT_EQ(rsps_list[0].mrid, client1->getLFDI());
+        EXPECT_EQ(rsps_list[0].mrid, SingleClient::getInstance().getLFDI());
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -60,17 +67,16 @@ TEST_F(HttpsResponseSetListTests, GetResponseSet)
 
 TEST_F(HttpsResponseSetListTests, PostResponseSet)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client1->Get(path);
+        auto resp = SingleClient::getInstance().Get(path);
 
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
         std::vector<sep::ResponseSet> rsps_list;
         xml::Parse(msg, &rsps_list);
 
-        resp = client1->Post(path, xml::Serialize(rsps_list[0]));
+        resp = SingleClient::getInstance().Post(path, xml::Serialize(rsps_list[0]));
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -88,17 +94,16 @@ TEST_F(HttpsResponseSetListTests, PostResponseSet)
 
 TEST_F(HttpsResponseSetListTests, PutResponseSet)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client1->Get(path);
+        auto resp = SingleClient::getInstance().Get(path);
 
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
         std::vector<sep::ResponseSet> rsps_list;
         xml::Parse(msg, &rsps_list);
 
-        resp = client1->Put(path, xml::Serialize(rsps_list[0]));
+        resp = SingleClient::getInstance().Put(path, xml::Serialize(rsps_list[0]));
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -116,17 +121,16 @@ TEST_F(HttpsResponseSetListTests, PutResponseSet)
 
 TEST_F(HttpsResponseSetListTests, DeleteResponseSet)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client1->Get(path);
+        auto resp = SingleClient::getInstance().Get(path);
 
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
         std::vector<sep::ResponseSet> rsps_list;
         xml::Parse(msg, &rsps_list);
 
-        resp = client1->Delete(path);
+        resp = SingleClient::getInstance().Delete(path);
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);

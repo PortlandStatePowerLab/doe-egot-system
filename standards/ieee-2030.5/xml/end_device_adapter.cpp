@@ -20,13 +20,13 @@ namespace xml
         edev->file_status_link.href = pt.get<std::string>("EndDevice.FileStatusLink.<xmlattr>.href", "");
         edev->ip_interface_list_link.href = pt.get<std::string>("EndDevice.IPInterfaceListLink.<xmlattr>.href", "");
         edev->ip_interface_list_link.all = pt.get<uint32_t>("EndDevice.IPInterfaceListLink.<xmlattr>.all", 0);
-        edev->lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(pt.get<std::string>("EndDevice.lFDI", ""));
+        edev->lfdi = xml::util::Dehexify<sep::LFDIType>(pt.get<std::string>("EndDevice.lFDI", ""));
         edev->load_shed_availability_list_link.href = pt.get<std::string>("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.href", "");
         edev->load_shed_availability_list_link.all = pt.get<uint32_t>("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.all", 0);
         edev->log_event_list_link.href = pt.get<std::string>("EndDevice.LogEventListLink.<xmlattr>.href", "");
         edev->log_event_list_link.all = pt.get<uint32_t>("EndDevice.LogEventListLink.<xmlattr>.all", 0);
         edev->power_status_link.href = pt.get<std::string>("EndDevice.PowerStatusLink.<xmlattr>.href", "");
-        edev->sfdi = pt.get<uint64_t>("EndDevice.sFDI", 0);
+        edev->sfdi = pt.get<sep::SFDIType>("EndDevice.sFDI", 0);
         edev->changed_time = pt.get<sep::TimeType>("EndDevice.changedTime", 0);
         edev->enabled = pt.get<bool>("EndDevice.enabled", false);
         edev->flow_reservation_request_list_link.href = pt.get<std::string>("EndDevice.FlowReservationRequestListLink.<xmlattr>.href", "");

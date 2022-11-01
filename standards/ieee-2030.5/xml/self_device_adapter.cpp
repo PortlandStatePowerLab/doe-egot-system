@@ -20,13 +20,13 @@ namespace xml
         sdev->file_status_link.href = pt.get<std::string>("SelfDevice.FileStatusLink.<xmlattr>.href", "");
         sdev->ip_interface_list_link.href = pt.get<std::string>("SelfDevice.IPInterfaceListLink.<xmlattr>.href", "");
         sdev->ip_interface_list_link.all = pt.get<uint32_t>("SelfDevice.IPInterfaceListLink.<xmlattr>.all", 0);
-        sdev->lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(pt.get<std::string>("SelfDevice.lFDI", ""));
+        sdev->lfdi = xml::util::Dehexify<sep::LFDIType>(pt.get<std::string>("SelfDevice.lFDI", ""));
         sdev->load_shed_availability_list_link.href = pt.get<std::string>("SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.href", "");
         sdev->load_shed_availability_list_link.all = pt.get<uint32_t>("SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.all", 0);
         sdev->log_event_list_link.href = pt.get<std::string>("SelfDevice.LogEventListLink.<xmlattr>.href", "");
         sdev->log_event_list_link.all = pt.get<uint32_t>("SelfDevice.LogEventListLink.<xmlattr>.all", 0);
         sdev->power_status_link.href = pt.get<std::string>("SelfDevice.PowerStatusLink.<xmlattr>.href", "");
-        sdev->sfdi = pt.get<uint64_t>("SelfDevice.sFDI", 0);
+        sdev->sfdi = pt.get<sep::SFDIType>("SelfDevice.sFDI", 0);
     };
 
     void TreeMap(const sep::SelfDevice &sdev, boost::property_tree::ptree *pt)

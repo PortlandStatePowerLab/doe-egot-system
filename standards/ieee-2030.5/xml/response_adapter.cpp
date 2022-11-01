@@ -8,7 +8,7 @@ namespace xml
     {
         rsp->href = pt.get<std::string>("Response.<xmlattr>.href", "");
         rsp->created_date_time = pt.get<sep::TimeType>("Response.createdDateTime", 0);
-        rsp->end_device_lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(pt.get<std::string>("Response.endDeviceLFDI", ""));
+        rsp->end_device_lfdi = xml::util::Dehexify<sep::LFDIType>(pt.get<std::string>("Response.endDeviceLFDI", ""));
         rsp->status = static_cast<sep::Response::Status>(pt.get<uint8_t>("Response.status", 0));
         rsp->subject = xml::util::Dehexify<sep::MRIDType>(pt.get<std::string>("Response.subject", ""));
     };

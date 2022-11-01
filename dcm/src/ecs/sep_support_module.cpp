@@ -30,15 +30,15 @@ SupportModule::SupportModule(flecs::world& ecs)
 
     // https://ajmmertens.medium.com/why-storing-state-machines-in-ecs-is-a-bad-idea-742de7a18e59
     // Register switch types so flecs knows which cases belong to which switch
-    ecs.type().component<Movement>()
-        .add<Movement::Walking>()
-        .add<Movement::Running>();
+    // ecs.type().component<Movement>()
+    //     .add<Movement::Walking>()
+    //     .add<Movement::Running>();
 
-    ecs.type().component<Direction>()
-        .add<Direction::Front>()
-        .add<Direction::Back>()
-        .add<Direction::Left>()
-        .add<Direction::Right>();
+    // ecs.type().component<Direction>()
+    //     .add<Direction::Front>()
+    //     .add<Direction::Back>()
+    //     .add<Direction::Left>()
+    //     .add<Direction::Right>();
 
     /* Register components */
     ecs.component<sep::VersionInformation>();
@@ -51,7 +51,7 @@ SupportModule::SupportModule(flecs::world& ecs)
     ecs.component<sep::MirrorMeterReading>();
     ecs.component<sep::MirrorUsagePoint>();
 
-    /* Register system */    
+    /* Register system CSIP COMM-006*/    
     ecs.system<>("Initialize IEEE Resources")
         .kind(flecs::OnLoad)
         .iter([&](flecs::iter it) {  
@@ -73,6 +73,7 @@ SupportModule::SupportModule(flecs::world& ecs)
             {
                 if (edev.lfdi == client->getLFDI())
                 {
+                    edev.inherited_poll_rate = dcap.poll_rate;
                     ecs.entity().set<sep::EndDevice>(edev);
                 }
             }

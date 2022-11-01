@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 #include <https/https_server.hpp>
-#include <https/https_client.hpp>
+#include <https/single_client.hpp>
 #include <ieee-2030.5/models.hpp>
 #include <xml/adapter.hpp>
 #include <world/world.hpp>
@@ -52,8 +52,7 @@ void generateDeviceCapabilities ()
     dcap.mirror_usage_point_list_link.href = "/mup";
     dcap.self_device_link.href = "/sdev";
 
-    World* ecs = World::getInstance();
-    ecs->world.entity().set<sep::DeviceCapability>(dcap);
+    World::getInstance().world.entity().set<sep::DeviceCapability>(dcap);
 };
 
 void generateEndDevice(const std::string &lfdi)
@@ -70,7 +69,7 @@ void generateEndDevice(const std::string &lfdi)
     edev.file_status_link.href = "/fs";
     edev.ip_interface_list_link.all = 0;
     edev.ip_interface_list_link.href = "/ns";
-    edev.lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(lfdi);
+    edev.lfdi = xml::util::Dehexify<sep::LFDIType>(lfdi);
     edev.load_shed_availability_list_link.all = 0;
     edev.load_shed_availability_list_link.href = "/lsl";
     edev.log_event_list_link.all = 0;
@@ -90,8 +89,7 @@ void generateEndDevice(const std::string &lfdi)
     edev.subscription_list_link.all = 0;
     edev.subscription_list_link.href = "/sub";
 
-    World* ecs = World::getInstance();
-    auto e = ecs->world.entity();
+    auto e = World::getInstance().world.entity();
     e.set<sep::EndDevice>(edev);
 
     AccessModule::Fingerprint fingerprint;
@@ -117,7 +115,7 @@ void generateSelfDevice (const std::string& lfdi)
     sdev.file_status_link.href = "/fs";
     sdev.ip_interface_list_link.all = 0;
     sdev.ip_interface_list_link.href = "/ns";
-    sdev.lfdi = xml::util::Dehexify<boost::multiprecision::uint256_t>(lfdi);
+    sdev.lfdi = xml::util::Dehexify<sep::LFDIType>(lfdi);
     sdev.load_shed_availability_list_link.all = 0;
     sdev.load_shed_availability_list_link.href = "/lsl";
     sdev.log_event_list_link.all = 0;
@@ -125,8 +123,7 @@ void generateSelfDevice (const std::string& lfdi)
     sdev.power_status_link.href = "/ps";
     sdev.sfdi = xml::util::getSFDI(lfdi);
 
-    World* ecs = World::getInstance();
-    auto e = ecs->world.entity();
+    auto e = World::getInstance().world.entity();
     e.set<sep::SelfDevice>(sdev);
 
     AccessModule::Fingerprint fingerprint;
@@ -146,8 +143,7 @@ void generateRegistration(const std::string &lfdi)
     rg.date_time_registered = psu::utilities::getTime();
     rg.pin = xml::util::generatePIN(lfdi);
 
-    World* ecs = World::getInstance();
-    auto e = ecs->world.entity();
+    auto e = World::getInstance().world.entity();
     e.set<sep::Registration>(rg);
 
     AccessModule::Fingerprint fingerprint;
@@ -181,8 +177,7 @@ void generateTime()
     tm.quality = 7; // low accuracy
     tm.tz_offset = (tz_ptr->base_utc_offset()).total_seconds();
 
-    World* ecs = World::getInstance();
-    ecs->world.entity().set<sep::Time>(tm);
+    World::getInstance().world.entity().set<sep::Time>(tm);
 };
 
 void Initialize(const std::string &doc_root)
@@ -235,14 +230,26 @@ void Initialize(const std::string &doc_root)
     }
 };
 
+void func (){
+    HttpsServer server("0.0.0.0", 8080, g_program_path, 4);
+}
+
 int main(int argc, char **argv) 
 {
     g_program_path = psu::utilities::getProgramPath(argv);
     Initialize(g_program_path);
+
+    https::Context ctx = {"1", g_program_path, "0.0.0.0", "8080"};
+    ctx.id = "1";
+    ctx.host = "0.0.0.0";
+    ctx.port = "8080";
+    ctx.root = g_program_path;
+
+    // init context so other calls don't need it
+    https::SingleClient::getInstance(ctx);
     
     // run server in seperate thread and detach for auto cleanup
-    HttpsServer* https_server = new HttpsServer("0.0.0.0", 8080, g_program_path);
-    std::thread first(&HttpsServer::Run, https_server);
+    std::thread first(func);
     first.detach();
 
     ::testing::InitGoogleTest(&argc, argv);

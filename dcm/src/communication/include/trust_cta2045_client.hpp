@@ -1,5 +1,5 @@
-#ifndef __TRUST_DER_CLIENT_H__
-#define __TRUST_DER_CLIENT_H__
+#ifndef __TRUST_CTA2045_CLIENT_H__
+#define __TRUST_CTA2045_DER_CLIENT_H__
 
 #include <cta2045/abstract_device.hpp>
 #include <cta2045/ucm.hpp>
@@ -93,4 +93,4 @@ private:
     TrustCTADevice device_;
 };
 
-#endif // __TRUST_DER_CLIENT_H__
+#endif // __TRUST_CTA2045_DER_CLIENT_H__

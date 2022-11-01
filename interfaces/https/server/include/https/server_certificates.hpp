@@ -1,5 +1,5 @@
-#ifndef __ROOT_CERTIFICATE_H__
-#define __ROOT_CERTIFICATE_H__
+#ifndef __SERVER_ROOT_CERTIFICATE_H__
+#define __SERVER_ROOT_CERTIFICATE_H__
 
 //
 // Copyright (c) 2016-2019 Vinnie Falco (vinnie dot falco at gmail dot com)
@@ -54,4 +54,4 @@ load_server_certificate(const std::string &root, boost::asio::ssl::context &ctx)
         boost::asio::buffer(dh.data(), dh.size()));
 }
 
-#endif // __ROOT_CERTIFICATE_H__
+#endif // __SERVER_ROOT_CERTIFICATE_H__

@@ -10,9 +10,6 @@
 
 extern std::string g_program_path;
 
-World *World::instance_{nullptr};
-std::mutex World::mutex_;
-
 bool accessMatch(const AccessModule::Fingerprint& lfdi, const AccessModule::Subject& subject, const Href &href)
 {
     return lfdi.value == href.lfdi && subject.value == href.subject;
@@ -38,17 +35,12 @@ World::World()
 
 World::~World()
 {
-    // Save entities if required
-    delete instance_;
+    // TODO: save state
 };
 
-World *World::getInstance()
+World &World::getInstance()
 {
-    std::lock_guard<std::mutex> lock(mutex_);
-    if (instance_ == nullptr)
-    {
-        instance_ = new World();
-    }
+    static World instance_;
     return instance_;
 };
 
@@ -80,18 +72,11 @@ std::string World::Get(const Href &href)
 
         f.iter([&response, href](flecs::iter& it, sep::SelfDevice* sdev, AccessModule::Fingerprint *lfdi, AccessModule::Subject *subject) 
         {        
-            std::cout << "SDEV : " << it.count() << std::endl;
             for (auto i : it) 
             {
-                if (accessMatch(lfdi[i],href))
-                {
-                    std::cout << href.subject << " : " << subject[i].value << std::endl;
-                }
-
                 // this should probably be its own compare lambda function
                 if (accessMatch(lfdi[i], subject[i], href))
                 {
-                    std::cout << "SDEV : " << std::endl;
                     response = xml::Serialize(sdev[i]);
                 }
             }
@@ -721,8 +706,6 @@ std::string World::Post(const Href &href, const std::string& message)
             e2.set<AccessModule::Fingerprint>(fingerprint);
             e2.set<AccessModule::Subject>(subject);
 
-            std::cout << "FRP: " << frp.mrid << std::endl;
-            std::cout << "FRQ: " << frq.mrid << std::endl;
             return href.uri + "/" + subject.value;
         };
         break;

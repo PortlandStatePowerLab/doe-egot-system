@@ -32,7 +32,7 @@ GSPClient* GSPClient::getInstance()
     return instance_;
 }
 
-boost::multiprecision::uint128_t GSPClient::getLFDI()
+sep::LFDIType GSPClient::getLFDI()
 {
     return client_.getLFDI();
 }

@@ -24,9 +24,14 @@ Client::~Client ()
     // do nothing
 }
 
-boost::multiprecision::uint128_t Client::getLFDI()
+sep::LFDIType Client::getLFDI()
 {
     return lfdi_;
+}
+
+Context Client::getContext()
+{
+    return context_;
 }
 
 bb::http::response <bb::http::dynamic_body>
@@ -87,7 +92,7 @@ Client::Delete(const std::string& target)
 
 void Client::readLFDI()
 {
-    std::string cert_file = context_.root + "/client" + context_.id + ".crt";
+    std::string cert_file = context_.root + "/root-ca/client" + context_.id + ".crt";
     FILE *fp = fopen(cert_file.c_str(), "r");
     X509 *cert = PEM_read_X509(fp, NULL, NULL, NULL);
 
@@ -103,7 +108,7 @@ void Client::readLFDI()
         oss << std::hex << (int)md[i];
     };
 
-    lfdi_ = xml::util::Dehexify<boost::multiprecision::uint128_t>(oss.str().substr(0, 40));
+    lfdi_ = xml::util::Dehexify<sep::LFDIType>(oss.str().substr(0, 40));
 }
 
 bb::ssl_stream<bb::tcp_stream> Client::Connect() 

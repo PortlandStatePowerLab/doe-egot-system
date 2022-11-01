@@ -3,7 +3,7 @@
 #include <fstream>
 #include <gtest/gtest.h>
 #include <https/https_server.hpp>
-#include <https/https_client.hpp>
+#include <https/single_client.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
 #include <ieee-2030.5/response.hpp>
@@ -12,6 +12,7 @@
 #include "wadl_check.hpp"
 
 extern std::string g_program_path;
+using namespace https;
 
 class HttpsResponseListTests : public ::testing::Test
 {
@@ -33,18 +34,16 @@ protected:
 
 TEST_F(HttpsResponseListTests, PostResponse)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-            
         sep::Response rsp;
         rsp.href = "";
-        rsp.end_device_lfdi = client1->getLFDI();
+        rsp.end_device_lfdi = SingleClient::getInstance().getLFDI();
         rsp.status = sep::Response::Status::kEventAcknowledged;
         rsp.subject = 12345;
         rsp.created_date_time = psu::utilities::getTime();
 
-        auto resp = client1->Post(path, xml::Serialize(rsp));
+        auto resp = SingleClient::getInstance().Post(path, xml::Serialize(rsp));
         
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -62,10 +61,9 @@ TEST_F(HttpsResponseListTests, PostResponse)
 
 TEST_F(HttpsResponseListTests, GetResponse)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client1->Get(path);
+        auto resp = SingleClient::getInstance().Get(path);
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
         sep::Response rsp;
@@ -87,17 +85,16 @@ TEST_F(HttpsResponseListTests, GetResponse)
 
 TEST_F(HttpsResponseListTests, PutResponse)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
         sep::Response rsp;
-        rsp.href = "";
-        rsp.end_device_lfdi = client1->getLFDI();
+        rsp.href = path;
+        rsp.end_device_lfdi = SingleClient::getInstance().getLFDI();
         rsp.status = sep::Response::Status::kEventAcknowledged;
         rsp.subject = 12345;
         rsp.created_date_time = psu::utilities::getTime();
 
-        auto resp = client1->Put(path, xml::Serialize(rsp));
+        auto resp = SingleClient::getInstance().Put(path, xml::Serialize(rsp));
         
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -115,10 +112,9 @@ TEST_F(HttpsResponseListTests, PutResponse)
 
 TEST_F(HttpsResponseListTests, DeleteResponse)
 {
-    HttpsClient *client1 = HttpsClient::getInstance("1", g_program_path, "0.0.0.0", "8080");
     try
     {
-        auto resp = client1->Delete(path);
+        auto resp = SingleClient::getInstance().Delete(path);
         
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);

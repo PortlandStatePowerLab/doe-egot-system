@@ -1,7 +1,7 @@
 #include "include/cta2045_module.hpp"
 #include "include/sep_support_module.hpp"
 #include <ieee-2030.5/models.hpp>
-#include <trust_der_client.hpp>
+#include <trust_cta2045_client.hpp>
 #include <trust_gsp_client.hpp>
 #include <xml/adapter.hpp>
 

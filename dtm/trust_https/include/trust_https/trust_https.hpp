@@ -1,43 +1,50 @@
 #ifndef __TRUST_HTTPS_H__
 #define __TRUST_HTTPS_H__
 
-#include <boost/multiprecision/cpp_int.hpp>
 #include <https/client.hpp>
 
-// Singleton Design Pattern
-class TrustHttps : public https::AbstractClient
+namespace trust
 {
-public:
-    TrustHttps(const https::Context& gsp, const https::Context& dtm);
-    ~TrustHttps();
+    // Singleton Design Pattern
+    class HttpsClient : public https::AbstractClient
+    {
+    public:
+        // rule of 5
+        HttpsClient(HttpsClient &other) = delete;     // clonable
+        void operator=(const HttpsClient &) = delete; // assignable
 
-    boost::beast::http::response<boost::beast::http::dynamic_body> Get(
-        const std::string &target, const std::string &query = "") override;
+        static HttpsClient &getInstance(
+            const https::Context &gsp_ctx = {"", "", "", ""},
+            const https::Context &dtm_ctx = {"", "", "", ""});
 
-    boost::beast::http::response<boost::beast::http::dynamic_body> Post(
-        const std::string &target, const std::string &resource) override;
+        boost::beast::http::response<boost::beast::http::dynamic_body> Get(
+            const std::string &target, const std::string &query = "") override;
 
-    boost::beast::http::response<boost::beast::http::dynamic_body> Put(
-        const std::string &target, const std::string &resource) override;
+        boost::beast::http::response<boost::beast::http::dynamic_body> Post(
+            const std::string &target, const std::string &resource) override;
 
-    boost::beast::http::response<boost::beast::http::dynamic_body> Delete(
-        const std::string &target) override;
+        boost::beast::http::response<boost::beast::http::dynamic_body> Put(
+            const std::string &target, const std::string &resource) override;
 
-    boost::multiprecision::uint256_t getLFDI ();
+        boost::beast::http::response<boost::beast::http::dynamic_body> Delete(
+            const std::string &target) override;
 
-protected:
-    https::Client gsp_client_;
-    https::Client dtm_client_;
+        boost::multiprecision::uint256_t getLFDI();
 
-private:
-    boost::multiprecision::uint256_t lfdi_;
-    void readLFDI (const https::Context& context);
-    std::string packGetRequest(const std::string& target, const std::string &query);
-    std::string packPostRequest(const std::string& target, const std::string &body);
-    std::string packPutRequest(const std::string& target, const std::string &body);
-    std::string packDeleteRequest(const std::string& target);
-    std::string packResponse(const boost::beast::http::response<boost::beast::http::dynamic_body> &rsp);    
-};
+    protected:
+        https::Client gsp_client_;
+        https::Client dtm_client_;
 
+    private:
+        HttpsClient(const https::Context &gsp, const https::Context &dtm);
+        ~HttpsClient();
+
+        std::string packGetRequest(const std::string &target, const std::string &query);
+        std::string packPostRequest(const std::string &target, const std::string &body);
+        std::string packPutRequest(const std::string &target, const std::string &body);
+        std::string packDeleteRequest(const std::string &target);
+        std::string packResponse(const boost::beast::http::response<boost::beast::http::dynamic_body> &rsp);
+    };
+} // namespace trust
 
 #endif // __TRUST_HTTPS_H__

@@ -12,7 +12,7 @@ namespace xml
         frp->response_required = static_cast<sep::RespondableResource::ResponseRequired>(
             xml::util::Dehexify<uint8_t>(pt.get<std::string>("FlowReservationResponse.<xmlattr>.responseRequired", "00")));
         frp->href = pt.get<std::string>("FlowReservationResponse.<xmlattr>.href", "");
-        frp->mrid = pt.get<sep::MRIDType>("FlowReservationResponse.mRID", 0);
+        frp->mrid = xml::util::Dehexify<sep::MRIDType>(pt.get<std::string>("FlowReservationResponse.mRID", ""));
         frp->description = pt.get<std::string>("FlowReservationResponse.description", "");
         frp->version = pt.get<uint16_t>("FlowReservationResponse.version", 0);
         frp->creation_time = pt.get<uint16_t>("FlowReservationResponse.creationTime", 0);
@@ -106,7 +106,7 @@ namespace xml
                 temp.add_child("FlowReservationResponse", subtree.second);
                 
                 sep::FlowReservationResponse frp;
-                ObjectMap(subtree.second, &frp);
+                ObjectMap(temp, &frp);
                 frp.inherited_poll_rate = pt.get<uint32_t>("FlowReservationResponseList.<xmlattr>.pollRate", 900);
                 frp_list->emplace_back(frp);
             }

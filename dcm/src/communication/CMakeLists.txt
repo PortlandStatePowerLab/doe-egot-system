@@ -2,7 +2,7 @@ set(COMPONENT_NAME DCM_Comms)
 add_library(${COMPONENT_NAME} STATIC
     gsp_client.cpp
     dtm_client.cpp 
-    trust_der_client.cpp
+    trust_cta2045_client.cpp
     trust_gsp_client.cpp
 )
 
