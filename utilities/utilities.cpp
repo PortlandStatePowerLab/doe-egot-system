@@ -1,7 +1,10 @@
 #include "include/utilities/utilities.hpp"
+#include <boost/filesystem.hpp>
 #include <fstream>
 #include <sstream>
 #include <chrono>
+
+using namespace boost::filesystem;
 
 namespace psu
 {
@@ -25,9 +28,9 @@ namespace psu
 
         std::string getProgramPath(char **arg)
         {
-            std::string path = arg[0];
-            size_t found = path.find_last_of("/\\");
-            return path.substr(0, found);
+            path p = arg[0];
+            p = canonical(p);
+            return p.parent_path().string();
         }
 
         uint64_t getTime()

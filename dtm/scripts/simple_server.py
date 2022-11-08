@@ -9,8 +9,9 @@ from datetime import datetime
 
 HOST_NAME = "0.0.0.0"
 PORT = 8090
-LOG = ""
-ROOT = ""
+path_name = os.getcwd() + sys.argv[0]
+ROOT = os.path.abspath(path_name)
+LOG = ROOT
 
 class handler(BaseHTTPRequestHandler):
 
@@ -30,9 +31,6 @@ class handler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     print('DTMC Server starting...')
-    cwd = str(Path.cwd())
-    LOG = cwd + datetime.now().strftime('/log_%H_%M_%d_%m_%Y.log')
-    ROOT = cwd + '/build/bin'
     print(ROOT)
 
     server = HTTPServer((HOST_NAME, PORT), handler)

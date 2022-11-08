@@ -248,6 +248,7 @@ int main(int argc, char **argv)
 {
     std::cout << "Communication demo...\n";
     g_program_path = psu::utilities::getProgramPath(argv);
+    std::cout << "Parent Path : " << g_program_path << std::endl;
 
     std::thread gsp (spawnGSP);
     std::thread dtm (spawnDTM, argc, argv);

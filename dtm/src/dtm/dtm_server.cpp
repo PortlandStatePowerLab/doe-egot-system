@@ -1,32 +1,25 @@
 #include "include/dtm/dtm_server.hpp"
 #include <boost/python.hpp>
+#include <utilities/utilities.hpp>
 #include <string>
 #include <iostream>
 
 using namespace boost::python;
 
-inline std::string GetParentPath(char** arg)
-{
-    std::string path = arg[0];
-    std::size_t found = path.find_last_of("/\\");
-    return path.substr(0,found);
-}
-
 DistributedTrustManagment::DistributedTrustManagment(int argc, char **argv)
 {
-
+    std::string root = psu::utilities::getProgramPath(argv);
     wchar_t** wargv = new wchar_t*[argc];
     for(int i = 0; i < argc; i++)
     {
-        wargv[i] = Py_DecodeLocale(argv[i], nullptr);
+        wargv[i] = Py_DecodeLocale(root.c_str(), nullptr);
     }
 
     try
     {
+        std::string script_path = root + "/scripts/simple_server.py";
         Py_Initialize();
         PySys_SetArgv(argc, wargv);
-
-        std::string script_path = GetParentPath(argv) + "/scripts/simple_server.py";
         FILE* PScriptFile = fopen(script_path.c_str(), "r");
         if(PScriptFile){
             PyRun_SimpleFile(PScriptFile, script_path.c_str());
