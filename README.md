@@ -3,13 +3,20 @@ Department of Energy - Energy Grid of Things System
 
 ## Development
 
-### Docker
-
-run docker file 
-
 ### Linux OS
 
-run setup.sh
+```
+cd doe-egot-system
+./setup.sh
+```
+
+## Building
+
+```
+cd doe-egot-system
+cmake -S . -B build
+cmake --build build
+```
 
 ## Project Organization
 

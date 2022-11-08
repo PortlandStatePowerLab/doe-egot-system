@@ -17,9 +17,9 @@ cd ~/temp/boost_1_76_0
 ./bootstrap.sh --with-python=/usr/bin/python3
 sudo ./b2 --with-python install
 cd ~/temp
-wget https://ftp.wayne.edu/apache//xerces/c/3/sources/xerces-c-3.2.3.tar.gz
-tar -xf xerces-c-3.2.3.tar.gz
-cd xerces-c-3.2.3 && ./configure --prefix=/usr && make && sudo make install
+wget https://dlcdn.apache.org//xerces/c/3/sources/xerces-c-3.2.4.tar.gz
+tar -xf xerces-c-3.2.4.tar.gz
+cd xerces-c-3.2.4 && ./configure --prefix=/usr && make && sudo make install
 cd
 rm -rf ~/temp
 sudo apt update -y
