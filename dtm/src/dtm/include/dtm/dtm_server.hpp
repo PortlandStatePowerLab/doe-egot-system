@@ -1,5 +1,5 @@
-#ifndef __DTM_SERVER_H__
-#define __DTM_SERVER_H__
+#ifndef __DTM_PYTHON_SERVER_H__
+#define __DTM_PYTHON_SERVER_H__
 
 class DistributedTrustManagment
 {
@@ -8,4 +8,5 @@ public:
     ~DistributedTrustManagment();
 };
 
-#endif // __DTM_SERVER_H__
+
+#endif // __DTM_PYTHON_SERVER_H__

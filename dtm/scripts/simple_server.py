@@ -33,16 +33,17 @@ if __name__ == "__main__":
     cwd = str(Path.cwd())
     LOG = cwd + datetime.now().strftime('/log_%H_%M_%d_%m_%Y.log')
     ROOT = cwd + '/build/bin'
+    print(ROOT)
 
     server = HTTPServer((HOST_NAME, PORT), handler)
 
     # Create an SSLContext instance by specifying the highest TLS protocol
     # that both the client and the server supports
-    ssl_ctx = ssl.SSLContext(ssl.PROTOCOL_SSLv3)
+    ssl_ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
     ssl_ctx.verify_mode = ssl.CERT_REQUIRED
     ssl_ctx.check_hostname = False # If set to True, only the hostname that matches the certificate will be accepted
     ssl_ctx.hostname_checks_common_name = True
-    ssl_ctx.load_verify_locations(capath=ROOT + '/root-ca/certs')
+    ssl_ctx.load_verify_locations(cafile=ROOT + '/root-ca/certs.crt')
     ssl_ctx.get_ca_certs()
     ssl_ctx.load_cert_chain(certfile=ROOT + '/root-ca/server.crt', keyfile=ROOT + '/root-ca/private/server.key')
     server.socket = ssl_ctx.wrap_socket(
