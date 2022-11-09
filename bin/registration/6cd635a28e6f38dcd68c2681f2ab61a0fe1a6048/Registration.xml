@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Registration pollRate="900" href="/rg" xmlns="urn:ieee:std:2030.5:ns">
+  <dateTimeRegistered>1647534140</dateTimeRegistered>
+  <pIN>1111</pIN>
+</Registration>
