@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../dtm/src/dtm/include/dtm/dtm_server.hpp
+
+/home/narmada/dev/doe-egot-system/dtm/src/main.cpp
+boost/python.hpp
+-
+boost/property_tree/ptree.hpp
+-
+boost/property_tree/ini_parser.hpp
+-
+iostream
+-
+stdlib.h
+-
+thread
+-
+string
+-
+dtm/dtm_server.hpp
+-
+

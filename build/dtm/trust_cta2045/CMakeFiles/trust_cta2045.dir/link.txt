@@ -1,0 +1,2 @@
+/usr/bin/ar qc libtrust_cta2045.a CMakeFiles/trust_cta2045.dir/trust_ucm.cpp.o CMakeFiles/trust_cta2045.dir/trust_device.cpp.o
+/usr/bin/ranlib libtrust_cta2045.a

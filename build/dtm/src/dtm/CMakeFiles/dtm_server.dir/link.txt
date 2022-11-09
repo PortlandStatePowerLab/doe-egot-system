@@ -1,0 +1,2 @@
+/usr/bin/ar qc libdtm_server.a CMakeFiles/dtm_server.dir/dtm_server.cpp.o
+/usr/bin/ranlib libdtm_server.a

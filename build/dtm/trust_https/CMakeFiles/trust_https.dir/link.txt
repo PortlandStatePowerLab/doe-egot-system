@@ -1,0 +1,2 @@
+/usr/bin/ar qc libtrust_https.a CMakeFiles/trust_https.dir/trust_https.cpp.o
+/usr/bin/ranlib libtrust_https.a

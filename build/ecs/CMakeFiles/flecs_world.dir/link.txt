@@ -1,0 +1,2 @@
+/usr/bin/ar qc libflecs_world.a CMakeFiles/flecs_world.dir/world.cpp.o CMakeFiles/flecs_world.dir/access_module.cpp.o CMakeFiles/flecs_world.dir/sep_common_module.cpp.o CMakeFiles/flecs_world.dir/sep_smart_energy_module.cpp.o CMakeFiles/flecs_world.dir/sep_support_module.cpp.o
+/usr/bin/ranlib libflecs_world.a
