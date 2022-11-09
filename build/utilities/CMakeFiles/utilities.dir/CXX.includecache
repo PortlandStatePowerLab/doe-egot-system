@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/narmada/dev/doe-egot-system/utilities/include/utilities/utilities.hpp
+string
+-
+cstdint
+-
+type_traits
+-
+
+/home/narmada/dev/doe-egot-system/utilities/utilities.cpp
+include/utilities/utilities.hpp
+/home/narmada/dev/doe-egot-system/utilities/include/utilities/utilities.hpp
+fstream
+-
+sstream
+-
+chrono
+-
+
