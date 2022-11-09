@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhttps_client.a CMakeFiles/https_client.dir/client.cpp.o CMakeFiles/https_client.dir/single_client.cpp.o
+/usr/bin/ranlib libhttps_client.a
