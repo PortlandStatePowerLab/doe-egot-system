@@ -9,8 +9,7 @@ from datetime import datetime
 
 HOST_NAME = "0.0.0.0"
 PORT = 8090
-path_name = os.getcwd() + sys.argv[0]
-ROOT = os.path.abspath(path_name)
+ROOT = sys.argv[0]
 LOG = ROOT
 
 class handler(BaseHTTPRequestHandler):
@@ -31,7 +30,7 @@ class handler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     print('DTMC Server starting...')
-    print(ROOT)
+    LOG = ROOT + datetime.now().strftime('/log_%H_%M_%d_%m_%Y.log')
 
     server = HTTPServer((HOST_NAME, PORT), handler)
 
@@ -41,7 +40,7 @@ if __name__ == "__main__":
     ssl_ctx.verify_mode = ssl.CERT_REQUIRED
     ssl_ctx.check_hostname = False # If set to True, only the hostname that matches the certificate will be accepted
     ssl_ctx.hostname_checks_common_name = True
-    ssl_ctx.load_verify_locations(cafile=ROOT + '/root-ca/certs.crt')
+    ssl_ctx.load_verify_locations(cafile=ROOT + '/root-ca/cert_chain.crt')
     ssl_ctx.get_ca_certs()
     ssl_ctx.load_cert_chain(certfile=ROOT + '/root-ca/server.crt', keyfile=ROOT + '/root-ca/private/server.key')
     server.socket = ssl_ctx.wrap_socket(
