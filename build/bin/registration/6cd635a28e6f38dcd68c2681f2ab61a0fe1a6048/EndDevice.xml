@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EndDevice subscribable="0" href="/edev" xmlns="urn:ieee:std:2030.5:ns">
+  <ConfigurationLink href="/cfg" />
+  <DERListLink all="0" href="/der" />
+  <deviceCategory>0FB7</deviceCategory>
+  <DeviceInformationLink href="/di" />
+  <DeviceStatusLink href="/ds" />
+  <FileStatusLink href="/fs" />
+  <IPInterfaceListLink all="0" href="/ns" />
+  <lFDI>6cd635a28e6f38dcd68c2681f2ab61a0fe1a6048</lFDI>
+  <LoadShedAvailabilityListLink all="0" href="/lsl" />
+  <LogEventListLink all="0" href="/lel" />
+  <PowerStatusLink href="/ps" />
+  <sFDI>0</sFDI>
+  <changedTime>1</changedTime>
+  <enabled>true</enabled>
+  <FlowReservationRequestListLink all="0" href="/frq" />
+  <FlowReservationResponseListLink all="0" href="/frp" />
+  <FunctionSetAssignmentsListLink all="0" href="/fsa" />
+  <postRate>900</postRate>
+  <RegistrationLink href="/rg" />
+  <SubscriptionListLink all="0" href="/sub" />
+</EndDevice>
