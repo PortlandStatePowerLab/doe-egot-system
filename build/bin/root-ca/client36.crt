@@ -1,0 +1,96 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            90:4c:66:1b:96:18:b9:99:11:ea:e2:b7:9b:98:cf:e0
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=US, O=Portland State University, CN=Sub CA
+        Validity
+            Not Before: Apr  5 20:37:21 2022 GMT
+            Not After : Apr  5 20:37:21 2023 GMT
+        Subject: C=US, O=Portland State University, CN=Sub CA
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                RSA Public-Key: (2048 bit)
+                Modulus:
+                    00:93:a1:b4:78:da:ae:1d:c3:59:f8:19:69:c2:95:
+                    86:ed:e5:49:36:e2:d0:21:2d:4c:eb:b1:08:f9:9c:
+                    24:bc:46:7a:45:70:8b:bb:59:e6:73:27:49:02:1e:
+                    de:77:bf:eb:43:c8:1c:43:dd:41:f4:75:76:98:8d:
+                    df:f7:e7:f6:fa:10:c0:5c:98:c5:52:47:92:bf:54:
+                    08:12:a9:06:ed:7a:90:f4:e5:1f:59:6a:69:e7:09:
+                    cc:bb:a9:8a:f5:44:67:97:ce:b4:c5:d0:62:cd:3e:
+                    3b:72:ff:dc:79:c3:3e:62:fe:78:ac:90:8a:31:d0:
+                    29:26:b4:a4:e9:1d:58:b0:70:df:db:3a:6a:a4:87:
+                    53:4f:be:1b:65:33:aa:e6:e8:de:5e:6d:bf:9e:aa:
+                    52:ed:2c:db:e7:da:2e:9f:21:18:2b:4a:da:a5:de:
+                    c8:78:92:09:64:b5:30:76:06:48:83:01:3e:14:25:
+                    38:b6:f9:e6:6a:a5:ee:18:67:65:2b:2e:ea:02:82:
+                    09:cb:76:e4:e1:92:0c:93:b4:f4:28:e2:6d:d2:06:
+                    44:41:9e:05:03:a6:7b:81:ae:43:87:d4:00:39:a3:
+                    62:7e:6a:a0:88:12:d4:a2:69:0e:da:29:a5:d3:e0:
+                    c7:f8:da:e2:b3:9b:1e:f3:10:6e:46:27:a0:fa:81:
+                    85:e7
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            Authority Information Access: 
+                CA Issuers - URI:http://sub-ca.localhost/sub-ca.crt
+                OCSP - URI:http://ocsp.sub-ca.localhost:9081
+
+            X509v3 Authority Key Identifier: 
+                keyid:20:4E:F0:B3:1E:BF:BC:1F:35:6A:C5:70:8E:A0:D8:70:D5:D1:57:44
+
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 CRL Distribution Points: 
+
+                Full Name:
+                  URI:http://sub-ca.localhost/sub-ca.crl
+
+            X509v3 Extended Key Usage: 
+                TLS Web Client Authentication
+            X509v3 Key Usage: critical
+                Digital Signature
+            X509v3 Subject Key Identifier: 
+                F5:F1:9B:72:AA:3C:AF:B7:C8:51:53:45:83:8A:91:CC:DB:49:58:4B
+    Signature Algorithm: sha256WithRSAEncryption
+         2e:d8:fa:fa:1d:51:dc:dc:1c:91:ef:2a:58:9c:ad:67:3e:a2:
+         27:d2:37:71:35:33:da:39:f2:59:1e:cc:ee:de:c2:83:2a:1f:
+         8a:84:c2:a9:36:f4:8b:63:eb:bf:92:ad:e7:d3:9d:f8:05:67:
+         84:e7:2e:8d:50:c7:c5:09:d0:ec:30:e8:ac:f0:56:a0:c3:96:
+         d2:03:58:fe:1e:b7:5d:82:48:d3:f7:cb:04:31:b5:08:76:32:
+         22:c7:98:72:1d:62:14:2e:76:ae:fa:ae:07:4e:db:05:2c:5a:
+         3d:1f:be:ba:50:aa:78:46:81:9f:5c:8b:11:cd:72:a2:16:ed:
+         bb:3a:0f:67:69:89:0c:97:b4:9b:f1:e2:6d:17:ef:fc:ca:45:
+         f1:4c:3f:6a:55:d9:29:98:5c:9c:86:34:4a:af:83:f2:f8:9f:
+         ec:31:eb:fc:73:d4:2d:3c:91:10:d3:e0:14:e0:5e:be:40:04:
+         53:d0:77:30:98:bf:bb:65:d2:d7:bb:8a:8c:52:02:8d:20:07:
+         05:fc:21:d3:d1:65:47:54:d1:87:53:94:c2:8e:36:bd:08:e4:
+         0c:61:35:fa:9a:07:78:34:8e:00:61:f3:e0:b0:48:78:82:00:
+         15:41:8b:e8:be:e1:5b:f4:df:9c:ed:6f:c9:a5:7a:4c:8b:ac:
+         0e:e3:e3:70
+-----BEGIN CERTIFICATE-----
+MIIELDCCAxSgAwIBAgIRAJBMZhuWGLmZEerit5uYz+AwDQYJKoZIhvcNAQELBQAw
+QjELMAkGA1UEBhMCVVMxIjAgBgNVBAoMGVBvcnRsYW5kIFN0YXRlIFVuaXZlcnNp
+dHkxDzANBgNVBAMMBlN1YiBDQTAeFw0yMjA0MDUyMDM3MjFaFw0yMzA0MDUyMDM3
+MjFaMEIxCzAJBgNVBAYTAlVTMSIwIAYDVQQKDBlQb3J0bGFuZCBTdGF0ZSBVbml2
+ZXJzaXR5MQ8wDQYDVQQDDAZTdWIgQ0EwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+ggEKAoIBAQCTobR42q4dw1n4GWnClYbt5Uk24tAhLUzrsQj5nCS8RnpFcIu7WeZz
+J0kCHt53v+tDyBxD3UH0dXaYjd/35/b6EMBcmMVSR5K/VAgSqQbtepD05R9Zamnn
+Ccy7qYr1RGeXzrTF0GLNPjty/9x5wz5i/niskIox0CkmtKTpHViwcN/bOmqkh1NP
+vhtlM6rm6N5ebb+eqlLtLNvn2i6fIRgrStql3sh4kglktTB2BkiDAT4UJTi2+eZq
+pe4YZ2UrLuoCggnLduThkgyTtPQo4m3SBkRBngUDpnuBrkOH1AA5o2J+aqCIEtSi
+aQ7aKaXT4Mf42uKzmx7zEG5GJ6D6gYXnAgMBAAGjggEbMIIBFzBtBggrBgEFBQcB
+AQRhMF8wLgYIKwYBBQUHMAKGImh0dHA6Ly9zdWItY2EubG9jYWxob3N0L3N1Yi1j
+YS5jcnQwLQYIKwYBBQUHMAGGIWh0dHA6Ly9vY3NwLnN1Yi1jYS5sb2NhbGhvc3Q6
+OTA4MTAfBgNVHSMEGDAWgBQgTvCzHr+8HzVqxXCOoNhw1dFXRDAMBgNVHRMBAf8E
+AjAAMDMGA1UdHwQsMCowKKAmoCSGImh0dHA6Ly9zdWItY2EubG9jYWxob3N0L3N1
+Yi1jYS5jcmwwEwYDVR0lBAwwCgYIKwYBBQUHAwIwDgYDVR0PAQH/BAQDAgeAMB0G
+A1UdDgQWBBT18Ztyqjyvt8hRU0WDipHM20lYSzANBgkqhkiG9w0BAQsFAAOCAQEA
+Ltj6+h1R3Nwcke8qWJytZz6iJ9I3cTUz2jnyWR7M7t7CgyofioTCqTb0i2Prv5Kt
+59Od+AVnhOcujVDHxQnQ7DDorPBWoMOW0gNY/h63XYJI0/fLBDG1CHYyIseYch1i
+FC52rvquB07bBSxaPR++ulCqeEaBn1yLEc1yohbtuzoPZ2mJDJe0m/HibRfv/MpF
+8Uw/alXZKZhcnIY0Sq+D8vif7DHr/HPULTyRENPgFOBevkAEU9B3MJi/u2XS17uK
+jFICjSAHBfwh09FlR1TRh1OUwo42vQjkDGE1+poHeDSOAGHz4LBIeIIAFUGL6L7h
+W/TfnO1vyaV6TIusDuPjcA==
+-----END CERTIFICATE-----
