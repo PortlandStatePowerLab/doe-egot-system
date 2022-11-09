@@ -1,0 +1,2 @@
+/usr/bin/ar qc libSEP_WADL.a CMakeFiles/SEP_WADL.dir/wadl.cpp.o
+/usr/bin/ranlib libSEP_WADL.a

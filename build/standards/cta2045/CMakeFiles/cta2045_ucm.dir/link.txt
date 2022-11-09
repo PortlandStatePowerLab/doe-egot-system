@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcta2045_ucm.a CMakeFiles/cta2045_ucm.dir/ucm.cpp.o CMakeFiles/cta2045_ucm.dir/device.cpp.o
+/usr/bin/ranlib libcta2045_ucm.a
