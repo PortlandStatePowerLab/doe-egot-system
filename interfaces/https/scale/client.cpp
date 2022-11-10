@@ -14,11 +14,6 @@ int main(int argc, char **argv)
     auto start = std::chrono::high_resolution_clock::now();
 
     https::Context ctx = {id, g_program_path, "0.0.0.0", "8080"};
-    ctx.id = "1";
-    ctx.host = "0.0.0.0";
-    ctx.port = "8080";
-    ctx.root = g_program_path;
-
     https::SingleClient::getInstance(ctx);
 
     auto resp = https::SingleClient::getInstance().Get("/dcap");    

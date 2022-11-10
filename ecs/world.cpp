@@ -83,6 +83,34 @@ std::string World::Get(const Href &href)
         });
     };
     break;
+    case (Uri::sdev_list):
+    {
+        std::vector<sep::SelfDevice> sdev_list;
+        sep::List list;
+        //auto e = world.lookup(prependLFDI(href).c_str());
+
+        // More complex filters can first be created, then iterated
+        auto f = world.filter<sep::SelfDevice, AccessModule::Fingerprint>();
+
+        f.iter([&sdev_list,href](flecs::iter& it, sep::SelfDevice* sdev, AccessModule::Fingerprint *lfdi) 
+        {        
+            for (auto i : it) 
+            {
+                if (accessMatch(lfdi[i], href))
+                {
+                    sdev_list.emplace_back(sdev[i]);
+                }
+            }
+        });
+
+        list.href = href.uri;
+        list.all = sdev_list.size();
+        list.results = sdev_list.size();
+
+        response = xml::Serialize(sdev_list, list);
+        std::cout << "ECS World : " << response << std::endl;
+    };
+    break;
     case (Uri::edev):
     {
         // More complex filters can first be created, then iterated

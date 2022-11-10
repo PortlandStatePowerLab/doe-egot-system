@@ -50,36 +50,77 @@ namespace trust
     bb::http::response<bb::http::dynamic_body>
     HttpsClient::Get(const std::string &target, const std::string &query)
     {
-        dtm_client_.Post("/na", packGetRequest(target, query));
-        bb::http::response<bb::http::dynamic_body> rsp = gsp_client_.Get(target, query);
-        dtm_client_.Post("/na", packResponse(rsp));
+        bb::http::response<bb::http::dynamic_body> rsp;
+
+        try
+        {
+            dtm_client_.Post("/na", packGetRequest(target, query));
+            rsp = gsp_client_.Get(target, query);
+            dtm_client_.Post("/na", packResponse(rsp));
+        }
+        catch(const std::exception& e)
+        {
+            std::cout << "Trust DCM : " << target 
+                << "\n\t" << e.what() << '\n';
+        }
+        
         return rsp;
     }
 
     bb::http::response<bb::http::dynamic_body>
     HttpsClient::Post(const std::string &target, const std::string &resource)
     {
-        dtm_client_.Post("/na", packPostRequest(target, resource));
-        bb::http::response<bb::http::dynamic_body> rsp = gsp_client_.Post(target, resource);
-        dtm_client_.Post("/na", packResponse(rsp));
+        bb::http::response<bb::http::dynamic_body> rsp;
+        try
+        {
+            dtm_client_.Post("/na", packPostRequest(target, resource));
+            rsp = gsp_client_.Post(target, resource);
+            dtm_client_.Post("/na", packResponse(rsp));
+        }
+        catch(const std::exception& e)
+        {
+            std::cout << "Trust DCM : " << target 
+                << "\n\t" << e.what() << '\n';
+        }
+
         return rsp;
     }
 
     bb::http::response<bb::http::dynamic_body>
     HttpsClient::Put(const std::string &target, const std::string &resource)
     {
-        dtm_client_.Post("/na", packPutRequest(target, resource));
-        bb::http::response<bb::http::dynamic_body> rsp = gsp_client_.Put(target, resource);
-        dtm_client_.Post("/na", packResponse(rsp));
+        bb::http::response<bb::http::dynamic_body> rsp;
+        try
+        {
+            dtm_client_.Post("/na", packPutRequest(target, resource));
+            rsp = gsp_client_.Put(target, resource);
+            dtm_client_.Post("/na", packResponse(rsp));
+        }
+        catch(const std::exception& e)
+        {
+            std::cout << "Trust DCM : " << target 
+                << "\n\t" << e.what() << '\n';
+        }
+        
         return rsp;
     }
 
     bb::http::response<bb::http::dynamic_body>
     HttpsClient::Delete(const std::string &target)
     {
-        dtm_client_.Post("/na", packDeleteRequest(target));
-        bb::http::response<bb::http::dynamic_body> rsp = gsp_client_.Delete(target);
-        dtm_client_.Post("/na", packResponse(rsp));
+        bb::http::response<bb::http::dynamic_body> rsp;
+        try
+        {
+            dtm_client_.Post("/na", packDeleteRequest(target));
+            rsp = gsp_client_.Delete(target);
+            dtm_client_.Post("/na", packResponse(rsp));
+        }
+        catch(const std::exception& e)
+        {
+            std::cout << "Trust DCM : " << target 
+                << "\n\t" << e.what() << '\n';
+        }
+        
         return rsp;
     }
 
@@ -90,7 +131,7 @@ namespace trust
         msg.from = "DCM";
         msg.timestamp = psu::utilities::getTime();
         msg.contents["method"] = "GET";
-        msg.contents["version"] = "HTTP/1.1";
+        msg.contents["version"] = "11";
         msg.contents["host"] = gsp_client_.getContext().host;
         msg.contents["target"] = target;
         msg.contents["query"] = query;
@@ -104,7 +145,7 @@ namespace trust
         msg.from = "DCM";
         msg.timestamp = psu::utilities::getTime();
         msg.contents["method"] = "POST";
-        msg.contents["version"] = "HTTP/1.1";
+        msg.contents["version"] = "11";
         msg.contents["host"] = gsp_client_.getContext().host;
         msg.contents["target"] = target;
         msg.contents["body"] = body;
@@ -118,7 +159,7 @@ namespace trust
         msg.from = "DCM";
         msg.timestamp = psu::utilities::getTime();
         msg.contents["method"] = "PUT";
-        msg.contents["version"] = "HTTP/1.1";
+        msg.contents["version"] = "11";
         msg.contents["host"] = gsp_client_.getContext().host;
         msg.contents["target"] = target;
         msg.contents["body"] = body;
@@ -132,7 +173,7 @@ namespace trust
         msg.from = "DCM";
         msg.timestamp = psu::utilities::getTime();
         msg.contents["method"] = "DELETE";
-        msg.contents["version"] = "HTTP/1.1";
+        msg.contents["version"] = "11";
         msg.contents["host"] = gsp_client_.getContext().host;
         msg.contents["target"] = target;
         return trust::Stringify(msg);
@@ -144,8 +185,8 @@ namespace trust
         msg.to = "DCM";
         msg.from = "GSP";
         msg.timestamp = psu::utilities::getTime();
-        msg.contents["version"] = rsp.version();
-        msg.contents["status code"] = rsp.result_int();
+        msg.contents["version"] = std::to_string(rsp.version());
+        msg.contents["status code"] = std::to_string(rsp.result_int());
         msg.contents["body"] = boost::beast::buffers_to_string(rsp.body().data());
 
         for (const auto &key : rsp)

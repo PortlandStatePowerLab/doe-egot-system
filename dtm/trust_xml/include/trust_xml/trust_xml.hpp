@@ -15,6 +15,7 @@ namespace trust
         std::map<std::string, std::string> contents;
     };
 
+    boost::property_tree::ptree Treeify(const std::string &xml_str);
     boost::property_tree::ptree Treeify(const Message& message);
     std::string Stringify(const boost::property_tree::ptree& pt);
     std::string Stringify(const Message& message);

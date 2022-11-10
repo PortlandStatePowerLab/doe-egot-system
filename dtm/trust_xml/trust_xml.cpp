@@ -5,6 +5,15 @@ namespace pt = boost::property_tree;
 
 namespace trust
 {
+    boost::property_tree::ptree Treeify(const std::string &xml_str)
+    {
+        // utility function to help translate strings to/from objects
+        std::stringstream ss (xml_str);
+        boost::property_tree::ptree pt;
+        boost::property_tree::xml_parser::read_xml(ss, pt);
+        return pt;
+    };
+    
     boost::property_tree::ptree Treeify(const Message& message)
     {
         pt::ptree tree;
@@ -13,8 +22,14 @@ namespace trust
         
         for (const auto& arg : message.contents)
         {
-            tree.put("message.contents."+arg.first, arg.second);
-        }
+            if (arg.first == "body"){
+                pt::ptree body = Treeify(arg.second);
+                tree.put_child("message.contents."+arg.first, body);
+            }
+            else {
+                tree.put("message.contents."+arg.first, arg.second);
+            }   
+        }  
 
         return tree;
     };

@@ -66,4 +66,41 @@ namespace xml
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         ObjectMap(pt, sdev);
     };
+
+    std::string Serialize(const std::vector<sep::SelfDevice> &sdev_list, const sep::List& list)
+    {
+        boost::property_tree::ptree pt;
+        pt.put("SelfDeviceList.<xmlattr>.all", list.all);
+        pt.put("SelfDeviceList.<xmlattr>.results", list.results);
+        pt.put("SelfDeviceList.<xmlattr>.href", list.href);
+        pt.put("SelfDeviceList.<xmlattr>.pollRate", list.inherited_poll_rate);
+
+        for (const auto& sdev : sdev_list)
+        {
+            boost::property_tree::ptree pt2;
+            TreeMap(sdev, &pt2);
+            pt.add_child("SelfDeviceList.SelfDevice", pt2.get_child("SelfDevice"));
+        }
+        
+        xml::util::SetSchema(&pt);
+        return xml::util::Stringify(&pt);
+    };
+
+    void Parse(const std::string &xml_str, std::vector<sep::SelfDevice> *sdevs)
+    {
+        boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        BOOST_FOREACH (boost::property_tree::ptree::value_type &subtree, pt.get_child("SelfDeviceList"))
+        {
+            if (subtree.first == "SelfDevice")
+            {
+                boost::property_tree::ptree temp;
+                temp.add_child("SelfDevice", subtree.second);
+
+                sep::SelfDevice sdev;
+                ObjectMap(temp, &sdev);
+                sdev.inherited_poll_rate = pt.get<uint32_t>("SelfDeviceList.<xmlattr>.pollRate", 900);
+                sdevs->emplace_back(sdev);
+            }
+        }
+    };
 } // namespace xml

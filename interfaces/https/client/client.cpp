@@ -131,33 +131,28 @@ bb::ssl_stream<bb::tcp_stream> Client::Connect()
 bb::http::response <bb::http::dynamic_body>
 Client::Send(bb::http::request<bb::http::string_body>& req)
 {
-    bb::ssl_stream<bb::tcp_stream> stream = Client::Connect();
-
-	// Send the HTTP request to the remote host
-	bb::http::write(stream, req);
-
-	// This buffer is used for reading and must be persisted
-	bb::flat_buffer buffer;
-
-	// Declare a container to hold the response
-	bb::http::response<bb::http::dynamic_body> res;
-
-	// Receive the HTTP response
-	bb::http::read(stream, buffer, res);
-
     boost::system::error_code ec;
-    stream.shutdown(ec);
 
-    if(ec && ec != net::error::eof)
+    // Declare a container to hold the response
+    bb::http::response<bb::http::dynamic_body> res;
+    try
     {
-        throw bb::system_error{ec};
+        bb::ssl_stream<bb::tcp_stream> stream = Client::Connect();
+
+        // Send the HTTP request to the remote host
+        bb::http::write(stream, req);
+
+        // This buffer is used for reading and must be persisted
+        bb::flat_buffer buffer;
+
+        // Receive the HTTP response
+        bb::http::read(stream, buffer, res);
     }
-    else 
+    catch(const std::exception& e)
     {
-        // Rationale:
-        // http://stackoverflow.com/questions/25587403/boost-asio-ssl-async-shutdown-always-finishes-with-an-error
-        ec = {};
-        return res;
+        std::cerr << e.what() << '\n';
     }
+    
+    return res;
 }
 }

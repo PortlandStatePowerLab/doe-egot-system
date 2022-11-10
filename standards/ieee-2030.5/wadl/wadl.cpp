@@ -7,6 +7,7 @@
 static std::unordered_map <std::string, std::string> uri_map = 
 {
     {"DeviceCapability", "/dcap"},
+    {"SelfDeviceList", "/sdev"},
     {"SelfDevice", "/sdev/*"},
     {"EndDeviceList", "/edev"},
     {"EndDevice", "/edev/*"},

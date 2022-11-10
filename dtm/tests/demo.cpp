@@ -209,6 +209,7 @@ void Initialize(const std::string &doc_root)
                         oss << std::hex << (int)md[i];
                     };
                     std::string lfdi = oss.str().substr(0, 40);
+                    std::cout << "Registered : " <<  lfdi << std::endl;
 
                     generateEndDevice(lfdi);
                     generateSelfDevice(lfdi);
@@ -258,7 +259,13 @@ int main(int argc, char **argv)
     std::cout << "\tSpawning DCM...\n";
     https::Context gsp_ctx = {"1", g_program_path, "0.0.0.0", "8080"};  
     https::Context dtm_ctx = {"1", g_program_path, "0.0.0.0", "8090"};  
-    trust::HttpsClient::getInstance(gsp_ctx, dtm_ctx).Get("/dcap");
+    auto rsp = trust::HttpsClient::getInstance(gsp_ctx, dtm_ctx).Get("/dcap");
+    std::cout << rsp << std::endl;
+    rsp = trust::HttpsClient::getInstance().Get("/edev");
+    std::cout << rsp << std::endl;
+    rsp = trust::HttpsClient::getInstance().Get("/sdev/"+xml::util::Hexify(trust::HttpsClient::getInstance().getLFDI()));
+    std::cout << rsp << std::endl;
+    rsp = trust::HttpsClient::getInstance().Get("/tm");
 
     gsp.detach(); 
     dtm.detach();
