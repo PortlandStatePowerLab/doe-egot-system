@@ -25,3 +25,4 @@ cd
 rm -rf ~/temp
 sudo apt update -y
 sudo apt upgrade -y
+
