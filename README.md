@@ -39,3 +39,17 @@ Reduce duplication of work within the main GSP, DCM, and DTM
 * [test plans](https://github.com/PortlandStatePowerLab/doe-egot-system/tree/temp-system-updates/test-plans)
   * Stubs have been made for each of the main EGoT components and a Unit Test will be written for each Product Requirment.
   * Currently supporting test outputs have been stored in text files. The XML tests and Https Test using the new ECS as a backend for the server are stored within this folder.
+
+
+## Scripts Execution
+
+Running a specific script requires users to be in the doe-egot-system main directory. The following guidelines show how to run each script within the bin folder.
+* Change the directory to where this repository is cloned by typing:
+    * ```cd doe-egot-system```
+* To run the ''test_demo'' script, type the following:
+    * ```./build/bin/trust_demo```
+* To run the ''ScalingClient'' scripts, be sure to run the ``ScalingServer'' first:
+    * ```./build/bin/ScalingServer```
+* Then run the client script:
+    * ```./build/bin/ScalingClient #```
+* Note that the "#" at the end of the above command must be repolaced by a number arg as shown [in this issue](https://github.com/PortlandStatePowerLab/doe-egot-system/issues/11#issuecomment-1332925184).
