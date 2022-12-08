@@ -11,10 +11,11 @@ cd cmake-3.18.4 && cmake . && make && sudo make install
 cd ~/temp
 wget https://boostorg.jfrog.io/artifactory/main/release/1.76.0/source/boost_1_76_0.tar.gz
 tar -xf boost_1_76_0.tar.gz
-cd boost_1_76_0 && ./bootstrap.sh 
-./b2 && sudo ./b2 install
-cd ~/temp/boost_1_76_0
-./bootstrap.sh --with-python=/usr/bin/python3
+cd boost_1_76_0
+./bootstrap.sh --with-python=/usr/bin/python3 
+sudo ./b2
+sudo ./b2 install
+sudo ./b2 --with-filesystem install
 sudo ./b2 --with-python install
 cd ~/temp
 wget https://dlcdn.apache.org//xerces/c/3/sources/xerces-c-3.2.4.tar.gz
@@ -24,3 +25,4 @@ cd
 rm -rf ~/temp
 sudo apt update -y
 sudo apt upgrade -y
+
