@@ -83,34 +83,6 @@ std::string World::Get(const Href &href)
         });
     };
     break;
-    case (Uri::sdev_list):
-    {
-        std::vector<sep::SelfDevice> sdev_list;
-        sep::List list;
-        //auto e = world.lookup(prependLFDI(href).c_str());
-
-        // More complex filters can first be created, then iterated
-        auto f = world.filter<sep::SelfDevice, AccessModule::Fingerprint>();
-
-        f.iter([&sdev_list,href](flecs::iter& it, sep::SelfDevice* sdev, AccessModule::Fingerprint *lfdi) 
-        {        
-            for (auto i : it) 
-            {
-                if (accessMatch(lfdi[i], href))
-                {
-                    sdev_list.emplace_back(sdev[i]);
-                }
-            }
-        });
-
-        list.href = href.uri;
-        list.all = sdev_list.size();
-        list.results = sdev_list.size();
-
-        response = xml::Serialize(sdev_list, list);
-        std::cout << "ECS World : " << response << std::endl;
-    };
-    break;
     case (Uri::edev):
     {
         // More complex filters can first be created, then iterated
@@ -711,6 +683,7 @@ std::string World::Post(const Href &href, const std::string& message)
             e.set<AccessModule::Subject>(subject);
 
             sep::FlowReservationResponse frp;
+            frp.href = href.uri + "/" + subject.value;
             frp.energy_available = frq.energy_requested;
             frp.power_available = frq.power_requested;
             frp.subject = xml::util::Hexify(frq.mrid);
@@ -734,7 +707,7 @@ std::string World::Post(const Href &href, const std::string& message)
             e2.set<AccessModule::Fingerprint>(fingerprint);
             e2.set<AccessModule::Subject>(subject);
 
-            return href.uri + "/" + subject.value;
+            return frp.href;
         };
         break;
         default:

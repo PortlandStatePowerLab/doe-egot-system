@@ -70,6 +70,8 @@ TEST_F(TestDeviceCapabilityXML, IsAdapterTranslationAccurate)
     EXPECT_EQ(dcap->time_link.href, "http://uri1");
     EXPECT_EQ(dcap->usage_point_list_link.href, "http://uri1");
     EXPECT_EQ(dcap->usage_point_list_link.all, 0);
+    EXPECT_EQ(dcap->end_device_list_link.href, "http://uri1");
+    EXPECT_EQ(dcap->end_device_list_link.all, 0);
     EXPECT_EQ(dcap->mirror_usage_point_list_link.href, "http://uri1");
     EXPECT_EQ(dcap->mirror_usage_point_list_link.all, 0);
     EXPECT_EQ(dcap->self_device_link.href, "http://uri1");

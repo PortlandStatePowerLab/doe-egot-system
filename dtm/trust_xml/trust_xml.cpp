@@ -19,12 +19,16 @@ namespace trust
         pt::ptree tree;
         tree.put("message.to", message.to);
         tree.put("message.from", message.from);
-        
+
         for (const auto& arg : message.contents)
         {
             if (arg.first == "body"){
-                pt::ptree body = Treeify(arg.second);
-                tree.put_child("message.contents."+arg.first, body);
+                try {
+                    pt::ptree body = Treeify(arg.second);
+                    tree.put_child("message.contents."+arg.first, body);
+                } catch (...){
+                    tree.put("message.contents."+arg.first, arg.second);
+                }
             }
             else {
                 tree.put("message.contents."+arg.first, arg.second);

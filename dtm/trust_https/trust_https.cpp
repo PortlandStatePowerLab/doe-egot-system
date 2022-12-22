@@ -56,11 +56,12 @@ namespace trust
         {
             dtm_client_.Post("/na", packGetRequest(target, query));
             rsp = gsp_client_.Get(target, query);
+            std::cout << "TrustHTTP response: " << rsp << std::endl;
             dtm_client_.Post("/na", packResponse(rsp));
         }
         catch(const std::exception& e)
         {
-            std::cout << "Trust DCM : " << target 
+            std::cout << "TrustHTTP Error : " << target 
                 << "\n\t" << e.what() << '\n';
         }
         
@@ -79,7 +80,7 @@ namespace trust
         }
         catch(const std::exception& e)
         {
-            std::cout << "Trust DCM : " << target 
+            std::cout << "TrustHTTP Error : " << target 
                 << "\n\t" << e.what() << '\n';
         }
 
@@ -98,7 +99,7 @@ namespace trust
         }
         catch(const std::exception& e)
         {
-            std::cout << "Trust DCM : " << target 
+            std::cout << "TrustHTTP Error : " << target 
                 << "\n\t" << e.what() << '\n';
         }
         
@@ -117,7 +118,7 @@ namespace trust
         }
         catch(const std::exception& e)
         {
-            std::cout << "Trust DCM : " << target 
+            std::cout << "TrustHTTP Error : " << target 
                 << "\n\t" << e.what() << '\n';
         }
         

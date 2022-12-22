@@ -43,7 +43,6 @@ namespace xml
         pt.put("ResponseList.<xmlattr>.all", list.all);
         pt.put("ResponseList.<xmlattr>.results", list.results);
         pt.put("ResponseList.<xmlattr>.href", list.href);
-        pt.put("ResponseList.<xmlattr>.pollRate", list.inherited_poll_rate);
 
         for (const auto& rsp : rsp_list)
         {
@@ -68,7 +67,6 @@ namespace xml
                 
                 sep::Response rsp;
                 ObjectMap(subtree.second, &rsp);
-                rsp.inherited_poll_rate = pt.get<uint32_t>("ResponseList.<xmlattr>.pollRate", 900);
                 rsp_list->emplace_back(rsp);
             }
             

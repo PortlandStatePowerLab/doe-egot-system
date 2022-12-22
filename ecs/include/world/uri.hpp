@@ -8,7 +8,6 @@ enum class Uri
 {
     dcap,
     sdev,
-    sdev_list,
     edev,
     edev_list,
     rg,
@@ -138,8 +137,7 @@ enum class Uri
 static std::unordered_map <std::string, Uri> uri_map = 
 {
     {"/dcap", Uri::dcap},
-    {"/sdev/*", Uri::sdev},
-    {"/sdev", Uri::sdev_list},
+    {"/sdev", Uri::sdev},
     {"/edev/*", Uri::edev},
     {"/edev", Uri::edev_list},
     {"/rg", Uri::rg},

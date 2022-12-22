@@ -52,7 +52,7 @@ TEST_F(TestFlowReservationRequestXML, IsAdapterTranslationAccurate)
 {   
     sep::FlowReservationRequest *fr_request = new sep::FlowReservationRequest;
     xml::Parse(xml_str, fr_request);
-    EXPECT_EQ(fr_request->mrid, 0);
+    EXPECT_EQ(fr_request->mrid, 0x0FB7);
     EXPECT_EQ(fr_request->description, "description1");
     EXPECT_EQ(fr_request->version, 0);
     EXPECT_EQ(fr_request->creation_time, 1);

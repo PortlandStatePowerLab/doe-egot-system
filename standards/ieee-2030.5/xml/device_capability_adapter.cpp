@@ -26,6 +26,8 @@ namespace xml
         dcap->time_link.href = pt.get<std::string>("DeviceCapability.TimeLink.<xmlattr>.href", "");
         dcap->usage_point_list_link.href = pt.get<std::string>("DeviceCapability.UsagePointListLink.<xmlattr>.href", "");
         dcap->usage_point_list_link.all = pt.get<uint32_t>("DeviceCapability.UsagePointListLink.<xmlattr>.all", 0);
+        dcap->end_device_list_link.href = pt.get<std::string>("DeviceCapability.EndDeviceListLink.<xmlattr>.href", "");
+        dcap->end_device_list_link.all = pt.get<uint32_t>("DeviceCapability.EndDeviceListLink.<xmlattr>.all", 0);
         dcap->mirror_usage_point_list_link.href = pt.get<std::string>("DeviceCapability.MirrorUsagePointListLink.<xmlattr>.href", "");
         dcap->mirror_usage_point_list_link.all = pt.get<uint32_t>("DeviceCapability.MirrorUsagePointListLink.<xmlattr>.all", 0);
         dcap->self_device_link.href = pt.get<std::string>("DeviceCapability.SelfDeviceLink.<xmlattr>.href", "");
@@ -54,9 +56,11 @@ namespace xml
         pt->put("DeviceCapability.TimeLink.<xmlattr>.href", dcap.time_link.href);
         pt->put("DeviceCapability.UsagePointListLink.<xmlattr>.href", dcap.usage_point_list_link.href);
         pt->put("DeviceCapability.UsagePointListLink.<xmlattr>.all", dcap.usage_point_list_link.all);
+        pt->put("DeviceCapability.EndDeviceListLink.<xmlattr>.href", dcap.end_device_list_link.href);
+        pt->put("DeviceCapability.EndDeviceListLink.<xmlattr>.all", dcap.end_device_list_link.all);
         pt->put("DeviceCapability.MirrorUsagePointListLink.<xmlattr>.href", dcap.mirror_usage_point_list_link.href);
         pt->put("DeviceCapability.MirrorUsagePointListLink.<xmlattr>.all", dcap.mirror_usage_point_list_link.all);
-        pt->put("DeviceCapability.SelfDeviceLink.<xmlattr>.href", dcap.demand_response_program_list_link.href);
+        pt->put("DeviceCapability.SelfDeviceLink.<xmlattr>.href", dcap.self_device_link.href);
     };
 
     std::string Serialize(const sep::DeviceCapability &dcap)
