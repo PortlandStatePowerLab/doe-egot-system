@@ -140,6 +140,7 @@ static std::unordered_map <std::string, Uri> uri_map =
     {"/sdev", Uri::sdev},
     {"/edev/*", Uri::edev},
     {"/edev", Uri::edev_list},
+    {"/ps", Uri::ps},
     {"/rg", Uri::rg},
     {"/dstat", Uri::dstat},
     {"/fsa/*", Uri::fsa},

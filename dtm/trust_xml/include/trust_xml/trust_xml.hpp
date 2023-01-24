@@ -11,7 +11,7 @@ namespace trust
     {
         std::string to;
         std::string from;
-        std::string timestamp;
+        uint64_t timestamp;
         std::map<std::string, std::string> contents;
     };
 

@@ -19,7 +19,8 @@ namespace trust
         pt::ptree tree;
         tree.put("message.to", message.to);
         tree.put("message.from", message.from);
-
+        tree.put("message.timestamp", message.timestamp);
+        
         for (const auto& arg : message.contents)
         {
             if (arg.first == "body"){

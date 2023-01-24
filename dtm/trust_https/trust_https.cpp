@@ -56,7 +56,6 @@ namespace trust
         {
             dtm_client_.Post("/na", packGetRequest(target, query));
             rsp = gsp_client_.Get(target, query);
-            std::cout << "TrustHTTP response: " << rsp << std::endl;
             dtm_client_.Post("/na", packResponse(rsp));
         }
         catch(const std::exception& e)
@@ -187,7 +186,7 @@ namespace trust
         msg.from = "GSP";
         msg.timestamp = psu::utilities::getTime();
         msg.contents["version"] = std::to_string(rsp.version());
-        msg.contents["status code"] = std::to_string(rsp.result_int());
+        msg.contents["statusCode"] = std::to_string(rsp.result_int());
         msg.contents["body"] = boost::beast::buffers_to_string(rsp.body().data());
 
         for (const auto &key : rsp)

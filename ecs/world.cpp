@@ -786,6 +786,21 @@ std::string World::Put(const Href &href, const std::string& message)
             }
         };
         break;
+        case (Uri::ps):
+        {
+            auto e = world.entity();
+
+            sep::PowerStatus ps;
+            xml::Parse(message, &ps);
+            e.set<sep::PowerStatus>(ps);
+
+            AccessModule::Fingerprint fingerprint;
+            fingerprint.value = href.lfdi;
+            e.set<AccessModule::Fingerprint>(fingerprint);
+
+            return "";
+        };
+        break;
         default:
             return "";
             break;

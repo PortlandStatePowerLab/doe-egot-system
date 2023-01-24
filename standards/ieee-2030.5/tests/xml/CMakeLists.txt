@@ -15,6 +15,7 @@ add_executable (xml_tests
     rsps_tests.cpp
     rsp_tests.cpp
     tm_tests.cpp
+    ps_tests.cpp
 )
 
 target_link_libraries(xml_tests gtest gtest_main SEP_Models XML_Validator Boost::boost utilities pthread)

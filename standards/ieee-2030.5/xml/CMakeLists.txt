@@ -8,6 +8,7 @@ add_library(${COMPONENT_NAME} STATIC
     end_device_adapter.cpp
     flow_reservation_response_adapter.cpp
     flow_reservation_request_adapter.cpp
+    power_status_adapter.cpp
     registration_adapter.cpp
     response_adapter.cpp
     response_set_adapter.cpp

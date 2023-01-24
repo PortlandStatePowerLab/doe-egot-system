@@ -293,6 +293,28 @@ int main(int argc, char **argv)
     resp = trust::HttpsClient::getInstance()
         .Post(frp.reply_to, xml::Serialize(rsp));
 
+    sep::PowerStatus ps;
+    ps.battery_status = sep::BatteryStatus::kNormal;
+    ps.changed_time = 10;
+    ps.current_power_source = sep::PowerSourceType::kMains;
+    ps.estimated_charge_remaining = 1;
+    ps.estimated_time_remaining = frq.interval_requested.duration;
+    ps.pev_info.charging_power_now.multiplier = frq.power_requested.multiplier;
+    ps.pev_info.charging_power_now.value = frq.power_requested.value;
+    ps.pev_info.energy_request_now.multiplier = frq.energy_requested.multiplier;
+    ps.pev_info.energy_request_now.value = frq.energy_requested.value;
+    ps.pev_info.max_forward_power.multiplier = 1;
+    ps.pev_info.max_forward_power.value = 0;
+    ps.pev_info.minimum_charging_duration = frq.interval_requested.duration;
+    ps.pev_info.target_state_of_charge = 100;
+    ps.pev_info.time_charge_is_needed = frq.interval_requested.start + frq.interval_requested.duration;
+    ps.pev_info.time_charging_status_pev = psu::utilities::getTime();
+    ps.session_time_on_battery = 0;
+    ps.total_time_on_battery = 0;
+
+    resp = trust::HttpsClient::getInstance()
+        .Put(edev.power_status_link.href, xml::Serialize(ps));
+
     gsp.detach();
     dtm.detach();
 

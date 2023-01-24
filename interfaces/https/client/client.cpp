@@ -72,6 +72,7 @@ Client::Put(const std::string& target, const std::string& resource)
     };
 
     req.set(bb::http::field::host, context_.host);
+    req.set(bb::http::field::content_type, "application/sep+xml");
     req.body() = resource;
     req.prepare_payload();
     return Client::Send (req);

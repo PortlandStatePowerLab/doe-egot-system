@@ -12,5 +12,6 @@
 #include "response.hpp"
 #include "response_set.hpp"
 #include "list.hpp"
+#include "power_status.hpp"
 
 #endif // __MODELS_H__
