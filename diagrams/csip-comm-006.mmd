@@ -1,0 +1,14 @@
+sequenceDiagram
+%%{init:{'theme':'neutral'}}%%
+%% @backgroundColor(transparent)
+    autonumber
+    Client->>+Server: HTTP GET DeviceCapabilityLink
+    Server-->>-Client: HTTP 200
+    Note left of Client: Find EndDeviceListLink
+    Client->>+Server: HTTP GET EndDeviceListLink
+    Server-->>-Client: HTTP 200
+    Note left of Client: If SFDI within EndDevice matches <br/> find RegistrationLink
+    loop DERCapabilities, DERSettings, DERStatus and DERAvailability
+        Client->>+Server: HTTP PUT <Link>
+        Server-->>-Client: HTTP 201
+    end
