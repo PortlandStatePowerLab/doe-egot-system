@@ -2,6 +2,7 @@ sequenceDiagram
 %%{init:{'theme':'neutral'}}%%
 %% @backgroundColor(transparent)
     autonumber
+    Note over Client,Server: out-of-band: EndDevice, Registration
     Client->>+Server: HTTP GET DeviceCapabilityLink
     Server-->>-Client: HTTP 200
     Note left of Client: Find EndDeviceListLink
