@@ -1,7 +1,6 @@
 #ifndef __READING_TYPE_H__
 #define __READING_TYPE_H__
-#include <cstdint>
-#include "resource.hpp"
+#include "simple_types.hpp"
 #include "accumulation_behaviour_type.hpp"
 #include "unit_value_type.hpp"
 #include "commodity_type.hpp"
@@ -12,6 +11,8 @@
 
 namespace sep
 {
+    struct ReadingTypeLink : Link {};
+
     struct ReadingType : Resource
     {
         AccumulationBehaviourType accumulation_behaviour;
@@ -20,15 +21,15 @@ namespace sep
         UnitValueType conversion_factor;
         DataQualifierType data_qualifier;
         FlowDirectionType flow_direction;
-        uint32_t interval_length;
+        UInt32 interval_length;
         KindType kind;
-        uint8_t max_number_of_intervals;
-        uint8_t number_of_consumption_blocks;
-        uint8_t number_of_tou_tiers;
+        UInt8 max_number_of_intervals;
+        UInt8 number_of_consumption_blocks;
+        UInt8 number_of_tou_tiers;
         PhaseCode phase;
         PowerOfTenMultiplierType power_of_ten_multiplier;
-        uint32_t sub_interval_length;
-        uint64_t supply_limit;
+        UInt32 sub_interval_length;
+        UInt48 supply_limit;
         bool tiered_consumption_blocks;
         UomType uom;
     };

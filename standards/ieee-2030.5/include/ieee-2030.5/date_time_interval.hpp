@@ -1,15 +1,14 @@
 #ifndef __DATE_TIME_INTERVAL_H__
 #define __DATE_TIME_INTERVAL_H__
-#include <cstdint>
-#include "time_type.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {
     // Interval of date and time
     struct DateTimeInterval
     {
-        uint32_t duration;
-        sep::TimeType start;
+        Int32 duration;
+        TimeType start;
     };
 } // namespace sep
 

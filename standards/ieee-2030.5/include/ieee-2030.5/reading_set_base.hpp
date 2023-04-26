@@ -1,6 +1,6 @@
 #ifndef __READING_SET_BASE_H__
 #define __READING_SET_BASE_H__
-#include "identified_object.hpp"
+#include "simple_types.hpp"
 #include "date_time_interval.hpp"
 
 namespace sep

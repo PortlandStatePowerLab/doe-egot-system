@@ -1,9 +1,8 @@
 #ifndef __RESPONDABLE_SUBSCRIBABLE_IDENTIFIED_OBJECT_H__
 #define __RESPONDABLE_SUBSCRIBABLE_IDENTIFIED_OBJECT_H__
-#include <string>
+#include "simple_types.hpp"
 #include "respondable_resource.hpp"
 #include "subscribable_type.hpp"
-#include "mrid_type.hpp"
 
 namespace sep
 {
@@ -11,8 +10,8 @@ namespace sep
     struct RespondableSubscribableIdentifiedObject : RespondableResource
     {
         MRIDType mrid;
-        std::string description;
-        uint16_t version;
+        String32 description;
+        VersionType version;
         SubscribableType subscribable;
     };
 };     // namespace sep

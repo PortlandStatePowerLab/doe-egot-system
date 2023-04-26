@@ -1,12 +1,15 @@
 #ifndef __FLOW_RESERVATION_RESPONSE_H__
 #define __FLOW_RESERVATION_RESPONSE_H__
-#include <string>
+#include "simple_types.hpp"
 #include "event.hpp"
 #include "signed_real_energy.hpp"
 #include "active_power.hpp"
 
 namespace sep
 {
+    struct FlowReservationResponseListLink : ListLink {};
+    struct FlowReservationResponseLink : Link {};
+    
     // The server may modify the charging or discharging parameters and interval
     // to provide a lower aggregated demand at the premises, or within a larger
     // part of the distribution system.
@@ -14,7 +17,7 @@ namespace sep
     {
         SignedRealEnergy energy_available; // energy in watt-hours
         ActivePower power_available;       // power in watts
-        std::string subject;               // match event
+        MRIDType subject;               // match event
     };
 };     // namespace sep
 #endif // __FLOW_RESERVATION_RESPONSE_H__

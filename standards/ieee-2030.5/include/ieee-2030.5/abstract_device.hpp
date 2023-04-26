@@ -1,10 +1,11 @@
 #ifndef __ABSTRACT_DEVICE_H__
 #define __ABSTRACT_DEVICE_H__
 #include <string>
+#include <boost/multiprecision/cpp_int.hpp>
+#include "simple_types.hpp"
 #include "subscribable_resource.hpp"
 #include "device_category_type.hpp"
 #include "list_link.hpp"
-#include <boost/multiprecision/cpp_int.hpp>
 #include "lfdi_type.hpp"
 #include "sfdi_type.hpp"
 

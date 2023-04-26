@@ -1,8 +1,7 @@
 #ifndef __EVENT_H__
 #define __EVENT_H__
-#include <string>
+#include "simple_types.hpp"
 #include "event_status.hpp"
-#include "time_type.hpp"
 #include "date_time_interval.hpp"
 #include "respondable_subscribable_identified_object.hpp"
 

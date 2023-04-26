@@ -18,8 +18,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # fetch remote packages for development
-find_package(Boost REQUIRED filesystem python3)
-find_package(PythonLibs 3 REQUIRED)
+find_package(Boost REQUIRED python filesystem)
+find_package(Python3 COMPONENTS Interpreter Development)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -31,7 +31,7 @@ FetchContent_Declare(
 FetchContent_Declare(
   flecs
   GIT_REPOSITORY https://github.com/SanderMertens/flecs.git
-  GIT_TAG        v3.0.3
+  GIT_TAG        v3.2.1
 )
 
 FetchContent_MakeAvailable(googletest flecs)
@@ -42,7 +42,7 @@ add_subdirectory(ecs)
 add_subdirectory(interfaces)
 add_subdirectory(dtm)
 #add_subdirectory(gsp)
-#add_subdirectory(dcm)
+add_subdirectory(dcm)
 
 
 # install resources for programs

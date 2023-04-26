@@ -1,6 +1,6 @@
 #ifndef __METER_READING_BASE_H__
 #define __METER_READING_BASE_H__
-#include "identified_object.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {

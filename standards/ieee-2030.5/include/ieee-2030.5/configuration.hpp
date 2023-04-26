@@ -6,19 +6,24 @@
 #include "subscribable_resource.hpp"
 #include "locale_type.hpp"
 #include "power_configuration.hpp"
+#include "price_response_configuration.hpp"
 #include "time_configuration.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {
+    struct ConfigurationLink : Link {};
+
     // This resource contains various settings to control 
     // the operation of the device.
     struct Configuration : SubscribableResource
     {
         LocaleType current_locale;
         PowerConfiguration power_configuration;
+        PriceResponseCfgListLink price_response_configuration;
         TimeConfiguration time_configuration;
-        std::string user_device_name;
-        uint32_t poll_rate;
+        String32 user_device_name;
+        UInt32 poll_rate;
     };
     
 } // namespace sep

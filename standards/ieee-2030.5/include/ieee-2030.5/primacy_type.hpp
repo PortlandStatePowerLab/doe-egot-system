@@ -1,10 +1,10 @@
 #ifndef __PRIMACY_TYPE_H__
 #define __PRIMACY_TYPE_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
-    enum class PrimacyType : uint8_t
+    enum class PrimacyType : UInt8
     {
         kInHomeEnergyManagementSystem,
         kContractededPremisesServiceProvider,

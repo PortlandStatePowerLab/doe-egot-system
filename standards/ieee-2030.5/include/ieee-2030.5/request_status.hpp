@@ -1,7 +1,6 @@
 #ifndef __REQUEST_STATUS_H__
 #define __REQUEST_STATUS_H__
-#include <cstdint>
-#include "time_type.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {
@@ -9,7 +8,7 @@ namespace sep
     struct RequestStatus
     {
         // Field representing the request status type.
-        enum class Status : uint8_t
+        enum class Status : UInt8
         {
             kRequested,
             kCancelled

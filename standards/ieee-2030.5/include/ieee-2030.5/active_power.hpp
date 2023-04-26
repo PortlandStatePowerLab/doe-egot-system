@@ -1,7 +1,6 @@
 #ifndef __ACTIVE_POWER_H__
 #define __ACTIVE_POWER_H__
-#include <cstdint>
-#include "power_of_ten_multiplier_type.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {
@@ -11,8 +10,8 @@ namespace sep
     // flow of energy.
     struct ActivePower
     {
-        sep::PowerOfTenMultiplierType multiplier;
-        int16_t value; // watts
+        PowerOfTenMultiplierType multiplier;
+        Int16 value; // watts
     };
 }; // namespace sep
 

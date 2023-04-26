@@ -1,82 +1,52 @@
 #include <iostream>
-#include <cta2045/device.hpp>
-#include <thread>
-#include <chrono>
+#include <string>
+#include <sep/dcap.hpp>
+#include <trust_https/trust_https.hpp>
 #include <utilities/utilities.hpp>
 
-using namespace cea2045;
+std::string g_program_path;
 
-int main(int argc, char const *argv[])
+int main(int argc, char **argv)
 {
-  std::cout << "*** DISTRIBUTED CONTROL MODULE ***\n";
-  if (argc < 2)
-  {
-    std::cout << "Please provide serial port path...\n\t Example: ./dcm /dev/ttyUSB0" << std::endl;
-    abort();
-  }
+    std::cout << "Starting Distributed Control Module...\n";
+    g_program_path = psu::utilities::getProgramPath(argv);
+    std::cout << "\tpath : " << g_program_path << std::endl;
 
-  std::string serial_port = argv[1];
+    
+    https::Context gsp_ctx = {"1", g_program_path, "0.0.0.0", "8080"};
+    https::Context dtm_ctx = {"1", g_program_path, "0.0.0.0", "8090"};
 
-  // cea2045::CEA2045SerialPort serial_port_(serial_port);
-  // if (!serial_port_.open())
-  // {
-  //     std::cout << "CTA2045 UCM: failed to open serial port\n";
-  //     abort();
-  // }
-  
-  // UCM ucm = UCM();
-  // cea2045::ICEA2045DeviceUCM* device_ = cea2045::DeviceFactory::createUCM(&serial_port_, &ucm);
+    std::cout 
+        << "\tgsp client on " 
+        << gsp_ctx.host << ":" << gsp_ctx.port << "\n";
 
-  // device_->start();
+    std::cout 
+        << "\tdtm client on " 
+        << dtm_ctx.host << ":" << dtm_ctx.port << "\n";
 
-  // cea2045::ResponseCodes response_codes_ = device_->querySuportDataLinkMessages().get();
-  // if (response_codes_.responesCode != ResponseCode::OK)
-  // {
-  //     std::cout
-  //         << "CTA2045 Device: does not support data link messages with code = "
-  //         << static_cast<int>(response_codes_.responesCode);
-  //     abort();
-  // }
+    trust::HttpsClient::getInstance(gsp_ctx, dtm_ctx);
 
-  // response_codes_ = device_->querySuportIntermediateMessages().get();
-  // if (response_codes_.responesCode != ResponseCode::OK)
-  // {
-  //     std::cout
-  //         << "CTA2045 Device: does not support intermediate messages with code = "
-  //         << static_cast<int>(response_codes_.responesCode);
-  //     abort();
-  // }
+    flecs::world ecs;
 
-  // response_codes_ = device_->intermediateGetCommodity().get();
-  // if (response_codes_.responesCode != ResponseCode::OK)
-  // {
-  //     std::cout
-  //         << "CTA2045 Device: does not support getCommodity with code = "
-  //         << static_cast<int>(response_codes_.responesCode);
-  //     abort();
-  // }
+    ecs.import<sep::dcap::Module>();
 
-  // device_->shutDown();
-  // delete device_;
+    sep::dcap::PollRate poll_rate;
+    poll_rate.seconds = 5;
 
-  cta2045::Device::getInstance(serial_port)->endShed();
+    sep::dcap::EndDeviceListLink edev;
+    edev.all = 1;
+    edev.href = "/href";
 
-  int energy_take = 1;
-  while (energy_take > 0){
-    cta2045::Device* device = cta2045::Device::getInstance(serial_port);
-    cta2045::commodity_map commodities = device->getCommodity();
-    cea2045::cea2045CommodityData data = commodities.at(psu::utilities::ToUnderlyingType(cta2045::Commodity::kPresentEnergy));
-    energy_take = data.getCumulativeAmount();
-    std::cout << "Energy : " << energy_take << "\n";
-    device->loadUp();
-    std::this_thread::sleep_for(std::chrono::seconds(10));
-  }
+    auto test = ecs.entity<sep::dcap::Test>();
+    test.set<sep::dcap::PollRate>(poll_rate);
+    test.set<sep::dcap::EndDeviceListLink>(edev);
 
-  dtm_client;
-  trust_der_client;
-  trust_gsp_client;
+    auto json = ecs.to_json();
+    std::cout << json << std::endl << std::endl;
 
-  return 0;
+    ecs.app()
+        .target_fps(1)
+        .run();
+
+    return 0;
 }
-
-
