@@ -1,19 +1,20 @@
 #ifndef __MIRROR_USAGE_POINT_H__
 #define __MIRROR_USAGE_POINT_H__
-#include <boost/multiprecision/cpp_int.hpp>
-#include <vector>
+#include "simple_types.hpp"
 #include "usage_point_base.hpp"
 #include "mirror_meter_reading.hpp"
-#include "lfdi_type.hpp"
 
 namespace sep
 {
+    struct MirrorUsagePointListLink : ListLink {};
+    struct MirrorUsagePointLink : Link {};
+    
     // A parallel to UsagePoint to support mirroring
     struct MirrorUsagePoint : UsagePointBase
     {
-        LFDIType device_lfdi;
+        HexBinary160 device_lfdi;
         MirrorMeterReading mirror_meter_reading;
-        uint32_t post_rate;
+        UInt32 post_rate;
     };
     
 } // namespace sep

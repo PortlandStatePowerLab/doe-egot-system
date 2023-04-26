@@ -17,7 +17,7 @@ namespace sep
     {
         SignedRealEnergy energy_available; // energy in watt-hours
         ActivePower power_available;       // power in watts
-        MRIDType subject;               // match event
+        mRIDType subject;               // match event
     };
 };     // namespace sep
 #endif // __FLOW_RESERVATION_RESPONSE_H__

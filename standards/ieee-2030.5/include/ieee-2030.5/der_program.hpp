@@ -9,6 +9,9 @@
 
 namespace sep
 {
+    struct DERProgramListLink : ListLink {};
+    struct DERProgramLink : Link {};
+    
     // Distributed Energy Resource program
     struct DERProgram : SubscribableIdentifiedObject
     {

@@ -1,6 +1,8 @@
 #ifndef __CUSTOMER_ACCOUNT_H__
 #define __CUSTOMER_ACCOUNT_H__
 #include "simple_types.hpp"
+#include "customer_agreement.hpp"
+#include "service_supplier.hpp"
 
 namespace sep{
     struct CustomerAccountListLink : ListLink {};
@@ -13,8 +15,7 @@ namespace sep{
         String42 customer_name;
         PowerOfTenMultiplierType price_power_of_ten_multiplier;
         ServiceSupplierLink service_supplier_link;
-
-    }
+    };
 }
 
 #endif // __CUSTOMER_ACCOUNT_H__

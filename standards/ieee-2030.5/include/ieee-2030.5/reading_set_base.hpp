@@ -2,6 +2,7 @@
 #define __READING_SET_BASE_H__
 #include "simple_types.hpp"
 #include "date_time_interval.hpp"
+#include "reading.hpp"
 
 namespace sep
 {
@@ -12,7 +13,15 @@ namespace sep
     {
         DateTimeInterval time_period;
     };
-    
+
+    struct ReadingSetListLink : ListLink {};
+    struct ReadingSetLink : Link {};
+
+    // A set of Readings of the ReadingType indicated by the 
+    // parent MeterReading.
+    struct ReadingSet : ReadingSetBase {
+        ReadingListLink reading_list_link;
+    };
 } // namespace sep
 
 #endif // __READING_SET_BASE_H__

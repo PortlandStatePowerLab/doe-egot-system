@@ -6,6 +6,9 @@
 
 namespace sep
 {
+    struct ReadingListLink : ListLink {};
+    struct ReadingLink : Link {};
+    
     // Specific value measured by a meter or other asset.
     struct Reading : ReadingBase
     {

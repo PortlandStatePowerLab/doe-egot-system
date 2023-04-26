@@ -6,6 +6,8 @@
 #include "billing_meter_reading.hpp"
 #include "prepayment.hpp"
 #include "time_tariff_interval.hpp"
+#include "tariff_profile.hpp"
+#include "usage_point_base.hpp"
 
 namespace sep{
     struct CustomerAgreementListLink : ListLink {};

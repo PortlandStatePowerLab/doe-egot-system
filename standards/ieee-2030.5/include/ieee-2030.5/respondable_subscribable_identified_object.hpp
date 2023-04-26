@@ -9,7 +9,7 @@ namespace sep
     // An IdentifiedObject to which a Response can be requested.
     struct RespondableSubscribableIdentifiedObject : RespondableResource
     {
-        MRIDType mrid;
+        mRIDType mrid;
         String32 description;
         VersionType version;
         SubscribableType subscribable;

@@ -13,9 +13,9 @@ namespace sep
     struct DeviceCapability : FunctionSetAssignmentsBase
     {
         UInt32 poll_rate = 900;
-        ListLink end_device_list_link;
-        ListLink mirror_usage_point_list_link;
-        Link self_device_link;
+        EndDeviceListLink end_device_list_link;
+        MirrorUsagePointListLink mirror_usage_point_list_link;
+        SelfDeviceLink self_device_link;
     };
 } // namespace sep
 

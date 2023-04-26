@@ -2,6 +2,14 @@
 #define __FUNCTION_SET_ASSIGNMENTS_BASE_H__
 #include "simple_types.hpp"
 #include "customer_account.hpp"
+#include "demand_response.hpp"
+#include "der_program.hpp"
+#include "file.hpp"
+#include "messaging_program.hpp"
+#include "prepayment.hpp"
+#include "response_set.hpp"
+#include "tariff_profile.hpp"
+#include "time.hpp"
 
 namespace sep
 {

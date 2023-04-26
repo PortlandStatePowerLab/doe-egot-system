@@ -3,6 +3,7 @@
 #include "simple_types.hpp"
 
 namespace sep {
+    struct PrepaymentListLink : ListLink {};
     struct PrepaymentLink : Link {};
 
     // Prepayment (inherited from CIM SDPAccountingFunction)

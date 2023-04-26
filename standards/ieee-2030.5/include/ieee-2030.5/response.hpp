@@ -1,18 +1,18 @@
 #ifndef __RESPONSE_H__
 #define __RESPONSE_H__
-#include <boost/multiprecision/cpp_int.hpp>
-#include <cstdint>
-#include "resource.hpp"
-#include "list_link.hpp"
+#include "simple_types.hpp"
 #include "time_type.hpp"
-#include "mrid_type.hpp"
 
 namespace sep
 {
-    // A container for a ResponseList
+    struct ResponseListLink : ListLink {};
+    struct ResponseLink : Link {};
+
+    // The Response object is the generic response data repository which is 
+    // extended for specific function sets.
     struct Response : Resource
     {
-        enum class Status : uint8_t
+        enum class Status : UInt8
         {
             kEventReceived = 1,
             kEventStarted = 2,
@@ -33,8 +33,8 @@ namespace sep
             kRejectedExpired = 254
         };
 
-        sep::TimeType created_date_time;
-        boost::multiprecision::uint256_t end_device_lfdi;
+        TimeType created_date_time;
+        HexBinary160 end_device_lfdi;
         Status status;
         MRIDType subject;
     };

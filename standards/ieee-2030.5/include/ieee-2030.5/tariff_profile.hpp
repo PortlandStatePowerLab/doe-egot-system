@@ -7,6 +7,13 @@
 #include "service_kind.hpp"
 
 namespace sep{
+    struct TariffProfileListLink : ListLink {};
+    struct TariffProfileLink : Link {};
+    
+    // A schedule of charges; structure that allows the definition of 
+    // tariff structures such as step (block) and time of use (tier) when 
+    // used in conjunction with TimeTariffInterval and 
+    // ConsumptionTariffInterval.
     struct TariffProfile : IdentifiedObject{
         CurrencyCode currency;
         PowerOfTenMultiplierType price_power_of_ten_multiplier;

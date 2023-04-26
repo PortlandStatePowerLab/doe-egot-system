@@ -1,26 +1,19 @@
 #ifndef __REGISTRATION_H__
 #define __REGISTRATION_H__
-#include <cstdint>
-#include "resource.hpp"
-#include "time_type.hpp"
+#include "simple_types.hpp"
 #include "pin_type.hpp"
 
 namespace sep
 {
+    struct RegistrationListLink : ListLink {};
+    struct RegistrationLink : Link {};
+    
+    // Registration represents an authorization to access the resources on a host.
     struct Registration : Resource
     {
         TimeType date_time_registered;
         PINType pin;
-        uint32_t poll_rate = 900;
-
-        friend bool operator == (const Registration& lhs, const Registration& rhs)
-        {
-            return
-                (lhs.poll_rate == rhs.poll_rate)
-                && (lhs.href == rhs.href)
-                && (lhs.date_time_registered == rhs.date_time_registered)
-                && (lhs.pin == rhs.pin);
-        };
+        UInt32 poll_rate = 900;
     };
     
 } // namespace sep

@@ -1,6 +1,6 @@
 #ifndef __READING_BASE_H__
 #define __READING_BASE_H__
-#include "resource.hpp"
+#include "simple_types.hpp"
 #include "consumption_block.hpp"
 #include "date_time_interval.hpp"
 #include "tou_type.hpp"
@@ -13,7 +13,7 @@ namespace sep
     struct ReadingBase : Resource
     {
         // List of codes indicating the quality of the reading, using specification:
-        enum class QualityFlags : uint16_t
+        enum class QualityFlags : UInt16
         {
             kValid = 1 << 0,
             kManuallyEdited = 1 << 1,
@@ -28,7 +28,7 @@ namespace sep
         QualityFlags quality_flags;
         DateTimeInterval time_period;
         TOUType tou_tier;
-        uint64_t value;
+        UInt64 value;
     };
     
 } // namespace sep
