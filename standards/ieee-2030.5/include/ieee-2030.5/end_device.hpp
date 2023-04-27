@@ -2,7 +2,6 @@
 #define __END_DEVICE_H__
 #include "simple_types.hpp"
 #include "abstract_device.hpp"
-#include "time_type.hpp"
 #include "flow_reservation_request.hpp"
 #include "flow_reservation_response.hpp"
 #include "function_set_assignments.hpp"

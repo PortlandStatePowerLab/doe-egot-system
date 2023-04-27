@@ -1,10 +1,10 @@
 #ifndef __DER_CURVE_TYPE_H__
 #define __DER_CURVE_TYPE_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
-    enum class DERCurveType : uint8_t
+    enum class DERCurveType : UInt8
     {
         kOpModFreqWatt,
         kOpModHFRTMayTrip,

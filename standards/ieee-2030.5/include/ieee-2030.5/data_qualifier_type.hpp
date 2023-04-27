@@ -1,10 +1,10 @@
 #ifndef __DATA_QUALIFIER_TYPE_H__
 #define __DATA_QUALIFIER_TYPE_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
-    enum class DataQualifierType : uint8_t
+    enum class DataQualifierType : UInt8
     {
         kNA,
         kAverage = 2,

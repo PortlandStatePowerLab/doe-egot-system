@@ -1,6 +1,6 @@
 #ifndef __CURVE_DATA_H__
 #define __CURVE_DATA_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
@@ -8,8 +8,8 @@ namespace sep
     struct CurveData 
     {
         bool excitation;
-        int32_t x_value;
-        int32_t y_value;
+        Int32 x_value;
+        Int32 y_value;
     };
     
 } // namespace sep

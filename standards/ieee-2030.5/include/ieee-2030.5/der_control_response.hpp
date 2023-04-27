@@ -4,10 +4,7 @@
 
 namespace sep
 {
-    struct DERControlResponse : Response
-    {
-        /* data */
-    };
+    struct DERControlResponse : Response{};
     
 } // namespace sep
 

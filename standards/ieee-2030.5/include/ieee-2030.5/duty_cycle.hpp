@@ -1,6 +1,6 @@
 #ifndef __DUTY_CYCLE_H__
 #define __DUTY_CYCLE_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
@@ -14,7 +14,7 @@ namespace sep
     // The “off state” SHALL precede the “on state”.
     struct DutyCycle
     {
-        uint8_t normal_value;
+        UInt8 normal_value;
     };        
 } // namespace sep
 

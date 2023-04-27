@@ -1,10 +1,10 @@
 #ifndef __TOU_TYPE_H__
 #define __TOU_TYPE_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
-    enum class TOUType : uint8_t
+    enum class TOUType : UInt8
     {
         kNA,
         kA,

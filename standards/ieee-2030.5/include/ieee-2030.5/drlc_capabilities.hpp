@@ -1,6 +1,6 @@
 #ifndef __DRLC_CAPABILITIES_H__
 #define __DRLC_CAPABILITIES_H__
-
+#include "simple_types.hpp"
 #include "real_energy.hpp"
 #include "active_power.hpp"
 
@@ -14,7 +14,7 @@ namespace sep
     struct DRLCCapabilities
     {
         // Bitmap indicating the DRLC options implemented by the device.
-        enum class Options : uint32_t
+        enum class Options : UInt32
         {
             kKiloWattHours = 0 << 1,
             kKiloWatts = 0 << 2,

@@ -1,7 +1,6 @@
 #ifndef __DER_CONTROL_BASE_H__
 #define __DER_CONTROL_BASE_H__
-#include <string>
-#include <cstdint>
+#include "simple_types.hpp"
 #include "power_factor_with_excitation.hpp"
 #include "fixed_var.hpp"
 #include "signed_per_cent.hpp"
@@ -9,7 +8,7 @@
 #include "per_cent.hpp"
 #include "reactive_power.hpp"
 #include "active_power.hpp"
-#include "link.hpp"
+#include "der_curve.hpp"
 
 namespace sep
 {
@@ -23,15 +22,15 @@ namespace sep
         FixedVAR op_mod_fixed_var;
         SignedPerCent op_mod_fixed_w;
         FreqDroopType op_mod_freq_droop;
-        Link op_mod_freq_watt;
-        Link op_mod_hfrt_may_trip;
-        Link op_mod_hfrt_must_trip;
-        Link op_mod_hvrt_may_trip;
-        Link op_mod_hvrt_momentary_cessation;
-        Link op_mod_hvrt_must_trip;
-        Link op_mod_lfrt_may_trip;
-        Link op_mod_lvrt_momentary_cessation;
-        Link op_mod_lvrt_must_trip;
+        DERCurveLink op_mod_freq_watt;
+        DERCurveLink op_mod_hfrt_may_trip;
+        DERCurveLink op_mod_hfrt_must_trip;
+        DERCurveLink op_mod_hvrt_may_trip;
+        DERCurveLink op_mod_hvrt_momentary_cessation;
+        DERCurveLink op_mod_hvrt_must_trip;
+        DERCurveLink op_mod_lfrt_may_trip;
+        DERCurveLink op_mod_lvrt_momentary_cessation;
+        DERCurveLink op_mod_lvrt_must_trip;
         PerCent op_mod_max_lim_w;
         ReactivePower op_mod_target_var;
         ActivePower op_mod_target_w;

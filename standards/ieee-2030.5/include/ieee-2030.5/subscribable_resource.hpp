@@ -1,7 +1,6 @@
 #ifndef __SUBSCRIBABLE_RESOURCE_H__
 #define __SUBSCRIBABLE_RESOURCE_H__
-#include <cstdint>
-#include "resource.hpp"
+#include "simple_types.hpp"
 #include "subscribable_type.hpp"
 
 namespace sep

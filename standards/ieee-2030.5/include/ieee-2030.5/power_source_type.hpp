@@ -1,11 +1,11 @@
 #ifndef __POWER_SOURCE_TYPE_H__
 #define __POWER_SOURCE_TYPE_H__
 
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
-    enum class PowerSourceType : uint8_t
+    enum class PowerSourceType : UInt8
     {
         kNone,
         kMains,

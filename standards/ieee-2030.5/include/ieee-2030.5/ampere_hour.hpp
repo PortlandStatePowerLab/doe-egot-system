@@ -1,7 +1,6 @@
 #ifndef __AMPERE_HOUR_H__
 #define __AMPERE_HOUR_H__
-#include <cstdint>
-#include "power_of_ten_multiplier_type.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {
@@ -9,7 +8,7 @@ namespace sep
     struct AmpereHour
     {
         PowerOfTenMultiplierType multiplier;
-        uint16_t value;
+        UInt16 value;
     };
     
 } // namespace sep

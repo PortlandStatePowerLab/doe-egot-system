@@ -1,7 +1,6 @@
 #ifndef __REACTIVE_POWER_H__
 #define __REACTIVE_POWER_H__
-#include <cstdint>
-#include "power_of_ten_multiplier_type.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {
@@ -11,7 +10,7 @@ namespace sep
     struct ReactivePower
     {
         PowerOfTenMultiplierType multiplier;
-        int16_t value;
+        UInt16 value;
     };
 };     // namespace sep
 #endif // __REACTIVE_POWER_H__

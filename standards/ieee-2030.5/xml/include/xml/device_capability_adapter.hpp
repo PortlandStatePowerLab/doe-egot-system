@@ -1,7 +1,7 @@
 #ifndef __DEVICE_CAPABILITY_ADAPTER_H__
 #define __DEVICE_CAPABILITY_ADAPTER_H__
 
-#include <ieee-2030.5/models.hpp>
+#include <ieee-2030.5/device_capability.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 

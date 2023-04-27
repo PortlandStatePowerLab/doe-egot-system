@@ -1,17 +1,17 @@
 #ifndef __ACCUMULATION_BEHAVIOUR_TYPE_H__
 #define __ACCUMULATION_BEHAVIOUR_TYPE_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
-    enum class AccumulationBehaviourType : uint8_t
+    enum class AccumulationBehaviourType : UInt8
     {
         kNA,
-        kCumulative,
-        kDeltaData,
-        kIndicating,
-        kSummation,
-        kInstantaneous
+        kCumulative = 3,
+        kDeltaData = 4,
+        kIndicating = 6,
+        kSummation = 9,
+        kInstantaneous = 12
     };
     
 } // namespace sep

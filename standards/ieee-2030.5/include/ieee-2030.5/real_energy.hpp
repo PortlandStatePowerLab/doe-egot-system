@@ -1,8 +1,7 @@
 #ifndef __REAL_ENERGY_H__
 #define __REAL_ENERGY_H__
 
-#include <cstdint>
-#include "power_of_ten_multiplier_type.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {
@@ -10,7 +9,7 @@ namespace sep
     struct RealEnergy
     {
         PowerOfTenMultiplierType multiplier;
-        uint64_t value;
+        UInt48 value;
     };
 } // namespace sep
 

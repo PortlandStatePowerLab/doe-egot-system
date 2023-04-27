@@ -3,6 +3,8 @@
 #include "simple_types.hpp"
 #include "reading.hpp"
 #include "reading_set_base.hpp"
+#include "rate_component.hpp"
+#include "reading_type.hpp"
 
 namespace sep
 {

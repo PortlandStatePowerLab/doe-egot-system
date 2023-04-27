@@ -1,6 +1,6 @@
 #ifndef __OFFSET_H__
 #define __OFFSET_H__
-#include <cstdint>
+#include "simple_types.hpp"
 #include "per_cent.hpp"
 
 namespace sep
@@ -24,8 +24,8 @@ namespace sep
     // reduction was achieved
     struct Offset
     {
-        uint8_t cooling_offset;
-        uint8_t heating_offset;
+        UInt8 cooling_offset;
+        UInt8 heating_offset;
         PerCent load_adjustment_percentage_offset;
     };
 }; // namespace sep

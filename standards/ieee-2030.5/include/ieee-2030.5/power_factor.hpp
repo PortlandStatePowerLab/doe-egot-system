@@ -1,7 +1,6 @@
 #ifndef __POWER_FACTOR_H__
 #define __POWER_FACTOR_H__
-#include <cstdint>
-#include "power_of_ten_multiplier_type.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {
@@ -9,7 +8,7 @@ namespace sep
     // apparent and active powers at the fundamental frequency (e.g. 60 Hz).
     struct PowerFactor
     {
-        uint16_t displacement;
+        UInt16 displacement;
         PowerOfTenMultiplierType multiplier;
     };
     

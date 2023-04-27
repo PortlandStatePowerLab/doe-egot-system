@@ -4,7 +4,6 @@
 #include "active_power.hpp"
 #include "real_energy.hpp"
 #include "per_cent.hpp"
-#include "time_type.hpp"
 
 namespace sep
 {

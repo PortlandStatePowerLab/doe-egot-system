@@ -1,7 +1,6 @@
 #ifndef __RESPONSE_H__
 #define __RESPONSE_H__
 #include "simple_types.hpp"
-#include "time_type.hpp"
 
 namespace sep
 {
@@ -36,7 +35,7 @@ namespace sep
         TimeType created_date_time;
         HexBinary160 end_device_lfdi;
         Status status;
-        MRIDType subject;
+        mRIDType subject;
     };
     
 } // namespace sep

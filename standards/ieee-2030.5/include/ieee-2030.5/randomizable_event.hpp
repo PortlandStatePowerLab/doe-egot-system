@@ -1,6 +1,5 @@
 #ifndef __RANDOMIZE_EVENT_H__
 #define __RANDOMIZE_EVENT_H__
-#include <cstdint>
 #include "event.hpp"
 #include "one_hour_range_type.hpp"
 

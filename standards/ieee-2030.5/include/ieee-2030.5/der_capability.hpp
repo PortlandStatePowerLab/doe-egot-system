@@ -1,7 +1,6 @@
 #ifndef __DER_CAPABILITY_H__
 #define __DER_CAPABILITY_H__
-#include <cstdint>
-#include "resource.hpp"
+#include "simple_types.hpp"
 #include "der_control_type.hpp"
 #include "power_factor_with_excitation.hpp"
 #include "der_control_type.hpp"
@@ -17,10 +16,12 @@
 
 namespace sep
 {
+    struct DERCapabilityLink : Link {};
+
     // Distributed energy resource type and nameplate ratings.
     struct DERCapability : Resource
     {
-        enum class AbnormalCategory : uint8_t
+        enum class AbnormalCategory : UInt8
         {
             kNotSpecified,
             kI,
@@ -28,7 +29,7 @@ namespace sep
             kIII
         };
 
-        enum class NormalCategory : uint8_t
+        enum class NormalCategory : UInt8
         {
             kNotSpecified,
             kA,

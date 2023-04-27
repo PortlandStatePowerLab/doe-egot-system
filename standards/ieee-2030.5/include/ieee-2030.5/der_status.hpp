@@ -1,5 +1,6 @@
 #ifndef __DER_STATUS_H__
 #define __DER_STATUS_H__
+#include "simple_types.hpp"
 #include "subscribable_resource.hpp"
 #include "connect_status_type.hpp"
 #include "inverter_status_type.hpp"
@@ -11,9 +12,12 @@
 
 namespace sep
 {
+    struct DERStatusLink : Link {};
+
+    // DER status information
     struct DERStatus : SubscribableResource
     {
-        enum class AlarmStatus : uint32_t
+        enum class AlarmStatus : HexBinary16
         {
             kOverCurrent = 0 << 1,
             kOverVoltage = 0 << 2,

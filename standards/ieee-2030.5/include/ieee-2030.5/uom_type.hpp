@@ -1,6 +1,6 @@
 #ifndef __UOM_TYPE_H__
 #define __UOM_TYPE_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
@@ -8,7 +8,7 @@ namespace sep
     // the unit of measure enumeration in IEC 61968-9 [61968]. 
     // Other values from the unit of measure enumeration in 
     // IEC 61968-9 [61968] MAY be used.
-    enum class UomType : uint8_t
+    enum class UomType : UInt8
     {
         kNA,
         kAmpere = 5,

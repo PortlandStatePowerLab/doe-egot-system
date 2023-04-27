@@ -1,8 +1,7 @@
 #ifndef __POWER_CONFIGURATION_H__
 #define __POWER_CONFIGURATION_H__
 
-#include <cstdint>
-#include "time_type.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {
@@ -10,7 +9,7 @@ namespace sep
     struct PowerConfiguration
     {
         TimeType battery_install_time;
-        uint32_t low_charge_threshold;
+        UInt32 low_charge_threshold;
     };
     
 } // namespace sep

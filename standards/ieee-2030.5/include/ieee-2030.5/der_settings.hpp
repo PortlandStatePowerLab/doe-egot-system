@@ -1,6 +1,6 @@
 #ifndef __DER_SETTINGS_H__
 #define __DER_SETTINGS_H__
-#include <cstdint>
+#include "simple_types.hpp"
 #include "subscribable_resource.hpp"
 #include "der_control_type.hpp"
 #include "power_factor_with_excitation.hpp"
@@ -14,23 +14,24 @@
 #include "watt_hour.hpp"
 #include "power_factor.hpp"
 #include "der_type.hpp"
-#include "time_type.hpp"
 
 namespace sep
 {
+    struct DERSettingsLink : Link {};
+
     // Distributed energy resource settings
     struct DERSettings : SubscribableResource
     {
         DERControlType modes_enabled;
-        uint32_t set_es_delay;
-        uint16_t set_es_high_freq;
-        uint16_t set_es_high_volt;
-        uint16_t set_es_low_freq;
-        uint16_t set_es_low_volt;
-        uint32_t set_es_ramp_tms;
-        uint32_t set_es_random_delay;
-        uint16_t set_grad_w;
-        uint16_t set_soft_grad_w; 
+        UInt32 set_es_delay;
+        UInt16 set_es_high_freq;
+        UInt16 set_es_low_freq;
+        UInt16 set_es_high_volt;
+        UInt16 set_es_low_volt;
+        UInt32 set_es_ramp_tms;
+        UInt32 set_es_random_delay;
+        UInt16 set_grad_w;
+        UInt16 set_soft_grad_w; 
         CurrentRMS set_max_a;
         AmpereHour set_max_ah;
         ApparentPower set_max_charge_rate_va;

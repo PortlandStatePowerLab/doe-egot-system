@@ -1,13 +1,12 @@
 #ifndef __STORAGE_MODE_STATUS_TYPE_H__
 #define __STORAGE_MODE_STATUS_TYPE_H__
-#include <cstdint>
-#include "time_type.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {
     struct StorageModeStatusType
     {
-        enum class Status : uint8_t
+        enum class Status : UInt8
         {
             kCharging,
             kDischarging,

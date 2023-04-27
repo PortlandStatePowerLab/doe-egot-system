@@ -1,14 +1,14 @@
 #ifndef __MANUFACTURER_STATUS_TYPE_H__
 #define __MANUFACTURER_STATUS_TYPE_H__
-#include <string>
-#include "time_type.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {
+    // DER ManufacturerStatus/value: String data type
     struct ManufacturerStatusType
     {
         TimeType date_time;
-        std::string value;
+        String6 value;
     };
     
 } // namespace sep

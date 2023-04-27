@@ -1,10 +1,10 @@
 #ifndef __DER_TYPE_H__
 #define __DER_TYPE_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
-    enum class DERType : uint8_t
+    enum class DERType : UInt8
     {
         kNA,
         kVirtual,

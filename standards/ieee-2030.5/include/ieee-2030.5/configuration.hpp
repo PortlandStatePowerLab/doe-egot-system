@@ -1,8 +1,7 @@
 #ifndef __CONFIGURATION_H__
 #define __CONFIGURATION_H__
 
-#include <cstdint>
-#include <string>
+#include "simple_types.hpp"
 #include "subscribable_resource.hpp"
 #include "locale_type.hpp"
 #include "power_configuration.hpp"

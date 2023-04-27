@@ -1,16 +1,14 @@
 #ifndef __POWER_STATUS_H__
 #define __POWER_STATUS_H__
 
-#include <cstdint>
-#include "resource.hpp"
-#include "time_type.hpp"
+#include "simple_types.hpp"
 #include "power_source_type.hpp"
 #include "per_cent.hpp"
 #include "pev_info.hpp"
 
 namespace sep
 {
-    enum class BatteryStatus : uint8_t
+    enum class BatteryStatus : UInt8
     {
         kUnknown,
         kNormal,
@@ -19,6 +17,9 @@ namespace sep
         kNA
     };
 
+    struct PowerStatusListLink : ListLink {};
+    struct PowerStatusLink : Link {};
+
     // Contains the status of the device's power sources
     struct PowerStatus : Resource
     {
@@ -26,11 +27,11 @@ namespace sep
         TimeType changed_time;
         PowerSourceType current_power_source;
         PerCent estimated_charge_remaining;
-        uint32_t estimated_time_remaining;
+        UInt32 estimated_time_remaining;
         PEVInfo pev_info;
-        uint32_t session_time_on_battery;
-        uint32_t total_time_on_battery;
-        uint32_t poll_rate;
+        UInt32 session_time_on_battery;
+        UInt32 total_time_on_battery;
+        UInt32 poll_rate;
     };
     
 } // namespace sep

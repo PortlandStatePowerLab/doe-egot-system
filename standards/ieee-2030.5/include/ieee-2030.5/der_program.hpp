@@ -1,16 +1,19 @@
 #ifndef __DER_PROGRAM_H__
 #define __DER_PROGRAM_H__
 #include "subscribable_identified_object.hpp"
-#include "active_der_control_list_link.hpp"
-#include "default_der_control_link.hpp"
-#include "der_control_list_link.hpp"
-#include "der_curve_list_link.hpp"
+#include "der_control.hpp"
+#include "der_curve.hpp"
 #include "primacy_type.hpp"
 
 namespace sep
 {
     struct DERProgramListLink : ListLink {};
     struct DERProgramLink : Link {};
+
+    struct AssociatedDERProgramListLink : ListLink {};
+    struct AssociatedDERProgramLink : Link {};
+
+    struct CurrentDERProgramLink : Link {};
     
     // Distributed Energy Resource program
     struct DERProgram : SubscribableIdentifiedObject

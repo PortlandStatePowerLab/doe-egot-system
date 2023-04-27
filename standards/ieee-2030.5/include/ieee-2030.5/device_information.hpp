@@ -1,20 +1,22 @@
 #ifndef __DEVICE_INFORMATION_H__
 #define __DEVICE_INFORMATION_H__
 
-#include <cstdint>
-#include "resource.hpp"
+#include "simple_types.hpp"
 #include "drlc_capabilities.hpp"
 #include "gps_location_type.hpp"
 
 namespace sep
 {
+    struct DeviceInformationListLink : ListLink {};
+    struct DeviceInformationLink : Link {};
+    
     // Contains identification and other information about the device that
     // changes very infrequently, typically only when updates are applied,
     // if ever.
     struct DeviceInformation : Resource
     {
         // Bitmap indicating the function sets used by the device as a client.
-        enum class FunctionsImplemented : uint64_t
+        enum class FunctionsImplemented : HexBinary64
         {
             kDeviceCapability = 0 << 1,
             kSelfDevice = 0 << 2,

@@ -1,17 +1,19 @@
 #ifndef __DEVICE_STATUS_H__
 #define __DEVICE_STATUS_H__
 
-#include "resource.hpp"
-#include "time_type.hpp"
-#include "link.hpp"
+#include "simple_types.hpp"
+#include "time.hpp"
 #include "temperature.hpp"
 
 namespace sep
 {
+    struct DeviceStatusListLink : ListLink {};
+    struct DeviceStatusLink : Link {};
+    
     // Status of device
     struct DeviceStatus : Resource
     {
-        enum class OpState : uint8_t
+        enum class OpState : UInt8
         {
             kUnknown,
             kNotOperating,
@@ -24,12 +26,12 @@ namespace sep
         };
 
         TimeType changed_time;
-        uint16_t on_count;
+        UInt16 on_count;
         OpState op_state;
-        uint32_t op_time;
+        UInt32 op_time;
         Temperature temperature;
-        Link time_link;
-        uint32_t poll_rate;
+        TimeLink time_link;
+        UInt32 poll_rate;
     };
 
 } // namespace sep

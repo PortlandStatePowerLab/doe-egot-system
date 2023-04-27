@@ -1,4 +1,4 @@
-#include <ieee-2030.5/models.hpp>
+#include <ieee-2030.5/device_capability.hpp>
 #include "include/xml/utilities.hpp"
 
 namespace xml

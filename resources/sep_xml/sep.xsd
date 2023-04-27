@@ -5806,6 +5806,7 @@ All other values reserved.</xs:documentation>
     <xs:restriction base="UInt8">
       <xs:enumeration value="0" />
       <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
       <xs:enumeration value="6" />
       <xs:enumeration value="9" />
       <xs:enumeration value="12" />

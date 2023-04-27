@@ -5,10 +5,7 @@
 namespace sep
 {
     // A response to a FlowReservationResponse
-    struct FlowReservationResponseResponse : Response
-    {
-        /* data */
-    };
+    struct FlowReservationResponseResponse : Response {};
     
 } // namespace sep
 

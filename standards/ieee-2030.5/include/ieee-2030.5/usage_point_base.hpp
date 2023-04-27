@@ -27,6 +27,8 @@ namespace sep
     struct UsagePointListLink : ListLink {};
     struct UsagePointLink : Link {};
 
+    struct AssociatedUsagePointLink : Link {};
+
     // Logical point on a network at which consumption or production is 
     // either physically measured (e.g. metered) or estimated 
     // (e.g. unmetered street lights).

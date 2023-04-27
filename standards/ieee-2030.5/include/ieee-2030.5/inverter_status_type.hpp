@@ -1,13 +1,12 @@
 #ifndef __INVERTER_STATUS_TYPE_H__
 #define __INVERTER_STATUS_TYPE_H__
-#include <cstdint>
-#include "time_type.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {
     struct InverterStatusType
     {
-        enum class Status : uint8_t
+        enum class Status : UInt8
         {
             kNA,
             kOff,

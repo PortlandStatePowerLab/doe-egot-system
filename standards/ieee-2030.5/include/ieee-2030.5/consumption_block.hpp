@@ -1,10 +1,13 @@
 #ifndef __CONSUMPTION_BLOCK_H__
 #define __CONSUMPTION_BLOCK_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
-    enum class ConsumptionBlock : uint8_t
+    // Indicates the consumption block related to the reading. 
+    // REQUIRED if ReadingType numberOfConsumptionBlocks is non-zero. 
+    // If not specified, is assumed to be "0 - N/A".
+    enum class ConsumptionBlock : UInt8
     {
         kNA,
         kBlock1,

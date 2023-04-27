@@ -1,10 +1,10 @@
 #ifndef __DEVICE_CATEGORY_TYPE_H__
 #define __DEVICE_CATEGORY_TYPE_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
-    enum class DeviceCategoryType : uint32_t
+    enum class DeviceCategoryType : HexBinary32
     {
         kProgrammableCommunicatingThermostat = 1 << 0,
         kStripHeaters = 1 << 1,

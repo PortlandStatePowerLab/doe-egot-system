@@ -1,11 +1,11 @@
 #ifndef __DER_CONTROL_TYPE_H__
 #define __DER_CONTROL_TYPE_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
     // Control modes supported by the DER.  Bit positions SHALL be defined as follows:
-    enum class DERControlType : uint32_t
+    enum class DERControlType : HexBinary32
     {
         kCharge = 0 << 1,
         kDischarge = 0 << 2,

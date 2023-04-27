@@ -5,7 +5,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/multiprecision/cpp_int.hpp>
-#include <ieee-2030.5/sfdi_type.hpp>
+#include <ieee-2030.5/simple_types.hpp>
 
 // C++14 helper
 template< class T >

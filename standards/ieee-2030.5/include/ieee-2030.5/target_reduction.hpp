@@ -1,11 +1,11 @@
 #ifndef __TARGET_REDUCTION_H__
 #define __TARGET_REDUCTION_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
     // The unit types defined for end device control target reductions
-    enum class UnitType : uint8_t
+    enum class UnitType : UInt8
     {
         kkWh,
         kkW,
@@ -32,7 +32,7 @@ namespace sep
     struct TargetReduction
     {
         UnitType unit_type;
-        uint16_t value;
+        UInt16 value;
     };
 };     // namespace sep
 #endif // __TARGET_REDUCTION_H__

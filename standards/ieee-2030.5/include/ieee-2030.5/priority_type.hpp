@@ -3,7 +3,7 @@
 #include "simple_types.hpp"
 
 namespace sep{
-    enum class PriorityType : UInt8{
+    enum class PriorityType : UInt8 {
         LOW,
         NORMAL,
         HIGH,

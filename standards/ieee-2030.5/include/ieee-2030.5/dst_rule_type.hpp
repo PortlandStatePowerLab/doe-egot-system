@@ -1,7 +1,7 @@
 #ifndef __DST_RULE_TYPE_H__
 #define __DST_RULE_TYPE_H__
 
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
@@ -10,7 +10,7 @@ namespace sep
     // must be applied.  
     struct DstRuleType 
     {
-        enum class Operator : uint8_t
+        enum class Operator : UInt8
         {
             kDayOfMonth,
             kDayOfWeek,

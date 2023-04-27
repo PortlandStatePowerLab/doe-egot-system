@@ -1,7 +1,6 @@
 #ifndef __UNIT_VALUE_TYPE_H__
 #define __UNIT_VALUE_TYPE_H__
-#include <cstdint>
-#include "power_of_ten_multiplier_type.hpp"
+#include "simple_types.hpp"
 #include "uom_type.hpp"
 
 namespace sep
@@ -12,7 +11,7 @@ namespace sep
     {
         PowerOfTenMultiplierType multiplier;
         UomType unit;
-        int32_t value;
+        Int32 value;
     };
     
 } // namespace sep

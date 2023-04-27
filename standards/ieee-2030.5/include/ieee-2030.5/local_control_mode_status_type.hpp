@@ -1,13 +1,12 @@
 #ifndef __LOCAL_CONTROL_MODE_STATUS_TYPE_H__
 #define __LOCAL_CONTROL_MODE_STATUS_TYPE_H__
-#include <cstdint>
-#include "time_type.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {
     struct LocalControlModeStatusType
     {
-        enum class ControlStatus : uint32_t
+        enum class ControlStatus : UInt8
         {
             kLocal,
             kRemote

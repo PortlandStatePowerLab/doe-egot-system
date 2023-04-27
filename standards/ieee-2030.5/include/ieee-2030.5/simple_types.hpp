@@ -33,6 +33,7 @@ using Int64 = int64_t;
 using VersionType = UInt16;
 using TimeType = Int64;
 using mRIDType = HexBinary128;
+using SFDIType = UInt40;
 using PowerOfTenMultiplierType = Int8;
 
 struct Resource {
@@ -45,6 +46,7 @@ struct Link {
 
 struct List : Resource {
     UInt32 all;
+    UInt32 results;
 };
 
 struct ListLink : Link {

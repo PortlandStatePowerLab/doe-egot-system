@@ -1,10 +1,10 @@
 #ifndef __COMMODITY_TYPE_H__
 #define __COMMODITY_TYPE_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
-    enum class CommodityType : uint8_t
+    enum class CommodityType : UInt8
     {
         kNA,
         kElectricitySecondaryMeterValue,

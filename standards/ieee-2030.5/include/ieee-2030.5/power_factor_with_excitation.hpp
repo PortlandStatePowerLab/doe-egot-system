@@ -1,7 +1,6 @@
 #ifndef __POWER_FACTOR_WITH_EXCITATION_H__
 #define __POWER_FACTOR_WITH_EXCITATION_H__
-#include "power_of_ten_multiplier_type.hpp"
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
@@ -10,7 +9,7 @@ namespace sep
     // includes an excitation flag.
     struct PowerFactorWithExcitation
     {
-        uint16_t displacement;
+        UInt16 displacement;
         bool excitation;
         PowerOfTenMultiplierType multiplier;
     };

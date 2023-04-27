@@ -1,10 +1,10 @@
 #ifndef __KIND_TYPE_H__
 #define __KIND_TYPE_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
-    enum class KindType : uint8_t
+    enum class KindType : UInt8
     {
         kNA,
         kCurrency = 3,

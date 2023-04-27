@@ -1,14 +1,14 @@
 #ifndef __TEMPERATURE_H__
 #define __TEMPERATURE_H__
 
-#include "power_of_ten_multiplier_type.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {
     // Specification of a temperature.
     struct Temperature
     {
-        enum class Subject : uint8_t
+        enum class Subject : UInt8
         {
             Enclosure,
             Transformer,
@@ -17,7 +17,7 @@ namespace sep
 
         PowerOfTenMultiplierType multiplier;
         Subject subject;
-        int16_t value;
+        UInt16 value;
     };
     
 } // namespace sep

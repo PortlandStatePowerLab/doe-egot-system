@@ -1,7 +1,6 @@
 #ifndef __CURRENT_RMS_H__
 #define __CURRENT_RMS_H__
-#include <cstdint>
-#include "power_of_ten_multiplier_type.hpp"
+#include "simple_types.hpp"
 
 namespace sep
 {
@@ -9,7 +8,7 @@ namespace sep
     struct CurrentRMS
     {
         PowerOfTenMultiplierType multiplier;
-        uint16_t value;
+        UInt16 value;
     };
     
 } // namespace sep

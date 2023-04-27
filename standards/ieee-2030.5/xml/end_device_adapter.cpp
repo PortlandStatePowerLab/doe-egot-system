@@ -8,37 +8,37 @@ namespace xml
     void ObjectMap(const boost::property_tree::ptree &pt, sep::EndDevice *edev)
     {
         edev->subscribable = static_cast<sep::SubscribableType>(
-            pt.get<uint8_t>("EndDevice.<xmlattr>.subscribable", 0));
+            pt.get<sep::UInt8>("EndDevice.<xmlattr>.subscribable", 0));
         edev->href = pt.get<std::string>("EndDevice.<xmlattr>.href", "");
         edev->configuration_link.href = pt.get<std::string>("EndDevice.ConfigurationLink.<xmlattr>.href", "");
         edev->der_list_link.href = pt.get<std::string>("EndDevice.DERListLink.<xmlattr>.href", "");
-        edev->der_list_link.all = pt.get<uint32_t>("EndDevice.DERListLink.<xmlattr>.all", 0);
+        edev->der_list_link.all = pt.get<sep::UInt32>("EndDevice.DERListLink.<xmlattr>.all", 0);
         edev->device_category = static_cast<sep::DeviceCategoryType>(
-            xml::util::Dehexify<uint32_t>(pt.get<std::string>("EndDevice.deviceCategory", "00")));
+            xml::util::Dehexify<sep::HexBinary32>(pt.get<std::string>("EndDevice.deviceCategory", "00")));
         edev->device_information_link.href = pt.get<std::string>("EndDevice.DeviceInformationLink.<xmlattr>.href", "");
         edev->device_status_link.href = pt.get<std::string>("EndDevice.DeviceStatusLink.<xmlattr>.href", "");
         edev->file_status_link.href = pt.get<std::string>("EndDevice.FileStatusLink.<xmlattr>.href", "");
         edev->ip_interface_list_link.href = pt.get<std::string>("EndDevice.IPInterfaceListLink.<xmlattr>.href", "");
-        edev->ip_interface_list_link.all = pt.get<uint32_t>("EndDevice.IPInterfaceListLink.<xmlattr>.all", 0);
-        edev->lfdi = xml::util::Dehexify<sep::LFDIType>(pt.get<std::string>("EndDevice.lFDI", ""));
+        edev->ip_interface_list_link.all = pt.get<sep::UInt32>("EndDevice.IPInterfaceListLink.<xmlattr>.all", 0);
+        edev->lfdi = xml::util::Dehexify<sep::HexBinary160>(pt.get<std::string>("EndDevice.lFDI", ""));
         edev->load_shed_availability_list_link.href = pt.get<std::string>("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.href", "");
-        edev->load_shed_availability_list_link.all = pt.get<uint32_t>("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.all", 0);
+        edev->load_shed_availability_list_link.all = pt.get<sep::UInt32>("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.all", 0);
         edev->log_event_list_link.href = pt.get<std::string>("EndDevice.LogEventListLink.<xmlattr>.href", "");
-        edev->log_event_list_link.all = pt.get<uint32_t>("EndDevice.LogEventListLink.<xmlattr>.all", 0);
+        edev->log_event_list_link.all = pt.get<sep::UInt32>("EndDevice.LogEventListLink.<xmlattr>.all", 0);
         edev->power_status_link.href = pt.get<std::string>("EndDevice.PowerStatusLink.<xmlattr>.href", "");
         edev->sfdi = pt.get<sep::SFDIType>("EndDevice.sFDI", 0);
         edev->changed_time = pt.get<sep::TimeType>("EndDevice.changedTime", 0);
         edev->enabled = pt.get<bool>("EndDevice.enabled", false);
         edev->flow_reservation_request_list_link.href = pt.get<std::string>("EndDevice.FlowReservationRequestListLink.<xmlattr>.href", "");
-        edev->flow_reservation_request_list_link.all = pt.get<uint32_t>("EndDevice.FlowReservationRequestListLink.<xmlattr>.all", 0);
+        edev->flow_reservation_request_list_link.all = pt.get<sep::UInt32>("EndDevice.FlowReservationRequestListLink.<xmlattr>.all", 0);
         edev->flow_reservation_response_list_link.href = pt.get<std::string>("EndDevice.FlowReservationResponseListLink.<xmlattr>.href", "");
-        edev->flow_reservation_response_list_link.all = pt.get<uint32_t>("EndDevice.FlowReservationResponseListLink.<xmlattr>.all", 0);
+        edev->flow_reservation_response_list_link.all = pt.get<sep::UInt32>("EndDevice.FlowReservationResponseListLink.<xmlattr>.all", 0);
         edev->function_set_assignments_list_link.href = pt.get<std::string>("EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.href", "");
-        edev->function_set_assignments_list_link.all = pt.get<uint32_t>("EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.all", 0);
-        edev->post_rate = pt.get<uint32_t>("EndDevice.postRate", 0);
+        edev->function_set_assignments_list_link.all = pt.get<sep::UInt32>("EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.all", 0);
+        edev->post_rate = pt.get<sep::UInt32>("EndDevice.postRate", 0);
         edev->registration_link.href = pt.get<std::string>("EndDevice.RegistrationLink.<xmlattr>.href", "");
         edev->subscription_list_link.href = pt.get<std::string>("EndDevice.SubscriptionListLink.<xmlattr>.href", "");
-        edev->subscription_list_link.all = pt.get<uint32_t>("EndDevice.SubscriptionListLink.<xmlattr>.all", 0);
+        edev->subscription_list_link.all = pt.get<sep::UInt32>("EndDevice.SubscriptionListLink.<xmlattr>.all", 0);
     };
 
     void TreeMap(const sep::EndDevice &edev, boost::property_tree::ptree *pt)

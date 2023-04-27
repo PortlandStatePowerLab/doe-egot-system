@@ -1,6 +1,6 @@
 #ifndef __SET_POINT_H__
 #define __SET_POINT_H__
-#include <cstdint>
+#include "simple_types.hpp"
 
 namespace sep
 {
@@ -19,8 +19,8 @@ namespace sep
     // device SHALL respond by setting the temperature at the limit.
     struct SetPoint
     {
-        int16_t cooling_set_point;
-        int16_t heating_set_point;
+        UInt16 cooling_set_point;
+        UInt16 heating_set_point;
     };
 }; // namespace sep
 

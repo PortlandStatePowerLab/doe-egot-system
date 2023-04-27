@@ -13,7 +13,7 @@ namespace sep {
         Int32 consume_threshold;
         Int32 max_reduction_threshold;
         RateComponentLink rate_component;
-    }
+    };
 }
 
 #endif // __PRICE_RESPONSE_CONFIGURATION_H__
