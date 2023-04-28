@@ -1,7 +1,7 @@
 #ifndef __RESPONSE_SET_ADAPTER_H__
 #define __RESPONSE_SET_ADAPTER_H__
 
-#include <ieee-2030.5/models.hpp>
+#include <ieee-2030.5/response_set.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 

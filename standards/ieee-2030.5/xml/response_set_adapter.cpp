@@ -7,10 +7,10 @@ namespace xml
     void ObjectMap(const boost::property_tree::ptree &pt, sep::ResponseSet *rsps)
     {
         rsps->href = pt.get<std::string>("ResponseSet.<xmlattr>.href", "");
-        rsps->mrid = xml::util::Dehexify<sep::MRIDType>(pt.get<std::string>("ResponseSet.mRID", ""));
-        rsps->description = pt.get<std::string>("ResponseSet.description", "");
-        rsps->version = pt.get<uint16_t>("ResponseSet.version", 0);
-        rsps->response_list_link.all = pt.get<uint32_t>("ResponseSet.ResponseListLink.<xmlattr>.all", 0);
+        rsps->mrid = xml::util::Dehexify<sep::mRIDType>(pt.get<std::string>("ResponseSet.mRID", ""));
+        rsps->description = pt.get<sep::String32>("ResponseSet.description", "");
+        rsps->version = pt.get<sep::VersionType>("ResponseSet.version", 0);
+        rsps->response_list_link.all = pt.get<sep::UInt32>("ResponseSet.ResponseListLink.<xmlattr>.all", 0);
         rsps->response_list_link.href = pt.get<std::string>("ResponseSet.ResponseListLink.<xmlattr>.href", "");
     };
 
@@ -39,15 +39,15 @@ namespace xml
         ObjectMap(pt, rsps);
     };
 
-    std::string Serialize(const std::vector<sep::ResponseSet> &rsps_list, const sep::List& list)
+    std::string Serialize(const sep::ResponseSetList &rsps_list)
     {
         boost::property_tree::ptree pt;
-        pt.put("ResponseSetList.<xmlattr>.all", list.all);
-        pt.put("ResponseSetList.<xmlattr>.results", list.results);
-        pt.put("ResponseSetList.<xmlattr>.href", list.href);
-        pt.put("ResponseSetList.<xmlattr>.pollRate", list.inherited_poll_rate);
+        pt.put("ResponseSetList.<xmlattr>.all", rsps_list.all);
+        pt.put("ResponseSetList.<xmlattr>.results", rsps_list.response_sets.size());
+        pt.put("ResponseSetList.<xmlattr>.href", rsps_list.href);
+        pt.put("ResponseSetList.<xmlattr>.pollRate", rsps_list.poll_rate);
 
-        for (const auto& rsps : rsps_list)
+        for (const auto& rsps : rsps_list.response_sets)
         {
             boost::property_tree::ptree pt2;
             TreeMap(rsps, &pt2);
@@ -70,7 +70,6 @@ namespace xml
                 
                 sep::ResponseSet rsps;
                 ObjectMap(subtree.second, &rsps);
-                rsps.inherited_poll_rate = pt.get<uint32_t>("ResponseSetList.<xmlattr>.pollRate", 900);
                 rsps_list->emplace_back(rsps);
             }
             

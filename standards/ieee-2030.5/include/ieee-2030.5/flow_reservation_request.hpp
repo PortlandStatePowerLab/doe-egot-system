@@ -1,11 +1,12 @@
 #ifndef __FLOW_RESERVATION_REQUEST_H__
 #define __FLOW_RESERVATION_REQUEST_H__
+#include <vector>
 #include "simple_types.hpp"
 #include "signed_real_energy.hpp"
 #include "date_time_interval.hpp"
 #include "active_power.hpp"
 #include "request_status.hpp"
-
+#include "subscribable_resource.hpp"
 namespace sep
 {
     struct FlowReservationRequestListLink : ListLink {};
@@ -24,6 +25,11 @@ namespace sep
         DateTimeInterval interval_requested;
         ActivePower power_requested;
         RequestStatus request_status;
+    };
+
+    struct FlowReservationRequestList : SubscribableList {
+        std::vector<FlowReservationRequest> flow_reservation_requests;
+        UInt32 poll_rate;
     };
 } // namespace sep
 

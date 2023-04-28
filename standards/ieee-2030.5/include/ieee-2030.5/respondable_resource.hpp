@@ -1,5 +1,6 @@
 #ifndef __RESPONDABLE_RESOURCE_H__
 #define __RESPONDABLE_RESOURCE_H__
+#include <string>
 #include "simple_types.hpp"
 
 namespace sep
@@ -13,7 +14,7 @@ namespace sep
             kSpecificResponse,
             kResponseRequired
         };
-        Link reply_to;
+        std::string reply_to;
         ResponseRequired response_required;
     };
 };     // namespace sep

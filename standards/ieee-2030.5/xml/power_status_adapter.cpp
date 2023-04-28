@@ -12,7 +12,6 @@ namespace xml
         ps->estimated_time_remaining = pt.get<sep::TimeType>("PowerStatus.estimatedTimeRemaining", 0);
         ps->href = pt.get<std::string>("PowerStatus.<xmlattr>.href", "");
         ps->poll_rate = pt.get<uint32_t>("PowerStatus.<xmlattr>.pollRate", 0);
-        ps->inherited_poll_rate = ps->poll_rate;
         ps->pev_info.charging_power_now.multiplier = pt.get<sep::PowerOfTenMultiplierType>("PowerStatus.PEVInfo.chargingPowerNow.multiplier", 0);
         ps->pev_info.charging_power_now.value = pt.get<uint16_t>("PowerStatus.PEVInfo.chargingPowerNow.value", 0);
         ps->pev_info.energy_request_now.multiplier = pt.get<sep::PowerOfTenMultiplierType>("PowerStatus.PEVInfo.energyRequestNow.multiplier", 0);

@@ -1,7 +1,7 @@
 #ifndef __FLOW_RESERVATION_REQUEST_ADAPTER_H__
 #define __FLOW_RESERVATION_REQUEST_ADAPTER_H__
 
-#include <ieee-2030.5/models.hpp>
+#include <ieee-2030.5/flow_reservation_request.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 

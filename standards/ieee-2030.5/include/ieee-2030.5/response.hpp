@@ -1,7 +1,8 @@
 #ifndef __RESPONSE_H__
 #define __RESPONSE_H__
+#include <vector>
 #include "simple_types.hpp"
-
+#include "subscribable_resource.hpp"
 namespace sep
 {
     struct ResponseListLink : ListLink {};
@@ -36,6 +37,10 @@ namespace sep
         HexBinary160 end_device_lfdi;
         Status status;
         mRIDType subject;
+    };
+
+    struct ResponseList : List {
+        std::vector<Response> responses;
     };
     
 } // namespace sep

@@ -90,15 +90,15 @@ namespace xml
         ObjectMap(pt, edev);
     };
 
-    std::string Serialize(const std::vector<sep::EndDevice> &edev_list, const sep::List& list)
+    std::string Serialize(const sep::EndDeviceList &edev_list)
     {
         boost::property_tree::ptree pt;
-        pt.put("EndDeviceList.<xmlattr>.all", list.all);
-        pt.put("EndDeviceList.<xmlattr>.results", list.results);
-        pt.put("EndDeviceList.<xmlattr>.href", list.href);
-        pt.put("EndDeviceList.<xmlattr>.pollRate", list.inherited_poll_rate);
+        pt.put("EndDeviceList.<xmlattr>.all", edev_list.all);
+        pt.put("EndDeviceList.<xmlattr>.results", edev_list.end_devices.size());
+        pt.put("EndDeviceList.<xmlattr>.href", edev_list.href);
+        pt.put("EndDeviceList.<xmlattr>.pollRate", edev_list.poll_rate);
 
-        for (const auto& edev : edev_list)
+        for (const auto& edev : edev_list.end_devices)
         {
             boost::property_tree::ptree pt2;
             TreeMap(edev, &pt2);
@@ -121,7 +121,6 @@ namespace xml
 
                 sep::EndDevice edev;
                 ObjectMap(temp, &edev);
-                edev.inherited_poll_rate = pt.get<uint32_t>("EndDeviceList.<xmlattr>.pollRate", 900);
                 edevs->emplace_back(edev);
             }
         }

@@ -2,7 +2,7 @@
 #define __POWER_STATUS_ADAPTER_H__
 
 
-#include <ieee-2030.5/models.hpp>
+#include <ieee-2030.5/power_status.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 

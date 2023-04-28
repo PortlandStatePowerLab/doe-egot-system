@@ -10,5 +10,9 @@ namespace sep
     {
         SubscribableType subscribable;
     };
+
+    struct SubscribableList : SubscribableResource {
+        UInt32 all;
+    };
 };     // namespace sep
 #endif // __SUBSCRIBABLE_RESOURCE_H__

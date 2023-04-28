@@ -1,7 +1,9 @@
 #ifndef __RESPONSE_SET_H__
 #define __RESPONSE_SET_H__
+#include <vector>
 #include "simple_types.hpp"
 #include "response.hpp"
+#include "subscribable_resource.hpp"
 
 namespace sep
 {
@@ -13,7 +15,11 @@ namespace sep
     struct ResponseSet : IdentifiedObject
     {
         ResponseListLink response_list_link;
+    };
 
+    struct ResponseSetList : List {
+        std::vector<ResponseSet> response_sets;
+        UInt32 poll_rate;
     };
     
 } // namespace sep

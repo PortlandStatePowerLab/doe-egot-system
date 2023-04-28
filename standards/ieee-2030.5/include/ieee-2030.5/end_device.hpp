@@ -1,5 +1,6 @@
 #ifndef __END_DEVICE_H__
 #define __END_DEVICE_H__
+#include <vector>
 #include "simple_types.hpp"
 #include "abstract_device.hpp"
 #include "flow_reservation_request.hpp"
@@ -7,6 +8,7 @@
 #include "function_set_assignments.hpp"
 #include "registration.hpp"
 #include "subscription.hpp"
+#include "subscribable_resource.hpp"
 
 namespace sep
 {
@@ -25,6 +27,11 @@ namespace sep
         UInt32 post_rate;
         RegistrationLink registration_link;
         SubscriptionListLink subscription_list_link;
+    };
+
+    struct EndDeviceList : SubscribableList {
+        std::vector<EndDevice> end_devices;
+        UInt32 poll_rate;
     };
     
 } // namespace sep

@@ -8,9 +8,9 @@ namespace xml
     {
         rsp->href = pt.get<std::string>("Response.<xmlattr>.href", "");
         rsp->created_date_time = pt.get<sep::TimeType>("Response.createdDateTime", 0);
-        rsp->end_device_lfdi = xml::util::Dehexify<sep::LFDIType>(pt.get<std::string>("Response.endDeviceLFDI", ""));
+        rsp->end_device_lfdi = xml::util::Dehexify<sep::HexBinary160>(pt.get<std::string>("Response.endDeviceLFDI", ""));
         rsp->status = static_cast<sep::Response::Status>(pt.get<uint8_t>("Response.status", 0));
-        rsp->subject = xml::util::Dehexify<sep::MRIDType>(pt.get<std::string>("Response.subject", ""));
+        rsp->subject = xml::util::Dehexify<sep::mRIDType>(pt.get<std::string>("Response.subject", ""));
     };
 
     void TreeMap(const sep::Response &rsp, boost::property_tree::ptree *pt)
@@ -37,14 +37,14 @@ namespace xml
         ObjectMap(pt, rsp);
     };
 
-    std::string Serialize(const std::vector<sep::Response> &rsp_list, const sep::List& list)
+    std::string Serialize(const sep::ResponseList &rsp_list)
     {
         boost::property_tree::ptree pt;
-        pt.put("ResponseList.<xmlattr>.all", list.all);
-        pt.put("ResponseList.<xmlattr>.results", list.results);
-        pt.put("ResponseList.<xmlattr>.href", list.href);
+        pt.put("ResponseList.<xmlattr>.all", rsp_list.all);
+        pt.put("ResponseList.<xmlattr>.results", rsp_list.responses.size());
+        pt.put("ResponseList.<xmlattr>.href", rsp_list.href);
 
-        for (const auto& rsp : rsp_list)
+        for (const auto& rsp : rsp_list.responses)
         {
             boost::property_tree::ptree pt2;
             TreeMap(rsp, &pt2);
@@ -55,7 +55,7 @@ namespace xml
         return xml::util::Stringify(&pt);
     };  
 
-    void Parse(const std::string &xml_str, std::vector<sep::Response> *rsp_list)
+    void Parse(const std::string &xml_str, sep::ResponseList *rsp_list)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
         BOOST_FOREACH (boost::property_tree::ptree::value_type &subtree, pt.get_child("ResponseList"))
@@ -67,7 +67,7 @@ namespace xml
                 
                 sep::Response rsp;
                 ObjectMap(subtree.second, &rsp);
-                rsp_list->emplace_back(rsp);
+                rsp_list->responses.emplace_back(rsp);
             }
             
         }
