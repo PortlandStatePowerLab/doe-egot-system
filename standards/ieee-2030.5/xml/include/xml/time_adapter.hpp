@@ -1,7 +1,7 @@
 #ifndef __TIME_ADAPTER_H__
 #define __TIME_ADAPTER_H__
 
-#include <ieee-2030.5/models.hpp>
+#include <ieee-2030.5/time.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 

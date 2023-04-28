@@ -5,7 +5,7 @@
 #include <climits>
 #include <algorithm>
 #include <gtest/gtest.h>
-#include <ieee-2030.5/models.hpp>
+#include <ieee-2030.5/flow_reservation_response.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
 #include <utilities/utilities.hpp>
@@ -70,7 +70,7 @@ TEST_F(TestFlowReservationResponseXML, IsAdapterTranslationAccurate)
     EXPECT_EQ(fr_response->energy_available.value,-140737488355328);
     EXPECT_EQ(fr_response->power_available.multiplier,1);
     EXPECT_EQ(fr_response->power_available.value,1);
-    EXPECT_EQ(fr_response->subject, "0FB7");
+    EXPECT_EQ(fr_response->subject, 0x0FB7);
     delete fr_response;
 }
 

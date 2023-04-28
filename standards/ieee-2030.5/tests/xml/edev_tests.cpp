@@ -5,7 +5,7 @@
 #include <climits>
 #include <algorithm>
 #include <gtest/gtest.h>
-#include <ieee-2030.5/models.hpp>
+#include <ieee-2030.5/end_device.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
 #include <utilities/utilities.hpp>
@@ -129,7 +129,7 @@ TEST_F(TestEndDeviceXML, IsListSampleValid)
 
 TEST_F(TestEndDeviceXML, IsListAdapterValid) 
 {   
-    std::vector<sep::EndDevice> edev_list;
+    sep::EndDeviceList edev_list;
     xml::Parse(list_xml_str, &edev_list);
 
     sep::List list;

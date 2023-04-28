@@ -5,7 +5,7 @@
 #include <climits>
 #include <algorithm>
 #include <gtest/gtest.h>
-#include <ieee-2030.5/models.hpp>
+#include <ieee-2030.5/device_capability.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
 #include <utilities/utilities.hpp>

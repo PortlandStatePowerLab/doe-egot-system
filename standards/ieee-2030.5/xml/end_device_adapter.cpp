@@ -109,9 +109,14 @@ namespace xml
         return xml::util::Stringify(&pt);
     };
 
-    void Parse(const std::string &xml_str, std::vector<sep::EndDevice> *edevs)
+    void Parse(const std::string &xml_str, sep::EndDeviceList *edevs)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        edevs->all = pt.get<sep::UInt32>("EndDeviceList.<xmlattr>.all", 0);
+        edevs->href = pt.get<std::string>("EndDeviceList.<xmlattr>.href", "");
+        edevs->results = pt.get<sep::UInt32>("EndDeviceList.<xmlattr>.results", 0);
+        edevs->poll_rate = pt.get<sep::UInt32>("EndDeviceList.<xmlattr>.pollRate", 900);
+
         BOOST_FOREACH (boost::property_tree::ptree::value_type &subtree, pt.get_child("EndDeviceList"))
         {
             if (subtree.first == "EndDevice")
@@ -121,7 +126,7 @@ namespace xml
 
                 sep::EndDevice edev;
                 ObjectMap(temp, &edev);
-                edevs->emplace_back(edev);
+                edevs->end_devices.emplace_back(edev);
             }
         }
     };
