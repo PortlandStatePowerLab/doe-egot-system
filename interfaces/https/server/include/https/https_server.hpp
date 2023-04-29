@@ -34,7 +34,7 @@ namespace ssl = boost::asio::ssl;       // from <boost/asio/ssl.hpp>
 class HttpsServer
 {
 public:
-    HttpsServer(const std::string &address, uint16_t port, const std::string &doc_root, size_t threads);
+    HttpsServer(const std::string &address, uint16_t port, const std::string &doc_root, int threads);
     ~HttpsServer();
     
 private:

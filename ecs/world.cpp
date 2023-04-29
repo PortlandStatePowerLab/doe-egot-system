@@ -171,8 +171,7 @@ std::string World::Get(const Href &href)
     break;
     case (Uri::rsps_list):
     {
-        std::vector<sep::ResponseSet> rsps_list;
-        sep::List list;
+        sep::ResponseSetList rsps_list;
 
         auto f = world.filter<sep::ResponseSet, AccessModule::Fingerprint>();
 
@@ -183,16 +182,16 @@ std::string World::Get(const Href &href)
                 // this should probably be its own compare lambda function
                 if (accessMatch(lfdi[i], href))
                 {
-                    rsps_list.emplace_back(rsps[i]);
+                    rsps_list.response_sets.emplace_back(rsps[i]);
                 }
             }
         });
 
-        list.href = href.uri;
-        list.all = rsps_list.size();
-        list.results = rsps_list.size();
+        rsps_list.href = href.uri;
+        rsps_list.all = rsps_list.response_sets.size();
+        rsps_list.results = rsps_list.response_sets.size();
 
-        response = xml::Serialize(rsps_list, list);
+        response = xml::Serialize(rsps_list);
     };
     break;
     case (Uri::rsp):
@@ -210,8 +209,7 @@ std::string World::Get(const Href &href)
     break;
     case (Uri::rsp_list):
     {
-        std::vector<sep::Response> rsp_list;
-        sep::List list;
+        sep::ResponseList rsp_list;
 
         auto f = world.filter<sep::Response, AccessModule::Fingerprint>();
 
@@ -222,16 +220,16 @@ std::string World::Get(const Href &href)
                 // this should probably be its own compare lambda function
                 if (accessMatch(lfdi[i], href))
                 {
-                    rsp_list.emplace_back(rsp[i]);
+                    rsp_list.responses.emplace_back(rsp[i]);
                 }
             }
         });
 
-        list.href = href.uri;
-        list.all = rsp_list.size();
-        list.results = rsp_list.size();
+        rsp_list.href = href.uri;
+        rsp_list.all = rsp_list.responses.size();
+        rsp_list.results = rsp_list.responses.size();
 
-        response = xml::Serialize(rsp_list, list);
+        response = xml::Serialize(rsp_list);
     };
     break;
     case (Uri::tm):
@@ -500,8 +498,7 @@ std::string World::Get(const Href &href)
     break;
     case (Uri::frq_list):
     {
-        std::vector<sep::FlowReservationRequest> frq_list;
-        sep::List list;
+        sep::FlowReservationRequestList frq_list;
 
         auto f = world.filter<sep::FlowReservationRequest, AccessModule::Fingerprint>();
 
@@ -512,16 +509,16 @@ std::string World::Get(const Href &href)
                 // this should probably be its own compare lambda function
                 if (accessMatch(lfdi[i],href))
                 {
-                    frq_list.emplace_back(frq[i]);
+                    frq_list.flow_reservation_requests.emplace_back(frq[i]);
                 }
             }
         });
 
-        list.href = href.uri;
-        list.all = frq_list.size();
-        list.results = frq_list.size();
+        frq_list.href = href.uri;
+        frq_list.all = frq_list.flow_reservation_requests.size();
+        frq_list.results = frq_list.flow_reservation_requests.size();
 
-        response = xml::Serialize(frq_list, list);
+        response = xml::Serialize(frq_list);
     };
     break;
     case (Uri::frp):
@@ -540,8 +537,7 @@ std::string World::Get(const Href &href)
     break;
     case (Uri::frp_list):
     {
-        std::vector<sep::FlowReservationResponse> frp_list;
-        sep::List list;
+        sep::FlowReservationResponseList frp_list;
 
         auto f = world.filter<sep::FlowReservationResponse, AccessModule::Fingerprint>();
 
@@ -552,16 +548,16 @@ std::string World::Get(const Href &href)
                 // this should probably be its own compare lambda function
                 if (accessMatch(lfdi[i], href))
                 {
-                    frp_list.emplace_back(frp[i]);
+                    frp_list.flow_reservation_responses.emplace_back(frp[i]);
                 }
             }
         });
 
-        list.href = href.uri;
-        list.all = frp_list.size();
-        list.results = frp_list.size();
+        frp_list.href = href.uri;
+        frp_list.all = frp_list.flow_reservation_responses.size();
+        frp_list.results = frp_list.flow_reservation_responses.size();
 
-        response = xml::Serialize(frp_list, list);
+        response = xml::Serialize(frp_list);
     };
     break;
     case (Uri::der):
@@ -681,9 +677,9 @@ std::string World::Post(const Href &href, const std::string& message)
             frp.href = href.uri + "/" + subject.value;
             frp.energy_available = frq.energy_requested;
             frp.power_available = frq.power_requested;
-            frp.subject = xml::util::Hexify(frq.mrid);
+            frp.subject = frq.mrid;
             frp.creation_time = psu::utilities::getTime();
-            frp.event_status.current_status = sep::CurrentStatus::kScheduled;
+            frp.event_status.current_status = sep::EventStatus::CurrentStatus::kScheduled;
             frp.event_status.date_time = frp.creation_time;
             frp.event_status.potentially_superseded = false;
             frp.interval.duration = frq.duration_requested;

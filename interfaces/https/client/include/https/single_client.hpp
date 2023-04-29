@@ -2,7 +2,6 @@
 #define __HTTPS_CLIENT_H__
 
 #include <string>
-#include <ieee-2030.5/lfdi_type.hpp>
 #include "client.hpp"
 
 namespace https
@@ -18,7 +17,7 @@ namespace https
 
         static SingleClient &getInstance(const Context &context = {"","","",""});
 
-        sep::LFDIType getLFDI();
+        sep::HexBinary160 getLFDI();
 
         boost::beast::http::response<boost::beast::http::dynamic_body> Get(
             const std::string &target, const std::string &query = "") override;

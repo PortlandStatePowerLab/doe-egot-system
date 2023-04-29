@@ -9,7 +9,6 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/error.hpp>
 #include <boost/asio/ssl/stream.hpp>
-#include <boost/multiprecision/cpp_int.hpp>
 
 #include <string>
 
@@ -24,7 +23,7 @@ namespace https
 
         ~Client();
 
-        sep::LFDIType getLFDI() override;
+        sep::HexBinary160 getLFDI() override;
         Context getContext();
 
         boost::beast::http::response<boost::beast::http::dynamic_body> Get(
@@ -41,7 +40,7 @@ namespace https
 
     private:
         Context context_;
-        sep::LFDIType lfdi_;
+        sep::HexBinary160 lfdi_;
 
         // required for all boost beast I/O
         boost::asio::io_context io_context_;

@@ -37,7 +37,7 @@ namespace https
         throw "SingleClient must be initialized with context first!";
     };
 
-    sep::LFDIType SingleClient::getLFDI()
+    sep::HexBinary160 SingleClient::getLFDI()
     {
         return client_.getLFDI();
     };

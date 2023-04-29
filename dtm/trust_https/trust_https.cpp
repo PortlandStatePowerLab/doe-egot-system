@@ -42,7 +42,7 @@ namespace trust
         throw "Trust client must be initialized with GSP and DTMC context first!";
     };
 
-    sep::LFDIType HttpsClient::getLFDI()
+    sep::HexBinary160 HttpsClient::getLFDI()
     {
         return gsp_client_.getLFDI();
     }

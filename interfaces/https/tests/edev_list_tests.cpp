@@ -39,10 +39,10 @@ TEST_F(HttpsEndDeviceListTests, GetEndDeviceList)
 
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
-        std::vector<sep::EndDevice> edev_list;
+        sep::EndDeviceList edev_list;
         xml::Parse(msg, &edev_list);
 
-        EXPECT_EQ(edev_list[0].lfdi, SingleClient::getInstance().getLFDI());
+        EXPECT_EQ(edev_list.end_devices[0].lfdi, SingleClient::getInstance().getLFDI());
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -65,10 +65,10 @@ TEST_F(HttpsEndDeviceListTests, PostEndDeviceList)
         auto resp = SingleClient::getInstance().Get(path);    
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
-        std::vector<sep::EndDevice> edev_list;
+        sep::EndDeviceList edev_list;
         xml::Parse(msg, &edev_list);
         
-        resp = SingleClient::getInstance().Post(path, xml::Serialize(edev_list[0]));
+        resp = SingleClient::getInstance().Post(path, xml::Serialize(edev_list.end_devices[0]));
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -91,10 +91,10 @@ TEST_F(HttpsEndDeviceListTests, PutEndDeviceList)
         auto resp = SingleClient::getInstance().Get(path);    
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
-        std::vector<sep::EndDevice> edev_list;
+        sep::EndDeviceList edev_list;
         xml::Parse(msg, &edev_list);
         
-        resp = SingleClient::getInstance().Put(path, xml::Serialize(edev_list[0]));
+        resp = SingleClient::getInstance().Put(path, xml::Serialize(edev_list.end_devices[0]));
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -117,7 +117,7 @@ TEST_F(HttpsEndDeviceListTests, DeleteEndDeviceList)
         auto resp = SingleClient::getInstance().Get(path);    
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
-        std::vector<sep::EndDevice> edev_list;
+        sep::EndDeviceList edev_list;
         xml::Parse(msg, &edev_list);
         
         resp = SingleClient::getInstance().Delete(path);

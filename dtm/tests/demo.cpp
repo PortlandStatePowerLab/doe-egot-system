@@ -4,7 +4,6 @@
 #include <https/https_server.hpp>
 #include <dtm/dtm_server.hpp>
 #include <utilities/utilities.hpp>
-#include <ieee-2030.5/models.hpp>
 #include <xml/adapter.hpp>
 #include <world/world.hpp>
 #include <utilities/utilities.hpp>
@@ -69,7 +68,7 @@ void generateEndDevice(const std::string &lfdi)
     edev.file_status_link.href = "/fs";
     edev.ip_interface_list_link.all = 0;
     edev.ip_interface_list_link.href = "/ns";
-    edev.lfdi = xml::util::Dehexify<sep::LFDIType>(lfdi);
+    edev.lfdi = xml::util::Dehexify<sep::HexBinary160>(lfdi);
     edev.load_shed_availability_list_link.all = 0;
     edev.load_shed_availability_list_link.href = "/lsl";
     edev.log_event_list_link.all = 0;
@@ -231,10 +230,10 @@ int main(int argc, char **argv)
 
     resp = trust::HttpsClient::getInstance().Get(dcap.end_device_list_link.href);
     msg = boost::beast::buffers_to_string(resp.body().data());
-    std::vector<sep::EndDevice> edev_list;
+    sep::EndDeviceList edev_list;
     xml::Parse(msg, &edev_list);
 
-    resp = trust::HttpsClient::getInstance().Get(edev_list[0].href);
+    resp = trust::HttpsClient::getInstance().Get(edev_list.end_devices[0].href);
     msg = boost::beast::buffers_to_string(resp.body().data());
     sep::EndDevice edev;
     xml::Parse(msg, &edev);
@@ -253,7 +252,6 @@ int main(int argc, char **argv)
     frq.power_requested.value = 1000;
     frq.power_requested.multiplier = 1;
     frq.href = "/frq";
-    frq.inherited_poll_rate = 900;
     frq.interval_requested.start = frq.creation_time;
     frq.interval_requested.duration = frq.duration_requested * 3;
     frq.mrid = 0x9999;
@@ -265,20 +263,20 @@ int main(int argc, char **argv)
 
     resp = trust::HttpsClient::getInstance().Get(edev.flow_reservation_request_list_link.href);
     msg = boost::beast::buffers_to_string(resp.body().data());
-    std::vector<sep::FlowReservationRequest> frq_list;
+    sep::FlowReservationRequestList frq_list;
     xml::Parse(msg, &frq_list);
 
-    resp = trust::HttpsClient::getInstance().Get(frq_list[0].href);
+    resp = trust::HttpsClient::getInstance().Get(frq_list.flow_reservation_requests[0].href);
     msg = boost::beast::buffers_to_string(resp.body().data());
     sep::FlowReservationRequest frq_posted;
     xml::Parse(msg, &frq_posted);
 
     resp = trust::HttpsClient::getInstance().Get(edev.flow_reservation_response_list_link.href);
     msg = boost::beast::buffers_to_string(resp.body().data());
-    std::vector<sep::FlowReservationResponse> frp_list;
+    sep::FlowReservationResponseList frp_list;
     xml::Parse(msg, &frp_list);
 
-    resp = trust::HttpsClient::getInstance().Get(frp_list[0].href);
+    resp = trust::HttpsClient::getInstance().Get(frp_list.flow_reservation_responses[0].href);
     msg = boost::beast::buffers_to_string(resp.body().data());
     sep::FlowReservationResponse frp;
     xml::Parse(msg, &frp);

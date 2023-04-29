@@ -26,7 +26,6 @@ protected:
         frq.power_requested.value = 1000;
         frq.power_requested.multiplier = 1;
         frq.href = "/frq";
-        frq.inherited_poll_rate = 900;
         frq.interval_requested.start = frq.creation_time;
         frq.interval_requested.duration = frq.duration_requested*3;
         frq.mrid = 0x9999;
@@ -57,10 +56,10 @@ TEST_F(HttpsFlowReservationResponseListTests, GetList)
 
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
-        std::vector<sep::FlowReservationResponse> frp_list;
+        sep::FlowReservationResponseList frp_list;
         xml::Parse(msg, &frp_list);
 
-        EXPECT_EQ(frp_list[0].mrid, frq.mrid);
+        EXPECT_EQ(frp_list.flow_reservation_responses[0].mrid, frq.mrid);
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -85,10 +84,10 @@ TEST_F(HttpsFlowReservationResponseListTests, PostList)
 
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
-        std::vector<sep::FlowReservationResponse> frp_list;
+        sep::FlowReservationResponseList frp_list;
         xml::Parse(msg, &frp_list);
 
-        resp = SingleClient::getInstance().Post(path, xml::Serialize(frp_list[0]));
+        resp = SingleClient::getInstance().Post(path, xml::Serialize(frp_list.flow_reservation_responses[0]));
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -112,10 +111,10 @@ TEST_F(HttpsFlowReservationResponseListTests, PutList)
 
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
-        std::vector<sep::FlowReservationResponse> frp_list;
+        sep::FlowReservationResponseList frp_list;
         xml::Parse(msg, &frp_list);
 
-        resp = SingleClient::getInstance().Put(path, xml::Serialize(frp_list[0]));
+        resp = SingleClient::getInstance().Put(path, xml::Serialize(frp_list.flow_reservation_responses[0]));
 
         std::string wadl_path = g_program_path + "/sep_xml/sep_wadl.xml";
         sep::WADLResource wadl_access = sep::WADL::getInstance(wadl_path)->getResource(path);
@@ -139,7 +138,7 @@ TEST_F(HttpsFlowReservationResponseListTests, DeleteList)
 
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
-        std::vector<sep::FlowReservationResponse> frp_list;
+        sep::FlowReservationResponseList frp_list;
         xml::Parse(msg, &frp_list);
 
         resp = SingleClient::getInstance().Delete(path);

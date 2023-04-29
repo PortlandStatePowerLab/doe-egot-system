@@ -6,7 +6,6 @@
 #include <boost/asio/ssl/rfc2818_verification.hpp>
 #include <world/world.hpp>
 #include <xml/adapter.hpp>
-#include <ieee-2030.5/models.hpp>
 #include <fstream>
 #include <boost/asio/ssl.hpp>
 #include <boost/bind/bind.hpp>
@@ -22,7 +21,7 @@ namespace net = boost::asio;      // from <boost/asio.hpp>
 namespace ssl = boost::asio::ssl; // from <boost/asio/ssl.hpp>
 using tcp = boost::asio::ip::tcp; // from <boost/asio/ip/tcp.hpp>
 
-HttpsServer::HttpsServer(const std::string &address, uint16_t port, const std::string &doc_root, size_t threads)
+HttpsServer::HttpsServer(const std::string &address, uint16_t port, const std::string &doc_root, int threads)
     : stop(false),
       address_(address),
       port_(port),

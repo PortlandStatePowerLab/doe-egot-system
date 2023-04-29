@@ -24,7 +24,7 @@ Client::~Client ()
     // do nothing
 }
 
-sep::LFDIType Client::getLFDI()
+sep::HexBinary160 Client::getLFDI()
 {
     return lfdi_;
 }
@@ -109,7 +109,7 @@ void Client::readLFDI()
         oss << std::hex << (int)md[i];
     };
 
-    lfdi_ = xml::util::Dehexify<sep::LFDIType>(oss.str().substr(0, 40));
+    lfdi_ = xml::util::Dehexify<sep::HexBinary160>(oss.str().substr(0, 40));
 }
 
 bb::ssl_stream<bb::tcp_stream> Client::Connect() 

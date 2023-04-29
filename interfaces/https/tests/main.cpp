@@ -3,7 +3,6 @@
 #include <fstream>
 #include <https/https_server.hpp>
 #include <https/single_client.hpp>
-#include <ieee-2030.5/models.hpp>
 #include <xml/adapter.hpp>
 #include <world/world.hpp>
 #include <utilities/utilities.hpp>
@@ -69,7 +68,7 @@ void generateEndDevice(const std::string &lfdi)
     edev.file_status_link.href = "/fs";
     edev.ip_interface_list_link.all = 0;
     edev.ip_interface_list_link.href = "/ns";
-    edev.lfdi = xml::util::Dehexify<sep::LFDIType>(lfdi);
+    edev.lfdi = xml::util::Dehexify<sep::HexBinary160>(lfdi);
     edev.load_shed_availability_list_link.all = 0;
     edev.load_shed_availability_list_link.href = "/lsl";
     edev.log_event_list_link.all = 0;
@@ -115,7 +114,7 @@ void generateSelfDevice (const std::string& lfdi)
     sdev.file_status_link.href = "/fs";
     sdev.ip_interface_list_link.all = 0;
     sdev.ip_interface_list_link.href = "/ns";
-    sdev.lfdi = xml::util::Dehexify<sep::LFDIType>(lfdi);
+    sdev.lfdi = xml::util::Dehexify<sep::HexBinary160>(lfdi);
     sdev.load_shed_availability_list_link.all = 0;
     sdev.load_shed_availability_list_link.href = "/lsl";
     sdev.log_event_list_link.all = 0;

@@ -2,6 +2,7 @@
 #define __TRUST_HTTPS_H__
 
 #include <https/client.hpp>
+#include <ieee-2030.5/simple_types.hpp>
 
 namespace trust
 {
@@ -29,7 +30,7 @@ namespace trust
         boost::beast::http::response<boost::beast::http::dynamic_body> Delete(
             const std::string &target) override;
 
-        boost::multiprecision::uint256_t getLFDI();
+        sep::HexBinary160 getLFDI();
 
     protected:
         https::Client gsp_client_;

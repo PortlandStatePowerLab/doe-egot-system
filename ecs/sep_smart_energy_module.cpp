@@ -1,5 +1,9 @@
 #include "include/world/sep_smart_energy_module.hpp"
-#include <ieee-2030.5/smart_energy_models.hpp>
+#include <ieee-2030.5/flow_reservation_request.hpp>
+#include <ieee-2030.5/flow_reservation_response.hpp>
+#include <ieee-2030.5/flow_reservation_response_response.hpp>
+#include <ieee-2030.5/mirror_meter_reading.hpp>
+#include <ieee-2030.5/der.hpp>
 
 namespace sep
 {
