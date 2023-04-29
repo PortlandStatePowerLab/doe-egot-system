@@ -103,8 +103,7 @@ std::string World::Get(const Href &href)
     break;
     case (Uri::edev_list):
     {
-        std::vector<sep::EndDevice> edev_list;
-        sep::List list;
+        sep::EndDeviceList edev_list;
         //auto e = world.lookup(prependLFDI(href).c_str());
 
         // More complex filters can first be created, then iterated
@@ -116,16 +115,12 @@ std::string World::Get(const Href &href)
             {
                 if (accessMatch(lfdi[i], href))
                 {
-                    edev_list.emplace_back(edev[i]);
+                    edev_list.end_devices.emplace_back(edev[i]);
                 }
             }
         });
 
-        list.href = href.uri;
-        list.all = edev_list.size();
-        list.results = edev_list.size();
-
-        response = xml::Serialize(edev_list, list);
+        response = xml::Serialize(edev_list);
     };
     break;
     case (Uri::rg):

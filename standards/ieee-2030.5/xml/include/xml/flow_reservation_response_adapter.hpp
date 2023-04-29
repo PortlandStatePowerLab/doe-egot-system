@@ -13,8 +13,8 @@ namespace xml
     std::string Serialize(const sep::FlowReservationResponse &frp);
     void Parse(const std::string &xml_str, sep::FlowReservationResponse *frp);
 
-    std::string Serialize(const std::vector<sep::FlowReservationResponse> &frp_list, const sep::List& list);    
-    void Parse(const std::string &xml_str, std::vector<sep::FlowReservationResponse> *frp_list);
+    std::string Serialize(const sep::FlowReservationResponseList &frp_list);    
+    void Parse(const std::string &xml_str, sep::FlowReservationResponseList *frp_list);
 } // namespace xml
 
 #endif // __FLOW_RESERVATION_RESPONSE_ADAPTER_H__

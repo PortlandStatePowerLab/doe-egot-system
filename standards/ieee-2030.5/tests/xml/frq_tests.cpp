@@ -117,12 +117,7 @@ TEST_F(TestFlowReservationRequestXML, IsListSampleValid)
 
 TEST_F(TestFlowReservationRequestXML, IsListAdapterValid) 
 {   
-    std::vector<sep::FlowReservationRequest> frq_list;
+    sep::FlowReservationRequestList frq_list;
     xml::Parse(list_xml_str, &frq_list);
-
-    sep::List list;
-    list.all = 3;
-    list.results = 3;
-    list.href = "http://uri1";
-    EXPECT_TRUE(validator->ValidateXml(xml::Serialize(frq_list, list)));
+    EXPECT_TRUE(validator->ValidateXml(xml::Serialize(frq_list)));
 }

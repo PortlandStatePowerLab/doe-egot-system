@@ -75,9 +75,14 @@ namespace xml
         return xml::util::Stringify(&pt);
     };    
 
-    void Parse(const std::string &xml_str, std::vector<sep::FlowReservationRequest> *frq_list)
+    void Parse(const std::string &xml_str, sep::FlowReservationRequestList *frq_list)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        frq_list->all = pt.get<sep::UInt32>("FlowReservationRequestList.<xmlattr>.all", 0);
+        frq_list->href = pt.get<std::string>("FlowReservationRequestList.<xmlattr>.href", "");
+        frq_list->results = pt.get<sep::UInt32>("FlowReservationRequestList.<xmlattr>.results", 0);
+        frq_list->poll_rate = pt.get<sep::UInt32>("FlowReservationRequestList.<xmlattr>.pollRate", 900);
+
         BOOST_FOREACH (boost::property_tree::ptree::value_type &subtree, pt.get_child("FlowReservationRequestList"))
         {
             if (subtree.first == "FlowReservationRequest")
@@ -87,7 +92,7 @@ namespace xml
 
                 sep::FlowReservationRequest frq;
                 ObjectMap(temp, &frq);
-                frq_list->emplace_back(frq);
+                frq_list->flow_reservation_requests.emplace_back(frq);
             }
             
         }

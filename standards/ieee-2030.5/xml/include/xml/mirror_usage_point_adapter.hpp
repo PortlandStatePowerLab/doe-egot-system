@@ -1,6 +1,6 @@
 #ifndef __MIRROR_USAGE_POINT_ADAPTER_H__
 #define __MIRROR_USAGE_POINT_ADAPTER_H__
-#include <ieee-2030.5/models.hpp>
+#include <ieee-2030.5/mirror_usage_point.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <string>
@@ -13,8 +13,8 @@ namespace xml
     std::string Serialize(const sep::MirrorUsagePoint &mup);
     void Parse(const std::string &xml_str, sep::MirrorUsagePoint *mup);
 
-    std::string Serialize(const std::vector<sep::MirrorUsagePoint> &mup_list, const sep::List& list);
-    void Parse(const std::string &xml_str, std::vector<sep::MirrorUsagePoint> *mups);
+    std::string Serialize(const sep::MirrorUsagePointList &mup_list);
+    void Parse(const std::string &xml_str, sep::MirrorUsagePointList *mups);
 } // namespace xml
 
 #endif // __MIRROR_USAGE_POINT_ADAPTER_H__

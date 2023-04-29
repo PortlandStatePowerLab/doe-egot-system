@@ -5,7 +5,7 @@ namespace xml
 {
     void ObjectMap(const boost::property_tree::ptree &pt, sep::Registration *rg)
     {
-        rg->poll_rate = pt.get<uint32_t>("Registration.<xmlattr>.pollRate", 0);
+        rg->poll_rate = pt.get<sep::UInt32>("Registration.<xmlattr>.pollRate", 0);
         rg->href = pt.get<std::string>("Registration.<xmlattr>.href", "");
         rg->date_time_registered = pt.get<sep::TimeType>("Registration.dateTimeRegistered", 0);
         rg->pin = pt.get<sep::PINType>("Registration.pIN", 0);

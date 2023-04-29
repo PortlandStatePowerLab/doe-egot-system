@@ -9,7 +9,7 @@ namespace xml
         rsp->href = pt.get<std::string>("Response.<xmlattr>.href", "");
         rsp->created_date_time = pt.get<sep::TimeType>("Response.createdDateTime", 0);
         rsp->end_device_lfdi = xml::util::Dehexify<sep::HexBinary160>(pt.get<std::string>("Response.endDeviceLFDI", ""));
-        rsp->status = static_cast<sep::Response::Status>(pt.get<uint8_t>("Response.status", 0));
+        rsp->status = static_cast<sep::Response::Status>(pt.get<sep::UInt8>("Response.status", 0));
         rsp->subject = xml::util::Dehexify<sep::mRIDType>(pt.get<std::string>("Response.subject", ""));
     };
 
@@ -58,6 +58,10 @@ namespace xml
     void Parse(const std::string &xml_str, sep::ResponseList *rsp_list)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        rsp_list->all = pt.get<sep::UInt32>("ResponseList.<xmlattr>.all", 0);
+        rsp_list->href = pt.get<std::string>("ResponseList.<xmlattr>.href", "");
+        rsp_list->results = pt.get<sep::UInt32>("ResponseList.<xmlattr>.results", 0);
+
         BOOST_FOREACH (boost::property_tree::ptree::value_type &subtree, pt.get_child("ResponseList"))
         {
             if (subtree.first == "Response")

@@ -1,5 +1,6 @@
 #ifndef __MIRROR_USAGE_POINT_H__
 #define __MIRROR_USAGE_POINT_H__
+#include <vector>
 #include "simple_types.hpp"
 #include "usage_point_base.hpp"
 #include "mirror_meter_reading.hpp"
@@ -15,6 +16,11 @@ namespace sep
         HexBinary160 device_lfdi;
         MirrorMeterReading mirror_meter_reading;
         UInt32 post_rate;
+    };
+
+    struct MirrorUsagePointList : List {
+        std::vector<MirrorUsagePoint> mirror_usage_points;
+        UInt32 poll_rate;
     };
     
 } // namespace sep

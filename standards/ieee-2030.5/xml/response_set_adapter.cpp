@@ -58,9 +58,14 @@ namespace xml
         return xml::util::Stringify(&pt);
     };  
 
-    void Parse(const std::string &xml_str, std::vector<sep::ResponseSet> *rsps_list)
+    void Parse(const std::string &xml_str, sep::ResponseSetList *rsps_list)
     {
         boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+        rsps_list->all = pt.get<sep::UInt32>("ResponseSetList.<xmlattr>.all", 0);
+        rsps_list->href = pt.get<std::string>("ResponseSetList.<xmlattr>.href", "");
+        rsps_list->results = pt.get<sep::UInt32>("ResponseSetList.<xmlattr>.results", 0);
+        rsps_list->poll_rate = pt.get<sep::UInt32>("ResponseSetList.<xmlattr>.pollRate", 900);
+
         BOOST_FOREACH (boost::property_tree::ptree::value_type &subtree, pt.get_child("ResponseSetList"))
         {
             if (subtree.first == "ResponseSet")
@@ -70,7 +75,7 @@ namespace xml
                 
                 sep::ResponseSet rsps;
                 ObjectMap(subtree.second, &rsps);
-                rsps_list->emplace_back(rsps);
+                rsps_list->response_sets.emplace_back(rsps);
             }
             
         }

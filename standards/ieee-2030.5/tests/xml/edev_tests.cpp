@@ -132,9 +132,8 @@ TEST_F(TestEndDeviceXML, IsListAdapterValid)
     sep::EndDeviceList edev_list;
     xml::Parse(list_xml_str, &edev_list);
 
-    sep::List list;
-    list.all = 3;
-    list.results = 3;
-    list.href = "http://uri1";
-    EXPECT_TRUE(validator->ValidateXml(xml::Serialize(edev_list, list)));
+    edev_list.all = 3;
+    edev_list.results = 3;
+    edev_list.href = "http://uri1";
+    EXPECT_TRUE(validator->ValidateXml(xml::Serialize(edev_list)));
 }
