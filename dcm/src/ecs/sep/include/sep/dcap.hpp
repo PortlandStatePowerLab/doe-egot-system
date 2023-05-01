@@ -3,36 +3,15 @@
 
 #include <flecs.h>
 #include <string>
-#include "fsa.hpp"
+#include <ieee-2030.5/device_capability.hpp>
 
-namespace sep {
 namespace dcap {
 
-std::string serialize (flecs::entity& e);
-
-struct DeviceCapability {};
-
-struct EndDeviceListLink : ListLink {};
-
-struct MirrorUsagePointListLink : ListLink {};
-
-struct SelfDeviceLink : Link {};
-
-struct PollRate{
-    UInt32 seconds;
-};
-
-struct Test : Link {
-    EndDeviceListLink edev;
-    MirrorUsagePointListLink mmup;
-    SelfDeviceLink sdev;
-    PollRate poll;
-};
-
+void deserialize (flecs::iter &it, const sep::DeviceCapability &dcap);
+    
 struct Module {
     Module(flecs::world& world);
 };
 
 } // namespace dcap
-} // namespace sep
 #endif // __SERVER_H__

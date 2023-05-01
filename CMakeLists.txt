@@ -16,6 +16,7 @@ project(
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # fetch remote packages for development
 find_package(Boost REQUIRED python filesystem)
@@ -41,7 +42,7 @@ add_subdirectory(standards)
 add_subdirectory(ecs)
 add_subdirectory(interfaces)
 add_subdirectory(dtm)
-#add_subdirectory(gsp)
+add_subdirectory(gsp)
 add_subdirectory(dcm)
 
 

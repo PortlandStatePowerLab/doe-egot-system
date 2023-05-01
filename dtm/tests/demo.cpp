@@ -187,7 +187,7 @@ void Initialize(const std::string &doc_root)
     {
         std::cout << p << " does not exist\n";
     }
-};
+}; 
 
 void spawnDTM(int argc, char **argv)
 {

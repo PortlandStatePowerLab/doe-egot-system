@@ -1,3 +1,4 @@
+#include "ieee-2030.5/device_capability.hpp"
 #include <iostream>
 #include <string>
 #include <sep/dcap.hpp>
@@ -28,21 +29,13 @@ int main(int argc, char **argv)
 
     flecs::world ecs;
 
-    ecs.import<sep::dcap::Module>();
+    ecs.import<dcap::Module>();
 
-    sep::dcap::PollRate poll_rate;
-    poll_rate.seconds = 5;
-
-    sep::dcap::EndDeviceListLink edev;
-    edev.all = 1;
-    edev.href = "/href";
-
-    auto test = ecs.entity<sep::dcap::Test>();
-    test.set<sep::dcap::PollRate>(poll_rate);
-    test.set<sep::dcap::EndDeviceListLink>(edev);
-
-    auto json = ecs.to_json();
-    std::cout << json << std::endl << std::endl;
+    sep::DeviceCapabilityLink dcap_link;
+    dcap_link.href = "/dcap";
+    
+    auto e = ecs.entity();
+    e.set<sep::DeviceCapabilityLink>(dcap_link);
 
     ecs.app()
         .target_fps(1)

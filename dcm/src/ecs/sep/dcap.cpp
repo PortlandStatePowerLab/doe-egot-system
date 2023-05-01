@@ -1,55 +1,67 @@
 #include "include/sep/dcap.hpp"
-#include "include/sep/fsa.hpp"
+#include "ieee-2030.5/device_capability.hpp"
 #include <iostream>
 #include <trust_https/trust_https.hpp>
+#include <xml/device_capability_adapter.hpp>
 
-namespace sep {
 namespace dcap {
 
-Module::Module(flecs::world& world){
-    world.module<Module>();
+Module::Module(flecs::world &world) {
+  world.module<Module>();
 
-    world.component<Test>();
-    world.component<Link>();
-    world.component<EndDeviceListLink>();
-    world.component<MirrorUsagePointListLink>();
-    world.component<SelfDeviceLink>();
-    world.component<PollRate>();
+  world.component<sep::DeviceCapabilityLink>();
+  world.component<sep::EndDeviceListLink>();
+  world.component<sep::SelfDeviceLink>();
+  world.component<sep::TimeLink>();
 
-    // world.prefab<DeviceCapability>().is_a<fsab::FunctionSetAssignmentsBase>();
-    // world.prefab<Link>().slot_of<DeviceCapability>();
-    // world.prefab<EndDeviceListLink>().slot_of<DeviceCapability>();
-    // world.prefab<MirrorUsagePointListLink>().slot_of<DeviceCapability>();
-    // world.prefab<SelfDeviceLink>().slot_of<DeviceCapability>();
-    // world.prefab<PollRate>().slot_of<DeviceCapability>();
+  // world.system<PollRate, EndDeviceListLink>("update edev")
+  //     .each([](flecs::entity e, PollRate& poll, EndDeviceListLink& edev){
+  //         poll.seconds--;
+  //         if (poll.seconds == 0){
+  //             auto resp = trust::HttpsClient::getInstance().Get(edev.href);
+  //             std::cout << resp << std::endl;
+  //             poll.seconds = 5;
+  //         }
+  //     });
 
-    world.system<PollRate, EndDeviceListLink>("update edev")
-        .each([](flecs::entity e, PollRate& poll, EndDeviceListLink& edev){
-            poll.seconds--;
-            if (poll.seconds == 0){
-                auto resp = trust::HttpsClient::getInstance().Get(edev.href);
-                std::cout << resp << std::endl;
-                poll.seconds = 5;
-            }
-        });
+  world.system<sep::DeviceCapabilityLink>("capabilities")
+      .kind(flecs::OnStart)
+      .each([](flecs::entity e, sep::DeviceCapabilityLink &link) {
+        auto resp = trust::HttpsClient::getInstance().Get(link.href);
+        std::cout << resp << std::endl;
 
-    // world.system<PollRate, Link>("registration")
-    //     .kind(flecs::OnStart)
-    //     .each([](flecs::entity e, DeviceCapability& dcap) {
-    //         auto link = e.target(Link)
-    //         auto resp = trust::HttpsClient::getInstance().Get(dcap.href);
-    //     });
+        std::string msg = boost::beast::buffers_to_string(resp.body().data());
+        sep::DeviceCapability dcap;
+        xml::Parse(msg, &dcap);
 
-    world.system<PollRate>("update_dcap")
-        .each([](flecs::entity e, PollRate& poll){
-            poll.seconds--;
-            if (poll.seconds == 0){
-                auto resp = trust::HttpsClient::getInstance().Get("/dcap");
-                std::cout << resp << std::endl;
-                poll.seconds = 5;
-            }
-        });
-} 
-    
+        e.set<sep::EndDeviceListLink>(dcap.end_device_list_link);
+        e.set<sep::SelfDeviceLink>(dcap.self_device_link);
+        e.set<sep::TimeLink>(dcap.time_link);
+      });
+
+  world.observer<sep::SelfDeviceLink>("self dev")
+      .event(flecs::OnSet)
+      .each([](flecs::entity e, sep::SelfDeviceLink &link) {
+        std::cout << "Running SelfDevice" << std::endl;
+        auto resp = trust::HttpsClient::getInstance().Get(link.href);
+        std::cout << resp << std::endl;
+      });
+
+  world.observer<sep::EndDeviceListLink>("edevlist")
+      .event(flecs::OnSet)
+      .each([](flecs::entity e, sep::EndDeviceListLink &list_link) {
+        std::cout << "Running EndDevice List" << std::endl;
+        auto resp = trust::HttpsClient::getInstance().Get(list_link.href);
+        std::cout << resp << std::endl;
+      });
+
+  world.observer<sep::TimeLink>("timesync")
+      .event(flecs::OnSet)
+      .each([](flecs::entity e, sep::TimeLink &link) {
+        std::cout << "Running Time" << std::endl;
+        auto resp = trust::HttpsClient::getInstance().Get(link.href);
+        std::cout << resp << std::endl;
+      });
+};
+
 } // namespace dcap
-} // namespace sep

@@ -1,4 +1,7 @@
 set(COMPONENT_NAME gsp)
+add_subdirectory(ecs)
+add_subdirectory(https)
+
 add_executable(${COMPONENT_NAME}
     main.cpp
 )
@@ -8,9 +11,8 @@ target_link_libraries(${COMPONENT_NAME}
     Boost::filesystem
     SEP_Models
     https_server 
-    https_client
     XML_Validator
-    flecs_world
+    gsp_ecs
     utilities
     pthread)
 
@@ -19,8 +21,7 @@ target_include_directories(
     ${Boost_INCLUDE_DIRS}
     ${SEP_Models_INCLUDE_DIRS}
     ${https_server_INCLUDE_DIRS}
-    ${https_client_INCLUDE_DIRS}
     ${XML_Validator_INCLUDE_DIRS}
-    ${flecs_world_INCLUDE_DIRS}
+    ${gsp_ecs_INCLUDE_DIRS}
     ${utilities_INCLUDE_DIRS}
 )

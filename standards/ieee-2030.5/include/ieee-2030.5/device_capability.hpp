@@ -8,6 +8,8 @@
 
 namespace sep
 {
+    struct DeviceCapabilityLink : Link {};
+    
     // Returned by the URI provided by DNS-SD, to allow clients to find the URIs 
     // to the resources in which they are interested.
     struct DeviceCapability : FunctionSetAssignmentsBase
