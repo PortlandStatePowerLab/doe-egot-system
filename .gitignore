@@ -36,4 +36,5 @@
 
 # Directories
 .vscode/
+.cache
 build/
