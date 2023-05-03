@@ -1,4 +1,7 @@
 #include "include/sep/sdev.hpp"
+#include <xml/utilities.hpp>
+
+using namespace gsp::sdev;
 
 void generateSelfDevice(const std::string &lfdi) {
   sep::SelfDevice sdev;
@@ -20,23 +23,9 @@ void generateSelfDevice(const std::string &lfdi) {
   sdev.log_event_list_link.href = "/lel";
   sdev.power_status_link.href = "/ps";
   sdev.sfdi = xml::util::getSFDI(lfdi);
-
-  AccessModule::Fingerprint fingerprint;
-  fingerprint.value = lfdi;
-
-  AccessModule::Subject subject;
-  subject.value = lfdi;
-
-  World::getInstance()
-      .world.entity()
-      .set<sep::SelfDevice>(sdev)
-      .set<AccessModule::Fingerprint>(fingerprint)
-      .set<AccessModule::Subject>(subject);
 };
 
-namespace sdev {
 Module::Module(flecs::world &world) {
   world.module<Module>();
   world.component<sep::SelfDevice>();
 };
-} // namespace sdev

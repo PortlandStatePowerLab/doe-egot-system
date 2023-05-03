@@ -1,5 +1,7 @@
 #include "include/sep/edev.hpp"
 
+using namespace gsp::edev;
+
 void generateEndDevice(const std::string &lfdi) {
   sep::EndDevice edev;
   edev.subscribable = sep::SubscribableType::kNone;
@@ -32,23 +34,9 @@ void generateEndDevice(const std::string &lfdi) {
   edev.registration_link.href = "/rg";
   edev.subscription_list_link.all = 0;
   edev.subscription_list_link.href = "/sub";
-
-  AccessModule::Fingerprint fingerprint;
-  fingerprint.value = lfdi;
-
-  AccessModule::Subject subject;
-  subject.value = lfdi;
-
-  World::getInstance()
-      .world.entity()
-      .set<sep::EndDevice>(edev)
-      .set<AccessModule::Fingerprint>(fingerprint)
-      .set<AccessModule::Subject>(subject);
 };
 
-namespace edev {
 Module::Module(flecs::world &world) {
   world.module<Module>();
   world.component<sep::EndDevice>();
 };
-} // namespace edev

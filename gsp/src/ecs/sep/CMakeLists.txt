@@ -1,16 +1,7 @@
 set(COMPONENT_NAME gsp_ecs)
 
 add_library(${COMPONENT_NAME} STATIC
-  access.cpp
-  dcap.cpp 
-  edev.cpp 
-  frp.cpp 
-  frq.cpp 
-  ps.cpp 
   rg.cpp 
-  sdev.cpp 
-  time.cpp 
-  world.cpp
 )
 
 # Create ALIAS targets.

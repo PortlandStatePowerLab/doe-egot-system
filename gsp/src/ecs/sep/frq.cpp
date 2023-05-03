@@ -1,8 +1,8 @@
 #include "include/sep/frq.hpp"
 
-namespace frq {
+using namespace gsp::frq;
+
 Module::Module(flecs::world &world) {
   world.module<Module>();
   world.component<sep::FlowReservationRequest>();
 };
-} // namespace frq

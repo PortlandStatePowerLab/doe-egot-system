@@ -1,5 +1,7 @@
 #include "include/sep/dcap.hpp"
 
+using namespace gsp::dcap;
+
 void generateDeviceCapabilities() {
   sep::DeviceCapability dcap;
   dcap.poll_rate = 900;
@@ -12,13 +14,9 @@ void generateDeviceCapabilities() {
   dcap.end_device_list_link.all = 0;
   dcap.end_device_list_link.href = "/edev";
   dcap.self_device_link.href = "/sdev";
-
-  World::getInstance().world.entity().set<sep::DeviceCapability>(dcap);
 };
 
-namespace dcap {
 Module::Module(flecs::world &world) {
   world.module<Module>();
   world.component<sep::DeviceCapability>();
 };
-} // namespace dcap

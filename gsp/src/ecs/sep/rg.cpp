@@ -1,6 +1,10 @@
 #include "include/sep/rg.hpp"
-#include "include/sep/access.hpp"
 #include <boost/filesystem.hpp>
+#include <utilities/utilities.hpp>
+#include <xml/utilities.hpp>
+
+using namespace gsp::rg;
+extern std::string g_program_path;
 
 bool isClientCertification(const boost::filesystem::directory_entry &entry) {
   std::string filename = entry.path().filename().string();
@@ -8,28 +12,8 @@ bool isClientCertification(const boost::filesystem::directory_entry &entry) {
          entry.path().extension() == ".crt";
 }
 
-void generateRegistration(const std::string &lfdi) {
-  sep::Registration rg;
-  rg.href = "/rg/" + lfdi;
-  rg.poll_rate = 900;
-  rg.date_time_registered = psu::utilities::getTime();
-  rg.pin = xml::util::generatePIN(lfdi);
-
-  access::Fingerprint fingerprint;
-  fingerprint.value = lfdi;
-
-  World::getInstance()
-      .world.entity()
-      .set<sep::Registration>(rg)
-      .set<access::Fingerprint>(fingerprint)
-      .set<access::Subject>(subject);
-};
-
-void Initialize(const std::string &doc_root) {
-  generateDeviceCapabilities();
-  generateTime();
-
-  boost::filesystem::path p = doc_root + "/root-ca";
+void generateRegistration(flecs::world &world) {
+  boost::filesystem::path p = g_program_path + "/root-ca";
   if (boost::filesystem::exists(p)) // does path p actually exist?
   {
     if (boost::filesystem::is_directory(p)) // is path p a directory?
@@ -52,8 +36,18 @@ void Initialize(const std::string &doc_root) {
           };
           std::string lfdi = oss.str().substr(0, 40);
 
-          generateEndDevice(lfdi);
-          generateRegistration(lfdi);
+          Fingerprint fingerprint;
+          fingerprint.lfdi = lfdi;
+
+          auto p = world.entity(lfdi).set<gsp::rg::Fingerprint>({fingerprint});
+
+          sep::Registration rg;
+          rg.href = "/rg/" + lfdi;
+          rg.poll_rate = 900;
+          rg.date_time_registered = psu::utilities::getTime();
+          rg.pin = xml::util::generatePIN(lfdi);
+
+          world.entity().child_of(p).set<sep::Registration>({rg});
 
           X509_free(cert);
           fclose(fp);
@@ -67,9 +61,9 @@ void Initialize(const std::string &doc_root) {
   }
 };
 
-namespace rg {
 Module::Module(flecs::world &world) {
   world.module<Module>();
-  world.component<access::Fingerprint>();
+  world.component<Fingerprint>();
+  world.component<sep::Registration>();
+  generateRegistration(world);
 };
-} // namespace rg
