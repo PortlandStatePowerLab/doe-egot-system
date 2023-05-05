@@ -10,7 +10,7 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/config.hpp>
-#include <world/world.hpp>
+#include <sep/world.hpp>
 #include <wadl/wadl.hpp>
 #include <cstdlib>
 #include <iostream>

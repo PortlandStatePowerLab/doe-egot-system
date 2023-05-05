@@ -1,4 +1,6 @@
 #include "include/sep/edev.hpp"
+#include <xml/utilities.hpp>
+#include <utilities/utilities.hpp>
 
 using namespace gsp::edev;
 

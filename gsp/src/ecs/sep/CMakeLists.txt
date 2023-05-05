@@ -1,7 +1,13 @@
 set(COMPONENT_NAME gsp_ecs)
 
 add_library(${COMPONENT_NAME} STATIC
-  rg.cpp 
+  rg.cpp
+  dcap.cpp
+  edev.cpp
+  frq.cpp
+  frp.cpp
+  rsp.cpp
+  time.cpp
 )
 
 # Create ALIAS targets.
@@ -12,6 +18,8 @@ target_link_libraries(${COMPONENT_NAME} PUBLIC
   SEP_Models
   XML_Validator
   Boost::boost
+  Boost::filesystem
+  OpenSSL::SSL
   utilities
   pthread
 )
@@ -23,5 +31,6 @@ target_include_directories(${COMPONENT_NAME} PUBLIC
   ${SEP_Models_INCLUDE_DIRS}
   ${XML_Validator_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
+  ${OpenSSL_INCLUDE_DIRS}
   ${utilities_INCLUDE_DIRS}
 )

@@ -14,7 +14,8 @@ target_link_libraries(${COMPONENT_NAME}
     XML_Validator
     gsp_ecs
     utilities
-    pthread)
+    pthread
+)
 
 target_include_directories(
     ${COMPONENT_NAME} PUBLIC 

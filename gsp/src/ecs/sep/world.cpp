@@ -1,4 +1,5 @@
 #include "include/sep/world.hpp"
+#include "ieee-2030.5/end_device.hpp"
 #include "include/sep/dcap.hpp"
 #include "include/sep/edev.hpp"
 #include "include/sep/frp.hpp"
@@ -15,6 +16,7 @@
 
 using namespace gsp;
 extern std::string g_program_path;
+std::string var;
 
 World *World::instance_{nullptr};
 std::mutex World::mutex_;
@@ -24,7 +26,7 @@ std::string prependLFDI(const Href &href) {
 };
 
 World::World() {
-  world.import <rp::Module>();
+  world.import <rg::Module>();
   world.import <dcap::Module>();
   world.import <edev::Module>();
   world.import <frp::Module>();
@@ -50,72 +52,55 @@ World *World::getInstance() {
 std::string World::Get(const Href &href) {
   std::string response = "";
 
-  if (uri_map.count(href.uri) == 0) {
-    return response;
-  }
-
   auto client = world.lookup(href.lfdi.c_str());
 
   switch (uri_map.at(href.uri)) {
   case (Uri::dcap): {
-    auto f = world.filter<sep::DeviceCapability>()
-                 .term(flecs::ChildOf, client)
-                 .build();
-
-    f.each([&response](const sep::DeviceCapability &dcap) {
-      response = xml::Serialize(dcap);
-    });
+    sep::EndDevice edev;
+    const sep::DeviceCapability *dcap =
+        client.lookup(href.uri.c_str()).get<sep::DeviceCapability>();
+    if (dcap != nullptr) {
+      return xml::Serialize(*dcap);
+    }
   }; break;
   case (Uri::sdev): {
-    auto f =
-        world.filter<sep::SelfDevice>().term(flecs::ChildOf, client).build();
-    ;
-
-    f.iter([&response](flecs::iter &it, sep::SelfDevice *sdev) {
-      for (auto i : it) {
-        response = xml::Serialize(sdev[i]);
-      }
-    });
+    const sep::SelfDevice *sdev =
+        client.lookup(href.uri.c_str()).get<sep::SelfDevice>();
+    if (sdev != nullptr) {
+      return xml::Serialize(*sdev);
+    }
   }; break;
   case (Uri::edev): {
-    auto f =
-        world.filter<sep::EndDevice>().term(flecs::ChildOf, client).build();
-
-    f.iter([&response](flecs::iter &it, sep::EndDevice *edev) {
-      for (auto i : it) {
-        response = xml::Serialize(edev[i]);
-      }
-    });
+    const sep::EndDevice *edev =
+        client.lookup(href.uri.c_str()).get<sep::EndDevice>();
+    if (edev != nullptr) {
+      return xml::Serialize(*edev);
+    }
   }; break;
   case (Uri::edev_list): {
     sep::EndDeviceList edev_list;
-    auto f =
-        world.filter<sep::EndDevice>().term(flecs::ChildOf, client).build();
+    auto f = world.filter_builder<sep::EndDevice>()
+                 .term(client, flecs::ChildOf)
+                 .build();
 
     f.iter([&edev_list, href](flecs::iter &it, sep::EndDevice *edev) {
       for (auto i : it) {
-        if (accessMatch(lfdi[i], href)) {
-          edev_list.emplace_back(edev[i]);
-        }
+        edev_list.end_devices.emplace_back(edev[i]);
       }
     });
 
-    list.href = href.uri;
-    list.all = edev_list.size();
-    list.results = edev_list.size();
+    edev_list.href = href.uri;
+    edev_list.all = edev_list.end_devices.size();
+    edev_list.results = edev_list.end_devices.size();
 
-    response = xml::Serialize(edev_list, list);
+    return xml::Serialize(edev_list);
   }; break;
   case (Uri::rg): {
-    auto f = world.filter<sep::DeviceCapability>()
-                 .term(flecs::ChildOf, client)
-                 .build();
-
-    f.each([&response, href](const sep::Registration &rg) {
-      if (accessMatch(lfdi, href)) {
-        response = xml::Serialize(rg);
-      }
-    });
+    const sep::Registration *rg =
+        client.lookup(href.uri.c_str()).get<sep::Registration>();
+    if (rg != nullptr) {
+      return xml::Serialize(*rg);
+    }
   }; break;
   case (Uri::dstat): {
     // TODO
@@ -130,74 +115,63 @@ std::string World::Get(const Href &href) {
     // TODO
   }; break;
   case (Uri::rsps): {
-    auto f = world.filter<sep::DeviceCapability>()
-                 .term(flecs::ChildOf, client)
-                 .build();
-
-    f.each([&response, href](const sep::ResponseSet &rsps) {
-      if (accessMatch(lfdi, subject, href)) {
-        response = xml::Serialize(rsps);
-      }
-    });
+    const sep::ResponseSet *rsps =
+        client.lookup(href.uri.c_str()).get<sep::ResponseSet>();
+    if (rsps != nullptr) {
+      return xml::Serialize(*rsps);
+    }
   }; break;
   case (Uri::rsps_list): {
     sep::ResponseSetList rsps_list;
 
-    auto f =
-        world.filter<sep::EndDevice>().term(flecs::ChildOf, client).build();
+    auto f = world.filter_builder<sep::ResponseSet>()
+                 .term(flecs::ChildOf, client)
+                 .build();
 
-    f.iter([&rsps_list, href](flecs::iter &it, sep::ResponseSet *rsps){
+    f.iter([&rsps_list, href](flecs::iter &it, sep::ResponseSet *rsps) {
       for (auto i : it) {
         // this should probably be its own compare lambda function
-        if (accessMatch(lfdi[i], href)) {
-          rsps_list.emplace_back(rsps[i]);
-        }
+        rsps_list.response_sets.emplace_back(rsps[i]);
       }
     });
 
-    list.href = href.uri;
-    list.all = rsps_list.size();
-    list.results = rsps_list.size();
+    rsps_list.href = href.uri;
+    rsps_list.all = rsps_list.response_sets.size();
+    rsps_list.results = rsps_list.response_sets.size();
 
-    response = xml::Serialize(rsps_list, list);
+    return xml::Serialize(rsps_list);
   }; break;
   case (Uri::rsp): {
-    auto f =
-        world.filter<sep::EndDevice>().term(flecs::ChildOf, client).build();
-
-    f.each([&response, href](const sep::Response &rsp){
-      if (accessMatch(lfdi, subject, href)) {
-        response = xml::Serialize(rsp);
-      }
-    });
+    const sep::Response *rsp =
+        client.lookup(href.uri.c_str()).get<sep::Response>();
+    if (rsp != nullptr) {
+      return xml::Serialize(*rsp);
+    }
   }; break;
   case (Uri::rsp_list): {
     sep::ResponseList rsp_list;
-            
-    auto f =
-        world.filter<sep::EndDevice>().term(flecs::ChildOf, client).build();
 
-    f.iter([&rsp_list, href](flecs::iter &it, sep::Response *rsp){
+    auto f = world.filter_builder<sep::Response>()
+                 .term(flecs::ChildOf, client)
+                 .build();
+
+    f.iter([&rsp_list, href](flecs::iter &it, sep::Response *rsp) {
       for (auto i : it) {
-        // this should probably be its own compare lambda function
-        if (accessMatch(lfdi[i], href)) {
-          rsp_list.emplace_back(rsp[i]);
-        }
+        rsp_list.responses.emplace_back(rsp[i]);
       }
     });
 
-    list.href = href.uri;
-    list.all = rsp_list.size();
-    list.results = rsp_list.size();
+    rsp_list.href = href.uri;
+    rsp_list.all = rsp_list.responses.size();
+    rsp_list.results = rsp_list.responses.size();
 
-    response = xml::Serialize(rsp_list, list);
+    return xml::Serialize(rsp_list);
   }; break;
   case (Uri::tm): {
-    auto f = world.filter<sep::Time>();
-
-    f.each([&response, href](const sep::Time &tm) {
-      response = xml::Serialize(tm);
-    });
+    const sep::Time *time = world.lookup(href.uri.c_str()).get<sep::Time>();
+    if (time != nullptr) {
+      return xml::Serialize(*time);
+    }
   }; break;
   case (Uri::di): {
     // TODO
@@ -344,68 +318,58 @@ std::string World::Get(const Href &href) {
     // TODO
   }; break;
   case (Uri::frq): {
-    auto f =
-        world.filter<sep::EndDevice>().term(flecs::ChildOf, client).build();
-
-    f.each([&response, href](const sep::FlowReservationRequest &frq){
-      // this should probably be its own compare lambda function
-      if (accessMatch(lfdi, subject, href)) {
-        response = xml::Serialize(frq);
-      }
-    });
+    const sep::FlowReservationRequest *frq =
+        client.lookup(href.uri.c_str()).get<sep::FlowReservationRequest>();
+    if (frq != nullptr) {
+      return xml::Serialize(*frq);
+    }
   }; break;
   case (Uri::frq_list): {
     sep::FlowReservationRequestList frq_list;
-            
-    auto f =
-        world.filter<sep::EndDevice>().term(flecs::ChildOf, client).build();
 
-    f.iter([&frq_list, href](flecs::iter &it, sep::FlowReservationRequest *frq){
-      for (auto i : it) {
-        // this should probably be its own compare lambda function
-        if (accessMatch(lfdi[i], href)) {
-          frq_list.emplace_back(frq[i]);
-        }
-      }
-    });
+    auto f = world.filter_builder<sep::FlowReservationRequest>()
+                 .term(flecs::ChildOf, client)
+                 .build();
 
-    list.href = href.uri;
-    list.all = frq_list.size();
-    list.results = frq_list.size();
+    f.iter(
+        [&frq_list, href](flecs::iter &it, sep::FlowReservationRequest *frq) {
+          for (auto i : it) {
+            frq_list.flow_reservation_requests.emplace_back(frq[i]);
+          }
+        });
 
-    response = xml::Serialize(frq_list, list);
+    frq_list.href = href.uri;
+    frq_list.all = frq_list.flow_reservation_requests.size();
+    frq_list.results = frq_list.flow_reservation_requests.size();
+
+    return xml::Serialize(frq_list);
   }; break;
   case (Uri::frp): {
-    auto f =
-        world.filter<sep::EndDevice>().term(flecs::ChildOf, client).build();
-
-    f.each([&response, href](const sep::FlowReservationResponse &frp){
-      // this should probably be its own compare lambda function
-      if (accessMatch(lfdi, subject, href)) {
-        response = xml::Serialize(frp);
-      }
-    });
+    const sep::FlowReservationResponse *frp =
+        client.lookup(href.uri.c_str()).get<sep::FlowReservationResponse>();
+    if (frp != nullptr) {
+      return xml::Serialize(*frp);
+    }
   }; break;
   case (Uri::frp_list): {
     sep::FlowReservationResponseList frp_list;
-            
-    auto f =
-        world.filter<sep::EndDevice>().term(flecs::ChildOf, client).build();
 
-    f.iter([&frp_list, href](flecs::iter &it, sep::FlowReservationResponse *frp){
-      for (auto i : it) {
-        // this should probably be its own compare lambda function
-        if (accessMatch(lfdi[i], href)) {
-          frp_list.emplace_back(frp[i]);
-        }
-      }
-    });
+    auto f = world.filter_builder<sep::FlowReservationResponse>()
+                 .term(flecs::ChildOf, client)
+                 .build();
 
-    list.href = href.uri;
-    list.all = frp_list.size();
-    list.results = frp_list.size();
+    f.iter(
+        [&frp_list, href](flecs::iter &it, sep::FlowReservationResponse *frp) {
+          for (auto i : it) {
+            frp_list.flow_reservation_responses.emplace_back(frp[i]);
+          }
+        });
 
-    response = xml::Serialize(frp_list, list);
+    frp_list.href = href.uri;
+    frp_list.all = frp_list.flow_reservation_responses.size();
+    frp_list.results = frp_list.flow_reservation_responses.size();
+
+    return xml::Serialize(frp_list);
   }; break;
   case (Uri::der): {
     // TODO
@@ -445,31 +409,35 @@ std::string World::Get(const Href &href) {
 };
 
 std::string World::Post(const Href &href, const std::string &message) {
-    auto e = world.entity().child_of(client);
+  auto client = world.lookup(href.lfdi.c_str());
   switch (uri_map.at(href.uri)) {
   case (Uri::rsp_list): {
     sep::Response rsp;
     xml::Parse(message, &rsp);
+    auto e = world.entity().child_of(client);
     e.set<sep::Response>(rsp);
-    return href.uri + "/" + subject.value;
+    return href.uri + "/" + std::to_string(e.id());
   }; break;
   case (Uri::rsps_list): {
     sep::ResponseSet rsps;
     xml::Parse(message, &rsps);
+    auto e = world.entity().child_of(client);
     e.set<sep::ResponseSet>(rsps);
-    return href.uri + "/" + subject.value;
+    return href.uri + "/" + std::to_string(e.id());
   }; break;
   case (Uri::frq_list): {
     sep::FlowReservationRequest frq;
     xml::Parse(message, &frq);
+    auto e = world.entity().child_of(client);
     e.set<sep::FlowReservationRequest>(frq);
 
     sep::FlowReservationResponse frp;
     frp.energy_available = frq.energy_requested;
     frp.power_available = frq.power_requested;
-    frp.subject = xml::util::Hexify(frq.mrid);
+    frp.subject = frq.mrid;
     frp.creation_time = psu::utilities::getTime();
-    frp.event_status.current_status = sep::CurrentStatus::kScheduled;
+    frp.event_status.current_status =
+        sep::EventStatus::CurrentStatus::kScheduled;
     frp.event_status.date_time = frp.creation_time;
     frp.event_status.potentially_superseded = false;
     frp.interval.duration = frq.duration_requested;
@@ -483,12 +451,9 @@ std::string World::Post(const Href &href, const std::string &message) {
     frp.version = frq.version;
     frp.subscribable = sep::SubscribableType::kNone;
 
-    auto e2 = world.entity();
+    auto e2 = world.entity().child_of(client);
     e2.set<sep::FlowReservationResponse>(frp);
-    e2.set<access::Fingerprint>(fingerprint);
-    e2.set<access::Subject>(subject);
-
-    return href.uri + "/" + subject.value;
+    return href.uri + "/" + std::to_string(e2.id());
   }; break;
   default:
     return "";
@@ -497,63 +462,74 @@ std::string World::Post(const Href &href, const std::string &message) {
 };
 
 std::string World::Put(const Href &href, const std::string &message) {
-    auto e = world.entity().child_of(client);
+  auto client = world.lookup(href.lfdi.c_str());
+
   switch (uri_map.at(href.uri)) {
   case (Uri::rsp): {
     sep::Response rsp;
     xml::Parse(message, &rsp);
 
-      e.set<sep::Response>(rsp);
-      return href.uri + "/" + subject.value;
+    auto e = client.lookup(href.uri.c_str());
+
+    if (e == false) {
+      return "";
     }
+    e.set<sep::Response>(rsp);
+    return href.uri + "/" + std::to_string(e.id());
   }; break;
   case (Uri::rsps): {
     sep::ResponseSet rsps;
     xml::Parse(message, &rsps);
+    auto e = client.lookup(href.uri.c_str());
 
-      e.set<sep::ResponseSet>(rsps);
-      return href.uri + "/" + subject.value;
+    if (e == false) {
+      return "";
     }
+
+    e.set<sep::ResponseSet>(rsps);
+    return href.uri + "/" + std::to_string(e.id());
   }; break;
   case (Uri::frq): {
     sep::FlowReservationRequest frq;
     xml::Parse(message, &frq);
+    auto e = client.lookup(href.uri.c_str());
 
-      e.set<sep::FlowReservationRequest>(frq);
-      return href.uri + "/" + subject.value;
+    if (e == false) {
+      return "";
     }
+
+    e.set<sep::FlowReservationRequest>(frq);
+    return href.uri + "/" + std::to_string(e.id());
   }; break;
   default:
     return "";
     break;
   };
-  return "";
 };
-
 void World::Delete(const Href &href) {
   switch (uri_map.at(href.uri)) {
   case (Uri::edev): {
-    world.each([href](flecs::entity &e, sep::EndDevice &rsp){
+    world.each([href](flecs::entity &e, sep::EndDevice &rsp) {
       // this should probably be its own compare lambda function
-        // e.destruct();
+      // e.destruct();
     });
   }; break;
   case (Uri::rsp): {
-    world.each([href](flecs::entity &e, sep::Response &rsp){
+    world.each([href](flecs::entity &e, sep::Response &rsp) {
       // this should probably be its own compare lambda function
-        // e.destruct();
+      // e.destruct();
     });
   }; break;
   case (Uri::rsps): {
-    world.each([href](flecs::entity &e, sep::ResponseSet &rsps){
+    world.each([href](flecs::entity &e, sep::ResponseSet &rsps) {
       // this should probably be its own compare lambda function
-        // e.destruct();
+      // e.destruct();
     });
   }; break;
   case (Uri::frq): {
-    world.each([href](flecs::entity &e, sep::FlowReservationRequest &frq){
+    world.each([href](flecs::entity &e, sep::FlowReservationRequest &frq) {
       // this should probably be its own compare lambda function
-        // e.destruct();
+      // e.destruct();
     });
   }; break;
   default:

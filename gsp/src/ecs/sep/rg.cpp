@@ -1,5 +1,8 @@
 #include "include/sep/rg.hpp"
 #include <boost/filesystem.hpp>
+#include <openssl/pem.h>
+#include <openssl/x509.h>
+#include <openssl/x509_vfy.h>
 #include <utilities/utilities.hpp>
 #include <xml/utilities.hpp>
 
@@ -39,7 +42,8 @@ void generateRegistration(flecs::world &world) {
           Fingerprint fingerprint;
           fingerprint.lfdi = lfdi;
 
-          auto p = world.entity(lfdi).set<gsp::rg::Fingerprint>({fingerprint});
+          auto p =
+              world.entity(lfdi.c_str()).set<gsp::rg::Fingerprint>(fingerprint);
 
           sep::Registration rg;
           rg.href = "/rg/" + lfdi;
@@ -47,7 +51,7 @@ void generateRegistration(flecs::world &world) {
           rg.date_time_registered = psu::utilities::getTime();
           rg.pin = xml::util::generatePIN(lfdi);
 
-          world.entity().child_of(p).set<sep::Registration>({rg});
+          world.entity().child_of(p).set<sep::Registration>(rg);
 
           X509_free(cert);
           fclose(fp);
@@ -65,5 +69,5 @@ Module::Module(flecs::world &world) {
   world.module<Module>();
   world.component<Fingerprint>();
   world.component<sep::Registration>();
-  generateRegistration(world);
+  // generateRegistration(world);
 };

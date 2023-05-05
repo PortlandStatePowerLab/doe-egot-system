@@ -1,6 +1,13 @@
 # You should always specify a range with the newest
 # and oldest tested versions of CMake. 
 cmake_minimum_required(VERSION 3.14)
+# build instructions
+if (CMAKE_BUILD_TYPE == DEBUG)
+  set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+  set(CMAKE_CXX_FLAGS_DEBUG "-g")
+  set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+endif()
+
 
 # set version
 set(PROJECT_VERSION 2.0.0)
@@ -42,8 +49,8 @@ add_subdirectory(standards)
 add_subdirectory(ecs)
 add_subdirectory(interfaces)
 add_subdirectory(dtm)
-add_subdirectory(gsp)
 add_subdirectory(dcm)
+add_subdirectory(gsp)
 
 
 # install resources for programs
