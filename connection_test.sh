@@ -10,7 +10,7 @@ else
 	num=$(($num+1))
 	while [ $n -lt $num ];
 	do
-		./build/bin/dcm $n &
+		./release/bin/dcm $n &
 		let n+=1
 	done
 fi

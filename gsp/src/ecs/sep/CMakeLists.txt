@@ -7,7 +7,10 @@ add_library(${COMPONENT_NAME} STATIC
   frq.cpp
   frp.cpp
   rsp.cpp
+  sdev.cpp
+  ps.cpp
   time.cpp
+  world.cpp
 )
 
 # Create ALIAS targets.

@@ -2,7 +2,6 @@ set(COMPONENT_NAME dcm_ecs)
 
 add_library(${COMPONENT_NAME} STATIC
   dcap.cpp
-  fsa.cpp
 )
 
 # Create ALIAS targets.

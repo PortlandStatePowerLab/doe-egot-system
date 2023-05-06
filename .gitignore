@@ -39,3 +39,5 @@
 .cache/
 .cmake/
 build/
+debug/
+release/

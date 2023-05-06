@@ -28,7 +28,7 @@ target_link_libraries(${COMPONENT_NAME}
     https_server 
     https_client
     XML_Validator
-    flecs_world
+    gsp_ecs
     utilities
     pthread)
 
@@ -39,6 +39,6 @@ target_include_directories(
     ${https_server_INCLUDE_DIRS}
     ${https_client_INCLUDE_DIRS}
     ${XML_Validator_INCLUDE_DIRS}
-    ${flecs_world_INCLUDE_DIRS}
+    ${gsp_ecs_INCLUDE_DIRS}
     ${utilities_INCLUDE_DIRS}
 )

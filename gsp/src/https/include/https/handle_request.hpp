@@ -216,7 +216,7 @@ void HandleRequest(
     if(req.method() == http::verb::delete_)
     {
         // attempt to access resource
-        World::getInstance().Delete(href);
+        World::getInstance()->Delete(href);
 
         http::response<http::empty_body> res{http::status::ok, req.version()};
         res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
@@ -228,7 +228,7 @@ void HandleRequest(
     if (req.method() == http::verb::get)
     {
         // attempt to access resource
-        std::string body = World::getInstance().Get(href);
+        std::string body = World::getInstance()->Get(href);
 
         // Cache the size since we need it after the move
         auto const size = body.size();
@@ -249,7 +249,7 @@ void HandleRequest(
     if(req.method() == http::verb::head)
     {
         // attempt to access resource
-        std::string body = World::getInstance().Get(href);
+        std::string body = World::getInstance()->Get(href);
 
         // TODO if body == "" then send not found
 
@@ -273,7 +273,7 @@ void HandleRequest(
         }
 
         // attempt to access resource
-        std::string loc = World::getInstance().Post(href, req.body());
+        std::string loc = World::getInstance()->Post(href, req.body());
 
         http::response<http::string_body> res{http::status::created, req.version()};
         res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
@@ -293,7 +293,7 @@ void HandleRequest(
         }
 
         // attempt to access resource
-        std::string loc = World::getInstance().Put(href, req.body());
+        std::string loc = World::getInstance()->Put(href, req.body());
 
         http::response<http::string_body> res{http::status::ok, req.version()};
         res.set(http::field::server, BOOST_BEAST_VERSION_STRING);

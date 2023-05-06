@@ -2,7 +2,7 @@
 #include <https/https_server.hpp>
 #include <utilities/utilities.hpp>
 #include <xml/adapter.hpp>
-#include <gsp_ecs/rg.hpp>
+#include <sep/rg.hpp>
 #include <utilities/utilities.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/date_time/time_zone_base.hpp>
@@ -17,7 +17,6 @@ int main(int argc, char **argv)
     ecs.import<gsp::rg::Module>();
     
     g_program_path = psu::utilities::getProgramPath(argv);
-    generateDeviceCapabilities();
     
     HttpsServer server("0.0.0.0", 8080, g_program_path, 8);
 

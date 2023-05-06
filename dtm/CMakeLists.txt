@@ -4,7 +4,7 @@
 
 add_subdirectory(trust_xml)
 add_subdirectory(trust_https)
-add_subdirectory(trust_cta2045)
+# add_subdirectory(trust_cta2045)
 add_subdirectory(src)
 # add_subdirectory(tests)
 
