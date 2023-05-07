@@ -13,10 +13,10 @@ std::string g_program_path;
 
 int main(int argc, char **argv) 
 {
+    g_program_path = psu::utilities::getProgramPath(argv);
+
     flecs::world ecs;
     ecs.import<gsp::rg::Module>();
-    
-    g_program_path = psu::utilities::getProgramPath(argv);
     
     HttpsServer server("0.0.0.0", 8080, g_program_path, 8);
 

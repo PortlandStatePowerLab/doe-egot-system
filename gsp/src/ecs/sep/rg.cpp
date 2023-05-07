@@ -69,5 +69,5 @@ Module::Module(flecs::world &world) {
   world.module<Module>();
   world.component<Fingerprint>();
   world.component<sep::Registration>();
-  // generateRegistration(world);
+  generateRegistration(world);
 };
