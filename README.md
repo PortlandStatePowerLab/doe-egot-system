@@ -11,14 +11,11 @@ cd doe-egot-system
 ```
 
 ## Building
-For development all builds should use the debug build type which is default for cmake. Performance testing should use the release build.
-
+For development the build type should be set to *Debug*, but all performance testing should use *Release*. There may be issues when trying to compile multiple build types so the build folder should have a different name.
 ```shell
 cd doe-egot-system
-cmake -S . -B debug 
-cmake --build debug
-cmake -S . -B release -DCMAKE_BUILD_TYPE=Release
-cmake --build release
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+cmake --build build
 ```
 
 ## Project Organization

@@ -1,7 +1,10 @@
 set(COMPONENT_NAME utilities)
 
+set(HEADER_LIST "${CMAKE_CURRENT_SOURCE_DIR}/include/${COMPONENT_NAME}.hpp")
+
 add_library(${COMPONENT_NAME} STATIC
   utilities.cpp
+  include/utilities/utilities.hpp
 )
 
 # Create ALIAS targets.

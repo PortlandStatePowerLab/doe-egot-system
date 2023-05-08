@@ -1,28 +1,19 @@
 # You should always specify a range with the newest
 # and oldest tested versions of CMake. 
-cmake_minimum_required(VERSION 3.14)
-
-# set version
-set(PROJECT_VERSION 2.0.0)
-set(PROJECT_NAME EGOT_ESI)
+cmake_minimum_required(VERSION 3.18)
 
 # This is your project statement. You should always list languages;
-project(
-    ${PROJECT_NAME}
-    VERSION ${PROJECT_VERSION}
-)
-
-# specify the C++ standard
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+project(EGoT VERSION 0.1.0 LANGUAGES CXX)
 
 # fetch remote packages for development
 find_package(Boost REQUIRED python filesystem)
 find_package(Python3 COMPONENTS Interpreter Development)
 
+
+# FetchContent added in CMake 3.11, downloads during the configure step
+# FetchContent_MakeAvailable was added in CMake 3.14; simpler usage
 include(FetchContent)
+
 FetchContent_Declare(
   googletest
   GIT_REPOSITORY https://github.com/google/googletest.git
@@ -38,12 +29,12 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest flecs)
 
 add_subdirectory(utilities)
-add_subdirectory(standards)
-add_subdirectory(ecs)
-add_subdirectory(interfaces)
-add_subdirectory(dtm)
-add_subdirectory(dcm)
-add_subdirectory(gsp)
+# add_subdirectory(standards)
+# add_subdirectory(ecs)
+# add_subdirectory(interfaces)
+# add_subdirectory(dtm)
+# add_subdirectory(dcm)
+# add_subdirectory(gsp)
 
 
 # install resources for programs
