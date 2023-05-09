@@ -1,6 +1,12 @@
-# Find packages go here.
-find_package(Boost REQUIRED)
-find_package(OpenSSL REQUIRED)
+add_executable(dcm
+    src/main.cpp
+)
 
-# project dirs
-add_subdirectory(src)
+# target_include_directories(dcm PUBLIC include)
+
+target_link_libraries(dcm
+    ecs::client::sep
+    trust::client
+    EGoT::utils
+    Threads::Threads
+)

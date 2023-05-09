@@ -1,8 +1,7 @@
-#include "include/sep/dcap.hpp"
-#include "ieee-2030.5/device_capability.hpp"
+#include <ecs/client/sep/dcap.hpp>
 #include <iostream>
-#include <trust_https/trust_https.hpp>
-#include <xml/device_capability_adapter.hpp>
+#include <trust/https/client.hpp>
+#include <sep/xml/device_capability_adapter.hpp>
 
 namespace dcap {
 

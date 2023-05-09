@@ -1,8 +1,8 @@
-#include "ieee-2030.5/device_capability.hpp"
+#include <sep/models/device_capability.hpp>
 #include <iostream>
 #include <string>
-#include <sep/dcap.hpp>
-#include <trust_https/trust_https.hpp>
+#include <ecs/client/sep/dcap.hpp>
+#include <trust/https/client.hpp>
 #include <utilities/utilities.hpp>
 
 std::string g_program_path;

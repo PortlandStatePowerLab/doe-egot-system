@@ -1,7 +1,5 @@
-#!/usr/bin/python3
 # https://flaviocopes.com/python-http-server/
 # https://pythonsansar.com/creating-simple-http-server-python/
-from pathlib import Path
 import sys, os
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import ssl
@@ -9,7 +7,7 @@ from datetime import datetime
 
 HOST_NAME = "0.0.0.0"
 PORT = 8090
-ROOT = sys.argv[0]
+ROOT = os.path.dirname(__file__)
 LOG = ROOT
 
 def logPost (data):
@@ -29,12 +27,12 @@ class handler(BaseHTTPRequestHandler):
             data = self.rfile.read(content_length).decode("utf-8")
             logPost(data)
 
-#class a():
-  #message_content = BeautifulSoup((message_content, 'r'), "html.parser")
-  #import classifier
-
 if __name__ == "__main__":
+    print(ROOT)
+    print(f"DTMC started on https://{HOST_NAME}:{PORT}")
+
     LOG = ROOT + datetime.now().strftime('/log_%H_%M_%d_%m_%Y.log')
+    print(f"message log found at {LOG}")
 
     server = HTTPServer((HOST_NAME, PORT), handler)
     server.socket = ssl.wrap_socket(
@@ -44,8 +42,6 @@ if __name__ == "__main__":
         keyfile=ROOT + '/root-ca/private/server.key',
         ca_certs=ROOT + '/root-ca/cert_chain.crt')
 
-    print(f"DTMC started on https://{HOST_NAME}:{PORT}")
-    print(f"message log found at {LOG}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

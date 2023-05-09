@@ -3,7 +3,7 @@
 
 #include <flecs.h>
 #include <string>
-#include <ieee-2030.5/device_capability.hpp>
+#include <sep/models/device_capability.hpp>
 
 namespace dcap {
 

@@ -26,4 +26,4 @@ target_link_libraries(sep_xml PUBLIC
     XercesC::XercesC
 )
 
-add_subdirectory(tests ${CMAKE_BINARY_DIR}/bin)
+add_subdirectory(tests)
