@@ -1,0 +1,8 @@
+add_subdirectory(utilities)
+add_subdirectory(sep)
+add_subdirectory(https)
+add_subdirectory(trust)
+#add_subdirectory(ieee-2030.5)
+#add_subdirectory(sunspec-modbus)
+
+

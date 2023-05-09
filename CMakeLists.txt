@@ -14,11 +14,9 @@ find_package(Python3 COMPONENTS Interpreter Development)
 # FetchContent_MakeAvailable was added in CMake 3.14; simpler usage
 include(FetchContent)
 
-FetchContent_Declare(
-  googletest
-  GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG        release-1.11.0
-)
+include(FindXercesC)
+
+include(FindGTest)
 
 FetchContent_Declare(
   flecs
@@ -26,26 +24,19 @@ FetchContent_Declare(
   GIT_TAG        v3.2.1
 )
 
-FetchContent_MakeAvailable(googletest flecs)
+FetchContent_MakeAvailable(flecs)
 
-add_subdirectory(utilities)
-# add_subdirectory(standards)
-# add_subdirectory(ecs)
-# add_subdirectory(interfaces)
-# add_subdirectory(dtm)
-# add_subdirectory(dcm)
-# add_subdirectory(gsp)
-
+add_subdirectory(libs)
 
 # install resources for programs
 execute_process(
     COMMAND ${CMAKE_COMMAND} -E copy_directory 
     ${CMAKE_CURRENT_SOURCE_DIR}/resources/
-    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/
+    ${CMAKE_BINARY_DIR}/bin/
 )
 
 execute_process(
     COMMAND ${CMAKE_COMMAND} -E copy_directory 
     ${CMAKE_CURRENT_SOURCE_DIR}/ssl/root-ca/
-    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/root-ca
+    ${CMAKE_BINARY_DIR}/bin/root-ca/
 )
