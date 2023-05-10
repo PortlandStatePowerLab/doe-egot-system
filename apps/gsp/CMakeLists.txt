@@ -1,7 +1,9 @@
-# Find packages go here.
-find_package(Boost REQUIRED)
-find_package(OpenSSL REQUIRED)
+add_executable(gsp
+    src/main.cpp
+)
 
-# project dirs
-add_subdirectory(src)
-add_subdirectory(tests)
+target_link_libraries(gsp
+    https::server 
+    ecs::server::sep
+    EGoT::utils
+)

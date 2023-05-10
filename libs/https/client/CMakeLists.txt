@@ -1,3 +1,6 @@
+find_package(Boost REQUIRED)
+find_package(OpenSSL REQUIRED)
+
 add_library(https_client
   src/client.cpp
   src/single_client.cpp
