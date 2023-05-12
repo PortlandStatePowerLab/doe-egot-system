@@ -7,3 +7,5 @@ target_link_libraries(gsp
     ecs::server::sep
     EGoT::utils
 )
+
+add_subdirectory(tests)

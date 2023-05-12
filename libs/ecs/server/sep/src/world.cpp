@@ -53,15 +53,19 @@ std::string World::Get(const Href &href) {
   std::string response = "";
 
   auto client = world.lookup(href.lfdi.c_str());
-
+  if (client){
+    std::cout << "Client is not empty" << std::endl;
+  }
   switch (uri_map.at(href.uri)) {
   case (Uri::dcap): {
-    sep::EndDevice edev;
-    const sep::DeviceCapability *dcap =
-        client.lookup(href.uri.c_str()).get<sep::DeviceCapability>();
-    if (dcap != nullptr) {
-      return xml::Serialize(*dcap);
-    }
+    // const sep::DeviceCapability *dcap =
+    //     client.lookup(href.uri.c_str()).get<sep::DeviceCapability>();
+    // if (dcap != nullptr) {
+    //   return xml::Serialize(*dcap);
+    // }
+      client.each([](flecs::id e){
+        std::cout << e.first().name() << " : " << e.second().name() << std::endl;
+      });
   }; break;
   case (Uri::sdev): {
     const sep::SelfDevice *sdev =

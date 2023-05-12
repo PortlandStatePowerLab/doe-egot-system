@@ -1,7 +1,7 @@
 #ifndef __TRUST_HTTPS_H__
 #define __TRUST_HTTPS_H__
 
-#include <https/client.hpp>
+#include <https/client/client.hpp>
 #include <sep/models/simple_types.hpp>
 
 namespace trust

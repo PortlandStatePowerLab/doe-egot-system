@@ -51,6 +51,8 @@ void generateRegistration(flecs::world &world) {
           rg.date_time_registered = psu::utilities::getTime();
           rg.pin = xml::util::generatePIN(lfdi);
 
+          std::cout << "Registered: " << lfdi << std::endl;
+
           world.entity().child_of(p).set<sep::Registration>(rg);
 
           X509_free(cert);

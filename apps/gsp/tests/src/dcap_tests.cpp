@@ -3,14 +3,14 @@
 #include <fstream>
 #include <algorithm>
 #include <gtest/gtest.h>
-#include <https/https_server.hpp>
-#include <https/single_client.hpp>
-#include <xml/adapter.hpp>
-#include <xml/xml_validator.hpp>
-#include <wadl/wadl.hpp>
+#include <https/server/server.hpp>
+#include <https/client/single_client.hpp>
+#include <sep/xml/adapter.hpp>
+#include <sep/xml/xml_validator.hpp>
+#include <sep/wadl/wadl.hpp>
 #include <utilities/utilities.hpp>
-#include <ieee-2030.5/device_capability.hpp>
-#include "wadl_check.hpp"
+#include <sep/models/device_capability.hpp>
+#include <wadl_check.hpp>
 
 extern std::string g_program_path;
 using namespace https;

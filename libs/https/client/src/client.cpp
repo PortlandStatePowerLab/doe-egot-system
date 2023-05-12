@@ -1,6 +1,6 @@
 #define BOOST_BIND_GLOBAL_PLACEHOLDERS // had to to remove boost warning
-#include <https/client.hpp>
-#include <https/root_certificates.hpp>
+#include <https/client/client.hpp>
+#include <https/client/root_certificates.hpp>
 #include <boost/asio/ssl/rfc2818_verification.hpp>
 #include <sep/xml/utilities.hpp>
 

@@ -1,15 +1,11 @@
 #include <gtest/gtest.h>
 #include <string>
 #include <fstream>
-#include <https/https_server.hpp>
-#include <https/single_client.hpp>
-#include <xml/adapter.hpp>
-#include <sep/world.hpp>
+#include <https/server/server.hpp>
+#include <https/client/single_client.hpp>
+#include <sep/xml/adapter.hpp>
+#include <ecs/server/sep/world.hpp>
 #include <utilities/utilities.hpp>
-#include <boost/filesystem.hpp>
-#include <boost/date_time/time_zone_base.hpp>
-#include <boost/date_time/local_time/local_time.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp> //include all types plus i/o
 
 std::string g_program_path;
 
