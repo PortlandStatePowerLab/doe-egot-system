@@ -1,11 +1,14 @@
 #include <gtest/gtest.h>
 #include <string>
 #include <fstream>
+#include <chrono>
 #include <https/server/server.hpp>
 #include <https/client/single_client.hpp>
 #include <sep/xml/adapter.hpp>
 #include <ecs/server/sep/world.hpp>
 #include <utilities/utilities.hpp>
+
+using namespace std::chrono_literals;
 
 std::string g_program_path;
 
@@ -29,6 +32,8 @@ int main(int argc, char **argv)
     // run server in seperate thread and detach for auto cleanup
     std::thread first(func);
     first.detach();
+
+    std::this_thread::sleep_for(1s);
 
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

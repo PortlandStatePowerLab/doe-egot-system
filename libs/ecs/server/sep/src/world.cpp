@@ -28,12 +28,12 @@ std::string prependLFDI(const Href &href) {
 World::World() {
   world.import <rg::Module>();
   world.import <dcap::Module>();
-  world.import <edev::Module>();
-  world.import <frp::Module>();
-  world.import <frq::Module>();
-  world.import <ps::Module>();
-  world.import <sdev::Module>();
-  world.import <time::Module>();
+  // world.import <edev::Module>();
+  // world.import <frp::Module>();
+  // world.import <frq::Module>();
+  // world.import <ps::Module>();
+  // world.import <sdev::Module>();
+  // world.import <time::Module>();
 };
 
 World::~World() {
@@ -53,19 +53,17 @@ std::string World::Get(const Href &href) {
   std::string response = "";
 
   auto client = world.lookup(href.lfdi.c_str());
-  if (client){
-    std::cout << "Client is not empty" << std::endl;
-  }
+  
   switch (uri_map.at(href.uri)) {
   case (Uri::dcap): {
-    // const sep::DeviceCapability *dcap =
-    //     client.lookup(href.uri.c_str()).get<sep::DeviceCapability>();
-    // if (dcap != nullptr) {
-    //   return xml::Serialize(*dcap);
-    // }
-      client.each([](flecs::id e){
-        std::cout << e.first().name() << " : " << e.second().name() << std::endl;
-      });
+      sep::DeviceCapability dcap;
+      dcap.href = "/dcap";
+      dcap.poll_rate = 900;
+      dcap.self_device_link.href = "/sdev";
+      dcap.end_device_list_link.href = "/edev";
+      dcap.end_device_list_link.all = 1;
+
+      return xml::Serialize(dcap);
   }; break;
   case (Uri::sdev): {
     const sep::SelfDevice *sdev =

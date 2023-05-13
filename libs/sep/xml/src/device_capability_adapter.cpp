@@ -1,14 +1,29 @@
 #include <sep/xml/device_capability_adapter.hpp>
 #include <sep/xml/utilities.hpp>
+#include <sep/models/simple_types.hpp>
+#include <boost/optional.hpp>
 
 namespace xml
 {
     void ObjectMap(const boost::property_tree::ptree &pt, sep::DeviceCapability *dcap)
     {
-        dcap->poll_rate = pt.get<uint32_t>("DeviceCapability.<xmlattr>.pollRate", 900);
-        dcap->href = pt.get<std::string>("DeviceCapability.<xmlattr>.href", "");
-        dcap->customer_account_list_link.href = pt.get<std::string>("DeviceCapability.CustomerAccountListLink.<xmlattr>.href", "");
-        dcap->customer_account_list_link.all = pt.get<uint32_t>("DeviceCapability.CustomerAccountListLink.<xmlattr>.all", 0);
+
+        if(boost::optional<sep::UInt32> poll_rate = pt.get_optional<sep::UInt32>("DeviceCapability.<xmlattr>.pollRate")){
+            dcap->poll_rate = poll_rate.get();
+        }
+         
+        if(boost::optional<std::string> href = pt.get_optional<std::string>("DeviceCapability.<xmlattr>.href")){
+            dcap->href = href.get();
+        }
+
+        if(boost::optional<std::string> href = pt.get<std::string>("DeviceCapability.CustomerAccountListLink.<xmlattr>.href")){
+            dcap->customer_account_list_link.href = href.get();
+        }
+
+        if(boost::optional<sep::UInt32> all = pt.get<sep::UInt32>("DeviceCapability.CustomerAccountListLink.<xmlattr>.all")){
+            dcap->customer_account_list_link.all = all.get();
+        }
+        
         dcap->demand_response_program_list_link.href = pt.get<std::string>("DeviceCapability.DemandResponseProgramListLink.<xmlattr>.href", "");
         dcap->demand_response_program_list_link.all = pt.get<uint32_t>("DeviceCapability.DemandResponseProgramListLink.<xmlattr>.all", 0);
         dcap->der_program_list_link.href = pt.get<std::string>("DeviceCapability.DERProgramListLink.<xmlattr>.href", "");
