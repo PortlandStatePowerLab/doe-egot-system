@@ -14,6 +14,7 @@ namespace sep
     // to the resources in which they are interested.
     struct DeviceCapability : FunctionSetAssignmentsBase
     {
+        // Optional
         UInt32 poll_rate = 900;
         EndDeviceListLink end_device_list_link;
         MirrorUsagePointListLink mirror_usage_point_list_link;

@@ -8,6 +8,7 @@ namespace sep
     // A Resource to which a Subscription can be requested.
     struct SubscribableResource : Resource
     {
+        // Optional
         SubscribableType subscribable;
     };
 

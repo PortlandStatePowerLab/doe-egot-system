@@ -20,6 +20,8 @@ namespace sep
     struct EndDevice : AbstractDevice
     {
         TimeType changed_time;
+
+        // Optionals
         bool enabled;
         FlowReservationRequestListLink flow_reservation_request_list_link;
         FlowReservationResponseListLink flow_reservation_response_list_link;

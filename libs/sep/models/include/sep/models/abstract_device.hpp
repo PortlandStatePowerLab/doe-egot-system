@@ -18,6 +18,9 @@ namespace sep
     // The EndDevice providing the resources available within the DeviceCapabilities.
     struct AbstractDevice : SubscribableResource
     {
+        SFDIType sfdi; 
+
+        // Optionals
         ConfigurationLink configuration_link;
         DERListLink der_list_link;
         DeviceCategoryType device_category;
@@ -29,7 +32,6 @@ namespace sep
         LoadShedAvailabilityListLink load_shed_availability_list_link;
         LogEventListLink log_event_list_link;
         PowerStatusLink power_status_link;
-        SFDIType sfdi; 
     };
         
 } // namespace sep

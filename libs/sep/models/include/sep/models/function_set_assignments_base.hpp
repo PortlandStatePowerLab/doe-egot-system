@@ -17,6 +17,7 @@ namespace sep
     // devices as indicated by the EndDevice object(s) of the server.
     struct FunctionSetAssignmentsBase : Resource
     {
+        // Optional
         CustomerAccountListLink customer_account_list_link;
         DemandResponseProgramListLink demand_response_program_list_link;
         DERProgramListLink der_program_list_link;
