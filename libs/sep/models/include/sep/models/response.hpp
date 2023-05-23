@@ -3,6 +3,8 @@
 #include <vector>
 #include "simple_types.hpp"
 #include "subscribable_resource.hpp"
+#include <boost/optional.hpp>
+
 namespace sep
 {
     struct ResponseListLink : ListLink {};
@@ -33,10 +35,10 @@ namespace sep
             kRejectedExpired = 254
         };
 
-        TimeType created_date_time;
         HexBinary160 end_device_lfdi;
-        Status status;
         mRIDType subject;
+        boost::optional<Status> status;
+        boost::optional<TimeType> created_date_time;
     };
 
     struct ResponseList : List {

@@ -53,10 +53,10 @@ TEST_F(TestResponseXML, IsAdapterTranslationAccurate)
     xml::Parse(xml_str, &rsp);
     
     EXPECT_EQ(rsp.href, "http://uri1");
-    EXPECT_EQ(rsp.created_date_time, 1);
     EXPECT_EQ(rsp.end_device_lfdi, 0x0FB7);
+    EXPECT_EQ(rsp.created_date_time.value(), 1);
     EXPECT_EQ(
-        xml::util::ToUnderlyingType<sep::Response::Status>(rsp.status), 
+        xml::util::ToUnderlyingType<sep::Response::Status>(rsp.status.value()), 
         0
     );
     EXPECT_EQ(rsp.subject, 0x0FB7);

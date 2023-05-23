@@ -6,20 +6,33 @@ namespace xml
 {
     void ObjectMap(const boost::property_tree::ptree &pt, sep::Response *rsp)
     {
-        rsp->href = pt.get<std::string>("Response.<xmlattr>.href", "");
-        rsp->created_date_time = pt.get<sep::TimeType>("Response.createdDateTime", 0);
-        rsp->end_device_lfdi = xml::util::Dehexify<sep::HexBinary160>(pt.get<std::string>("Response.endDeviceLFDI", ""));
-        rsp->status = static_cast<sep::Response::Status>(pt.get<sep::UInt8>("Response.status", 0));
-        rsp->subject = xml::util::Dehexify<sep::mRIDType>(pt.get<std::string>("Response.subject", ""));
+        std::string path = "Response.<xmlattr>.href";
+        rsp->href = pt.get<std::string>(path, "");
+        path = "Response.endDeviceLFDI";
+        rsp->end_device_lfdi = pt.get<sep::HexBinary160>(path, 0);
+        path = "Response.subject";
+        rsp->subject = pt.get<sep::mRIDType>(path, 0);
+        path = "Response.createdDateTime";
+        if(auto created_datetime = pt.get_optional<sep::TimeType>(path)){
+            rsp->created_date_time = created_datetime.value();
+        }
+        path = "Response.status";
+        if(auto status = pt.get_optional<sep::UInt8>(path)){
+            rsp->status = static_cast<sep::Response::Status>(status.value());
+        }
     };
 
     void TreeMap(const sep::Response &rsp, boost::property_tree::ptree *pt)
     {
         pt->put("Response.<xmlattr>.href", rsp.href);
-        pt->put("Response.createdDateTime", rsp.created_date_time);
-        pt->put("Response.endDeviceLFDI", xml::util::Hexify(rsp.end_device_lfdi));
-        pt->put("Response.status", xml::util::ToUnderlyingType(rsp.status));
-        pt->put("Response.subject", xml::util::Hexify(rsp.subject));
+        pt->put("Response.endDeviceLFDI", rsp.end_device_lfdi);
+        pt->put("Response.subject", rsp.subject);
+        if(rsp.status.has_value()){
+            pt->put("Response.status", xml::util::ToUnderlyingType(rsp.status.value()));
+        }
+        if(rsp.created_date_time.has_value()){
+            pt->put("Response.createdDateTime", rsp.created_date_time.value());
+        }
     };
 
     std::string Serialize(const sep::Response &rsp)

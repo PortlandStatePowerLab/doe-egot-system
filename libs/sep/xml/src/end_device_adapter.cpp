@@ -12,10 +12,8 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::EndDevice *edev) {
   path = "EndDevice.sFDI";
   edev->sfdi = pt.get<sep::SFDIType>(path, 0);
   path = "EndDevice.<xmlattr>.subscribable";
-  if (auto subscribable = pt.get_optional<sep::SubscribableType>(path)) {
-    edev->subscribable.value() =
-        static_cast<sep::SubscribableType>(subscribable.value());
-  }
+  edev->subscribable =
+      static_cast<sep::SubscribableType>(pt.get<sep::UInt8>(path, 0));
   path = "EndDevice.ConfigurationLink.<xmlattr>.href";
   if (auto href = pt.get_optional<std::string>(path)) {
     edev->configuration_link.value().href = href.value();
@@ -29,8 +27,8 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::EndDevice *edev) {
     edev->der_list_link.value().all = all.value();
   }
   path = "EndDevice.deviceCategory";
-  if (auto device_category = pt.get_optional<sep::DeviceCategoryType>(path)) {
-    edev->device_category.value() = device_category.value();
+  if (auto device_category = pt.get_optional<sep::HexBinary32>(path)) {
+    edev->device_category.value() = static_cast<sep::DeviceCategoryType>(device_category.value());
   }
   path = "EndDevice.DeviceInformationLink.<xmlattr>.href";
   if (auto href = pt.get_optional<std::string>(path)) {
@@ -134,10 +132,8 @@ void TreeMap(const sep::EndDevice &edev, boost::property_tree::ptree *pt) {
   pt->put(path, edev.changed_time);
   path = "EndDevice.sFDI";
   pt->put(path, edev.sfdi);
-  if (edev.subscribable.has_value()) {
-    path = "EndDevice.<xmlattr>.subscribable";
-    pt->put(path, xml::util::ToUnderlyingType(edev.subscribable.value()));
-  }
+  path = "EndDevice.<xmlattr>.subscribable";
+  pt->put(path, xml::util::ToUnderlyingType(edev.subscribable));
   if (edev.configuration_link.has_value()) {
     path = "EndDevice.ConfigurationLink.<xmlattr>.href";
     pt->put(path, edev.configuration_link.value().href);

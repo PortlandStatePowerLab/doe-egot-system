@@ -55,7 +55,7 @@ TEST_F(TestTimeXML, IsAdapterTranslationAccurate)
     EXPECT_EQ(time->dst_end_time, 1);
     EXPECT_EQ(time->dst_offset, 1);
     EXPECT_EQ(time->dst_start_time, 1);
-    EXPECT_EQ(time->local_time, 1);
+    EXPECT_EQ(time->local_time.value(), 1);
     EXPECT_EQ(time->quality, 3);
     EXPECT_EQ(time->tz_offset, 1);
     delete time;
