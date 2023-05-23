@@ -9,6 +9,7 @@
 #include "registration.hpp"
 #include "subscription.hpp"
 #include "subscribable_resource.hpp"
+#include <boost/optional.hpp>
 
 namespace sep
 {
@@ -20,15 +21,13 @@ namespace sep
     struct EndDevice : AbstractDevice
     {
         TimeType changed_time;
-
-        // Optionals
-        bool enabled;
-        FlowReservationRequestListLink flow_reservation_request_list_link;
-        FlowReservationResponseListLink flow_reservation_response_list_link;
-        FunctionSetAssignmentsListLink function_set_assignments_list_link;
-        UInt32 post_rate;
-        RegistrationLink registration_link;
-        SubscriptionListLink subscription_list_link;
+        boost::optional<bool> enabled;
+        boost::optional<FlowReservationRequestListLink> flow_reservation_request_list_link;
+        boost::optional<FlowReservationResponseListLink> flow_reservation_response_list_link;
+        boost::optional<FunctionSetAssignmentsListLink> function_set_assignments_list_link;
+        boost::optional<UInt32> post_rate;
+        boost::optional<RegistrationLink> registration_link;
+        boost::optional<SubscriptionListLink> subscription_list_link;
     };
 
     struct EndDeviceList : SubscribableList {

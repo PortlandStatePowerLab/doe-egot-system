@@ -2,14 +2,14 @@
 #define __SUBSCRIBABLE_RESOURCE_H__
 #include "simple_types.hpp"
 #include "subscribable_type.hpp"
+#include <boost/optional.hpp>
 
 namespace sep
 {
     // A Resource to which a Subscription can be requested.
     struct SubscribableResource : Resource
     {
-        // Optional
-        SubscribableType subscribable;
+        boost::optional<SubscribableType> subscribable;
     };
 
     struct SubscribableList : SubscribableResource {

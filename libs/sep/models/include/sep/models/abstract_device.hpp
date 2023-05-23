@@ -12,6 +12,7 @@
 #include "load_shed_availability.hpp"
 #include "log_event.hpp"
 #include "power_status.hpp"
+#include <boost/optional.hpp>
 
 namespace sep
 {
@@ -19,19 +20,17 @@ namespace sep
     struct AbstractDevice : SubscribableResource
     {
         SFDIType sfdi; 
-
-        // Optionals
-        ConfigurationLink configuration_link;
-        DERListLink der_list_link;
-        DeviceCategoryType device_category;
-        DeviceInformationLink device_information_link;
-        DeviceStatusLink device_status_link;
-        FileStatusLink file_status_link;
-        IPInterfaceListLink ip_interface_list_link;
-        HexBinary160 lfdi;
-        LoadShedAvailabilityListLink load_shed_availability_list_link;
-        LogEventListLink log_event_list_link;
-        PowerStatusLink power_status_link;
+        boost::optional<ConfigurationLink> configuration_link;
+        boost::optional<DERListLink> der_list_link;
+        boost::optional<DeviceCategoryType> device_category;
+        boost::optional<DeviceInformationLink> device_information_link;
+        boost::optional<DeviceStatusLink> device_status_link;
+        boost::optional<FileStatusLink> file_status_link;
+        boost::optional<IPInterfaceListLink> ip_interface_list_link;
+        boost::optional<HexBinary160> lfdi;
+        boost::optional<LoadShedAvailabilityListLink> load_shed_availability_list_link;
+        boost::optional<LogEventListLink> log_event_list_link;
+        boost::optional<PowerStatusLink> power_status_link;
     };
         
 } // namespace sep

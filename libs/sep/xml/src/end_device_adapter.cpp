@@ -7,134 +7,226 @@ namespace xml {
 void ObjectMap(const boost::property_tree::ptree &pt, sep::EndDevice *edev) {
   std::string path = "EndDevice.changedTime";
   edev->changed_time = pt.get<sep::TimeType>(path, 0);
-
-  // Optional
   path = "EndDevice.<xmlattr>.href";
-  if (pt.get<std::string>(path, "") != "") {
-    edev->href = pt.get<std::string>(path + ".href", "");
-  }
+  edev->href = pt.get<std::string>(path, "");
+  path = "EndDevice.sFDI";
+  edev->sfdi = pt.get<sep::SFDIType>(path, 0);
   path = "EndDevice.<xmlattr>.subscribable";
-  if (pt.get<sep::UInt8>(path, 255) != 255) {
-    edev->subscribable =
-        static_cast<sep::SubscribableType>(pt.get<sep::UInt8>(path, 0));
+  if (auto subscribable = pt.get_optional<sep::SubscribableType>(path)) {
+    edev->subscribable.value() =
+        static_cast<sep::SubscribableType>(subscribable.value());
   }
   path = "EndDevice.ConfigurationLink.<xmlattr>.href";
-  if (pt.get<std::string>(path, "") != "") {
-    edev->configuration_link.href = pt.get<std::string>(path, "");
+  if (auto href = pt.get_optional<std::string>(path)) {
+    edev->configuration_link.value().href = href.value();
   }
   path = "EndDevice.DERListLink.<xmlattr>.href";
-  if (pt.get<std::string>(path, "") != "") {
-    edev->der_list_link.href = pt.get<std::string>(path, "");
+  if (auto href = pt.get_optional<std::string>(path)) {
+    edev->der_list_link.value().href = href.value();
   }
   path = "EndDevice.DERListLink.<xmlattr>.all";
-  if (pt.get<sep::UInt32>(path, 0) != 0) {
-    edev->der_list_link.all = pt.get<sep::UInt32>(path, 0);
+  if (auto all = pt.get_optional<sep::UInt32>(path)) {
+    edev->der_list_link.value().all = all.value();
   }
   path = "EndDevice.deviceCategory";
-  if (pt.get<std::string>(path, "FFFFFFFF") != "FFFFFFFF") {
-    edev->device_category = static_cast<sep::DeviceCategoryType>(
-        xml::util::Dehexify<sep::HexBinary32>(pt.get<std::string>(path, "00")));
+  if (auto device_category = pt.get_optional<sep::DeviceCategoryType>(path)) {
+    edev->device_category.value() = device_category.value();
   }
   path = "EndDevice.DeviceInformationLink.<xmlattr>.href";
-  if(){
-    edev->device_information_link.href = pt.get<std::string>(path, "");
-    }
-  edev->device_status_link.href =
-      pt.get<std::string>("EndDevice.DeviceStatusLink.<xmlattr>.href", "");
-  edev->file_status_link.href =
-      pt.get<std::string>("EndDevice.FileStatusLink.<xmlattr>.href", "");
-  edev->ip_interface_list_link.href =
-      pt.get<std::string>("EndDevice.IPInterfaceListLink.<xmlattr>.href", "");
-  edev->ip_interface_list_link.all =
-      pt.get<sep::UInt32>("EndDevice.IPInterfaceListLink.<xmlattr>.all", 0);
-  edev->lfdi = xml::util::Dehexify<sep::HexBinary160>(
-      pt.get<std::string>("EndDevice.lFDI", ""));
-  edev->load_shed_availability_list_link.href = pt.get<std::string>(
-      "EndDevice.LoadShedAvailabilityListLink.<xmlattr>.href", "");
-  edev->load_shed_availability_list_link.all = pt.get<sep::UInt32>(
-      "EndDevice.LoadShedAvailabilityListLink.<xmlattr>.all", 0);
-  edev->log_event_list_link.href =
-      pt.get<std::string>("EndDevice.LogEventListLink.<xmlattr>.href", "");
-  edev->log_event_list_link.all =
-      pt.get<sep::UInt32>("EndDevice.LogEventListLink.<xmlattr>.all", 0);
-  edev->power_status_link.href =
-      pt.get<std::string>("EndDevice.PowerStatusLink.<xmlattr>.href", "");
-  edev->sfdi = pt.get<sep::SFDIType>("EndDevice.sFDI", 0);
-  edev->enabled = pt.get<bool>("EndDevice.enabled", false);
-  edev->flow_reservation_request_list_link.href = pt.get<std::string>(
-      "EndDevice.FlowReservationRequestListLink.<xmlattr>.href", "");
-  edev->flow_reservation_request_list_link.all = pt.get<sep::UInt32>(
-      "EndDevice.FlowReservationRequestListLink.<xmlattr>.all", 0);
-  edev->flow_reservation_response_list_link.href = pt.get<std::string>(
-      "EndDevice.FlowReservationResponseListLink.<xmlattr>.href", "");
-  edev->flow_reservation_response_list_link.all = pt.get<sep::UInt32>(
-      "EndDevice.FlowReservationResponseListLink.<xmlattr>.all", 0);
-  edev->function_set_assignments_list_link.href = pt.get<std::string>(
-      "EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.href", "");
-  edev->function_set_assignments_list_link.all = pt.get<sep::UInt32>(
-      "EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.all", 0);
-  edev->post_rate = pt.get<sep::UInt32>("EndDevice.postRate", 0);
-  edev->registration_link.href =
-      pt.get<std::string>("EndDevice.RegistrationLink.<xmlattr>.href", "");
-  edev->subscription_list_link.href =
-      pt.get<std::string>("EndDevice.SubscriptionListLink.<xmlattr>.href", "");
-  edev->subscription_list_link.all =
-      pt.get<sep::UInt32>("EndDevice.SubscriptionListLink.<xmlattr>.all", 0);
+  if (auto href = pt.get_optional<std::string>(path)) {
+    edev->device_information_link.value().href = href.value();
+  }
+  path = "EndDevice.DeviceStatusLink.<xmlattr>.href";
+  if (auto href = pt.get_optional<std::string>(path)) {
+    edev->device_status_link.value().href = href.value();
+  }
+  path = "EndDevice.FileStatusLink.<xmlattr>.href";
+  if (auto href = pt.get_optional<std::string>(path)) {
+    edev->file_status_link.value().href = href.value();
+  }
+  path = "EndDevice.IPInterfaceListLink.<xmlattr>.href";
+  if (auto href = pt.get_optional<std::string>(path)) {
+    edev->ip_interface_list_link.value().href = href.value();
+  }
+  path = "EndDevice.IPInterfaceListLink.<xmlattr>.all";
+  if (auto all = pt.get_optional<sep::UInt32>(path)) {
+    edev->ip_interface_list_link.value().all = all.value();
+  }
+  // path = "EndDevice.lFDI";
+  // if (auto lfdi = pt.get_optional<std::string>(path)) {
+  //   edev->lfdi.value() =
+  //   xml::util::Dehexify<sep::HexBinary160>(lfdi.value());
+  // }
+  path = "EndDevice.lFDI";
+  if (auto lfdi = pt.get_optional<sep::HexBinary160>(path)) {
+    edev->lfdi.value() = lfdi.value();
+  }
+  path = "EndDevice.LoadShedAvailabilityListLink.<xmlattr>.href";
+  if (auto href = pt.get_optional<std::string>(path)) {
+    edev->load_shed_availability_list_link.value().href = href.value();
+  }
+  path = "EndDevice.LoadShedAvailabilityListLink.<xmlattr>.all";
+  if (auto all = pt.get_optional<sep::UInt32>(path)) {
+    edev->load_shed_availability_list_link.value().all = all.value();
+  }
+  path = "EndDevice.LogEventListLink.<xmlattr>.href";
+  if (auto href = pt.get_optional<std::string>(path)) {
+    edev->log_event_list_link.value().href = href.value();
+  }
+  path = "EndDevice.LogEventListLink.<xmlattr>.all";
+  if (auto all = pt.get_optional<sep::UInt32>(path)) {
+    edev->log_event_list_link.value().all = all.value();
+  }
+  path = "EndDevice.PowerStatusLink.<xmlattr>.href";
+  if (auto href = pt.get_optional<std::string>(path)) {
+    edev->power_status_link.value().href = href.value();
+  }
+  path = "EndDevice.enabled";
+  if (auto enabled = pt.get_optional<bool>(path)) {
+    edev->enabled.value() = enabled.value();
+  }
+  path = "EndDevice.FlowReservationRequestListLink.<xmlattr>.href";
+  if (auto href = pt.get_optional<std::string>(path)) {
+    edev->flow_reservation_request_list_link.value().href = href.value();
+  }
+  path = "EndDevice.FlowReservationRequestListLink.<xmlattr>.all";
+  if (auto all = pt.get_optional<sep::UInt32>(path)) {
+    edev->flow_reservation_request_list_link.value().all = all.value();
+  }
+  path = "EndDevice.FlowReservationResponseListLink.<xmlattr>.href";
+  if (auto href = pt.get_optional<std::string>(path)) {
+    edev->flow_reservation_response_list_link.value().href = href.value();
+  }
+  path = "EndDevice.FlowReservationResponseListLink.<xmlattr>.all";
+  if (auto all = pt.get_optional<sep::UInt32>(path)) {
+    edev->flow_reservation_response_list_link.value().all = all.value();
+  }
+  path = "EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.href";
+  if (auto href = pt.get_optional<std::string>(path)) {
+    edev->function_set_assignments_list_link.value().href = href.value();
+  }
+  path = "EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.all";
+  if (auto all = pt.get_optional<sep::UInt32>(path)) {
+    edev->function_set_assignments_list_link.value().all = all.value();
+  }
+  path = "EndDevice.postRate";
+  if (auto post_rate = pt.get_optional<sep::UInt32>(path)) {
+    edev->post_rate.value() = post_rate.value();
+  }
+  path = "EndDevice.RegistrationLink.<xmlattr>.href";
+  if (auto href = pt.get_optional<std::string>(path)) {
+    edev->registration_link.value().href = href.value();
+  }
+  path = "EndDevice.SubscriptionListLink.<xmlattr>.href";
+  if (auto href = pt.get_optional<std::string>(path)) {
+    edev->subscription_list_link.value().href = href.value();
+  }
+  path = "EndDevice.SubscriptionListLink.<xmlattr>.all";
+  if (auto all = pt.get_optional<sep::UInt32>(path)) {
+    edev->subscription_list_link.value().all = all.value();
+  }
 };
 
 void TreeMap(const sep::EndDevice &edev, boost::property_tree::ptree *pt) {
-  pt->put("EndDevice.<xmlattr>.subscribable",
-          xml::util::ToUnderlyingType(edev.subscribable));
-  pt->put("EndDevice.<xmlattr>.href", edev.href);
-  pt->put("EndDevice.ConfigurationLink.<xmlattr>.href",
-          edev.configuration_link.href);
-  pt->put("EndDevice.DERListLink.<xmlattr>.href", edev.der_list_link.href);
-  pt->put("EndDevice.DERListLink.<xmlattr>.all", edev.der_list_link.all);
-  pt->put("EndDevice.deviceCategory",
-          xml::util::Hexify(xml::util::ToUnderlyingType(edev.device_category)));
-  pt->put("EndDevice.DeviceInformationLink.<xmlattr>.href",
-          edev.device_information_link.href);
-  pt->put("EndDevice.DeviceStatusLink.<xmlattr>.href",
-          edev.device_status_link.href);
-  pt->put("EndDevice.FileStatusLink.<xmlattr>.href",
-          edev.file_status_link.href);
-  pt->put("EndDevice.IPInterfaceListLink.<xmlattr>.href",
-          edev.ip_interface_list_link.href);
-  pt->put("EndDevice.IPInterfaceListLink.<xmlattr>.all",
-          edev.ip_interface_list_link.all);
-  pt->put("EndDevice.lFDI", xml::util::Hexify(edev.lfdi));
-  pt->put("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.href",
-          edev.load_shed_availability_list_link.href);
-  pt->put("EndDevice.LoadShedAvailabilityListLink.<xmlattr>.all",
-          edev.load_shed_availability_list_link.all);
-  pt->put("EndDevice.LogEventListLink.<xmlattr>.href",
-          edev.log_event_list_link.href);
-  pt->put("EndDevice.LogEventListLink.<xmlattr>.all",
-          edev.log_event_list_link.all);
-  pt->put("EndDevice.PowerStatusLink.<xmlattr>.href",
-          edev.power_status_link.href);
-  pt->put("EndDevice.sFDI", edev.sfdi);
-  pt->put("EndDevice.changedTime", edev.changed_time);
-  pt->put("EndDevice.enabled", edev.enabled);
-  pt->put("EndDevice.FlowReservationRequestListLink.<xmlattr>.href",
-          edev.flow_reservation_request_list_link.href);
-  pt->put("EndDevice.FlowReservationRequestListLink.<xmlattr>.all",
-          edev.flow_reservation_request_list_link.all);
-  pt->put("EndDevice.FlowReservationResponseListLink.<xmlattr>.href",
-          edev.flow_reservation_response_list_link.href);
-  pt->put("EndDevice.FlowReservationResponseListLink.<xmlattr>.all",
-          edev.flow_reservation_response_list_link.all);
-  pt->put("EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.href",
-          edev.function_set_assignments_list_link.href);
-  pt->put("EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.all",
-          edev.function_set_assignments_list_link.all);
-  pt->put("EndDevice.postRate", edev.post_rate);
-  pt->put("EndDevice.RegistrationLink.<xmlattr>.href",
-          edev.registration_link.href);
-  pt->put("EndDevice.SubscriptionListLink.<xmlattr>.href",
-          edev.subscription_list_link.href);
-  pt->put("EndDevice.SubscriptionListLink.<xmlattr>.all",
-          edev.subscription_list_link.all);
+  std::string path = "EndDevice.<xmlattr>.href";
+  pt->put(path, edev.href);
+  path = "EndDevice.changedTime";
+  pt->put(path, edev.changed_time);
+  path = "EndDevice.sFDI";
+  pt->put(path, edev.sfdi);
+  if (edev.subscribable.has_value()) {
+    path = "EndDevice.<xmlattr>.subscribable";
+    pt->put(path, xml::util::ToUnderlyingType(edev.subscribable.value()));
+  }
+  if (edev.configuration_link.has_value()) {
+    path = "EndDevice.ConfigurationLink.<xmlattr>.href";
+    pt->put(path, edev.configuration_link.value().href);
+  }
+  if (edev.der_list_link.has_value()) {
+    path = "EndDevice.DERListLink.<xmlattr>.href";
+    pt->put(path, edev.der_list_link.value().href);
+    path = "EndDevice.DERListLink.<xmlattr>.all";
+    pt->put(path, edev.der_list_link.value().all);
+  }
+  if (edev.device_category.has_value()) {
+    path = "EndDevice.deviceCategory";
+    pt->put(path, xml::util::Hexify(xml::util::ToUnderlyingType(
+                      edev.device_category.value())));
+  }
+  if (edev.device_information_link.has_value()) {
+    path = "EndDevice.DeviceInformationLink.<xmlattr>.href";
+    pt->put(path, edev.device_information_link.value().href);
+  }
+  if (edev.device_status_link.has_value()) {
+    path = "EndDevice.DeviceStatusLink.<xmlattr>.href";
+    pt->put(path, edev.device_status_link.value().href);
+  }
+  if (edev.file_status_link.has_value()) {
+    path = "EndDevice.FileStatusLink.<xmlattr>.href";
+    pt->put(path, edev.file_status_link.value().href);
+  }
+  if (edev.ip_interface_list_link.has_value()) {
+    path = "EndDevice.IPInterfaceListLink.<xmlattr>.href";
+    pt->put(path, edev.ip_interface_list_link.value().href);
+    path = "EndDevice.IPInterfaceListLink.<xmlattr>.all";
+    pt->put(path, edev.ip_interface_list_link.value().all);
+  }
+  if (edev.lfdi.has_value()) {
+    path = "EndDevice.lFDI";
+    pt->put(path, xml::util::Hexify(edev.lfdi.value()));
+  }
+  if (edev.load_shed_availability_list_link.has_value()) {
+    path = "EndDevice.LoadShedAvailabilityListLink.<xmlattr>.href";
+    pt->put(path, edev.load_shed_availability_list_link.value().href);
+    path = "EndDevice.LoadShedAvailabilityListLink.<xmlattr>.all";
+    pt->put(path, edev.load_shed_availability_list_link.value().all);
+  }
+  if (edev.log_event_list_link.has_value()) {
+    path = "EndDevice.LogEventListLink.<xmlattr>.href";
+    pt->put(path, edev.log_event_list_link.value().href);
+    path = "EndDevice.LogEventListLink.<xmlattr>.all";
+    pt->put(path, edev.log_event_list_link.value().all);
+  }
+  if (edev.power_status_link.has_value()) {
+    path = "EndDevice.PowerStatusLink.<xmlattr>.href";
+    pt->put(path, edev.power_status_link.value().href);
+  }
+  if (edev.enabled.has_value()) {
+    path = "EndDevice.enabled";
+    pt->put(path, edev.enabled.value());
+  }
+  if (edev.flow_reservation_request_list_link.has_value()) {
+    path = "EndDevice.FlowReservationRequestListLink.<xmlattr>.href";
+    pt->put(path, edev.flow_reservation_request_list_link.value().href);
+    path = "EndDevice.FlowReservationRequestListLink.<xmlattr>.all";
+    pt->put(path, edev.flow_reservation_request_list_link.value().all);
+  }
+  if (edev.flow_reservation_response_list_link.has_value()) {
+    path = "EndDevice.FlowReservationResponseListLink.<xmlattr>.href";
+    pt->put(path, edev.flow_reservation_response_list_link.value().href);
+    path = "EndDevice.FlowReservationResponseListLink.<xmlattr>.all";
+    pt->put(path, edev.flow_reservation_response_list_link.value().all);
+  }
+  if (edev.function_set_assignments_list_link.has_value()) {
+    path = "EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.href";
+    pt->put(path, edev.function_set_assignments_list_link.value().href);
+    path = "EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.all";
+    pt->put(path, edev.function_set_assignments_list_link.value().all);
+  }
+  if (edev.post_rate.has_value()) {
+    path = "EndDevice.postRate";
+    pt->put(path, edev.post_rate.value());
+  }
+  if (edev.registration_link.has_value()) {
+    pt->put("EndDevice.RegistrationLink.<xmlattr>.href",
+            edev.registration_link.value().href);
+  }
+  if (edev.subscription_list_link.has_value()) {
+    path = "EndDevice.SubscriptionListLink.<xmlattr>.href";
+    pt->put(path, edev.subscription_list_link.value().href);
+    path = "EndDevice.SubscriptionListLink.<xmlattr>.all";
+    pt->put(path, edev.subscription_list_link.value().all);
+  }
 };
 
 std::string Serialize(const sep::EndDevice &edev) {
