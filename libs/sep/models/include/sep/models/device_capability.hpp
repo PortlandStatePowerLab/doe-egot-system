@@ -5,6 +5,7 @@
 #include "end_device.hpp"
 #include "mirror_usage_point.hpp"
 #include "self_device.hpp"
+#include <boost/optional.hpp>
 
 namespace sep
 {
@@ -14,11 +15,10 @@ namespace sep
     // to the resources in which they are interested.
     struct DeviceCapability : FunctionSetAssignmentsBase
     {
-        // Optional
         UInt32 poll_rate = 900;
-        EndDeviceListLink end_device_list_link;
-        MirrorUsagePointListLink mirror_usage_point_list_link;
-        SelfDeviceLink self_device_link;
+        boost::optional<EndDeviceListLink> end_device_list_link;
+        boost::optional<MirrorUsagePointListLink> mirror_usage_point_list_link;
+        boost::optional<SelfDeviceLink> self_device_link;
     };
 } // namespace sep
 

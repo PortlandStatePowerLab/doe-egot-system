@@ -10,6 +10,7 @@
 #include "response_set.hpp"
 #include "tariff_profile.hpp"
 #include "time.hpp"
+#include <boost/optional.hpp>
 
 namespace sep
 {
@@ -17,17 +18,16 @@ namespace sep
     // devices as indicated by the EndDevice object(s) of the server.
     struct FunctionSetAssignmentsBase : Resource
     {
-        // Optional
-        CustomerAccountListLink customer_account_list_link;
-        DemandResponseProgramListLink demand_response_program_list_link;
-        DERProgramListLink der_program_list_link;
-        FileListLink file_list_link;
-        MessagingProgramListLink messaging_program_list_link;
-        PrepaymentListLink prepayment_list_link;
-        ResponseSetListLink response_set_list_link;
-        TariffProfileListLink tariff_profile_list_link;
-        TimeLink time_link;
-        UsagePointListLink usage_point_list_link;
+        boost::optional<CustomerAccountListLink> customer_account_list_link;
+        boost::optional<DemandResponseProgramListLink> demand_response_program_list_link;
+        boost::optional<DERProgramListLink> der_program_list_link;
+        boost::optional<FileListLink> file_list_link;
+        boost::optional<MessagingProgramListLink> messaging_program_list_link;
+        boost::optional<PrepaymentListLink> prepayment_list_link;
+        boost::optional<ResponseSetListLink> response_set_list_link;
+        boost::optional<TariffProfileListLink> tariff_profile_list_link;
+        boost::optional<TimeLink> time_link;
+        boost::optional<UsagePointListLink> usage_point_list_link;
     };
     
 } // namespace sep

@@ -37,7 +37,6 @@ using SFDIType = UInt40;
 using PowerOfTenMultiplierType = Int8;
 
 struct Resource {
-    // Optional
     std::string href;
 };
 

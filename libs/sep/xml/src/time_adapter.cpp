@@ -11,9 +11,12 @@ namespace xml
         tm->dst_end_time = pt.get<sep::TimeType>("Time.dstEndTime", 0);
         tm->dst_offset = pt.get<sep::TimeOffsetType>("Time.dstOffset", 0);
         tm->dst_start_time = pt.get<sep::TimeType>("Time.dstStartTime", 0);
-        tm->local_time = pt.get<sep::TimeType>("Time.dstStartTime", 0);
         tm->quality = pt.get<sep::UInt8>("Time.quality", 7);
         tm->tz_offset = pt.get<sep::TimeOffsetType>("Time.tzOffset", 7);
+        auto local_time = pt.get_optional<sep::TimeType>("Time.localTime");        
+        if(local_time.has_value()){
+            tm->local_time = local_time.value();
+        }
     };
 
     void TreeMap(const sep::Time &tm, boost::property_tree::ptree *pt)
@@ -24,9 +27,11 @@ namespace xml
         pt->put("Time.dstEndTime", tm.dst_end_time);
         pt->put("Time.dstOffset", tm.dst_offset);
         pt->put("Time.dstStartTime", tm.dst_start_time);
-        pt->put("Time.localTime", tm.local_time);
         pt->put("Time.quality", tm.quality);
         pt->put("Time.tzOffset", tm.tz_offset);
+        if(tm.local_time.has_value()){
+            pt->put("Time.localTime", tm.local_time.value());
+       }
     };
 
     std::string Serialize(const sep::Time &tm)

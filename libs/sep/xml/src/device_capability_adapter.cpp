@@ -7,82 +7,116 @@ namespace xml
 {
     void ObjectMap(const boost::property_tree::ptree &pt, sep::DeviceCapability *dcap)
     {
-        std::string path = "deviceCapability.<xmlattr>";
-        if(pt.get<std::string>(path+".href", "") != ""){
-            dcap->href = pt.get<std::string>(path+".href", "");
-            dcap->poll_rate = pt.get<sep::UInt32>(path+".pollRate", 900);
+        std::string path = "deviceCapability.<xmlattr>.href";
+        dcap->href =  pt.get<std::string>(path);
+
+        path = "deviceCapability.<xmlattr>.pollRate";
+        dcap->poll_rate= pt.get<sep::UInt32>(path);
+
+        path = "DeviceCapability.CustomerAccountListLink.<xmlattr>.href";
+        if(auto href = pt.get_optional<std::string>(path)){
+            dcap->customer_account_list_link.value().href = href.value();
         }
-        path = "DeviceCapability.CustomerAccountListLink.<xmlattr>";
-        if(pt.get<std::string>(path+".href", "") != ""){
-            dcap->customer_account_list_link.href = pt.get<std::string>(path+".href", "");
-            dcap->customer_account_list_link.all = pt.get<sep::UInt32>(path+".all", 0);
+        path = "DeviceCapability.CustomerAccountListLink.<xmlattr>.href";
+        if(auto all = pt.get_optional<sep::UInt32>(path)){
+            dcap->customer_account_list_link.value().all = all.value();
         }
-        path = "DeviceCapability.DemandResponseProgramListLink.<xmlattr>";
-        if(pt.get<std::string>(path+".href", "") != ""){
-            dcap->demand_response_program_list_link.href = pt.get<std::string>(path+".href", "");
-            dcap->demand_response_program_list_link.all = pt.get<sep::UInt32>(path+".all", 0);
+        path = "DeviceCapability.DemandResponseProgramListLink.<xmlattr>.href";
+        if(auto href = pt.get_optional<std::string>(path)){
+            dcap->demand_response_program_list_link.value().href = href.value();
         }
-        path = "DeviceCapability.DERProgramListLink.<xmlattr>";
-        if(pt.get<std::string>(path+".href", "") != ""){
-            dcap->der_program_list_link.href = pt.get<std::string>(path+".href", "");
-            dcap->der_program_list_link.all = pt.get<sep::UInt32>(path+".all", 0);
+        path = "DeviceCapability.DemandResponseProgramListLink.<xmlattr>.all";
+        if(auto all = pt.get_optional<sep::UInt32>(path)){
+            dcap->demand_response_program_list_link.value().all = all.value();
         }
-        path = "DeviceCapability.FileListLink.<xmlattr>";
-        if(pt.get<std::string>(path+".href", "") != ""){
-            dcap->file_list_link.href = pt.get<std::string>(path+".href", "");
+        path = "DeviceCapability.DERProgramListLink.<xmlattr>.href";
+        if(auto href = pt.get_optional<std::string>(path)){
+            dcap->der_program_list_link.value().href = href.value();
         }
-        path = "DeviceCapability.MessagingProgramListLink.<xmlattr>";
-        if(pt.get<std::string>(path+".href", "") != ""){
-            dcap->messaging_program_list_link.href = pt.get<std::string>(path+".href", "");
-            dcap->messaging_program_list_link.all = pt.get<sep::UInt32>(path+".all", 0);
+        path = "DeviceCapability.DERProgramListLink.<xmlattr>.all";
+        if(auto all = pt.get_optional<sep::UInt32>(path)){
+            dcap->der_program_list_link.value().all = all.value();
         }
-        path = "DeviceCapability.PrepaymentListLink.<xmlattr>";
-        if(pt.get<std::string>(path+".href", "") != ""){
-            dcap->prepayment_list_link.href = pt.get<std::string>(path+".href", "");
-            dcap->prepayment_list_link.all = pt.get<sep::UInt32>(path+".all", 0);
+        path = "DeviceCapability.FileListLink.<xmlattr>.href";
+        if(auto href = pt.get_optional<std::string>(path)){
+            dcap->file_list_link.value().href = href.value();
         }
-        path = "DeviceCapability.ResponseSetListLink.<xmlattr>";
-        if(pt.get<std::string>(path+".href", "") != ""){
-            dcap->response_set_list_link.href = pt.get<std::string>(path+".href", "");
-            dcap->response_set_list_link.all = pt.get<sep::UInt32>(path+".all", 0);
+        path = "DeviceCapability.FileListLink.<xmlattr>.all";
+        if(auto all = pt.get_optional<sep::UInt32>(path)){
+            dcap->file_list_link.value().all = all.value();
         }
-        path = "DeviceCapability.TariffProfileListLink.<xmlattr>";
-        if(pt.get<std::string>(path+".href", "") != ""){
-            dcap->tariff_profile_list_link.href = pt.get<std::string>(path+".href", "");
-            dcap->tariff_profile_list_link.all = pt.get<sep::UInt32>(path+".all", 0);
+        path = "DeviceCapability.MessagingProgramListLink.<xmlattr>.href";
+        if(auto href = pt.get_optional<std::string>(path)){
+            dcap->messaging_program_list_link.value().href = href.value();
         }
-        path = "DeviceCapability.TimeLink.<xmlattr>";
-        if(pt.get<std::string>(path+".href", "") != ""){
-            dcap->time_link.href = pt.get<std::string>(path+".href", "");
+        path = "DeviceCapability.MessagingProgramListLink.<xmlattr>.all";
+        if(auto all = pt.get_optional<sep::UInt32>(path)){
+            dcap->messaging_program_list_link.value().all = all.value();
         }
-        path = "DeviceCapability.UsagePointListLink.<xmlattr>";
-        if(pt.get<std::string>(path+".href", "") != ""){
-            dcap->usage_point_list_link.href = pt.get<std::string>(path+".href", "");
-            dcap->usage_point_list_link.all = pt.get<sep::UInt32>(path+".all", 0);
+        path = "DeviceCapability.PrepaymentListLink.<xmlattr>.href";
+        if(auto href = pt.get_optional<std::string>(path)){
+            dcap->prepayment_list_link.value().href = href.value();
         }
-        path = "DeviceCapability.EndDeviceListLink.<xmlattr>";
-        if(pt.get<std::string>(path+".href", "") != ""){
-            dcap->end_device_list_link.href = pt.get<std::string>(path+".href", "");
-            dcap->end_device_list_link.all = pt.get<sep::UInt32>(path+".all", 0);
+        path = "DeviceCapability.PrepaymentListLink.<xmlattr>.all";
+        if(auto all = pt.get_optional<sep::UInt32>(path)){
+            dcap->prepayment_list_link.value().all = all.value();
         }
-        path = "DeviceCapability.MirrorUsagePointListLink.<xmlattr>";
-        if(pt.get<std::string>(path+".href", "") != ""){
-            dcap->mirror_usage_point_list_link.href = pt.get<std::string>(path+".href", "");
-            dcap->mirror_usage_point_list_link.all = pt.get<sep::UInt32>(path+".all", 0);
+        path = "DeviceCapability.ResponseSetListLink.<xmlattr>.href";
+        if(auto href = pt.get_optional<std::string>(path)){
+            dcap->response_set_list_link.value().href = href.value();
         }
-        path = "DeviceCapability.SelfDeviceLink.<xmlattr>";
-        if(pt.get<std::string>(path+".href", "") != ""){
-            dcap->self_device_link.href = pt.get<std::string>(path+".href", "");
+        path = "DeviceCapability.ResponseSetListLink.<xmlattr>.all";
+        if(auto all = pt.get_optional<sep::UInt32>(path)){
+            dcap->response_set_list_link.value().all = all.value();
+        }
+        path = "DeviceCapability.TariffProfileListLink.<xmlattr>.href";
+        if(auto href = pt.get_optional<std::string>(path)){
+            dcap->tariff_profile_list_link.value().href = href.value();
+        }
+        path = "DeviceCapability.TariffProfileListLink.<xmlattr>.all";
+        if(auto all = pt.get_optional<sep::UInt32>(path)){
+            dcap->tariff_profile_list_link.value().all = all.value();
+        }
+        path = "DeviceCapability.TimeLink.<xmlattr>.href";
+        if(auto href = pt.get_optional<std::string>(path)){
+            dcap->time_link.value().href = href.value();
+        }
+        path = "DeviceCapability.UsagePointListLink.<xmlattr>.href";
+        if(auto href = pt.get_optional<std::string>(path)){
+            dcap->usage_point_list_link.value().href = href.value();
+        }
+        path = "DeviceCapability.UsagePointListLink.<xmlattr>.all";
+        if(auto all = pt.get_optional<sep::UInt32>(path)){
+            dcap->usage_point_list_link.value().all = all.value();
+        }
+        path = "DeviceCapability.EndDeviceListLink.<xmlattr>.href";
+        if(auto href = pt.get_optional<std::string>(path)){
+            dcap->end_device_list_link.value().href = href.value();
+        }
+        path = "DeviceCapability.EndDeviceListLink.<xmlattr>.all";
+        if(auto all = pt.get_optional<sep::UInt32>(path)){
+            dcap->end_device_list_link.value().all = all.value();
+        }
+        path = "DeviceCapability.MirrorUsagePointListLink.<xmlattr>.href";
+        if(auto href = pt.get_optional<std::string>(path)){
+            dcap->mirror_usage_point_list_link.value().href = href.value();
+        }
+        path = "DeviceCapability.MirrorUsagePointListLink.<xmlattr>.all";
+        if(auto all = pt.get_optional<sep::UInt32>(path)){
+            dcap->mirror_usage_point_list_link.value().all = all.value();
+        }
+        path = "DeviceCapability.SelfDeviceLink.<xmlattr>.href";
+        if(auto href = pt.get_optional<std::string>(path)){
+            dcap->self_device_link.value().href = href.value();
         }
     };
 
     void TreeMap(const sep::DeviceCapability &dcap, boost::property_tree::ptree *pt)
     {
-        std::string path = "DeviceCapability.<xmlattr>";
-        if(dcap.href != ""){
-            pt->put(path+".href", dcap.href);
-            pt->put(path+".pollRate", dcap.poll_rate);
-        }
+        std::string path = "DeviceCapability.<xmlattr>.href";
+        pt->put(path, dcap.href);
+        path = "DeviFunctionSetAssignmentsBaseceCapability.<xmlattr>.pollRate";
+        pt->put(path, dcap.poll_rate);
         path = "DeviceCapability.CustomerAccountListLink.<xmlattr>";
         if(dcap.customer_account_list_link.href != ""){
             pt->put(path+".href", dcap.customer_account_list_link.href);
