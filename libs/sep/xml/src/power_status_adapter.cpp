@@ -1,3 +1,4 @@
+#include "sep/models/simple_types.hpp"
 #include <sep/xml/power_status_adapter.hpp>
 #include <sep/xml/utilities.hpp>
 
@@ -5,48 +6,124 @@ namespace xml
 {
     void ObjectMap (const boost::property_tree::ptree &pt, sep::PowerStatus *ps)
     {
-        ps->battery_status = static_cast<sep::BatteryStatus>(pt.get<uint8_t>("PowerStatus.batteryStatus", 0));
-        ps->changed_time = pt.get<sep::TimeType>("PowerStatus.changedTime", 0);
-        ps->current_power_source = static_cast<sep::PowerSourceType>(pt.get<uint8_t>("PowerStatus.currentPowerSource", 0));
-        ps->estimated_charge_remaining = pt.get<sep::PerCent>("PowerStatus.estimatedChargeRemaining", 0);
-        ps->estimated_time_remaining = pt.get<sep::TimeType>("PowerStatus.estimatedTimeRemaining", 0);
-        ps->href = pt.get<std::string>("PowerStatus.<xmlattr>.href", "");
-        ps->poll_rate = pt.get<sep::UInt32>("PowerStatus.<xmlattr>.pollRate", 0);
-        ps->pev_info.charging_power_now.multiplier = pt.get<sep::PowerOfTenMultiplierType>("PowerStatus.PEVInfo.chargingPowerNow.multiplier", 0);
-        ps->pev_info.charging_power_now.value = pt.get<sep::Int16>("PowerStatus.PEVInfo.chargingPowerNow.value", 0);
-        ps->pev_info.energy_request_now.multiplier = pt.get<sep::PowerOfTenMultiplierType>("PowerStatus.PEVInfo.energyRequestNow.multiplier", 0);
-        ps->pev_info.energy_request_now.value = pt.get<sep::UInt48>("PowerStatus.PEVInfo.energyRequestNow.value", 0);
-        ps->pev_info.max_forward_power.multiplier = pt.get<sep::PowerOfTenMultiplierType>("PowerStatus.PEVInfo.maxForwardPower.multiplier", 0);
-        ps->pev_info.max_forward_power.value = pt.get<sep::Int16>("PowerStatus.PEVInfo.maxForwardPower.multiplier", 0);
-        ps->pev_info.minimum_charging_duration = pt.get<sep::UInt32>("PowerStatus.PEVInfo.minimumChargingDuration", 0);
-        ps->pev_info.target_state_of_charge = pt.get<sep::PerCent>("PowerStatus.PEVInfo.targetStateOfCharge", 0);
-        ps->pev_info.time_charge_is_needed = pt.get<sep::TimeType>("PowerStatus.PEVInfo.timeChargeIsNeeded", 0);
-        ps->pev_info.time_charging_status_pev = pt.get<sep::TimeType>("PowerStatus.PEVInfo.timeChargingStatusPEV", 0);
-        ps->session_time_on_battery = pt.get<sep::UInt32>("PowerStatus.sessionTimeOnBattery", 0);
-        ps->total_time_on_battery = pt.get<sep::UInt32>("PowerStatus.totalTimeOnBattery", 0);
+        std::string path = "PowerStatus.<xmlattr>.href";
+        ps->href = pt.get<std::string>(path, "");
+        path = "PowerStatus.<xmlattr>.pollRate";
+        ps->poll_rate = pt.get<sep::UInt32>(path, 0);
+        path = "PowerStatus.batteryStatus";
+        ps->battery_status = static_cast<sep::BatteryStatus>(pt.get<sep::UInt8>(path, 0));
+        path = "PowerStatus.changedTime";
+        ps->changed_time = pt.get<sep::TimeType>(path, 0);
+        path = "PowerStatus.currentPowerSource";
+        ps->current_power_source = static_cast<sep::PowerSourceType>(pt.get<sep::UInt8>(path, 0));
+        path = "PowerStatus.estimatedChargeRemaining";
+        if(auto charge_remaining = pt.get_optional<sep::PerCent>(path)){
+            ps->estimated_charge_remaining.value() = charge_remaining.value();
+        }
+        path = "PowerStatus.estimatedTimeRemaining";
+        if(auto time_remaining = pt.get_optional<sep::TimeType>(path)){
+            ps->estimated_time_remaining.value() = time_remaining.value();
+        }
+        path = "PowerStatus.PEVInfo.chargingPowerNow.multiplier";
+        if(auto multiplier = pt.get_optional<sep::PowerOfTenMultiplierType>(path)){
+            ps->pev_info.value().charging_power_now.multiplier = multiplier.value();
+        }
+        path = "PowerStatus.PEVInfo.chargingPowerNow.value";
+        if(auto value = pt.get_optional<sep::Int16>(path)){
+            ps->pev_info.value().charging_power_now.value = value.value();
+        }
+        path = "PowerStatus.PEVInfo.energyRequestNow.multiplier";
+        if(auto multiplier = pt.get_optional<sep::PowerOfTenMultiplierType>(path)){
+            ps->pev_info.value().energy_request_now.multiplier = multiplier.value();
+        }
+        path = "PowerStatus.PEVInfo.energyRequestNow.value";
+        if(auto value = pt.get_optional<sep::UInt48>(path)){
+            ps->pev_info.value().energy_request_now.value = value.value();
+        }
+        path = "PowerStatus.PEVInfo.maxForwardPower.multiplier";
+        if(auto multiplier = pt.get_optional<sep::PowerOfTenMultiplierType>(path)){
+            ps->pev_info.value().max_forward_power.multiplier = multiplier.value();
+        }
+        path = "PowerStatus.PEVInfo.maxForwardPower.multiplier";
+        if(auto value = pt.get_optional<sep::Int16>(path)){
+            ps->pev_info.value().max_forward_power.value = value.value();
+        }
+        path = "PowerStatus.PEVInfo.minimumChargingDuration";
+        if(auto charge_duration = pt.get_optional<sep::UInt32>(path)){
+            ps->pev_info.value().minimum_charging_duration = charge_duration.value();
+        }
+        path = "PowerStatus.PEVInfo.targetStateOfCharge";
+        if(auto target_soc = pt.get_optional<sep::PerCent>(path)){
+            ps->pev_info.value().target_state_of_charge = target_soc.value();
+        }
+        path = "PowerStatus.PEVInfo.timeChargeIsNeeded";
+        if(auto time_needed = pt.get_optional<sep::TimeType>(path)){
+            ps->pev_info.value().time_charge_is_needed = time_needed.value();
+        }
+        path = "PowerStatus.PEVInfo.timeChargingStatusPEV";
+        if(auto charging_status = pt.get_optional<sep::TimeType>(path)){
+            ps->pev_info.value().time_charging_status_pev = charging_status.value();
+        }
+        path = "PowerStatus.sessionTimeOnBattery";
+        if(auto session_time_on = pt.get_optional<sep::UInt32>(path)){
+            ps->session_time_on_battery.value() = session_time_on .value();
+        }
+        path = "PowerStatus.totalTimeOnBattery";
+        if(auto total_time_on = pt.get_optional<sep::UInt32>(path)){
+            ps->total_time_on_battery.value() = total_time_on.value();
+        }
     }
 
     void TreeMap (const sep::PowerStatus &ps, boost::property_tree::ptree *pt)
     {
-        pt->put("PowerStatus.batteryStatus", xml::util::ToUnderlyingType(ps.battery_status));
-        pt->put("PowerStatus.changedTime", ps.changed_time);
-        pt->put("PowerStatus.currentPowerSource", xml::util::ToUnderlyingType(ps.current_power_source));
-        pt->put("PowerStatus.estimatedChargeRemaining", ps.estimated_charge_remaining);
-        pt->put("PowerStatus.estimatedTimeRemaining", ps.estimated_time_remaining);
-        pt->put("PowerStatus.<xmlattr>.href", ps.href);
-        pt->put("PowerStatus.<xmlattr>.pollRate", ps.poll_rate);
-        pt->put("PowerStatus.PEVInfo.chargingPowerNow.multiplier", ps.pev_info.charging_power_now.multiplier);
-        pt->put("PowerStatus.PEVInfo.chargingPowerNow.value", ps.pev_info.charging_power_now.value);
-        pt->put("PowerStatus.PEVInfo.energyRequestNow.multiplier", ps.pev_info.energy_request_now.multiplier);
-        pt->put("PowerStatus.PEVInfo.energyRequestNow.value", ps.pev_info.energy_request_now.value);
-        pt->put("PowerStatus.PEVInfo.maxForwardPower.multiplier", ps.pev_info.max_forward_power.multiplier);
-        pt->put("PowerStatus.PEVInfo.maxForwardPower.value", ps.pev_info.max_forward_power.value);
-        pt->put("PowerStatus.PEVInfo.minimumChargingDuration", ps.pev_info.minimum_charging_duration);
-        pt->put("PowerStatus.PEVInfo.targetStateOfCharge", ps.pev_info.target_state_of_charge);
-        pt->put("PowerStatus.PEVInfo.timeChargeIsNeeded", ps.pev_info.time_charge_is_needed);
-        pt->put("PowerStatus.PEVInfo.timeChargingStatusPEV", ps.pev_info.time_charging_status_pev);
-        pt->put("PowerStatus.sessionTimeOnBattery", ps.session_time_on_battery);
-        pt->put("PowerStatus.totalTimeOnBattery", ps.total_time_on_battery);
+        std::string path = "PowerStatus.<xmlattr>.href";
+        pt->put(path, ps.href);
+        path = "PowerStatus.<xmlattr>.pollRate";
+        pt->put(path, ps.poll_rate);
+        path = "PowerStatus.batteryStatus";
+        pt->put(path, xml::util::ToUnderlyingType(ps.battery_status));
+        path = "PowerStatus.changedTime";
+        pt->put(path, ps.changed_time);
+        path = "PowerStatus.currentPowerSource";
+        pt->put(path, xml::util::ToUnderlyingType(ps.current_power_source));
+        if(ps.estimated_charge_remaining.has_value()){
+            path = "PowerStatus.estimatedChargeRemaining";
+            pt->put(path, ps.estimated_charge_remaining.value());
+        }
+        if(ps.estimated_time_remaining.has_value()){
+            path = "PowerStatus.estimatedTimeRemaining";
+            pt->put(path, ps.estimated_time_remaining.value());;
+        }
+        if(ps.pev_info.has_value()){
+            path = "PowerStatus.PEVInfo.chargingPowerNow.multiplier";
+            pt->put(path, ps.pev_info.value().charging_power_now.multiplier);
+            path = "PowerStatus.PEVInfo.chargingPowerNow.value";
+            pt->put(path, ps.pev_info.value().charging_power_now.value);
+            path = "PowerStatus.PEVInfo.energyRequestNow.multiplier";
+            pt->put(path, ps.pev_info.value().energy_request_now.multiplier);
+            path = "PowerStatus.PEVInfo.energyRequestNow.value";
+            pt->put(path, ps.pev_info.value().energy_request_now.value);
+            path = "PowerStatus.PEVInfo.maxForwardPower.multiplier";
+            pt->put(path, ps.pev_info.value().max_forward_power.multiplier);
+            path = "PowerStatus.PEVInfo.maxForwardPower.value";
+            pt->put(path, ps.pev_info.value().max_forward_power.value);
+            path = "PowerStatus.PEVInfo.minimumChargingDuration";
+            pt->put(path, ps.pev_info.value().minimum_charging_duration);
+            path = "PowerStatus.PEVInfo.targetStateOfCharge";
+            pt->put(path, ps.pev_info.value().target_state_of_charge);
+            path = "PowerStatus.PEVInfo.timeChargeIsNeeded";
+            pt->put(path, ps.pev_info.value().time_charge_is_needed);
+            path = "PowerStatus.PEVInfo.timeChargingStatusPEV";
+            pt->put(path, ps.pev_info.value().time_charging_status_pev);
+        }
+        if(ps.session_time_on_battery.has_value()){
+            path = "PowerStatus.sessionTimeOnBattery";
+            pt->put(path, ps.session_time_on_battery.value());
+        }
+        if(ps.total_time_on_battery.has_value()){
+            path = "PowerStatus.totalTimeOnBattery";
+            pt->put(path, ps.total_time_on_battery.value());
+        }
     }
 
     std::string Serialize(const sep::PowerStatus &ps)

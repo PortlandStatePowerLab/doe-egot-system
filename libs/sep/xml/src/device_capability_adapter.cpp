@@ -7,10 +7,10 @@ namespace xml
 {
     void ObjectMap(const boost::property_tree::ptree &pt, sep::DeviceCapability *dcap)
     {
-        std::string path = "deviceCapability.<xmlattr>.href";
+        std::string path = "DeviceCapability.<xmlattr>.href";
         dcap->href =  pt.get<std::string>(path);
 
-        path = "deviceCapability.<xmlattr>.pollRate";
+        path = "DeviceCapability.<xmlattr>.pollRate";
         dcap->poll_rate= pt.get<sep::UInt32>(path);
 
         path = "DeviceCapability.CustomerAccountListLink.<xmlattr>.href";

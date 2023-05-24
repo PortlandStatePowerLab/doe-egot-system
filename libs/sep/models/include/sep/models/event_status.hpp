@@ -2,6 +2,7 @@
 #define __EVENT_STATUS_H__
 #include "simple_types.hpp"
 #include "date_time_interval.hpp"
+#include <boost/optional.hpp>
 
 namespace sep
 {
@@ -25,8 +26,8 @@ namespace sep
         CurrentStatus current_status;
         TimeType date_time;
         bool potentially_superseded;
-        TimeType potentially_superseded_time;
-        String192 reason;
+        boost::optional<TimeType> potentially_superseded_time;
+        boost::optional<String192> reason;
     };
 };     // namespace sep
 #endif // __EVENT_STATUS_H__

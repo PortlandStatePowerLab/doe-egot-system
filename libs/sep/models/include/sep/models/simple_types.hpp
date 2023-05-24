@@ -1,11 +1,12 @@
 #ifndef __SIMPLE_TYPES_H__
 #define __SIMPLE_TYPES_H__
+#include <boost/multiprecision/cpp_int.hpp>
+#include <boost/optional.hpp>
 #include <cstdint>
 #include <string>
-#include <boost/multiprecision/cpp_int.hpp>
 
 namespace sep {
-    
+
 using HexBinary8 = uint8_t;
 using HexBinary16 = uint16_t;
 using HexBinary32 = uint32_t;
@@ -37,27 +38,27 @@ using SFDIType = UInt40;
 using PowerOfTenMultiplierType = Int8;
 
 struct Resource {
-    std::string href;
+  std::string href;
 };
 
 struct Link {
-    std::string href;
+  std::string href;
 };
 
 struct List : Resource {
-    UInt32 all;
-    UInt32 results;
+  UInt32 all;
+  UInt32 results;
 };
 
 struct ListLink : Link {
-    UInt32 all;
+  UInt32 all;
 };
 
 struct IdentifiedObject : Resource {
-    mRIDType mrid;
-    String32 description;
-    VersionType version;
+  mRIDType mrid;
+  boost::optional<String32> description;
+  boost::optional<VersionType> version;
 };
 
-}
+} // namespace sep
 #endif // __SIMPLE_TYPES_H__
