@@ -5,15 +5,15 @@
 namespace xml {
 
 void ObjectMap(const boost::property_tree::ptree &pt, sep::EndDevice *edev) {
-  std::string path = "EndDevice.changedTime";
-  edev->changed_time = pt.get<sep::TimeType>(path, 0);
-  path = "EndDevice.<xmlattr>.href";
+  std::string path = "EndDevice.<xmlattr>.href";
   edev->href = pt.get<std::string>(path, "");
-  path = "EndDevice.sFDI";
-  edev->sfdi = pt.get<sep::SFDIType>(path, 0);
   path = "EndDevice.<xmlattr>.subscribable";
   edev->subscribable =
       static_cast<sep::SubscribableType>(pt.get<sep::UInt8>(path, 0));
+  path = "EndDevice.changedTime";
+  edev->changed_time = pt.get<sep::TimeType>(path, 0);
+  path = "EndDevice.sFDI";
+  edev->sfdi = pt.get<sep::SFDIType>(path, 0);
   path = "EndDevice.ConfigurationLink.<xmlattr>.href";
   if (auto href = pt.get_optional<std::string>(path)) {
     sep::ConfigurationLink link = {};
@@ -30,11 +30,9 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::EndDevice *edev) {
     edev->der_list_link.emplace(link_list);
   }
   path = "EndDevice.deviceCategory";
-  if (auto device_category = pt.get_optional<std::string>(path)) {
-    auto hex = xml::util::Dehexify<sep::HexBinary32>(device_category.value());
-    sep::DeviceCategoryType category =
-        static_cast<sep::DeviceCategoryType>(hex);
-    edev->device_category.emplace(category);
+  if (auto category = pt.get_optional<std::string>(path)) {
+    auto hex = xml::util::Dehexify<sep::HexBinary32>(category.value());
+    edev->device_category.emplace(static_cast<sep::DeviceCategoryType>(hex));
   }
   path = "EndDevice.DeviceInformationLink.<xmlattr>.href";
   if (auto href = pt.get_optional<std::string>(path)) {
@@ -64,8 +62,9 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::EndDevice *edev) {
     edev->ip_interface_list_link.emplace(link_list);
   }
   path = "EndDevice.lFDI";
-  if (auto lfdi = pt.get_optional<sep::HexBinary160>(path)) {
-    edev->lfdi.emplace(lfdi.value());
+  if (auto lfdi = pt.get_optional<std::string>(path)) {
+    auto hex = xml::util::Dehexify<sep::HexBinary160>(lfdi.value());
+    edev->lfdi.emplace(hex);
   }
   path = "EndDevice.LoadShedAvailabilityListLink";
   if (auto child = pt.get_child_optional(path)) {
@@ -146,12 +145,12 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::EndDevice *edev) {
 void TreeMap(const sep::EndDevice &edev, boost::property_tree::ptree *pt) {
   std::string path = "EndDevice.<xmlattr>.href";
   pt->put(path, edev.href);
+  path = "EndDevice.<xmlattr>.subscribable";
+  pt->put(path, xml::util::ToUnderlyingType(edev.subscribable));
   path = "EndDevice.changedTime";
   pt->put(path, edev.changed_time);
   path = "EndDevice.sFDI";
   pt->put(path, edev.sfdi);
-  path = "EndDevice.<xmlattr>.subscribable";
-  pt->put(path, xml::util::ToUnderlyingType(edev.subscribable));
   if (edev.configuration_link.has_value()) {
     path = "EndDevice.ConfigurationLink.<xmlattr>.href";
     pt->put(path, edev.configuration_link.value().href);
@@ -164,7 +163,8 @@ void TreeMap(const sep::EndDevice &edev, boost::property_tree::ptree *pt) {
   }
   if (edev.device_category.has_value()) {
     path = "EndDevice.deviceCategory";
-    pt->put(path, xml::util::ToUnderlyingType(edev.device_category.value()));
+    auto category = xml::util::ToUnderlyingType(edev.device_category.value());
+    pt->put(path, xml::util::Hexify(category));
   }
   if (edev.device_information_link.has_value()) {
     path = "EndDevice.DeviceInformationLink.<xmlattr>.href";
@@ -253,6 +253,9 @@ std::string Serialize(const sep::EndDevice &edev) {
 void Parse(const std::string &xml_str, sep::EndDevice *edev) {
   boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
   ObjectMap(pt, edev);
+  std::unordered_set<std::string> keys;
+  xml::util::walk_ptree(pt, "", &keys);
+  xml::util::printSet(keys);
 };
 
 std::string Serialize(const sep::EndDeviceList &edev_list) {
