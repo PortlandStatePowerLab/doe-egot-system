@@ -4018,7 +4018,7 @@ All other values reserved.</xs:documentation>
 All other values reserved.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:hexBinary">
-      <xs:pattern value="[0-3]?[0-9A-Fa-f]{0,6}" />
+      <xs:pattern value="[0-3]?[0-9A-F]{0,6}" />
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="DERCurve">
@@ -5806,7 +5806,6 @@ All other values reserved.</xs:documentation>
     <xs:restriction base="UInt8">
       <xs:enumeration value="0" />
       <xs:enumeration value="3" />
-      <xs:enumeration value="4" />
       <xs:enumeration value="6" />
       <xs:enumeration value="9" />
       <xs:enumeration value="12" />
@@ -5967,7 +5966,7 @@ Bit positions SHALL be defined as follows:
 All other values reserved.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:hexBinary">
-      <xs:pattern value="[0-1]?[0-9A-Fa-f]{0,6}" />
+      <xs:pattern value="[0-3]?[0-9A-F]{0,6}" />
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="DstRuleType">
@@ -6198,7 +6197,7 @@ Bit 6 - isSubmeter - SHALL be set if the usage point is not a premises aggregati
 Bit 7-15 - Reserved</xs:documentation>
     </xs:annotation>
     <xs:restriction base="HexBinary16">
-      <xs:pattern value="[0-7]?[0-9A-Fa-f]{0,1}" />
+      <xs:pattern value="[0-7]?[0-9A-F]{0,1}" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="ServiceKind">
