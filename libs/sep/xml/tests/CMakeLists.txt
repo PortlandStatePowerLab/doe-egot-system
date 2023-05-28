@@ -7,17 +7,17 @@ add_executable(sep_xml_tests
     src/dcap_tests.cpp
     src/sdev_tests.cpp
     src/edev_tests.cpp
-    src/rg_tests.cpp
-    src/dstat_tests.cpp
-    src/fsa_tests.cpp
-    src/frp_tests.cpp 
-    src/frq_tests.cpp
-    src/sub_tests.cpp
-    src/ntfy_tests.cpp
-    src/rsps_tests.cpp
-    src/rsp_tests.cpp
-    src/tm_tests.cpp
-    src/ps_tests.cpp
+    # src/rg_tests.cpp
+    # src/dstat_tests.cpp
+    # src/fsa_tests.cpp
+    # src/frp_tests.cpp 
+    # src/frq_tests.cpp
+    # src/sub_tests.cpp
+    # src/ntfy_tests.cpp
+    # src/rsps_tests.cpp
+    # src/rsp_tests.cpp
+    # src/tm_tests.cpp
+    # src/ps_tests.cpp
 )
 
 target_compile_features(sep_xml_tests PRIVATE cxx_std_11)

@@ -20,7 +20,7 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::EndDevice *edev) {
     link.href = href.value();
     edev->configuration_link.emplace(link);
   }
-  path = "DeviceCapability.DERListLink";
+  path = "EndDevice.DERListLink";
   if (auto child = pt.get_child_optional(path)) {
     auto href = child.value().get<std::string>("<xmlattr>.href", "");
     auto all = child.value().get<sep::UInt32>("<xmlattr>.all", 900);
@@ -30,9 +30,10 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::EndDevice *edev) {
     edev->der_list_link.emplace(link_list);
   }
   path = "EndDevice.deviceCategory";
-  if (auto device_category = pt.get_optional<sep::HexBinary32>(path)) {
+  if (auto device_category = pt.get_optional<std::string>(path)) {
+    auto hex = xml::util::Dehexify<sep::HexBinary32>(device_category.value());
     sep::DeviceCategoryType category =
-        static_cast<sep::DeviceCategoryType>(device_category.value());
+        static_cast<sep::DeviceCategoryType>(hex);
     edev->device_category.emplace(category);
   }
   path = "EndDevice.DeviceInformationLink.<xmlattr>.href";
