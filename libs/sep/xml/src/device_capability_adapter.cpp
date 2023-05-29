@@ -8,10 +8,8 @@ void ObjectMap(const boost::property_tree::ptree &pt,
                sep::DeviceCapability *dcap) {
   std::string path = "DeviceCapability.<xmlattr>.href";
   dcap->href = pt.get<std::string>(path);
-
   path = "DeviceCapability.<xmlattr>.pollRate";
   dcap->poll_rate = pt.get<sep::UInt32>(path);
-
   path = "DeviceCapability.CustomerAccountListLink";
   if (auto child = pt.get_child_optional(path)) {
     auto href = child.value().get<std::string>("<xmlattr>.href", "");

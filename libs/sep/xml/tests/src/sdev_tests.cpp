@@ -39,34 +39,34 @@ TEST_F(TestSelfDeviceXML, IsSampleValid)
 
 TEST_F(TestSelfDeviceXML, IsAdapterValid) 
 {   
-    sep::SelfDevice *sdev = new sep::SelfDevice;
-    xml::Parse(xml_str, sdev);
-    EXPECT_TRUE(validator->ValidateXml(xml::Serialize(*sdev)));
-    delete sdev;
+    sep::SelfDevice sdev;
+    xml::Parse(xml_str, &sdev);
+    EXPECT_TRUE(validator->ValidateXml(xml::Serialize(sdev)));
 }
 
 TEST_F(TestSelfDeviceXML, IsAdapterTranslationAccurate) 
 {   
-    sep::SelfDevice *sdev = new sep::SelfDevice;
-    xml::Parse(xml_str, sdev);
-    EXPECT_EQ(sdev->poll_rate, 900);
-    EXPECT_EQ(xml::util::ToUnderlyingType(sdev->subscribable), 0);
-    EXPECT_EQ(sdev->href, "http://uri1");
-    EXPECT_EQ(sdev->configuration_link.value().href, "http://uri1");
-    EXPECT_EQ(sdev->der_list_link.value().href, "http://uri1");
-    EXPECT_EQ(sdev->der_list_link.value().all, 0);
-    EXPECT_EQ(xml::util::ToUnderlyingType(sdev->device_category.value()), 0x0FB7);
-    EXPECT_EQ(sdev->device_information_link.value().href, "http://uri1");
-    EXPECT_EQ(sdev->device_status_link.value().href, "http://uri1");
-    EXPECT_EQ(sdev->file_status_link.value().href, "http://uri1");
-    EXPECT_EQ(sdev->ip_interface_list_link.value().href, "http://uri1");
-    EXPECT_EQ(sdev->ip_interface_list_link.value().all, 0);
-    EXPECT_EQ(sdev->lfdi.value(), 0x0FB7);
-    EXPECT_EQ(sdev->load_shed_availability_list_link.value().href, "http://uri1");
-    EXPECT_EQ(sdev->load_shed_availability_list_link.value().all, 0);
-    EXPECT_EQ(sdev->log_event_list_link.value().href, "http://uri1");
-    EXPECT_EQ(sdev->log_event_list_link.value().all, 0);
-    EXPECT_EQ(sdev->power_status_link.value().href, "http://uri1");
-    EXPECT_EQ(sdev->sfdi, 0);
-    delete sdev;
+    sep::SelfDevice sdev;
+    xml::Parse(xml_str, &sdev);
+    std::cout << xml_str << std::endl;
+    std::cout << xml::Serialize(sdev) << std::endl;
+    EXPECT_EQ(sdev.poll_rate, 900);
+    EXPECT_EQ(xml::util::ToUnderlyingType(sdev.subscribable), 0);
+    EXPECT_EQ(sdev.href, "http://uri1");
+    EXPECT_EQ(sdev.configuration_link.value().href, "http://uri1");
+    EXPECT_EQ(sdev.der_list_link.value().href, "http://uri1");
+    EXPECT_EQ(sdev.der_list_link.value().all, 0);
+    EXPECT_EQ(xml::util::ToUnderlyingType(sdev.device_category.value()), 0x0FB7);
+    EXPECT_EQ(sdev.device_information_link.value().href, "http://uri1");
+    EXPECT_EQ(sdev.device_status_link.value().href, "http://uri1");
+    EXPECT_EQ(sdev.file_status_link.value().href, "http://uri1");
+    EXPECT_EQ(sdev.ip_interface_list_link.value().href, "http://uri1");
+    EXPECT_EQ(sdev.ip_interface_list_link.value().all, 0);
+    EXPECT_EQ(sdev.lfdi.value(), 0x0FB7);
+    EXPECT_EQ(sdev.load_shed_availability_list_link.value().href, "http://uri1");
+    EXPECT_EQ(sdev.load_shed_availability_list_link.value().all, 0);
+    EXPECT_EQ(sdev.log_event_list_link.value().href, "http://uri1");
+    EXPECT_EQ(sdev.log_event_list_link.value().all, 0);
+    EXPECT_EQ(sdev.power_status_link.value().href, "http://uri1");
+    EXPECT_EQ(sdev.sfdi, 0);
 }

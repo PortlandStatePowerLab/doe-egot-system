@@ -4,87 +4,101 @@
 
 namespace xml {
 void ObjectMap(const boost::property_tree::ptree &pt, sep::SelfDevice *sdev) {
-  std::string path = "SelfDevice.<xmlattr>.pollRate";
+  std::string path = "SelfDevice.<xmlattr>.href";
+  sdev->href = pt.get<std::string>(path, "");
+  path = "SelfDevice.<xmlattr>.pollRate";
   sdev->poll_rate = pt.get<sep::UInt32>(path, 900);
-  path = "SelfDevice.sFDI";
-  sdev->sfdi = pt.get<sep::SFDIType>(path, 0);
   path = "SelfDevice.<xmlattr>.subscribable";
   sdev->subscribable = static_cast<sep::SubscribableType>(pt.get<sep::UInt8>(path, 0));
-  path = "SelfDevice.ConfigurationLink.<xmlattr>.href";
+  path = "SelfDevice.sFDI";
+  sdev->sfdi = pt.get<sep::SFDIType>(path, 0);
+  path = "DeviceCapability.ConfigurationLink.<xmlattr>.href";
   if (auto href = pt.get_optional<std::string>(path)) {
-    sdev->configuration_link.value().href = href.value();
+    sep::ConfigurationLink link = {};
+    link.href = href.value();
+    sdev->configuration_link.emplace(link);
   }
-  path = "SelfDevice.DERListLink.<xmlattr>.href";
-  if (auto href = pt.get_optional<std::string>(path)) {
-    sdev->der_list_link.value().href = href.value();
-  }
-  path = "SelfDevice.DERListLink.<xmlattr>.all";
-  if (auto all = pt.get_optional<sep::UInt32>(path)) {
-    sdev->der_list_link.value().all = all.value();
+  path = "SelfDevice.DERListLink";
+  if (auto child = pt.get_child_optional(path)) {
+    auto href = child.value().get<std::string>("<xmlattr>.href", "");
+    auto all = child.value().get<sep::UInt32>("<xmlattr>.all", 900);
+    sep::DERListLink link_list = {};
+    link_list.href = href;
+    link_list.all = all;
+    sdev->der_list_link.emplace(link_list);
   }
   path = "SelfDevice.deviceCategory";
-  if (auto device_category = pt.get_optional<sep::HexBinary32>(path)) {
-    sdev->device_category.value() =
-        static_cast<sep::DeviceCategoryType>(device_category.value());
+  if (auto category = pt.get_optional<std::string>(path)) {
+    auto hex = xml::util::Dehexify<sep::HexBinary32>(category.value());
+    sdev->device_category.emplace(static_cast<sep::DeviceCategoryType>(hex));
   }
   path = "SelfDevice.DeviceInformationLink.<xmlattr>.href";
   if (auto href = pt.get_optional<std::string>(path)) {
-    sdev->device_information_link.value().href = href.value();
+    sep::DeviceInformationLink link = {};
+    link.href = href.value();
+    sdev->device_information_link.emplace(link);
   }
   path = "SelfDevice.DeviceStatusLink.<xmlattr>.href";
   if (auto href = pt.get_optional<std::string>(path)) {
-    sdev->device_status_link.value().href = href.value();
+    sep::DeviceStatusLink link = {};
+    link.href = href.value();
+    sdev->device_status_link.emplace(link);
   }
   path = "SelfDevice.FileStatusLink.<xmlattr>.href";
   if (auto href = pt.get_optional<std::string>(path)) {
-    sdev->file_status_link.value().href = href.value();
+    sep::FileStatusLink link = {};
+    link.href = href.value();
+    sdev->file_status_link.emplace(link);
   }
-  path = "SelfDevice.IPInterfaceListLink.<xmlattr>.href";
-  if (auto href = pt.get_optional<std::string>(path)) {
-    sdev->ip_interface_list_link.value().href = href.value();
+  path = "SelfDevice.IPInterfaceListLink";
+  if (auto child = pt.get_child_optional(path)) {
+    auto href = child.value().get<std::string>("<xmlattr>.href", "");
+    auto all = child.value().get<sep::UInt32>("<xmlattr>.all", 900);
+    sep::IPInterfaceListLink link_list = {};
+    link_list.href = href;
+    link_list.all = all;
+    sdev->ip_interface_list_link.emplace(link_list);
   }
-  path = "SelfDevice.IPInterfaceListLink.<xmlattr>.all";
-  if (auto all = pt.get_optional<sep::UInt32>(path)) {
-    sdev->ip_interface_list_link.value().all = all.value();
-  }
-  // path = "SelfDevice.lFDI";
-  // if (auto lfdi = pt.get_optional<std::string>(path)) {
-  //   sdev->lfdi.value() =
-  //   xml::util::Dehexify<sep::HexBinary160>(lfdi.value());
-  // }
   path = "SelfDevice.lFDI";
-  if (auto lfdi = pt.get_optional<sep::HexBinary160>(path)) {
-    sdev->lfdi.value() = lfdi.value();
+  if (auto lfdi = pt.get_optional<std::string>(path)) {
+    auto hex = xml::util::Dehexify<sep::HexBinary160>(lfdi.value());
+    sdev->lfdi.emplace(hex);
   }
-  path = "SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.href";
-  if (auto href = pt.get_optional<std::string>(path)) {
-    sdev->load_shed_availability_list_link.value().href = href.value();
+  path = "SelfDevice.LoadShedAvailabilityListLink";
+  if (auto child = pt.get_child_optional(path)) {
+    auto href = child.value().get<std::string>("<xmlattr>.href", "");
+    auto all = child.value().get<sep::UInt32>("<xmlattr>.all", 900);
+    sep::LoadShedAvailabilityListLink link_list = {};
+    link_list.href = href;
+    link_list.all = all;
+    sdev->load_shed_availability_list_link.emplace(link_list);
   }
-  path = "SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.all";
-  if (auto all = pt.get_optional<sep::UInt32>(path)) {
-    sdev->load_shed_availability_list_link.value().all = all.value();
-  }
-  path = "SelfDevice.LogEventListLink.<xmlattr>.href";
-  if (auto href = pt.get_optional<std::string>(path)) {
-    sdev->log_event_list_link.value().href = href.value();
-  }
-  path = "SelfDevice.LogEventListLink.<xmlattr>.all";
-  if (auto all = pt.get_optional<sep::UInt32>(path)) {
-    sdev->log_event_list_link.value().all = all.value();
+  path = "SelfDevice.LogEventListLink";
+  if (auto child = pt.get_child_optional(path)) {
+    auto href = child.value().get<std::string>("<xmlattr>.href", "");
+    auto all = child.value().get<sep::UInt32>("<xmlattr>.all", 900);
+    sep::LogEventListLink link_list = {};
+    link_list.href = href;
+    link_list.all = all;
+    sdev->log_event_list_link.emplace(link_list);
   }
   path = "SelfDevice.PowerStatusLink.<xmlattr>.href";
   if (auto href = pt.get_optional<std::string>(path)) {
-    sdev->power_status_link.value().href = href.value();
+    sep::PowerStatusLink link = {};
+    link.href = href.value();
+    sdev->power_status_link.emplace(link);
   }
 };
 
 void TreeMap(const sep::SelfDevice &sdev, boost::property_tree::ptree *pt) {
-  pt->put("SelfDevice.<xmlattr>.href", sdev.href);
-  pt->put("SelfDevice.<xmlattr>.pollRate", sdev.poll_rate);
-  pt->put("SelfDevice.<xmlattr>.subscribable",
-          xml::util::ToUnderlyingType(sdev.subscribable));
-  pt->put("SelfDevice.sFDI", sdev.sfdi);
-  std::string path;
+  std::string path = "SelfDevice.<xmlattr>.href";
+  pt->put(path, sdev.href);
+  path = "SelfDevice.<xmlattr>.pollRate";
+  pt->put(path, sdev.poll_rate);
+  path = "SelfDevice.<xmlattr>.subscribable";
+  pt->put(path, xml::util::ToUnderlyingType(sdev.subscribable));
+  path = "SelfDevice.sFDI";
+  pt->put(path, sdev.sfdi);
   if (sdev.configuration_link.has_value()) {
     path = "SelfDevice.ConfigurationLink.<xmlattr>.href";
     pt->put(path, sdev.configuration_link.value().href);
@@ -97,8 +111,8 @@ void TreeMap(const sep::SelfDevice &sdev, boost::property_tree::ptree *pt) {
   }
   if (sdev.device_category.has_value()) {
     path = "SelfDevice.deviceCategory";
-    pt->put(path, xml::util::Hexify(xml::util::ToUnderlyingType(
-                      sdev.device_category.value())));
+    auto category = xml::util::ToUnderlyingType(sdev.device_category.value());
+    pt->put(path, xml::util::Hexify(category));
   }
   if (sdev.device_information_link.has_value()) {
     path = "SelfDevice.DeviceInformationLink.<xmlattr>.href";

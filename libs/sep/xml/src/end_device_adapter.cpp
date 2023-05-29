@@ -253,9 +253,6 @@ std::string Serialize(const sep::EndDevice &edev) {
 void Parse(const std::string &xml_str, sep::EndDevice *edev) {
   boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
   ObjectMap(pt, edev);
-  std::unordered_set<std::string> keys;
-  xml::util::walk_ptree(pt, "", &keys);
-  xml::util::printSet(keys);
 };
 
 std::string Serialize(const sep::EndDeviceList &edev_list) {

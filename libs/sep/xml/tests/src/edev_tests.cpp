@@ -36,51 +36,47 @@ TEST_F(TestEndDeviceXML, IsSampleValid) {
 }
 
 TEST_F(TestEndDeviceXML, IsAdapterValid) {
-  sep::EndDevice *edev = new sep::EndDevice;
-  xml::Parse(xml_str, edev);
-  std::cout << xml_str << std::endl;
-  std::cout << xml::Serialize(*edev) << std::endl;
-  EXPECT_TRUE(validator->ValidateXml(xml::Serialize(*edev)));
-  delete edev;
+  sep::EndDevice edev;
+  xml::Parse(xml_str, &edev);
+  EXPECT_TRUE(validator->ValidateXml(xml::Serialize(edev)));
 }
 
 TEST_F(TestEndDeviceXML, IsAdapterTranslationAccurate) {
-  sep::EndDevice *edev = new sep::EndDevice;
-  xml::Parse(xml_str, edev);
-  EXPECT_EQ(xml::util::ToUnderlyingType(edev->subscribable), 0);
-  EXPECT_EQ(edev->href, "http://uri1");
-  EXPECT_EQ(edev->configuration_link.value().href, "http://uri1");
-  EXPECT_EQ(edev->der_list_link.value().href, "http://uri1");
-  EXPECT_EQ(edev->der_list_link.value().all, 0);
-  EXPECT_EQ(xml::util::ToUnderlyingType(edev->device_category.value()), 0x0FB7);
-  EXPECT_EQ(edev->device_information_link.value().href, "http://uri1");
-  EXPECT_EQ(edev->device_status_link.value().href, "http://uri1");
-  EXPECT_EQ(edev->file_status_link.value().href, "http://uri1");
-  EXPECT_EQ(edev->ip_interface_list_link.value().href, "http://uri1");
-  EXPECT_EQ(edev->ip_interface_list_link.value().all, 0);
-  EXPECT_EQ(edev->lfdi.value(), 0x0FB7);
-  EXPECT_EQ(edev->load_shed_availability_list_link.value().href, "http://uri1");
-  EXPECT_EQ(edev->load_shed_availability_list_link.value().all, 0);
-  EXPECT_EQ(edev->log_event_list_link.value().href, "http://uri1");
-  EXPECT_EQ(edev->log_event_list_link.value().all, 0);
-  EXPECT_EQ(edev->power_status_link.value().href, "http://uri1");
-  EXPECT_EQ(edev->sfdi, 0);
-  EXPECT_EQ(edev->changed_time, 1);
-  EXPECT_EQ(edev->enabled, true);
-  EXPECT_EQ(edev->flow_reservation_request_list_link.value().href,
+  sep::EndDevice edev;
+  xml::Parse(xml_str, &edev);
+  EXPECT_EQ(xml::util::ToUnderlyingType(edev.subscribable), 0);
+  EXPECT_EQ(edev.href, "http://uri1");
+  EXPECT_EQ(edev.configuration_link.value().href, "http://uri1");
+  EXPECT_EQ(edev.der_list_link.value().href, "http://uri1");
+  EXPECT_EQ(edev.der_list_link.value().all, 0);
+  EXPECT_EQ(xml::util::ToUnderlyingType(edev.device_category.value()), 0x0FB7);
+  EXPECT_EQ(edev.device_information_link.value().href, "http://uri1");
+  EXPECT_EQ(edev.device_status_link.value().href, "http://uri1");
+  EXPECT_EQ(edev.file_status_link.value().href, "http://uri1");
+  EXPECT_EQ(edev.ip_interface_list_link.value().href, "http://uri1");
+  EXPECT_EQ(edev.ip_interface_list_link.value().all, 0);
+  EXPECT_EQ(edev.lfdi.value(), 0x0FB7);
+  EXPECT_EQ(edev.load_shed_availability_list_link.value().href, "http://uri1");
+  EXPECT_EQ(edev.load_shed_availability_list_link.value().all, 0);
+  EXPECT_EQ(edev.log_event_list_link.value().href, "http://uri1");
+  EXPECT_EQ(edev.log_event_list_link.value().all, 0);
+  EXPECT_EQ(edev.power_status_link.value().href, "http://uri1");
+  EXPECT_EQ(edev.sfdi, 0);
+  EXPECT_EQ(edev.changed_time, 1);
+  EXPECT_EQ(edev.enabled, true);
+  EXPECT_EQ(edev.flow_reservation_request_list_link.value().href,
             "http://uri1");
-  EXPECT_EQ(edev->flow_reservation_request_list_link.value().all, 0);
-  EXPECT_EQ(edev->flow_reservation_response_list_link.value().href,
+  EXPECT_EQ(edev.flow_reservation_request_list_link.value().all, 0);
+  EXPECT_EQ(edev.flow_reservation_response_list_link.value().href,
             "http://uri1");
-  EXPECT_EQ(edev->flow_reservation_response_list_link.value().all, 0);
-  EXPECT_EQ(edev->function_set_assignments_list_link.value().href,
+  EXPECT_EQ(edev.flow_reservation_response_list_link.value().all, 0);
+  EXPECT_EQ(edev.function_set_assignments_list_link.value().href,
             "http://uri1");
-  EXPECT_EQ(edev->function_set_assignments_list_link.value().all, 0);
-  EXPECT_EQ(edev->post_rate.value(), 0);
-  EXPECT_EQ(edev->registration_link.value().href, "http://uri1");
-  EXPECT_EQ(edev->subscription_list_link.value().href, "http://uri1");
-  EXPECT_EQ(edev->subscription_list_link.value().all, 0);
-  delete edev;
+  EXPECT_EQ(edev.function_set_assignments_list_link.value().all, 0);
+  EXPECT_EQ(edev.post_rate.value(), 0);
+  EXPECT_EQ(edev.registration_link.value().href, "http://uri1");
+  EXPECT_EQ(edev.subscription_list_link.value().href, "http://uri1");
+  EXPECT_EQ(edev.subscription_list_link.value().all, 0);
 }
 
 TEST_F(TestEndDeviceXML, CheckAdapterDeviceCategoryMaxValue) {
