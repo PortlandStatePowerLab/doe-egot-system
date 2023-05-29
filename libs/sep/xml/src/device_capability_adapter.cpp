@@ -129,77 +129,77 @@ void TreeMap(const sep::DeviceCapability &dcap,
   pt->put(path, dcap.href);
   path = "DeviceCapability.<xmlattr>.pollRate";
   pt->put(path, dcap.poll_rate);
-  if (dcap.customer_account_list_link.has_value()) {
+  if (dcap.customer_account_list_link.is_initialized()) {
     path = "DeviceCapability.CustomerAccountListLink.<xmlattr>.href";
     pt->put(path, dcap.customer_account_list_link.get().href);
     path = "DeviceCapability.CustomerAccountListLink.<xmlattr>.all";
     pt->put(path, dcap.customer_account_list_link.get().all);
   }
-  if (dcap.demand_response_program_list_link.has_value()) {
+  if (dcap.demand_response_program_list_link.is_initialized()) {
     path = "DeviceCapability.DemandResponseProgramListLink.<xmlattr>.href";
     pt->put(path, dcap.demand_response_program_list_link.get().href);
     path = "DeviceCapability.DemandResponseProgramListLink.<xmlattr>.all";
     pt->put(path, dcap.demand_response_program_list_link.get().all);
   }
-  if (dcap.der_program_list_link.has_value()) {
+  if (dcap.der_program_list_link.is_initialized()) {
     path = "DeviceCapability.DERProgramListLink.<xmlattr>.href";
     pt->put(path, dcap.der_program_list_link.get().href);
     path = "DeviceCapability.DERProgramListLink.<xmlattr>.all";
     pt->put(path, dcap.der_program_list_link.get().all);
   }
-  if (dcap.file_list_link.has_value()) {
+  if (dcap.file_list_link.is_initialized()) {
     path = "DeviceCapability.FileListLink.<xmlattr>.href";
     pt->put(path, dcap.file_list_link.get().href);
     path = "DeviceCapability.FileListLink.<xmlattr>.all";
     pt->put(path, dcap.file_list_link.get().all);
   }
-  if (dcap.messaging_program_list_link.has_value()) {
+  if (dcap.messaging_program_list_link.is_initialized()) {
     path = "DeviceCapability.MessagingProgramListLink.<xmlattr>.href";
     pt->put(path, dcap.messaging_program_list_link.get().href);
     path = "DeviceCapability.MessagingProgramListLink.<xmlattr>.all";
     pt->put(path, dcap.messaging_program_list_link.get().all);
   }
-  if (dcap.prepayment_list_link.has_value()) {
+  if (dcap.prepayment_list_link.is_initialized()) {
     path = "DeviceCapability.PrepaymentListLink.<xmlattr>.href";
     pt->put(path, dcap.prepayment_list_link.get().href);
     path = "DeviceCapability.PrepaymentListLink.<xmlattr>.all";
     pt->put(path, dcap.prepayment_list_link.get().all);
   }
-  if (dcap.response_set_list_link.has_value()) {
+  if (dcap.response_set_list_link.is_initialized()) {
     path = "DeviceCapability.ResponseSetListLink.<xmlattr>.href";
     pt->put(path, dcap.response_set_list_link.get().href);
     path = "DeviceCapability.ResponseSetListLink.<xmlattr>.all";
     pt->put(path, dcap.response_set_list_link.get().all);
   }
-  if (dcap.tariff_profile_list_link.has_value()) {
+  if (dcap.tariff_profile_list_link.is_initialized()) {
     path = "DeviceCapability.TariffProfileListLink.<xmlattr>.href";
     pt->put(path, dcap.tariff_profile_list_link.get().href);
     path = "DeviceCapability.TariffProfileListLink.<xmlattr>.all";
     pt->put(path, dcap.tariff_profile_list_link.get().all);
   }
-  if (dcap.time_link.has_value()) {
+  if (dcap.time_link.is_initialized()) {
     path = "DeviceCapability.TimeLink.<xmlattr>.href";
     pt->put(path, dcap.time_link.get().href);
   }
-  if (dcap.usage_point_list_link.has_value()) {
+  if (dcap.usage_point_list_link.is_initialized()) {
     path = "DeviceCapability.UsagePointListLink.<xmlattr>.href";
     pt->put(path, dcap.usage_point_list_link.get().href);
     path = "DeviceCapability.UsagePointListLink.<xmlattr>.all";
     pt->put(path, dcap.usage_point_list_link.get().all);
   }
-  if (dcap.end_device_list_link.has_value()) {
+  if (dcap.end_device_list_link.is_initialized()) {
     path = "DeviceCapability.EndDeviceListLink.<xmlattr>.href";
     pt->put(path, dcap.end_device_list_link.get().href);
     path = "DeviceCapability.EndDeviceListLink.<xmlattr>.all";
     pt->put(path, dcap.end_device_list_link.get().all);
   }
-  if (dcap.mirror_usage_point_list_link.has_value()) {
+  if (dcap.mirror_usage_point_list_link.is_initialized()) {
     path = "DeviceCapability.MirrorUsagePointListLink.<xmlattr>.href";
     pt->put(path, dcap.mirror_usage_point_list_link.get().href);
     path = "DeviceCapability.MirrorUsagePointListLink.<xmlattr>.all";
     pt->put(path, dcap.mirror_usage_point_list_link.get().all);
   }
-  if (dcap.self_device_link.has_value()) {
+  if (dcap.self_device_link.is_initialized()) {
     path = "DeviceCapability.SelfDeviceLink.<xmlattr>.href";
     pt->put(path, dcap.self_device_link.get().href);
   }

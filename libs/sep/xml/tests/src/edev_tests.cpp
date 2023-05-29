@@ -44,6 +44,7 @@ TEST_F(TestEndDeviceXML, IsAdapterValid) {
 TEST_F(TestEndDeviceXML, IsAdapterTranslationAccurate) {
   sep::EndDevice edev;
   xml::Parse(xml_str, &edev);
+  std::cout << xml::Serialize(edev) << std::endl;
   EXPECT_EQ(xml::util::ToUnderlyingType(edev.subscribable), 0);
   EXPECT_EQ(edev.href, "http://uri1");
   EXPECT_EQ(edev.configuration_link.value().href, "http://uri1");

@@ -3,10 +3,10 @@
 
 namespace xml {
 void ObjectMap(const boost::property_tree::ptree &pt, sep::Registration *rg) {
-  std::string path = "Registration.<xmlattr>.pollRate";
-  rg->poll_rate = pt.get<sep::UInt32>(path, 0);
-  path = "Registration.<xmlattr>.href";
+  std::string path = "Registration.<xmlattr>.href";
   rg->href = pt.get<std::string>(path, "");
+  path = "Registration.<xmlattr>.pollRate";
+  rg->poll_rate = pt.get<sep::UInt32>(path, 0);
   path = "Registration.dateTimeRegistered";
   rg->date_time_registered = pt.get<sep::TimeType>(path, 0);
   path = "Registration.pIN";

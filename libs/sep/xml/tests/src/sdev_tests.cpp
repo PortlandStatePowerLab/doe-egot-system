@@ -48,8 +48,6 @@ TEST_F(TestSelfDeviceXML, IsAdapterTranslationAccurate)
 {   
     sep::SelfDevice sdev;
     xml::Parse(xml_str, &sdev);
-    std::cout << xml_str << std::endl;
-    std::cout << xml::Serialize(sdev) << std::endl;
     EXPECT_EQ(sdev.poll_rate, 900);
     EXPECT_EQ(xml::util::ToUnderlyingType(sdev.subscribable), 0);
     EXPECT_EQ(sdev.href, "http://uri1");

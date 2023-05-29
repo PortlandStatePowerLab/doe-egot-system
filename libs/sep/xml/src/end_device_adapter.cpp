@@ -151,90 +151,90 @@ void TreeMap(const sep::EndDevice &edev, boost::property_tree::ptree *pt) {
   pt->put(path, edev.changed_time);
   path = "EndDevice.sFDI";
   pt->put(path, edev.sfdi);
-  if (edev.configuration_link.has_value()) {
+  if (edev.configuration_link.is_initialized()) {
     path = "EndDevice.ConfigurationLink.<xmlattr>.href";
     pt->put(path, edev.configuration_link.value().href);
   }
-  if (edev.der_list_link.has_value()) {
+  if (edev.der_list_link.is_initialized()) {
     path = "EndDevice.DERListLink.<xmlattr>.href";
     pt->put(path, edev.der_list_link.value().href);
     path = "EndDevice.DERListLink.<xmlattr>.all";
     pt->put(path, edev.der_list_link.value().all);
   }
-  if (edev.device_category.has_value()) {
+  if (edev.device_category.is_initialized()) {
     path = "EndDevice.deviceCategory";
     auto category = xml::util::ToUnderlyingType(edev.device_category.value());
     pt->put(path, xml::util::Hexify(category));
   }
-  if (edev.device_information_link.has_value()) {
+  if (edev.device_information_link.is_initialized()) {
     path = "EndDevice.DeviceInformationLink.<xmlattr>.href";
     pt->put(path, edev.device_information_link.value().href);
   }
-  if (edev.device_status_link.has_value()) {
+  if (edev.device_status_link.is_initialized()) {
     path = "EndDevice.DeviceStatusLink.<xmlattr>.href";
     pt->put(path, edev.device_status_link.value().href);
   }
-  if (edev.file_status_link.has_value()) {
+  if (edev.file_status_link.is_initialized()) {
     path = "EndDevice.FileStatusLink.<xmlattr>.href";
     pt->put(path, edev.file_status_link.value().href);
   }
-  if (edev.ip_interface_list_link.has_value()) {
+  if (edev.ip_interface_list_link.is_initialized()) {
     path = "EndDevice.IPInterfaceListLink.<xmlattr>.href";
     pt->put(path, edev.ip_interface_list_link.value().href);
     path = "EndDevice.IPInterfaceListLink.<xmlattr>.all";
     pt->put(path, edev.ip_interface_list_link.value().all);
   }
-  if (edev.lfdi.has_value()) {
+  if (edev.lfdi.is_initialized()) {
     path = "EndDevice.lFDI";
     pt->put(path, xml::util::Hexify(edev.lfdi.value()));
   }
-  if (edev.load_shed_availability_list_link.has_value()) {
+  if (edev.load_shed_availability_list_link.is_initialized()) {
     path = "EndDevice.LoadShedAvailabilityListLink.<xmlattr>.href";
     pt->put(path, edev.load_shed_availability_list_link.value().href);
     path = "EndDevice.LoadShedAvailabilityListLink.<xmlattr>.all";
     pt->put(path, edev.load_shed_availability_list_link.value().all);
   }
-  if (edev.log_event_list_link.has_value()) {
+  if (edev.log_event_list_link.is_initialized()) {
     path = "EndDevice.LogEventListLink.<xmlattr>.href";
     pt->put(path, edev.log_event_list_link.value().href);
     path = "EndDevice.LogEventListLink.<xmlattr>.all";
     pt->put(path, edev.log_event_list_link.value().all);
   }
-  if (edev.power_status_link.has_value()) {
+  if (edev.power_status_link.is_initialized()) {
     path = "EndDevice.PowerStatusLink.<xmlattr>.href";
     pt->put(path, edev.power_status_link.value().href);
   }
-  if (edev.enabled.has_value()) {
+  if (edev.enabled.is_initialized()) {
     path = "EndDevice.enabled";
     pt->put(path, edev.enabled.value());
   }
-  if (edev.flow_reservation_request_list_link.has_value()) {
+  if (edev.flow_reservation_request_list_link.is_initialized()) {
     path = "EndDevice.FlowReservationRequestListLink.<xmlattr>.href";
     pt->put(path, edev.flow_reservation_request_list_link.value().href);
     path = "EndDevice.FlowReservationRequestListLink.<xmlattr>.all";
     pt->put(path, edev.flow_reservation_request_list_link.value().all);
   }
-  if (edev.flow_reservation_response_list_link.has_value()) {
+  if (edev.flow_reservation_response_list_link.is_initialized()) {
     path = "EndDevice.FlowReservationResponseListLink.<xmlattr>.href";
     pt->put(path, edev.flow_reservation_response_list_link.value().href);
     path = "EndDevice.FlowReservationResponseListLink.<xmlattr>.all";
     pt->put(path, edev.flow_reservation_response_list_link.value().all);
   }
-  if (edev.function_set_assignments_list_link.has_value()) {
+  if (edev.function_set_assignments_list_link.is_initialized()) {
     path = "EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.href";
     pt->put(path, edev.function_set_assignments_list_link.value().href);
     path = "EndDevice.FunctionSetAssignmentsListLink.<xmlattr>.all";
     pt->put(path, edev.function_set_assignments_list_link.value().all);
   }
-  if (edev.post_rate.has_value()) {
+  if (edev.post_rate.is_initialized()) {
     path = "EndDevice.postRate";
     pt->put(path, edev.post_rate.value());
   }
-  if (edev.registration_link.has_value()) {
+  if (edev.registration_link.is_initialized()) {
     pt->put("EndDevice.RegistrationLink.<xmlattr>.href",
             edev.registration_link.value().href);
   }
-  if (edev.subscription_list_link.has_value()) {
+  if (edev.subscription_list_link.is_initialized()) {
     path = "EndDevice.SubscriptionListLink.<xmlattr>.href";
     pt->put(path, edev.subscription_list_link.value().href);
     path = "EndDevice.SubscriptionListLink.<xmlattr>.all";

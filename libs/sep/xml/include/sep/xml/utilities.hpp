@@ -22,10 +22,10 @@ static void SetSchema(boost::property_tree::ptree *pt) {
   // TODO: This function doesn't work currently
   std::string root = pt->begin()->first;
   pt->put(root + ".<xmlattr>.xmlns", "urn:ieee:std:2030.5:ns");
-  pt->put(root + ".<xmlattr>.xmlns:xsi",
-          "http://www.w3.org/2001/XMLSchema-instance");
-  pt->put(root + ".<xmlattr>.xsi:schemaLocation",
-          "urn:ieee:std:2030.5:ns sep.xsd");
+  // pt->put(root + ".<xmlattr>.xmlns:xsi",
+  //         "http://www.w3.org/2001/XMLSchema-instance");
+  // pt->put(root + ".<xmlattr>.xsi:schemaLocation",
+  //         "urn:ieee:std:2030.5:ns sep.xsd");
 };
 
 static boost::property_tree::ptree Treeify(const std::string &xml_str) {

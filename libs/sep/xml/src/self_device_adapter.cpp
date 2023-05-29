@@ -12,7 +12,7 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::SelfDevice *sdev) {
   sdev->subscribable = static_cast<sep::SubscribableType>(pt.get<sep::UInt8>(path, 0));
   path = "SelfDevice.sFDI";
   sdev->sfdi = pt.get<sep::SFDIType>(path, 0);
-  path = "DeviceCapability.ConfigurationLink.<xmlattr>.href";
+  path = "SelfDevice.ConfigurationLink.<xmlattr>.href";
   if (auto href = pt.get_optional<std::string>(path)) {
     sep::ConfigurationLink link = {};
     link.href = href.value();
@@ -99,56 +99,56 @@ void TreeMap(const sep::SelfDevice &sdev, boost::property_tree::ptree *pt) {
   pt->put(path, xml::util::ToUnderlyingType(sdev.subscribable));
   path = "SelfDevice.sFDI";
   pt->put(path, sdev.sfdi);
-  if (sdev.configuration_link.has_value()) {
+  if (sdev.configuration_link.is_initialized()) {
     path = "SelfDevice.ConfigurationLink.<xmlattr>.href";
     pt->put(path, sdev.configuration_link.value().href);
   }
-  if (sdev.der_list_link.has_value()) {
+  if (sdev.der_list_link.is_initialized()) {
     path = "SelfDevice.DERListLink.<xmlattr>.href";
     pt->put(path, sdev.der_list_link.value().href);
     path = "SelfDevice.DERListLink.<xmlattr>.all";
     pt->put(path, sdev.der_list_link.value().all);
   }
-  if (sdev.device_category.has_value()) {
+  if (sdev.device_category.is_initialized()) {
     path = "SelfDevice.deviceCategory";
     auto category = xml::util::ToUnderlyingType(sdev.device_category.value());
     pt->put(path, xml::util::Hexify(category));
   }
-  if (sdev.device_information_link.has_value()) {
+  if (sdev.device_information_link.is_initialized()) {
     path = "SelfDevice.DeviceInformationLink.<xmlattr>.href";
     pt->put(path, sdev.device_information_link.value().href);
   }
-  if (sdev.device_status_link.has_value()) {
+  if (sdev.device_status_link.is_initialized()) {
     path = "SelfDevice.DeviceStatusLink.<xmlattr>.href";
     pt->put(path, sdev.device_status_link.value().href);
   }
-  if (sdev.file_status_link.has_value()) {
+  if (sdev.file_status_link.is_initialized()) {
     path = "SelfDevice.FileStatusLink.<xmlattr>.href";
     pt->put(path, sdev.file_status_link.value().href);
   }
-  if (sdev.ip_interface_list_link.has_value()) {
+  if (sdev.ip_interface_list_link.is_initialized()) {
     path = "SelfDevice.IPInterfaceListLink.<xmlattr>.href";
     pt->put(path, sdev.ip_interface_list_link.value().href);
     path = "SelfDevice.IPInterfaceListLink.<xmlattr>.all";
     pt->put(path, sdev.ip_interface_list_link.value().all);
   }
-  if (sdev.lfdi.has_value()) {
+  if (sdev.lfdi.is_initialized()) {
     path = "SelfDevice.lFDI";
     pt->put(path, xml::util::Hexify(sdev.lfdi.value()));
   }
-  if (sdev.load_shed_availability_list_link.has_value()) {
+  if (sdev.load_shed_availability_list_link.is_initialized()) {
     path = "SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.href";
     pt->put(path, sdev.load_shed_availability_list_link.value().href);
     path = "SelfDevice.LoadShedAvailabilityListLink.<xmlattr>.all";
     pt->put(path, sdev.load_shed_availability_list_link.value().all);
   }
-  if (sdev.log_event_list_link.has_value()) {
+  if (sdev.log_event_list_link.is_initialized()) {
     path = "SelfDevice.LogEventListLink.<xmlattr>.href";
     pt->put(path, sdev.log_event_list_link.value().href);
     path = "SelfDevice.LogEventListLink.<xmlattr>.all";
     pt->put(path, sdev.log_event_list_link.value().all);
   }
-  if (sdev.power_status_link.has_value()) {
+  if (sdev.power_status_link.is_initialized()) {
     path = "SelfDevice.PowerStatusLink.<xmlattr>.href";
     pt->put(path, sdev.power_status_link.value().href);
   }

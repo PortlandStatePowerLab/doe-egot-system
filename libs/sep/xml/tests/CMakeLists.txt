@@ -7,7 +7,7 @@ add_executable(sep_xml_tests
     src/dcap_tests.cpp
     src/sdev_tests.cpp
     src/edev_tests.cpp
-    # src/rg_tests.cpp
+    src/rg_tests.cpp
     # src/dstat_tests.cpp
     # src/fsa_tests.cpp
     # src/frp_tests.cpp 
