@@ -13,15 +13,20 @@ void ObjectMap(const boost::property_tree::ptree &pt,
   path = "FlowReservationResponse.<xmlattr>.responseRequired";
   frp->response_required =
       static_cast<sep::RespondableResource::ResponseRequired>(
-          pt.get<sep::HexBinary8>(path, 0));
+          xml::util::Dehexify<sep::HexBinary8>(
+              pt.get<std::string>(path, "00")));
   path = "FlowReservationResponse.<xmlattr>.href";
   frp->href = pt.get<std::string>(path, "");
   path = "FlowReservationResponse.mRID";
   frp->mrid = xml::util::Dehexify<sep::mRIDType>(pt.get<std::string>(path, ""));
   path = "FlowReservationResponse.description";
-  frp->description = pt.get<sep::String32>(path, "");
+  if (auto description = pt.get_optional<sep::String32>(path)) {
+    frp->description.emplace(description.value());
+  }
   path = "FlowReservationResponse.version";
-  frp->version = pt.get<sep::VersionType>(path, 0);
+  if (auto version = pt.get_optional<sep::VersionType>(path)) {
+    frp->version.emplace(version.value());
+  }
   path = "FlowReservationResponse.creationTime";
   frp->creation_time = pt.get<sep::TimeType>(path, 0);
   path = "FlowReservationResponse.EventStatus.currentStatus";
@@ -46,7 +51,8 @@ void ObjectMap(const boost::property_tree::ptree &pt,
   path = "FlowReservationResponse.powerAvailable.value";
   frp->power_available.value = pt.get<sep::Int16>(path, 0);
   path = "FlowReservationResponse.subject";
-  frp->subject = pt.get<sep::mRIDType>(path, 0);
+  frp->subject =
+      xml::util::Dehexify<sep::mRIDType>(pt.get<std::string>(path, ""));
   path = "FlowReservationResponse.EventStatus.potentiallySupersededTime";
   frp->event_status.potentially_superseded_time =
       pt.get<sep::TimeType>(path, 0);
@@ -61,15 +67,20 @@ void TreeMap(const sep::FlowReservationResponse &frp,
   path = "FlowReservationResponse.<xmlattr>.replyTo";
   pt->put(path, frp.reply_to);
   path = "FlowReservationResponse.<xmlattr>.responseRequired";
-  pt->put(path, xml::util::ToUnderlyingType(frp.response_required));
+  pt->put(path, xml::util::Hexify(
+                    xml::util::ToUnderlyingType(frp.response_required)));
   path = "FlowReservationResponse.<xmlattr>.href";
   pt->put(path, frp.href);
   path = "FlowReservationResponse.mRID";
   pt->put(path, xml::util::Hexify(frp.mrid));
   path = "FlowReservationResponse.description";
-  pt->put(path, frp.description);
+  if (frp.description.is_initialized()) {
+    pt->put(path, frp.description.value());
+  }
   path = "FlowReservationResponse.version";
-  pt->put(path, frp.version);
+  if (frp.version.is_initialized()) {
+    pt->put(path, frp.version.value());
+  }
   path = "FlowReservationResponse.creationTime";
   pt->put(path, frp.creation_time);
   path = "FlowReservationResponse.EventStatus.currentStatus";

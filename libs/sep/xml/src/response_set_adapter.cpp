@@ -7,22 +7,24 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::ResponseSet *rsps) {
   std::string path = "ResponseSet.<xmlattr>.href";
   rsps->href = pt.get<std::string>(path, "");
   path = "ResponseSet.mRID";
-  rsps->mrid = pt.get<sep::mRIDType>(path, 0);
+  rsps->mrid =
+      xml::util::Dehexify<sep::mRIDType>(pt.get<std::string>(path, ""));
   path = "ResponseSet.description";
   if (auto description = pt.get_optional<sep::String32>(path)) {
-    rsps->description.value() = description.value();
+    rsps->description.emplace(description.value());
   }
   path = "ResponseSet.version";
   if (auto version = pt.get_optional<sep::VersionType>(path)) {
-    rsps->version.value() = version.value();
+    rsps->version.emplace(version.value());
   }
-  path = "ResponseSet.ResponseListLink.<xmlattr>.href";
-  if (auto href = pt.get_optional<std::string>(path)) {
-    rsps->response_list_link.value().href = href.value();
-  }
-  path = "ResponseSet.ResponseListLink.<xmlattr>.all";
-  if (auto all = pt.get_optional<sep::UInt32>(path)) {
-    rsps->response_list_link.value().all = all.value();
+  path = "ResponseSet.ResponseListLink";
+  if (auto child = pt.get_child_optional(path)) {
+    auto href = child.value().get<std::string>("<xmlattr>.href", "");
+    auto all = child.value().get<sep::UInt32>("<xmlattr>.all", 900);
+    sep::ResponseListLink link_list = {};
+    link_list.href = href;
+    link_list.all = all;
+    rsps->response_list_link.emplace(link_list);
   }
 };
 
@@ -31,15 +33,15 @@ void TreeMap(const sep::ResponseSet &rsps, boost::property_tree::ptree *pt) {
   pt->put(path, rsps.href);
   path = "ResponseSet.mRID";
   pt->put(path, xml::util::Hexify(rsps.mrid));
-  if (rsps.description.has_value()) {
+  if (rsps.description.is_initialized()) {
     path = "ResponseSet.description";
     pt->put(path, rsps.description.value());
   }
-  if (rsps.version.has_value()) {
+  if (rsps.version.is_initialized()) {
     path = "ResponseSet.version";
     pt->put(path, rsps.version.value());
   }
-  if (rsps.response_list_link.has_value()) {
+  if (rsps.response_list_link.is_initialized()) {
     path = "ResponseSet.ResponseListLink.<xmlattr>.all";
     pt->put(path, rsps.response_list_link.value().all);
     path = "ResponseSet.ResponseListLink.<xmlattr>.href";

@@ -36,34 +36,32 @@ TEST_F(TestFlowReservationRequestXML, IsSampleValid) {
 }
 
 TEST_F(TestFlowReservationRequestXML, IsAdapterValid) {
-  sep::FlowReservationRequest *fr_request = new sep::FlowReservationRequest;
-  xml::Parse(xml_str, fr_request);
-  EXPECT_TRUE(validator->ValidateXml(xml::Serialize(*fr_request)));
-  delete fr_request;
+  sep::FlowReservationRequest fr_request;
+  xml::Parse(xml_str, &fr_request);
+  EXPECT_TRUE(validator->ValidateXml(xml::Serialize(fr_request)));
 }
 
 TEST_F(TestFlowReservationRequestXML, IsAdapterTranslationAccurate) {
-  sep::FlowReservationRequest *fr_request = new sep::FlowReservationRequest;
-  xml::Parse(xml_str, fr_request);
-  EXPECT_EQ(fr_request->mrid, 0x0FB7);
-  EXPECT_EQ(fr_request->description.value(), "description1");
-  EXPECT_EQ(fr_request->version.value(), 0);
-  EXPECT_EQ(fr_request->creation_time, 1);
-  EXPECT_EQ(fr_request->duration_requested.value(), 0);
-  EXPECT_EQ(fr_request->energy_requested.multiplier, 1);
-  EXPECT_EQ(fr_request->energy_requested.value, -140737488355328);
-  EXPECT_EQ(fr_request->interval_requested.duration, 0);
-  EXPECT_EQ(fr_request->interval_requested.start, 1);
-  EXPECT_EQ(fr_request->power_requested.multiplier, 1);
-  EXPECT_EQ(fr_request->power_requested.value, 1);
-  EXPECT_EQ(fr_request->request_status.datetime, 1);
-  EXPECT_EQ(xml::util::ToUnderlyingType(fr_request->request_status.status), 0);
-  delete fr_request;
+  sep::FlowReservationRequest fr_request;
+  xml::Parse(xml_str, &fr_request);
+  EXPECT_EQ(fr_request.mrid, 0x0FB7);
+  EXPECT_EQ(fr_request.description.value(), "description1");
+  EXPECT_EQ(fr_request.version.value(), 0);
+  EXPECT_EQ(fr_request.creation_time, 1);
+  EXPECT_EQ(fr_request.duration_requested.value(), 0);
+  EXPECT_EQ(fr_request.energy_requested.multiplier, 1);
+  EXPECT_EQ(fr_request.energy_requested.value, -140737488355328);
+  EXPECT_EQ(fr_request.interval_requested.duration, 0);
+  EXPECT_EQ(fr_request.interval_requested.start, 1);
+  EXPECT_EQ(fr_request.power_requested.multiplier, 1);
+  EXPECT_EQ(fr_request.power_requested.value, 1);
+  EXPECT_EQ(fr_request.request_status.datetime, 1);
+  EXPECT_EQ(xml::util::ToUnderlyingType(fr_request.request_status.status), 0);
 }
 
 TEST_F(TestFlowReservationRequestXML, CheckAdapterStatusMaxInclusive) {
   boost::property_tree::ptree pt;
-  pt.put("FlowReservationRequest.mRID", 0x0FB7);
+  pt.put("FlowReservationRequest.mRID", "0FB7");
   pt.put("FlowReservationRequest.description", "description1");
   pt.put("FlowReservationRequest.version", 0);
   pt.put("FlowReservationRequest.creationTime", 1);
@@ -83,7 +81,7 @@ TEST_F(TestFlowReservationRequestXML, CheckAdapterStatusMaxInclusive) {
 
 TEST_F(TestFlowReservationRequestXML, CheckAdapterStatusMinInclusive) {
   boost::property_tree::ptree pt;
-  pt.put("FlowReservationRequest.mRID", 0x0FB7);
+  pt.put("FlowReservationRequest.mRID", "0FB7");
   pt.put("FlowReservationRequest.description", "description1");
   pt.put("FlowReservationRequest.version", 0);
   pt.put("FlowReservationRequest.creationTime", 1);

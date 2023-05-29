@@ -8,13 +8,17 @@ void ObjectMap(const boost::property_tree::ptree &pt,
   std::string path = "FlowReservationRequest.<xmlattr>.href";
   frq->href = pt.get<std::string>(path, "");
   path = "FlowReservationRequest.mRID";
-  frq->mrid = pt.get<sep::mRIDType>(path, 0);
+  frq->mrid = xml::util::Dehexify<sep::mRIDType>(pt.get<std::string>(path, ""));
   path = "FlowReservationRequest.description";
   frq->description = pt.get<std::string>(path, "");
   path = "FlowReservationRequest.version";
   frq->version = pt.get<sep::UInt16>(path, 0);
   path = "FlowReservationRequest.creationTime";
   frq->creation_time = pt.get<sep::TimeType>(path, 0);
+  path = "FlowReservationRequest.durationRequested";
+  if (auto duration = pt.get_optional<sep::UInt16>(path)) {
+    frq->duration_requested.emplace(duration.value());
+  }
   path = "FlowReservationRequest.energyRequested.multiplier";
   frq->energy_requested.multiplier =
       pt.get<sep::PowerOfTenMultiplierType>(path, 0);
@@ -34,10 +38,6 @@ void ObjectMap(const boost::property_tree::ptree &pt,
   path = "FlowReservationRequest.RequestStatus.requestStatus";
   frq->request_status.status =
       static_cast<sep::RequestStatus::Status>(pt.get<sep::UInt8>(path, 0));
-  path = "FlowReservationRequest.durationRequested";
-  if (auto duration = pt.get_optional<sep::UInt16>(path)) {
-    frq->duration_requested = duration.value();
-  }
 };
 
 void TreeMap(const sep::FlowReservationRequest &frq,
@@ -52,6 +52,10 @@ void TreeMap(const sep::FlowReservationRequest &frq,
   pt->put(path, frq.version);
   path = "FlowReservationRequest.creationTime";
   pt->put(path, frq.creation_time);
+  if (frq.duration_requested.is_initialized()) {
+    path = "FlowReservationRequest.durationRequested";
+    pt->put(path, frq.duration_requested.value());
+  }
   path = "FlowReservationRequest.energyRequested.multiplier";
   pt->put(path, frq.energy_requested.multiplier);
   path = "FlowReservationRequest.energyRequested.value";
@@ -68,10 +72,6 @@ void TreeMap(const sep::FlowReservationRequest &frq,
   pt->put(path, frq.request_status.datetime);
   path = "FlowReservationRequest.RequestStatus.requestStatus";
   pt->put(path, xml::util::ToUnderlyingType(frq.request_status.status));
-  if (frq.duration_requested.has_value()) {
-    path = "FlowReservationRequest.durationRequested";
-    pt->put(path, frq.duration_requested.value());
-  }
 };
 
 std::string Serialize(const sep::FlowReservationRequest &frq) {
