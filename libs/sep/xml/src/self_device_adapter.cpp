@@ -9,9 +9,8 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::SelfDevice *sdev) {
   path = "SelfDevice.<xmlattr>.pollRate";
   sdev->poll_rate = pt.get<sep::UInt32>(path, 900);
   path = "SelfDevice.<xmlattr>.subscribable";
-  sdev->subscribable = static_cast<sep::SubscribableType>(pt.get<sep::UInt8>(path, 0));
-  path = "SelfDevice.sFDI";
-  sdev->sfdi = pt.get<sep::SFDIType>(path, 0);
+  sdev->subscribable =
+      static_cast<sep::SubscribableType>(pt.get<sep::UInt8>(path, 0));
   path = "SelfDevice.ConfigurationLink.<xmlattr>.href";
   if (auto href = pt.get_optional<std::string>(path)) {
     sep::ConfigurationLink link = {};
@@ -88,6 +87,8 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::SelfDevice *sdev) {
     link.href = href.value();
     sdev->power_status_link.emplace(link);
   }
+  path = "SelfDevice.sFDI";
+  sdev->sfdi = pt.get<sep::SFDIType>(path, 0);
 };
 
 void TreeMap(const sep::SelfDevice &sdev, boost::property_tree::ptree *pt) {
@@ -97,8 +98,6 @@ void TreeMap(const sep::SelfDevice &sdev, boost::property_tree::ptree *pt) {
   pt->put(path, sdev.poll_rate);
   path = "SelfDevice.<xmlattr>.subscribable";
   pt->put(path, xml::util::ToUnderlyingType(sdev.subscribable));
-  path = "SelfDevice.sFDI";
-  pt->put(path, sdev.sfdi);
   if (sdev.configuration_link.is_initialized()) {
     path = "SelfDevice.ConfigurationLink.<xmlattr>.href";
     pt->put(path, sdev.configuration_link.value().href);
@@ -152,6 +151,8 @@ void TreeMap(const sep::SelfDevice &sdev, boost::property_tree::ptree *pt) {
     path = "SelfDevice.PowerStatusLink.<xmlattr>.href";
     pt->put(path, sdev.power_status_link.value().href);
   }
+  path = "SelfDevice.sFDI";
+  pt->put(path, sdev.sfdi);
 };
 
 std::string Serialize(const sep::SelfDevice &sdev) {

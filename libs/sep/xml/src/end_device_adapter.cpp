@@ -10,10 +10,6 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::EndDevice *edev) {
   path = "EndDevice.<xmlattr>.subscribable";
   edev->subscribable =
       static_cast<sep::SubscribableType>(pt.get<sep::UInt8>(path, 0));
-  path = "EndDevice.changedTime";
-  edev->changed_time = pt.get<sep::TimeType>(path, 0);
-  path = "EndDevice.sFDI";
-  edev->sfdi = pt.get<sep::SFDIType>(path, 0);
   path = "EndDevice.ConfigurationLink.<xmlattr>.href";
   if (auto href = pt.get_optional<std::string>(path)) {
     sep::ConfigurationLink link = {};
@@ -90,6 +86,10 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::EndDevice *edev) {
     link.href = href.value();
     edev->power_status_link.emplace(link);
   }
+  path = "EndDevice.sFDI";
+  edev->sfdi = pt.get<sep::SFDIType>(path, 0);
+  path = "EndDevice.changedTime";
+  edev->changed_time = pt.get<sep::TimeType>(path, 0);
   path = "EndDevice.enabled";
   if (auto enabled = pt.get_optional<bool>(path)) {
     edev->enabled.emplace(enabled.value());
@@ -147,10 +147,6 @@ void TreeMap(const sep::EndDevice &edev, boost::property_tree::ptree *pt) {
   pt->put(path, edev.href);
   path = "EndDevice.<xmlattr>.subscribable";
   pt->put(path, xml::util::ToUnderlyingType(edev.subscribable));
-  path = "EndDevice.changedTime";
-  pt->put(path, edev.changed_time);
-  path = "EndDevice.sFDI";
-  pt->put(path, edev.sfdi);
   if (edev.configuration_link.is_initialized()) {
     path = "EndDevice.ConfigurationLink.<xmlattr>.href";
     pt->put(path, edev.configuration_link.value().href);
@@ -204,6 +200,10 @@ void TreeMap(const sep::EndDevice &edev, boost::property_tree::ptree *pt) {
     path = "EndDevice.PowerStatusLink.<xmlattr>.href";
     pt->put(path, edev.power_status_link.value().href);
   }
+  path = "EndDevice.sFDI";
+  pt->put(path, edev.sfdi);
+  path = "EndDevice.changedTime";
+  pt->put(path, edev.changed_time);
   if (edev.enabled.is_initialized()) {
     path = "EndDevice.enabled";
     pt->put(path, edev.enabled.value());
