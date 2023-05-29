@@ -1,0 +1,29 @@
+stateDiagram-v2
+%%{init:{'theme':'neutral'}}%%
+%% @backgroundColor(transparent)
+    direction LR
+    Disconnected --> GridTied : enable()
+    GridTied --> Disconnected : disable()
+    state GridTied {
+        gt1 : On
+        gt2 : Off
+        gt2 --> gt1 : lowDB
+        gt1 --> gt2 : highDB
+    }
+    GridTied --> Shed : shed()
+    state Shed {
+        sd1 : On
+        sd2 : Off
+        sd2 --> sd1 : lowDB
+        sd1 --> sd2 : highDB
+    }
+    Shed --> GridTied : endShed()
+    Shed --> LoadUp : loadUp()
+    GridTied --> LoadUp : loadUp()
+    state LoadUp {
+        lu1 : On
+        lu2 : Off
+        lu2 --> lu1 : lowDB
+        lu1 --> lu2 : highDB
+    }
+    LoadUp --> GridTied : endShed()

@@ -11,10 +11,10 @@ cd doe-egot-system
 ```
 
 ## Building
-
-```
+For development the build type should be set to *Debug*, but all performance testing should use *Release*. There may be issues when trying to compile multiple build types so the build folder should have a different name.
+```shell
 cd doe-egot-system
-cmake -S . -B build
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 cmake --build build
 ```
 

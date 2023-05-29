@@ -1,0 +1,10 @@
+sequenceDiagram
+%%{init:{'theme':'neutral'}}%%
+%% @backgroundColor(transparent)
+    autonumber
+    Client->>+Server: HTTP GET DeviceCapabilityLink
+    Server-->>-Client: HTTP 200
+    Note left of Client: Find TimeLink
+    Client->>+Server: HTTP GET TimeLink
+    Server-->>-Client: HTTP 200
+    Note left of Client: Synchronize
