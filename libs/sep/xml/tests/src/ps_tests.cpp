@@ -61,3 +61,13 @@ TEST_F(TestPowerStatusXML, IsAdapterTranslationAccurate) {
   EXPECT_EQ(ps.session_time_on_battery.value(), 0);
   EXPECT_EQ(ps.total_time_on_battery.value(), 0);
 }
+
+TEST_F(TestPowerStatusXML, IsOptional) {
+  sep::PowerStatus ps;
+  ps.href = "/ps";
+  ps.poll_rate = 900;
+  ps.battery_status = sep::BatteryStatus::kUnknown;
+  ps.changed_time = 123;
+  ps.current_power_source = sep::PowerSourceType::kMains;
+  EXPECT_TRUE(validator->ValidateXml(xml::Serialize(ps)));
+}

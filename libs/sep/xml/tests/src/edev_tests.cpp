@@ -133,3 +133,11 @@ TEST_F(TestEndDeviceXML, IsListAdapterValid) {
   edev_list.href = "http://uri1";
   EXPECT_TRUE(validator->ValidateXml(xml::Serialize(edev_list)));
 }
+
+TEST_F(TestEndDeviceXML, IsOptional) {
+  sep::EndDevice edev;
+  edev.href = "/edev";
+  edev.post_rate = 900;
+  edev.changed_time = 123;
+  EXPECT_TRUE(validator->ValidateXml(xml::Serialize(edev)));
+}
