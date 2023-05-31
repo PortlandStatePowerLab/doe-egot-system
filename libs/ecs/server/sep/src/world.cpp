@@ -10,9 +10,9 @@
 #include <ecs/server/sep/time.hpp>
 #include <ecs/server/sep/uri.hpp>
 #include <ecs/server/sep/world.hpp>
+#include <sep/xml/adapter.hpp>
 #include <sstream>
 #include <utilities/utilities.hpp>
-#include <sep/xml/adapter.hpp>
 
 using namespace gsp;
 extern std::string g_program_path;
@@ -53,17 +53,27 @@ std::string World::Get(const Href &href) {
   std::string response = "";
 
   auto client = world.lookup(href.lfdi.c_str());
-  
+
   switch (uri_map.at(href.uri)) {
   case (Uri::dcap): {
-      sep::DeviceCapability dcap;
-      dcap.href = "/dcap";
-      dcap.poll_rate = 900;
-      dcap.self_device_link.href = "/sdev";
-      dcap.end_device_list_link.href = "/edev";
-      dcap.end_device_list_link.all = 1;
-
-      return xml::Serialize(dcap);
+    sep::DeviceCapability dcap;
+    dcap.href = "/dcap";
+    dcap.poll_rate = 900;
+    sep::SelfDeviceLink sdev = {};
+    sdev.href = "/sdev";
+    dcap.self_device_link.emplace(sdev);
+    const sep::EndDevice *edev =
+        client.lookup(href.uri.c_str()).get<sep::EndDevice>();
+    if (edev != nullptr) {
+      sep::EndDeviceListLink list_link = {};
+      list_link.all = 1;
+      list_link.href = "/edev";
+      dcap.end_device_list_link.emplace(list_link);
+    }
+    sep::TimeLink tm = {};
+    tm.href = "/tm";
+    dcap.time_link.emplace(tm);
+    return xml::Serialize(dcap);
   }; break;
   case (Uri::sdev): {
     const sep::SelfDevice *sdev =
@@ -442,10 +452,13 @@ std::string World::Post(const Href &href, const std::string &message) {
         sep::EventStatus::CurrentStatus::kScheduled;
     frp.event_status.date_time = frp.creation_time;
     frp.event_status.potentially_superseded = false;
-    frp.interval.duration = frq.duration_requested;
-    frp.interval.start = frq.interval_requested.start +
-                         frq.interval_requested.duration -
-                         frq.duration_requested;
+    sep::DateTimeInterval interval = {};
+    interval.start =
+        frq.interval_requested.start + frq.interval_requested.duration;
+    if (frq.duration_requested.is_initialized()) {
+      interval.duration = frq.duration_requested.value();
+      interval.start -= interval.duration;
+    }
     frp.description = frq.description;
     frp.energy_available = frq.energy_requested;
     frp.mrid = frq.mrid;

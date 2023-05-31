@@ -1,7 +1,7 @@
 #include <ecs/client/sep/dcap.hpp>
 #include <iostream>
-#include <trust/https/client.hpp>
 #include <sep/xml/device_capability_adapter.hpp>
+#include <trust/https/client.hpp>
 
 namespace dcap {
 
@@ -32,10 +32,15 @@ Module::Module(flecs::world &world) {
         std::string msg = boost::beast::buffers_to_string(resp.body().data());
         sep::DeviceCapability dcap;
         xml::Parse(msg, &dcap);
-
-        e.set<sep::EndDeviceListLink>(dcap.end_device_list_link);
-        e.set<sep::SelfDeviceLink>(dcap.self_device_link);
-        e.set<sep::TimeLink>(dcap.time_link);
+        if (dcap.end_device_list_link.is_initialized()) {
+          e.set<sep::EndDeviceListLink>(dcap.end_device_list_link.value());
+        }
+        if (dcap.self_device_link.is_initialized()) {
+          e.set<sep::SelfDeviceLink>(dcap.self_device_link.value());
+        }
+        if (dcap.time_link.is_initialized()) {
+          e.set<sep::TimeLink>(dcap.time_link.value());
+        }
       });
 
   world.observer<sep::SelfDeviceLink>("self dev")
