@@ -1,9 +1,9 @@
 #ifndef __GSP_ECS_RG_H__
 #define __GSP_ECS_RG_H__
 
-#include <string>
 #include <flecs.h>
 #include <sep/models/registration.hpp>
+#include <string>
 
 namespace gsp {
 namespace rg {

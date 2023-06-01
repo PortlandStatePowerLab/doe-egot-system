@@ -51,9 +51,8 @@ World *World::getInstance() {
 
 std::string World::Get(const Href &href) {
   std::string response = "";
-
-  auto client = world.lookup(href.lfdi.c_str());
-
+  std::string client_id = "::gsp::rg::Module::" + href.lfdi;
+  auto client = world.lookup(client_id.c_str());
   switch (uri_map.at(href.uri)) {
   case (Uri::dcap): {
     sep::DeviceCapability dcap;
@@ -62,9 +61,8 @@ std::string World::Get(const Href &href) {
     sep::SelfDeviceLink sdev = {};
     sdev.href = "/sdev";
     dcap.self_device_link.emplace(sdev);
-    const sep::EndDevice *edev =
-        client.lookup(href.uri.c_str()).get<sep::EndDevice>();
-    if (edev != nullptr) {
+    if (client.lookup("/edev").id() != 0) {
+      std::cout << "edev isn't nullptr" << std::endl;
       sep::EndDeviceListLink list_link = {};
       list_link.all = 1;
       list_link.href = "/edev";
