@@ -7,7 +7,7 @@
 
 namespace gsp {
 namespace rg {
-
+void generateRegistration(flecs::world &world);
 struct Fingerprint {
   std::string lfdi;
 };

@@ -21,19 +21,24 @@ std::string var;
 World *World::instance_{nullptr};
 std::mutex World::mutex_;
 
+std::string appendSubject(const Href &href) {
+  return href.uri.substr(0, href.uri.size() - 1) + href.subject;
+};
+
 std::string prependLFDI(const Href &href) {
   return "/" + href.lfdi + href.uri;
 };
 
 World::World() {
   world.import <rg::Module>();
+  gsp::rg::generateRegistration(world);
   world.import <dcap::Module>();
-  // world.import <edev::Module>();
+  world.import <edev::Module>();
+  world.import <time::Module>();
+  // world.import <sdev::Module>();
   // world.import <frp::Module>();
   // world.import <frq::Module>();
   // world.import <ps::Module>();
-  // world.import <sdev::Module>();
-  // world.import <time::Module>();
 };
 
 World::~World() {
@@ -51,8 +56,15 @@ World *World::getInstance() {
 
 std::string World::Get(const Href &href) {
   std::string response = "";
-  std::string client_id = "::gsp::rg::Module::" + href.lfdi;
-  auto client = world.lookup(client_id.c_str());
+  auto client = world.lookup(href.lfdi.c_str());
+  if (client.id() == 0) {
+    return response;
+  }
+
+  if (uri_map.count(href.uri) == 0) {
+    return response;
+  }
+
   switch (uri_map.at(href.uri)) {
   case (Uri::dcap): {
     sep::DeviceCapability dcap;
@@ -61,36 +73,39 @@ std::string World::Get(const Href &href) {
     sep::SelfDeviceLink sdev = {};
     sdev.href = "/sdev";
     dcap.self_device_link.emplace(sdev);
-    if (client.lookup("/edev").id() != 0) {
-      std::cout << "edev isn't nullptr" << std::endl;
-      sep::EndDeviceListLink list_link = {};
-      list_link.all = 1;
-      list_link.href = "/edev";
-      dcap.end_device_list_link.emplace(list_link);
-    }
+    sep::EndDeviceListLink edev_ll = {};
+    edev_ll.all = world.filter_builder<sep::EndDevice>()
+                      .term(flecs::ChildOf, client)
+                      .build()
+                      .count();
+    edev_ll.href = "/edev";
+    dcap.end_device_list_link.emplace(edev_ll);
+    sep::ResponseSetListLink rsps_ll = {};
+    rsps_ll.all = world.filter_builder<sep::ResponseSet>()
+                      .term(flecs::ChildOf, client)
+                      .build()
+                      .count();
+    rsps_ll.href = "/rsps";
+    dcap.response_set_list_link.emplace(rsps_ll);
     sep::TimeLink tm = {};
     tm.href = "/tm";
     dcap.time_link.emplace(tm);
     return xml::Serialize(dcap);
   }; break;
   case (Uri::sdev): {
-    const sep::SelfDevice *sdev =
-        client.lookup(href.uri.c_str()).get<sep::SelfDevice>();
-    if (sdev != nullptr) {
-      return xml::Serialize(*sdev);
-    }
+    return response;
   }; break;
   case (Uri::edev): {
-    const sep::EndDevice *edev =
-        client.lookup(href.uri.c_str()).get<sep::EndDevice>();
-    if (edev != nullptr) {
-      return xml::Serialize(*edev);
+    auto edev = client.lookup(appendSubject(href).c_str());
+    if (edev.id() == 0) {
+      return response;
     }
+    return xml::Serialize(*edev.get<sep::EndDevice>());
   }; break;
   case (Uri::edev_list): {
     sep::EndDeviceList edev_list;
     auto f = world.filter_builder<sep::EndDevice>()
-                 .term(client, flecs::ChildOf)
+                 .term(flecs::ChildOf, client)
                  .build();
 
     f.iter([&edev_list, href](flecs::iter &it, sep::EndDevice *edev) {
@@ -106,11 +121,11 @@ std::string World::Get(const Href &href) {
     return xml::Serialize(edev_list);
   }; break;
   case (Uri::rg): {
-    const sep::Registration *rg =
-        client.lookup(href.uri.c_str()).get<sep::Registration>();
-    if (rg != nullptr) {
-      return xml::Serialize(*rg);
+    auto rg = client.lookup(appendSubject(href).c_str());
+    if (rg.id() == 0) {
+      return response;
     }
+    return xml::Serialize(*rg.get<sep::Registration>());
   }; break;
   case (Uri::dstat): {
     // TODO
@@ -412,7 +427,8 @@ std::string World::Get(const Href &href) {
     // TODO
   }; break;
   default:
-    // TODO
+    std::cout << "Defaulting to not found\n";
+    return response;
     break;
   }
   return response;
