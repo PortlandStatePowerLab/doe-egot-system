@@ -8,10 +8,6 @@
 namespace gsp {
 namespace rg {
 void generateRegistration(flecs::world &world);
-struct Fingerprint {
-  std::string lfdi;
-};
-
 struct Module {
   Module(flecs::world &world);
 };

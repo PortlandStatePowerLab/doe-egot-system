@@ -1,12 +1,11 @@
-#include <ecs/server/sep/time.hpp>
 #include <boost/date_time/local_time/local_time.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/time_zone_base.hpp>
+#include <ecs/server/sep/time.hpp>
 
-using namespace gsp::time;
 extern std::string g_program_path;
 
-void generateTime() {
+void gsp::time::generateTime(flecs::world &world) {
   boost::posix_time::ptime local(boost::posix_time::second_clock::local_time());
   boost::posix_time::ptime universal(
       boost::posix_time::second_clock::universal_time());
@@ -30,9 +29,10 @@ void generateTime() {
   tm.local_time = boost::posix_time::to_time_t(local);
   tm.quality = 7; // low accuracy
   tm.tz_offset = (tz_ptr->base_utc_offset()).total_seconds();
+  world.entity(tm.href.c_str()).set<sep::Time>(tm);
 };
 
-Module::Module(flecs::world &world) {
+gsp::time::Module::Module(flecs::world &world) {
   world.module<Module>();
   world.component<sep::Time>();
 };

@@ -35,6 +35,7 @@ World::World() {
   world.import <dcap::Module>();
   world.import <edev::Module>();
   world.import <time::Module>();
+  gsp::time::generateTime(world);
   // world.import <sdev::Module>();
   // world.import <frp::Module>();
   // world.import <frq::Module>();
@@ -140,11 +141,11 @@ std::string World::Get(const Href &href) {
     // TODO
   }; break;
   case (Uri::rsps): {
-    const sep::ResponseSet *rsps =
-        client.lookup(href.uri.c_str()).get<sep::ResponseSet>();
-    if (rsps != nullptr) {
-      return xml::Serialize(*rsps);
+    auto rsps = client.lookup(appendSubject(href).c_str());
+    if (rsps.id() == 0) {
+      return response;
     }
+    return xml::Serialize(*rsps.get<sep::ResponseSet>());
   }; break;
   case (Uri::rsps_list): {
     sep::ResponseSetList rsps_list;
@@ -167,11 +168,11 @@ std::string World::Get(const Href &href) {
     return xml::Serialize(rsps_list);
   }; break;
   case (Uri::rsp): {
-    const sep::Response *rsp =
-        client.lookup(href.uri.c_str()).get<sep::Response>();
-    if (rsp != nullptr) {
-      return xml::Serialize(*rsp);
+    auto rsp = client.lookup(appendSubject(href).c_str());
+    if (rsp.id() == 0) {
+      return response;
     }
+    return xml::Serialize(*rsp.get<sep::Response>());
   }; break;
   case (Uri::rsp_list): {
     sep::ResponseList rsp_list;
@@ -193,10 +194,11 @@ std::string World::Get(const Href &href) {
     return xml::Serialize(rsp_list);
   }; break;
   case (Uri::tm): {
-    const sep::Time *time = world.lookup(href.uri.c_str()).get<sep::Time>();
-    if (time != nullptr) {
-      return xml::Serialize(*time);
+    auto time = world.lookup(href.uri.c_str());
+    if (time.id() == 0) {
+      return response;
     }
+    return xml::Serialize(*time.get<sep::Time>());
   }; break;
   case (Uri::di): {
     // TODO

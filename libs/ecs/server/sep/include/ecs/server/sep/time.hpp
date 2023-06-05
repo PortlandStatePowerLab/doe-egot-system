@@ -7,6 +7,8 @@
 namespace gsp {
 namespace time {
 
+void generateTime(flecs::world &world);
+
 struct Module {
   Module(flecs::world &world);
 };

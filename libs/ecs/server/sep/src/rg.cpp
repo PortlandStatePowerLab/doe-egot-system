@@ -88,6 +88,5 @@ void gsp::rg::generateRegistration(flecs::world &world) {
 
 gsp::rg::Module::Module(flecs::world &world) {
   world.module<Module>();
-  world.component<Fingerprint>();
   world.component<sep::Registration>();
 };
