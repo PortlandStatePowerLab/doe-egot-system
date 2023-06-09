@@ -9,10 +9,10 @@ add_executable (gsp_tests
     src/edev_list_tests.cpp
     src/rg_tests.cpp
     src/tm_tests.cpp
-    # src/frp_list_tests.cpp 
-    # src/frp_tests.cpp 
-    # src/frq_list_tests.cpp 
-    # src/frq_tests.cpp 
+    src/frq_list_tests.cpp 
+    src/frq_tests.cpp 
+    src/frp_list_tests.cpp 
+    src/frp_tests.cpp 
     # src/rsp_tests.cpp
     # src/rsps_tests.cpp
     # src/sdev_tests.cpp

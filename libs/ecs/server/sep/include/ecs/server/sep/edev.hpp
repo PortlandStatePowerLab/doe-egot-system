@@ -6,7 +6,7 @@
 
 namespace gsp {
 namespace edev {
-
+std::string generateURI(const sep::EndDevice &edev);
 struct Module {
   Module(flecs::world &world);
 };

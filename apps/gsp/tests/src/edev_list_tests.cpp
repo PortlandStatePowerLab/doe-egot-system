@@ -31,7 +31,6 @@ TEST_F(HttpsEndDeviceListTests, GetEndDeviceList) {
   try {
     auto resp = SingleClient::getInstance().Get(path);
     std::string msg = boost::beast::buffers_to_string(resp.body().data());
-    std::cout << msg << std::endl;
 
     sep::EndDeviceList edev_list;
     xml::Parse(msg, &edev_list);
@@ -59,7 +58,6 @@ TEST_F(HttpsEndDeviceListTests, PostEndDeviceList) {
   try {
     auto resp = SingleClient::getInstance().Get(path);
     std::string msg = boost::beast::buffers_to_string(resp.body().data());
-
     sep::EndDeviceList edev_list;
     xml::Parse(msg, &edev_list);
 

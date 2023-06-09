@@ -31,7 +31,6 @@ TEST_F(HttpsTimeTests, GetTime) {
   try {
     auto resp = SingleClient::getInstance().Get("/tm");
     std::string msg = boost::beast::buffers_to_string(resp.body().data());
-    std::cout << msg << std::endl;
 
     EXPECT_TRUE(validator->ValidateXml(msg));
 

@@ -33,7 +33,6 @@ TEST_F(HttpsEndDeviceTests, GetEndDevice) {
         path + "/" + xml::util::Hexify(SingleClient::getInstance().getLFDI());
     auto resp = SingleClient::getInstance().Get(uri);
     std::string msg = boost::beast::buffers_to_string(resp.body().data());
-    std::cout << msg << std::endl;
 
     sep::EndDevice edev;
     xml::Parse(msg, &edev);

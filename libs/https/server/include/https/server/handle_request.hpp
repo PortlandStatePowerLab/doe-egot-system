@@ -250,6 +250,9 @@ void HandleRequest(const std::string fingerprint,
 
     // attempt to access resource
     std::string loc = World::getInstance()->Post(href, req.body());
+    if (loc == "") {
+      return send(bad_request("Bad Content-Type"));
+    }
 
     http::response<http::string_body> res{http::status::created, req.version()};
     res.set(http::field::server, BOOST_BEAST_VERSION_STRING);

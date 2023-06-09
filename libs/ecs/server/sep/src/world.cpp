@@ -1,3 +1,4 @@
+#include "sep/models/flow_reservation_response.hpp"
 #include <ecs/server/sep/dcap.hpp>
 #include <ecs/server/sep/edev.hpp>
 #include <ecs/server/sep/frp.hpp>
@@ -345,11 +346,11 @@ std::string World::Get(const Href &href) {
     // TODO
   }; break;
   case (Uri::frq): {
-    const sep::FlowReservationRequest *frq =
-        client.lookup(href.uri.c_str()).get<sep::FlowReservationRequest>();
-    if (frq != nullptr) {
-      return xml::Serialize(*frq);
+    auto frq = client.lookup(appendSubject(href).c_str());
+    if (frq.id() == 0) {
+      return response;
     }
+    return xml::Serialize(*frq.get<sep::FlowReservationRequest>());
   }; break;
   case (Uri::frq_list): {
     sep::FlowReservationRequestList frq_list;
@@ -372,11 +373,11 @@ std::string World::Get(const Href &href) {
     return xml::Serialize(frq_list);
   }; break;
   case (Uri::frp): {
-    const sep::FlowReservationResponse *frp =
-        client.lookup(href.uri.c_str()).get<sep::FlowReservationResponse>();
-    if (frp != nullptr) {
-      return xml::Serialize(*frp);
+    auto frp = client.lookup(appendSubject(href).c_str());
+    if (frp.id() == 0) {
+      return response;
     }
+    return xml::Serialize(*frp.get<sep::FlowReservationResponse>());
   }; break;
   case (Uri::frp_list): {
     sep::FlowReservationResponseList frp_list;
@@ -429,7 +430,6 @@ std::string World::Get(const Href &href) {
     // TODO
   }; break;
   default:
-    std::cout << "Defaulting to not found\n";
     return response;
     break;
   }
@@ -439,12 +439,23 @@ std::string World::Get(const Href &href) {
 std::string World::Post(const Href &href, const std::string &message) {
   auto client = world.lookup(href.lfdi.c_str());
   switch (uri_map.at(href.uri)) {
+  case (Uri::edev_list): {
+    sep::EndDevice edev;
+    xml::Parse(message, &edev);
+    std::string uri = gsp::edev::generateURI(edev);
+    auto e = client.lookup(uri.c_str());
+    if (e.id() == 0) {
+      world.entity(uri.c_str()).child_of(client).set<sep::EndDevice>(edev);
+      return uri;
+    }
+    return "";
+  }; break;
   case (Uri::rsp_list): {
     sep::Response rsp;
     xml::Parse(message, &rsp);
     auto e = world.entity().child_of(client);
     e.set<sep::Response>(rsp);
-    return href.uri + "/" + std::to_string(e.id());
+    return rsp.href;
   }; break;
   case (Uri::rsps_list): {
     sep::ResponseSet rsps;
@@ -456,35 +467,19 @@ std::string World::Post(const Href &href, const std::string &message) {
   case (Uri::frq_list): {
     sep::FlowReservationRequest frq;
     xml::Parse(message, &frq);
-    auto e = world.entity().child_of(client);
-    e.set<sep::FlowReservationRequest>(frq);
-
-    sep::FlowReservationResponse frp;
-    frp.energy_available = frq.energy_requested;
-    frp.power_available = frq.power_requested;
-    frp.subject = frq.mrid;
-    frp.creation_time = psu::utilities::getTime();
-    frp.event_status.current_status =
-        sep::EventStatus::CurrentStatus::kScheduled;
-    frp.event_status.date_time = frp.creation_time;
-    frp.event_status.potentially_superseded = false;
-    sep::DateTimeInterval interval = {};
-    interval.start =
-        frq.interval_requested.start + frq.interval_requested.duration;
-    if (frq.duration_requested.is_initialized()) {
-      interval.duration = frq.duration_requested.value();
-      interval.start -= interval.duration;
+    std::string uri = gsp::frq::generateURI(frq);
+    auto e = client.lookup(uri.c_str());
+    if (e.id() == 0) {
+      world.entity(uri.c_str())
+          .child_of(client)
+          .set<sep::FlowReservationRequest>(frq);
+      sep::FlowReservationResponse frp = gsp::frq::generateResponse(frq);
+      world.entity(frp.href.c_str())
+          .child_of(client)
+          .set<sep::FlowReservationResponse>(frp);
+      return frp.href;
     }
-    frp.description = frq.description;
-    frp.energy_available = frq.energy_requested;
-    frp.mrid = frq.mrid;
-    frp.description = frq.description;
-    frp.version = frq.version;
-    frp.subscribable = sep::SubscribableType::kNone;
-
-    auto e2 = world.entity().child_of(client);
-    e2.set<sep::FlowReservationResponse>(frp);
-    return href.uri + "/" + std::to_string(e2.id());
+    return "";
   }; break;
   default:
     return "";
@@ -523,14 +518,25 @@ std::string World::Put(const Href &href, const std::string &message) {
   case (Uri::frq): {
     sep::FlowReservationRequest frq;
     xml::Parse(message, &frq);
-    auto e = client.lookup(href.uri.c_str());
+    std::string uri = gsp::frq::generateURI(frq).c_str();
+    auto e = client.lookup(uri.c_str());
 
-    if (e == false) {
-      return "";
+    if (e.id() == 0) {
+      world.entity(uri.c_str())
+          .child_of(client)
+          .set<sep::FlowReservationRequest>(frq);
+    } else {
+      e.set<sep::FlowReservationRequest>(frq);
     }
+    sep::FlowReservationResponse frp = gsp::frq::generateResponse(frq);
+    auto e2 = client.lookup(frp.href.c_str());
+    if (e2.id() == 0) {
+      world.entity(frp.href.c_str())
+          .child_of(client)
+          .set<sep::FlowReservationResponse>(frp);
+    }
+    return frq.href;
 
-    e.set<sep::FlowReservationRequest>(frq);
-    return href.uri + "/" + std::to_string(e.id());
   }; break;
   default:
     return "";
@@ -538,30 +544,31 @@ std::string World::Put(const Href &href, const std::string &message) {
   };
 };
 void World::Delete(const Href &href) {
+  auto client = world.lookup(href.lfdi.c_str());
   switch (uri_map.at(href.uri)) {
   case (Uri::edev): {
-    world.each([href](flecs::entity &e, sep::EndDevice &rsp) {
-      // this should probably be its own compare lambda function
-      // e.destruct();
-    });
+    auto e = client.lookup(href.uri.c_str());
+    if (e.id() != 0) {
+      e.destruct();
+    }
   }; break;
   case (Uri::rsp): {
-    world.each([href](flecs::entity &e, sep::Response &rsp) {
-      // this should probably be its own compare lambda function
-      // e.destruct();
-    });
+    auto e = client.lookup(href.uri.c_str());
+    if (e.id() != 0) {
+      e.destruct();
+    }
   }; break;
   case (Uri::rsps): {
-    world.each([href](flecs::entity &e, sep::ResponseSet &rsps) {
-      // this should probably be its own compare lambda function
-      // e.destruct();
-    });
+    auto e = client.lookup(href.uri.c_str());
+    if (e.id() != 0) {
+      e.destruct();
+    }
   }; break;
   case (Uri::frq): {
-    world.each([href](flecs::entity &e, sep::FlowReservationRequest &frq) {
-      // this should probably be its own compare lambda function
-      // e.destruct();
-    });
+    auto e = client.lookup(href.uri.c_str());
+    if (e.id() != 0) {
+      e.destruct();
+    }
   }; break;
   default:
     // response = "";

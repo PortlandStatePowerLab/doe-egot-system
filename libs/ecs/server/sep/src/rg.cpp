@@ -72,7 +72,6 @@ void gsp::rg::generateRegistration(flecs::world &world) {
           edev.lfdi.emplace(xml::util::Dehexify<sep::HexBinary160>(lfdi));
           edev.sfdi = xml::util::getSFDI(lfdi);
           world.entity(edev.href.c_str()).child_of(p).set<sep::EndDevice>(edev);
-          std::cout << "Registered: " << lfdi << std::endl;
 
           X509_free(cert);
           fclose(fp);

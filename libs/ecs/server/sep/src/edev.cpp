@@ -2,9 +2,11 @@
 #include <sep/xml/utilities.hpp>
 #include <utilities/utilities.hpp>
 
-using namespace gsp::edev;
+std::string gsp::edev::generateURI(const sep::EndDevice &edev) {
+  return edev.href + "/" + xml::util::Hexify(edev.lfdi);
+};
 
-Module::Module(flecs::world &world) {
+gsp::edev::Module::Module(flecs::world &world) {
   world.module<Module>();
   world.component<sep::EndDevice>();
 };

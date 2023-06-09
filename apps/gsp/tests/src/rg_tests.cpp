@@ -34,7 +34,6 @@ TEST_F(HttpsRegistrationTests, GetRegistration) {
         path + "/" + xml::util::Hexify(SingleClient::getInstance().getLFDI());
     auto resp = SingleClient::getInstance().Get(uri);
     std::string msg = boost::beast::buffers_to_string(resp.body().data());
-    std::cout << msg << std::endl;
 
     sep::Registration rg;
     xml::Parse(msg, &rg);

@@ -3,10 +3,12 @@
 
 #include <flecs.h>
 #include <sep/models/flow_reservation_request.hpp>
-
+#include <sep/models/flow_reservation_response.hpp>
 namespace gsp {
 namespace frq {
-
+std::string generateURI(const sep::FlowReservationRequest &frq);
+sep::FlowReservationResponse
+generateResponse(const sep::FlowReservationRequest &frq);
 struct Module {
   Module(flecs::world &world);
 };
