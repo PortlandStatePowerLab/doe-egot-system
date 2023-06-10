@@ -7,6 +7,7 @@
 namespace gsp {
 namespace rsp {
 
+std::string generateURI(const sep::Response &rsp);
 struct Module {
   Module(flecs::world &world);
 };

@@ -453,9 +453,15 @@ std::string World::Post(const Href &href, const std::string &message) {
   case (Uri::rsp_list): {
     sep::Response rsp;
     xml::Parse(message, &rsp);
-    auto e = world.entity().child_of(client);
+    std::string uri = gsp::rsp::generateURI(rsp);
+    auto e = client.lookup(uri.c_str());
+    if (e.id() == 0) {
+      auto e2 = world.entity(uri.c_str()).child_of(client);
+      e2.set<sep::Response>(rsp);
+      return uri;
+    }
     e.set<sep::Response>(rsp);
-    return rsp.href;
+    return uri;
   }; break;
   case (Uri::rsps_list): {
     sep::ResponseSet rsps;
