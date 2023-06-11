@@ -15,6 +15,7 @@ add_executable (gsp_tests
     src/frp_tests.cpp 
     src/rsp_tests.cpp
     src/rsp_list_tests.cpp
+    src/ps_tests.cpp
     # src/sdev_tests.cpp
     # src/dstat_tests.cpp
     # src/fsa_tests.cpp

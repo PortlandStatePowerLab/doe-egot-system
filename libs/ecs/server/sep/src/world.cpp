@@ -208,7 +208,11 @@ std::string World::Get(const Href &href) {
     // TODO
   }; break;
   case (Uri::ps): {
-    // TODO
+    auto ps = client.lookup(href.uri.c_str());
+    if (ps.id() == 0) {
+      return response;
+    }
+    return xml::Serialize(*ps.get<sep::PowerStatus>());
   }; break;
   case (Uri::ns): {
     // TODO
@@ -500,14 +504,27 @@ std::string World::Put(const Href &href, const std::string &message) {
   case (Uri::rsp): {
     sep::Response rsp;
     xml::Parse(message, &rsp);
-
-    auto e = client.lookup(href.uri.c_str());
-
-    if (e == false) {
-      return "";
+    std::string uri = gsp::rsp::generateURI(rsp);
+    auto e = client.lookup(uri.c_str());
+    if (e.id() == 0) {
+      auto e2 = world.entity(uri.c_str()).child_of(client);
+      e2.set<sep::Response>(rsp);
+      return uri;
     }
     e.set<sep::Response>(rsp);
-    return href.uri + "/" + std::to_string(e.id());
+    return uri;
+  }; break;
+  case (Uri::ps): {
+    sep::PowerStatus ps;
+    xml::Parse(message, &ps);
+    auto e = client.lookup(href.uri.c_str());
+    if (e.id() == 0) {
+      auto e2 = world.entity(href.uri.c_str()).child_of(client);
+      e2.set<sep::PowerStatus>(ps);
+      return "/ps";
+    }
+    e.set<sep::PowerStatus>(ps);
+    return "/ps";
   }; break;
   case (Uri::rsps): {
     sep::ResponseSet rsps;
