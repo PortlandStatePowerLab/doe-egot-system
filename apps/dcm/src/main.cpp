@@ -1,45 +1,39 @@
-#include <sep/models/device_capability.hpp>
-#include <iostream>
-#include <string>
 #include <ecs/client/sep/dcap.hpp>
+#include <iostream>
+#include <sep/models/device_capability.hpp>
+#include <string>
 #include <trust/https/client.hpp>
 #include <utilities/utilities.hpp>
 
 std::string g_program_path;
 
-int main(int argc, char **argv)
-{
-    std::cout << "Starting Distributed Control Module...\n";
-    g_program_path = psu::utilities::getProgramPath(argv);
-    std::cout << "\tpath : " << g_program_path << std::endl;
+int main(int argc, char **argv) {
+  std::cout << "Starting Distributed Control Module...\n";
+  g_program_path = psu::utilities::getProgramPath(argv);
+  std::cout << "\tpath : " << g_program_path << std::endl;
 
-    
-    https::Context gsp_ctx = {"1", g_program_path, "0.0.0.0", "8080"};
-    https::Context dtm_ctx = {"1", g_program_path, "0.0.0.0", "8090"};
+  https::Context gsp_ctx = {"1", g_program_path, "0.0.0.0", "8080"};
+  https::Context dtm_ctx = {"1", g_program_path, "0.0.0.0", "8090"};
 
-    std::cout 
-        << "\tgsp client on " 
-        << gsp_ctx.host << ":" << gsp_ctx.port << "\n";
+  std::cout << "\tgsp client on " << gsp_ctx.host << ":" << gsp_ctx.port
+            << "\n";
 
-    std::cout 
-        << "\tdtm client on " 
-        << dtm_ctx.host << ":" << dtm_ctx.port << "\n";
+  std::cout << "\tdtm client on " << dtm_ctx.host << ":" << dtm_ctx.port
+            << "\n";
 
-    trust::HttpsClient::getInstance(gsp_ctx, dtm_ctx);
+  trust::HttpsClient::getInstance(gsp_ctx, dtm_ctx);
 
-    flecs::world ecs;
+  flecs::world ecs;
 
-    ecs.import<dcap::Module>();
+  ecs.import <ecs::client::dcap::Module>();
 
-    sep::DeviceCapabilityLink dcap_link;
-    dcap_link.href = "/dcap";
-    
-    auto e = ecs.entity();
-    e.set<sep::DeviceCapabilityLink>(dcap_link);
+  sep::DeviceCapabilityLink dcap_link;
+  dcap_link.href = "/dcap";
 
-    ecs.app()
-        .target_fps(1)
-        .run();
+  auto e = ecs.entity();
+  e.set<sep::DeviceCapabilityLink>(dcap_link);
 
-    return 0;
+  ecs.app().target_fps(1).run();
+
+  return 0;
 }
