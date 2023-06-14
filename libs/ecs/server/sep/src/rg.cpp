@@ -44,7 +44,7 @@ void gsp::rg::generateRegistration(flecs::world &world) {
 
           sep::Registration rg;
           rg.href = "/rg/" + lfdi;
-          rg.poll_rate = 900;
+          rg.poll_rate = 300;
           rg.date_time_registered = psu::utilities::getTime();
           rg.pin = xml::util::generatePIN(lfdi);
           world.entity(rg.href.c_str()).child_of(p).set<sep::Registration>(rg);
@@ -52,7 +52,7 @@ void gsp::rg::generateRegistration(flecs::world &world) {
           sep::EndDevice edev;
           edev.href = "/edev/" + lfdi;
           edev.changed_time = psu::utilities::getTime();
-          edev.post_rate = 900;
+          edev.post_rate = 300;
           edev.enabled = true;
           sep::RegistrationLink rg_link;
           rg_link.href = rg.href;

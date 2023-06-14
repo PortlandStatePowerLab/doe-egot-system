@@ -1,8 +1,8 @@
 add_library(ecs_client_sep
   src/dcap.cpp
   src/edev.cpp
-  # src/rg.cpp
-  # src/tm.cpp
+  src/rg.cpp
+  src/tm.cpp
   # src/frq.cpp
   # src/frp.cpp
   # src/rsp.cpp

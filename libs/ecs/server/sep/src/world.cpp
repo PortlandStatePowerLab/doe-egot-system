@@ -71,10 +71,7 @@ std::string World::Get(const Href &href) {
   case (Uri::dcap): {
     sep::DeviceCapability dcap;
     dcap.href = "/dcap";
-    dcap.poll_rate = 900;
-    sep::SelfDeviceLink sdev = {};
-    sdev.href = "/sdev";
-    dcap.self_device_link.emplace(sdev);
+    dcap.poll_rate = 300;
     sep::EndDeviceListLink edev_ll = {};
     edev_ll.all = world.filter_builder<sep::EndDevice>()
                       .term(flecs::ChildOf, client)

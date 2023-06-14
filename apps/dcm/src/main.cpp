@@ -1,4 +1,7 @@
 #include <ecs/client/sep/dcap.hpp>
+#include <ecs/client/sep/edev.hpp>
+#include <ecs/client/sep/rg.hpp>
+#include <ecs/client/sep/tm.hpp>
 #include <iostream>
 #include <sep/models/device_capability.hpp>
 #include <string>
@@ -26,6 +29,9 @@ int main(int argc, char **argv) {
   flecs::world ecs;
 
   ecs.import <ecs::client::dcap::Module>();
+  ecs.import <ecs::client::edev::Module>();
+  ecs.import <ecs::client::rg::Module>();
+  ecs.import <ecs::client::tm::Module>();
 
   sep::DeviceCapabilityLink dcap_link;
   dcap_link.href = "/dcap";
