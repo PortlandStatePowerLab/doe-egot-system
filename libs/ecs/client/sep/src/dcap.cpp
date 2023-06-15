@@ -10,6 +10,8 @@
 #include <trust/https/client.hpp>
 #include <utilities/utilities.hpp>
 
+#include "sep/models/flow_reservation_response.hpp"
+#include <sep/models/flow_reservation_request.hpp>
 ecs::client::dcap::Module::Module(flecs::world &world) {
   world.module<Module>();
 
@@ -29,7 +31,7 @@ ecs::client::dcap::Module::Module(flecs::world &world) {
           std::string msg = boost::beast::buffers_to_string(resp.body().data());
           sep::DeviceCapability dcap;
           xml::Parse(msg, &dcap);
-          e.world().entity().set<sep::DeviceCapability>(dcap);
+          e.set<sep::DeviceCapability>(dcap);
           if (dcap.end_device_list_link.has_value()) {
             e.set<sep::EndDeviceListLink>(dcap.end_device_list_link.value());
           }
@@ -46,7 +48,13 @@ ecs::client::dcap::Module::Module(flecs::world &world) {
       .each([](flecs::entity e, sep::DeviceCapability &dcap) {
         std::cout << psu::utilities::getTime() << " : "
                   << psu::utilities::getTime() % dcap.poll_rate << std::endl;
-        if (psu::utilities::getTime() % dcap.poll_rate == 0) {
+        if (psu::utilities::getTime() % 15 == 0) {
+          std::cout << "here" << std::endl;
+          sep::FlowReservationRequest frq = {};
+          frq.creation_time = psu::utilities::getTime();
+          e.set<sep::FlowReservationRequest>(frq);
+        }
+        if (psu::utilities::getTime() % 30 == 0) {
           std::cout << "Polling DeviceCapabilities ..." << std::endl;
           auto resp = trust::HttpsClient::getInstance().Get(dcap.href);
           std::cout << resp << std::endl;
@@ -75,7 +83,7 @@ ecs::client::dcap::Module::Module(flecs::world &world) {
           std::string msg = boost::beast::buffers_to_string(resp.body().data());
           sep::SelfDevice sdev;
           xml::Parse(msg, &sdev);
-          e.world().entity().set<sep::SelfDevice>(sdev);
+          e.set<sep::SelfDevice>(sdev);
         }
       });
 
@@ -94,7 +102,7 @@ ecs::client::dcap::Module::Module(flecs::world &world) {
                           trust::HttpsClient::getInstance().getLFDI())
                       << std::endl;
             if (edev.lfdi == trust::HttpsClient::getInstance().getLFDI()) {
-              e.world().entity().set<sep::EndDevice>(edev);
+              e.set<sep::EndDevice>(edev);
             }
           }
         }
@@ -110,7 +118,7 @@ ecs::client::dcap::Module::Module(flecs::world &world) {
           std::string msg = boost::beast::buffers_to_string(resp.body().data());
           sep::Time tm;
           xml::Parse(msg, &tm);
-          e.world().entity().set<sep::Time>(tm);
+          e.set<sep::Time>(tm);
         }
       });
 };
