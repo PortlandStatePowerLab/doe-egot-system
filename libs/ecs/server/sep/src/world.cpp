@@ -1,4 +1,3 @@
-#include "sep/models/flow_reservation_response.hpp"
 #include <ecs/server/sep/dcap.hpp>
 #include <ecs/server/sep/edev.hpp>
 #include <ecs/server/sep/frp.hpp>
@@ -11,6 +10,8 @@
 #include <ecs/server/sep/time.hpp>
 #include <ecs/server/sep/uri.hpp>
 #include <ecs/server/sep/world.hpp>
+#include <ecs/singleton/clock.hpp>
+#include <sep/models/flow_reservation_response.hpp>
 #include <sep/xml/adapter.hpp>
 #include <sstream>
 #include <utilities/utilities.hpp>
@@ -32,21 +33,31 @@ std::string prependLFDI(const Href &href) {
 
 World::World() {
   world.import <rg::Module>();
-  gsp::rg::generateRegistration(world);
+  rg::generateRegistration(world);
   world.import <dcap::Module>();
   world.import <edev::Module>();
   world.import <time::Module>();
-  gsp::time::generateTime(world);
+  time::generateTime(world);
+  world.import <ecs::singleton::Module>();
+  ecs::singleton::Clock clock = {};
+  world.component().set<ecs::singleton::Clock>(clock);
+
   // world.import <sdev::Module>();
   // world.import <frp::Module>();
   // world.import <frq::Module>();
   // world.import <ps::Module>();
+  thread_ = std::thread(&World::run, this);
 };
 
 World::~World() {
   // Save entities if required
   delete instance_;
+  if (thread_.joinable()) {
+    thread_.join();
+  }
 };
+
+void World::run() { world.app().target_fps(1).run(); };
 
 World *World::getInstance() {
   std::lock_guard<std::mutex> lock(mutex_);

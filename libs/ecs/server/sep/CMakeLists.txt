@@ -28,5 +28,6 @@ target_link_libraries(ecs_server_sep PUBLIC
   flecs::flecs
   sep::models
   sep::xml
+  ecs::singleton
   EGoT::utils
 )

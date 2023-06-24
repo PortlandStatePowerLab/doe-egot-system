@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
   ecs.import <ecs::singleton::Module>();
 
   ecs::singleton::Clock clock = {};
-  ecs.entity().set<ecs::singleton::Clock>(clock);
+  ecs.component().set<ecs::singleton::Clock>(clock);
 
   sep::DeviceCapabilityLink dcap_link;
   dcap_link.href = "/dcap";

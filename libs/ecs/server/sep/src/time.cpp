@@ -2,6 +2,7 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/time_zone_base.hpp>
 #include <ecs/server/sep/time.hpp>
+#include <ecs/singleton/clock.hpp>
 
 extern std::string g_program_path;
 
@@ -34,5 +35,14 @@ void gsp::time::generateTime(flecs::world &world) {
 
 gsp::time::Module::Module(flecs::world &world) {
   world.module<Module>();
+
   world.component<sep::Time>();
+
+  world.system<sep::Time, ecs::singleton::Clock>("time")
+      .term_at(2)
+      .singleton()
+      .each([](flecs::entity e, sep::Time &tm, ecs::singleton::Clock &clock) {
+        tm.current_time = clock.time;
+        std::cout << "Time : " << tm.current_time << std::endl;
+      });
 };
