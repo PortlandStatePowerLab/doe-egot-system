@@ -11,11 +11,6 @@ namespace ecs {
 namespace client {
 namespace tm {
 
-struct Clock {
-  uint64_t time;
-  int16_t offset;
-};
-
 struct Module {
   Module(flecs::world &world);
 };

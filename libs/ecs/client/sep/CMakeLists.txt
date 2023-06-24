@@ -17,6 +17,7 @@ target_include_directories(ecs_client_sep PUBLIC include)
 target_link_libraries(ecs_client_sep PUBLIC 
   flecs
   trust::client
+  ecs::singleton
   sep::models
   sep::xml
 )
