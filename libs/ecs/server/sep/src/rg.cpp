@@ -39,7 +39,7 @@ void gsp::rg::generateRegistration(flecs::world &world) {
             oss << std::uppercase << std::hex << (int)md[i];
           };
           std::string lfdi = oss.str().substr(0, 40);
-
+          std::cout << "registered : " << lfdi << std::endl;
           auto p = world.entity(lfdi.c_str());
 
           sep::Registration rg;

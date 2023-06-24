@@ -2,7 +2,8 @@
 import re
 ctr=1
 pattern='((:.{2}){20}$)'
-rm registration.csv
+reg_file='root-ca/registration.csv'
+rm $reg_file
 while [ $ctr -le $1 ]
 do
 FILE=root-ca/client$ctr.crt
@@ -12,7 +13,7 @@ if [ -f "$FILE" ]; then
     [[ $fingerprint =~ $pattern ]]
     lfdi="${BASH_REMATCH[0]}"
     lfdi=${lfdi//:}
-    echo "$ctr,$lfdi" >> registration.csv
+    echo "$ctr,$lfdi" >> $reg_file
 else
     openssl req -new \
         -config sub-ca.conf \
@@ -29,7 +30,7 @@ else
     [[ $fingerprint =~ $pattern ]]
     lfdi="${BASH_REMATCH[0]}"
     lfdi=${lfdi//:}
-    echo "$ctr,$lfdi" >> registration.csv
+    echo "$ctr,$lfdi" >> $reg_file
 fi
 ((ctr++))
 done
