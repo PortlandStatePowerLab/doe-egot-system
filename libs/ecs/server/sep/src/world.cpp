@@ -32,15 +32,14 @@ std::string prependLFDI(const Href &href) {
 };
 
 World::World() {
+  world.import <ecs::singleton::Module>();
+  ecs::singleton::generateClock(world);
   world.import <rg::Module>();
   rg::generateRegistration(world);
   world.import <dcap::Module>();
   world.import <edev::Module>();
   world.import <time::Module>();
   time::generateTime(world);
-  world.import <ecs::singleton::Module>();
-  ecs::singleton::Clock clock = {};
-  world.component().set<ecs::singleton::Clock>(clock);
 
   // world.import <sdev::Module>();
   // world.import <frp::Module>();

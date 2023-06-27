@@ -28,7 +28,7 @@ std::string getProgramPath(char **arg) {
   return p.parent_path().string();
 }
 
-uint64_t getTime() {
+int64_t getTime() {
   auto time = std::chrono::system_clock::now();
   return std::chrono::duration_cast<std::chrono::seconds>(
              time.time_since_epoch())

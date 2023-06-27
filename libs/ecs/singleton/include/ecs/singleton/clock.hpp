@@ -8,9 +8,12 @@ namespace ecs {
 namespace singleton {
 
 struct Clock {
-  uint64_t time;
-  int16_t offset;
+  int64_t utc;
+  int64_t local;
+  int64_t offset;
 };
+
+void generateClock(flecs::world &world);
 
 struct Module {
   Module(flecs::world &world);
