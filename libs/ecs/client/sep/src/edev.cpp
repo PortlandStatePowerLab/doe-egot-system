@@ -38,7 +38,6 @@ ecs::client::edev::Module::Module(flecs::world &world) {
       .each([](flecs::entity e, sep::RegistrationLink &link) {
         std::cout << "Event Registration" << std::endl;
         auto resp = trust::HttpsClient::getInstance().Get(link.href);
-        std::cout << resp << std::endl;
         if (resp.result_int() == 200) {
           std::string msg = boost::beast::buffers_to_string(resp.body().data());
           sep::Registration rg;
@@ -54,7 +53,6 @@ ecs::client::edev::Module::Module(flecs::world &world) {
       .each([](flecs::entity e, sep::FlowReservationRequestListLink &list_link,
                sep::FlowReservationRequest &frq) {
         std::cout << "Event FRQ List Link" << std::endl;
-        std::cout << e.path() << " : " << frq.creation_time << std::endl;
       });
 
   world.observer<sep::FlowReservationResponseListLink>("frplist")

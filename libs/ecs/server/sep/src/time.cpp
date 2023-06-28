@@ -21,7 +21,7 @@ void gsp::time::generateTime(flecs::world &world) {
   sep::Time tm;
   tm.poll_rate = 900;
   tm.href = "/tm";
-  tm.current_time = to_time_t(universal);
+  tm.current_time = boost::posix_time::to_time_t(universal);
   tm.dst_end_time = boost::posix_time::to_time_t(
       tz_ptr->dst_local_end_time(ldt.date().year()));
   tm.dst_offset = (tz_ptr->dst_offset()).total_seconds();
@@ -38,11 +38,10 @@ gsp::time::Module::Module(flecs::world &world) {
 
   world.component<sep::Time>();
 
-  world.system<sep::Time, ecs::singleton::Clock>("time")
-      .term_at(2)
-      .singleton()
-      .each([](flecs::entity e, sep::Time &tm, ecs::singleton::Clock &clock) {
-        tm.current_time = clock.time;
-        std::cout << "Time : " << tm.current_time << std::endl;
-      });
+  world.system<sep::Time>("time").each([](flecs::entity e, sep::Time &tm) {
+    std::cout << "Event Time" << std::endl;
+    auto *clock = e.world().get_mut<ecs::singleton::Clock>();
+    tm.current_time = clock->utc;
+    tm.local_time = clock->local;
+  });
 };

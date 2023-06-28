@@ -28,15 +28,12 @@ int main(int argc, char **argv) {
   trust::HttpsClient::getInstance(gsp_ctx, dtm_ctx);
 
   flecs::world ecs;
-
+  ecs.import <ecs::singleton::Module>();
+  ecs::singleton::generateClock(ecs);
   ecs.import <ecs::client::dcap::Module>();
   ecs.import <ecs::client::edev::Module>();
   ecs.import <ecs::client::rg::Module>();
   ecs.import <ecs::client::tm::Module>();
-  ecs.import <ecs::singleton::Module>();
-
-  ecs::singleton::Clock clock = {};
-  ecs.component().set<ecs::singleton::Clock>(clock);
 
   sep::DeviceCapabilityLink dcap_link;
   dcap_link.href = "/dcap";

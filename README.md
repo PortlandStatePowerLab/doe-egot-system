@@ -18,6 +18,24 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 cmake --build build
 ```
 
+## Running
+Running the system as a whole is done through the *run_egot.sh* script found in tools. It will spawn tree tmux sessions: GSP, DTMC, and DERS. The DERS session will have *n* number of DCMS running in individual windows within the session. See snapshot of terminal after running.
+
+
+```shell
+cd doe-egot-system
+./tools/run_egot.sh <n>
+tmux ls
+tmux a -t <session>
+```
+
+## Stop
+Stopping the EGoT system only requires stopping all tmux sessions. 
+
+```shell
+tmux kill-server
+```
+
 ## Project Organization
 
 Compartmentalize all functions into their own folders. 
