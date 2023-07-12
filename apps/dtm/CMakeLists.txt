@@ -1,1 +1,2 @@
+# Copy dtmc.py file
 FILE(COPY dtmc.py DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})

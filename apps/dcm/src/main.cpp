@@ -11,13 +11,16 @@
 
 std::string g_program_path;
 
-int main(int argc, char **argv) {
+int main(int argc, char* argv[]) {
   std::cout << "Starting Distributed Control Module...\n";
+
   g_program_path = psu::utilities::getProgramPath(argv);
+  const char* PORT = argv[2];
   std::cout << "\tpath : " << g_program_path << std::endl;
 
   https::Context gsp_ctx = {"1", g_program_path, "0.0.0.0", "8080"};
-  https::Context dtm_ctx = {"1", g_program_path, "0.0.0.0", "8090"};
+  https::Context dtm_ctx = {"1", g_program_path, "0.0.0.0", PORT};
+  // https::Context dtm_ctx = {"1", g_program_path, "0.0.0.0", "8090"};
 
   std::cout << "\tgsp client on " << gsp_ctx.host << ":" << gsp_ctx.port
             << "\n";
@@ -29,7 +32,7 @@ int main(int argc, char **argv) {
 
   flecs::world ecs;
   ecs.import <ecs::singleton::Module>();
-  ecs::singleton::generateClock(ecs);
+  //ecs::singleton::generateClock();
   ecs.import <ecs::client::dcap::Module>();
   ecs.import <ecs::client::edev::Module>();
   ecs.import <ecs::client::rg::Module>();
