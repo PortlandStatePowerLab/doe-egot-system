@@ -4,6 +4,9 @@ num="$1"
 
 tmux new -s GSP -d './build/bin/gsp'
 tmux new -s DTMC -d 'python3 build/bin/dtmc.py'
+tmux new -s CLASSIFIER -d 'python3 build/bin/classifier.py'
+tmux new -s CDTA -d 'python3 build/bin/cdta.py'
+tmux new -s DTMC -d 'python3 build/bin/dtmc.py'
 tmux new -s DERS -d 
 
 if [ "$num" = "" ];

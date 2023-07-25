@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <string>
 #include <type_traits>
+#include <vector>
 
 // C++14 helper
 template <class T>
@@ -11,6 +12,7 @@ using underlying_type_t = typename std::underlying_type<T>::type;
 namespace psu {
 namespace utilities {
 std::string readFile(const std::string &filename);
+std::vector<std::vector<std::string>> readCSV(const std::string &filename);
 std::string getProgramPath(char **arg);
 int64_t getTime();
 

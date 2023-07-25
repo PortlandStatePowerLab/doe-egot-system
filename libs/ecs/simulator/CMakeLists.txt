@@ -1,13 +1,16 @@
-add_library(ecs_singleton
-  src/clock.cpp
+add_library(ecs_simulator
+  src/waterheater.cpp
 )
 
 # Create ALIAS targets.
-add_library(ecs::singleton ALIAS ecs_singleton)
+add_library(ecs::simulator ALIAS ecs_simulator)
 
-target_include_directories(ecs_singleton PUBLIC include)
+target_include_directories(ecs_simulator PUBLIC include)
 
-target_link_libraries(ecs_singleton PUBLIC
+target_link_libraries(ecs_simulator PUBLIC
   flecs::flecs
+  ecs::singleton
+  sep::models
+  sep::xml
   EGoT::utils
 ) 

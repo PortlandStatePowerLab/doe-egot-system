@@ -1,0 +1,54 @@
+#ifndef __ECS_SIMULATOR_WATERHEATER__
+#define __ECS_SIMULATOR_WATERHEATER__
+
+#include <cstdint>
+#include <flecs.h>
+#include <string>
+#include <vector>
+
+namespace ecs {
+namespace simulator {
+namespace waterheater {
+
+struct Power {
+  float watts;
+};
+
+struct Temperature {
+  float fahrenheit;
+};
+
+struct Event {
+  int64_t start_time;
+  int64_t end_time;
+  float gallons_per_second;
+};
+
+struct Schedule {
+  std::vector<Event> events;
+};
+
+enum class State {
+  NORMAL = 1,
+  SHED = 2,
+  END_SHED = 3,
+  LOAD_UP = 4,
+  CRITICAL_PEAK = 5
+};
+
+struct Nameplate {
+  uint8_t gallons;
+  uint8_t temperature_setpoint;
+  uint8_t inlet_temperature;
+  uint8_t power;
+};
+
+struct Module {
+  Module(flecs::world &world);
+};
+
+} // namespace waterheater
+} // namespace simulator
+} // namespace ecs
+
+#endif // __ECS_SIMULATOR_WATERHEATER__

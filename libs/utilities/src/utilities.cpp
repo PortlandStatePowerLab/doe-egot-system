@@ -22,6 +22,32 @@ std::string readFile(const std::string &filename) {
   return content;
 }
 
+std::vector<std::vector<std::string>> readCSV(const std::string &filename) {
+  std::vector<std::vector<std::string>> content = {};
+
+  std::ifstream open_file(filename);
+  if (!open_file) {
+    return content;
+  }
+
+  std::stringstream file;
+  file << open_file.rdbuf();
+
+  char delim = ',';
+  std::string line;
+  std::string value;
+  while (std::getline(file, line)) {
+    std::vector<std::string> values;
+    std::stringstream ssr;
+    ssr << line;
+    while (std::getline(ssr, value, delim)) {
+      values.push_back(value);
+    }
+    content.push_back(values);
+  }
+  return content;
+}
+
 std::string getProgramPath(char **arg) {
   path p = arg[0];
   p = canonical(p);
