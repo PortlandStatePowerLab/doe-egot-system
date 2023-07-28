@@ -46,13 +46,13 @@ namespace waterheater {
 
 bool isEventActive(const Event &event) {
   int64_t time = psu::utilities::getTime();
-  uint16_t current = time % SECONDS_PER_DAY;
-  uint16_t start = abs(event.start_time % SECONDS_PER_DAY);
-  uint16_t end = abs(event.end_time % SECONDS_PER_DAY);
-  if (current < start) {
+  std::cout << ctime(&time) << std::endl;
+  std::cout << ctime(&event.start_time) << std::endl;
+  std::cout << ctime(&event.end_time) << std::endl;
+  if (time < event.start_time) {
     return false;
   }
-  if (current > end) {
+  if (time > event.end_time) {
     return false;
   }
   return true;
@@ -108,17 +108,13 @@ Module::Module(flecs::world &world) {
   world.system<Schedule>("schedule")
       .each([](flecs::entity e, Schedule &events) {
         std::cout << "Checking schedule" << std::endl;
-        int current = psu::utilities::getTime() % SECONDS_PER_DAY;
-        int start =
-            events.events[events.current_index].start_time % SECONDS_PER_DAY;
-        int end =
-            events.events[events.current_index].end_time % SECONDS_PER_DAY;
-        std::cout << "current : " << current << std::endl;
-        std::cout << "start : " << start << std::endl;
-        std::cout << "end : " << end << std::endl;
-        if (current > abs(end)) {
+        int current = psu::utilities::getTime();
+        while (current > events.events[events.current_index].start_time) {
           if (events.current_index < events.events.size() - 1) {
             events.current_index++;
+          }
+          if (events.current_index == events.events.size()) {
+            events.current_index = 0;
           }
         }
         bool active_event =

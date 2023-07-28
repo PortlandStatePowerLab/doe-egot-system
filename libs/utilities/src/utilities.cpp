@@ -1,8 +1,10 @@
 #include <boost/filesystem.hpp>
 #include <chrono>
+#include <cstdint>
 #include <ctime>
 #include <fstream>
 #include <iomanip>
+#include <iostream>
 #include <sstream>
 #include <utilities/utilities.hpp>
 
@@ -63,10 +65,22 @@ int64_t getTime() {
       .count();
 }
 
-int64_t parseTime(const std::string &time, const std::string &format) {
+int64_t parseTime(const std::string &time, const std::string &format,
+                  bool overwrite_date) {
   std::stringstream ss(time);
   std::tm t = {};
   ss >> std::get_time(&t, format.c_str());
+  if (overwrite_date) {
+    int64_t now = getTime();
+    std::tm now_tp = *std::localtime(&now);
+    t.tm_mday = now_tp.tm_mday;
+    t.tm_mon = now_tp.tm_mon;
+    t.tm_year = now_tp.tm_year;
+    t.tm_wday = now_tp.tm_wday;
+    t.tm_yday = now_tp.tm_yday;
+    t.tm_isdst = now_tp.tm_isdst;
+  }
+  std::cout << asctime(&t) << std::endl;
   return mktime(&t);
 }
 } // namespace utilities
