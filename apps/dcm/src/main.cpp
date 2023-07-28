@@ -2,6 +2,7 @@
 #include <ecs/client/sep/edev.hpp>
 #include <ecs/client/sep/rg.hpp>
 #include <ecs/client/sep/tm.hpp>
+#include <ecs/simulator/waterheater.hpp>
 #include <ecs/singleton/clock.hpp>
 #include <iostream>
 #include <sep/models/device_capability.hpp>
@@ -25,21 +26,25 @@ int main(int argc, char **argv) {
   std::cout << "\tdtm client on " << dtm_ctx.host << ":" << dtm_ctx.port
             << "\n";
 
-  trust::HttpsClient::getInstance(gsp_ctx, dtm_ctx);
-
   flecs::world ecs;
   ecs.import <ecs::singleton::Module>();
+  ecs.import <ecs::simulator::waterheater::Module>();
+  std::string schedule =
+      g_program_path + "/dhw_generator/outputs/waterdraw-1.csv";
+  auto wh_events = ecs::simulator::waterheater::loadSchedule(ecs, schedule);
   ecs::singleton::generateClock(ecs);
-  ecs.import <ecs::client::dcap::Module>();
-  ecs.import <ecs::client::edev::Module>();
-  ecs.import <ecs::client::rg::Module>();
-  ecs.import <ecs::client::tm::Module>();
 
-  sep::DeviceCapabilityLink dcap_link;
-  dcap_link.href = "/dcap";
+  // trust::HttpsClient::getInstance(gsp_ctx, dtm_ctx);
+  // ecs.import <ecs::client::dcap::Module>();
+  // ecs.import <ecs::client::edev::Module>();
+  // ecs.import <ecs::client::rg::Module>();
+  // ecs.import <ecs::client::tm::Module>();
 
-  auto e = ecs.entity();
-  e.set<sep::DeviceCapabilityLink>(dcap_link);
+  // sep::DeviceCapabilityLink dcap_link;
+  // dcap_link.href = "/dcap";
+
+  // auto e = ecs.entity();
+  // e.set<sep::DeviceCapabilityLink>(dcap_link);
 
   ecs.app().target_fps(1).run();
 

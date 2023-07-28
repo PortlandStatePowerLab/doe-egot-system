@@ -7,7 +7,7 @@ Department of Energy - Energy Grid of Things System
 
 ```
 cd doe-egot-system
-./setup.sh
+./tools/setup.sh
 ```
 
 ## Building

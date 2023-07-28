@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <flecs.h>
+#include <initializer_list>
 #include <string>
 #include <vector>
 
@@ -25,6 +26,7 @@ struct Event {
 };
 
 struct Schedule {
+  size_t current_index;
   std::vector<Event> events;
 };
 
@@ -42,6 +44,8 @@ struct Nameplate {
   uint8_t inlet_temperature;
   uint8_t power;
 };
+
+flecs::entity loadSchedule(flecs::world &world, std::string &path);
 
 struct Module {
   Module(flecs::world &world);

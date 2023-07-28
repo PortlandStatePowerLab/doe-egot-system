@@ -1,6 +1,8 @@
 #include <boost/filesystem.hpp>
 #include <chrono>
+#include <ctime>
 #include <fstream>
+#include <iomanip>
 #include <sstream>
 #include <utilities/utilities.hpp>
 
@@ -61,6 +63,12 @@ int64_t getTime() {
       .count();
 }
 
+int64_t parseTime(const std::string &time, const std::string &format) {
+  std::stringstream ss(time);
+  std::tm t = {};
+  ss >> std::get_time(&t, format.c_str());
+  return mktime(&t);
+}
 } // namespace utilities
 
 } // namespace psu

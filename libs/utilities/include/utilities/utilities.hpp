@@ -15,6 +15,7 @@ std::string readFile(const std::string &filename);
 std::vector<std::vector<std::string>> readCSV(const std::string &filename);
 std::string getProgramPath(char **arg);
 int64_t getTime();
+int64_t parseTime(const std::string &time, const std::string &format);
 
 // c++23 helper
 template <class Enum> static underlying_type_t<Enum> ToUnderlyingType(Enum e) {
