@@ -80,7 +80,6 @@ int64_t parseTime(const std::string &time, const std::string &format,
     t.tm_yday = now_tp.tm_yday;
     t.tm_isdst = now_tp.tm_isdst;
   }
-  std::cout << asctime(&t) << std::endl;
   return mktime(&t);
 }
 } // namespace utilities

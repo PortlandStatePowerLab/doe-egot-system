@@ -11,6 +11,7 @@
 #include <utilities/utilities.hpp>
 
 std::string g_program_path;
+using namespace ecs::simulator::waterheater;
 
 int main(int argc, char **argv) {
   std::cout << "Starting Distributed Control Module...\n";
@@ -29,9 +30,23 @@ int main(int argc, char **argv) {
   flecs::world ecs;
   ecs.import <ecs::singleton::Module>();
   ecs.import <ecs::simulator::waterheater::Module>();
+
   std::string schedule =
       g_program_path + "/dhw_generator/outputs/waterdraw-1.csv";
-  auto wh_events = ecs::simulator::waterheater::loadSchedule(ecs, schedule);
+  auto der = loadSchedule(ecs, schedule);
+
+  Temperature temp = {};
+  temp.fahrenheit = 100;
+  der.set<Temperature>(temp);
+  der.add(State::NORMAL);
+
+  ecs::simulator::waterheater::Nameplate rating = {};
+  rating.gallons = 80;
+  rating.inlet_temperature = 50;
+  rating.power = 4500;
+  rating.temperature_setpoint = 120;
+  der.set<ecs::simulator::waterheater::Nameplate>(rating);
+
   ecs::singleton::generateClock(ecs);
 
   // trust::HttpsClient::getInstance(gsp_ctx, dtm_ctx);

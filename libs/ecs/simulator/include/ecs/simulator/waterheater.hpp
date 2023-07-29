@@ -39,10 +39,10 @@ enum class State {
 };
 
 struct Nameplate {
-  uint8_t gallons;
-  uint8_t temperature_setpoint;
-  uint8_t inlet_temperature;
-  uint8_t power;
+  uint16_t gallons;
+  uint16_t temperature_setpoint;
+  uint16_t inlet_temperature;
+  uint16_t power;
 };
 
 flecs::entity loadSchedule(flecs::world &world, std::string &path);
