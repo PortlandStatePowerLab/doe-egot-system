@@ -99,13 +99,14 @@ Module::Module(flecs::world &world) {
   world.component<Event>();
   world.component<Schedule>();
   world.component<Nameplate>();
-  world.component<State>();
+  world.component<State>().add(flecs::Union);
   world.component<Power>();
   world.component<Temperature>();
 
   world.system<Schedule>("schedule")
       .each([](flecs::entity e, Schedule &events) {
-        int current = psu::utilities::getTime();
+        int64_t current = psu::utilities::getTime();
+        std::cout << "schedule : " << std::ctime(&current) << std::endl;
         while (current > events.events[events.current_index].start_time) {
           if (events.current_index < events.events.size() - 1) {
             events.current_index++;
@@ -131,13 +132,14 @@ Module::Module(flecs::world &world) {
         float m1 = event.gallons_per_second;
         float m2 = rating.gallons;
         temp.fahrenheit = (m1 * t1 + m2 * t2) / (m1 + m2);
+        std::cout << "Temperature : " << temp.fahrenheit << std::endl;
       });
 
-  world.system<Temperature, Nameplate>("heating")
-      .term(State::NORMAL)
+  world.system<Temperature, Nameplate>("normal state")
+      .with(State::NORMAL)
       .each([](flecs::entity e, Temperature &temp, Nameplate &rating) {
         std::cout << "Normal mode" << std::endl;
-        float upper_bound = rating.temperature_setpoint + 2;
+        float upper_bound = rating.temperature_setpoint;
         float lower_bound = rating.temperature_setpoint - 2;
 
         if (temp.fahrenheit > upper_bound) {
@@ -150,10 +152,42 @@ Module::Module(flecs::world &world) {
         }
       });
 
-  world.system<Power, Temperature>("heating")
-      .term(State::NORMAL)
-      .each([](flecs::entity e, Power &power, Temperature &temp) {
-        std::cout << "Normal low water heater temp" << std::endl;
+  world.system<Temperature, Nameplate>("shed state")
+      .with(State::SHED)
+      .each([](flecs::entity e, Temperature &temp, Nameplate &rating) {
+        std::cout << "Shed mode" << std::endl;
+        float upper_bound = rating.temperature_setpoint - 2;
+        float lower_bound = rating.temperature_setpoint - 4;
+
+        if (temp.fahrenheit > upper_bound) {
+          e.remove<Power>();
+        }
+        if (temp.fahrenheit < lower_bound) {
+          Power power = {};
+          power.watts = rating.power;
+          e.set<Power>(power);
+        }
+      });
+
+  world.system<Temperature, Nameplate>("load up state")
+      .with(State::LOAD_UP)
+      .each([](flecs::entity e, Temperature &temp, Nameplate &rating) {
+        float upper_bound = rating.temperature_setpoint;
+
+        if (temp.fahrenheit > upper_bound) {
+          e.remove<Power>();
+          e.add(State::NORMAL);
+        } else {
+          Power power = {};
+          power.watts = rating.power;
+          e.set<Power>(power);
+        }
+        std::cout << "Load up mode" << std::endl;
+      });
+
+  world.system<Power, Temperature>("heating").each(
+      [](flecs::entity e, Power &power, Temperature &temp) {
+        std::cout << "low water heater temp" << std::endl;
       });
 
   // world.system<State, Temperature>("operating mode")
