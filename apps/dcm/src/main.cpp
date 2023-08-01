@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
   Temperature temp = {};
   temp.fahrenheit = 100;
   der.set<Temperature>(temp);
-  der.add(State::LOAD_UP);
+  der.add(State::SHED);
   ecs::simulator::waterheater::Nameplate rating = {};
   rating.gallons = 80;
   rating.inlet_temperature = 50;

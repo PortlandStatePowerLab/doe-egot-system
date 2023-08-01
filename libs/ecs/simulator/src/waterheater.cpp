@@ -19,7 +19,6 @@ const std::string TIME_FORMAT = "%Y-%m-%d %H:%M:%S";
 const float KG_PER_GALLON = 3.7854;
 const float SPECIFIC_HEAT_H2O = 4190;
 const float JOULE_PER_WATT_HOUR = 3600;
-const int SECONDS_PER_DAY = 24 * 60 * 60;
 
 using Sep = boost::char_separator<char>;
 using Tokenizer = boost::tokenizer<Sep>;
@@ -27,9 +26,9 @@ using Tokenizer = boost::tokenizer<Sep>;
 float toCelsius(const float &fahrenheit) { return (fahrenheit - 32) / 1.8; };
 float toFahrenheit(const float &celsius) { return celsius * 1.8 + 32; };
 float toKilograms(const float &gallons) { return KG_PER_GALLON * gallons; };
-float heatingEnergy(const float &t2, const float &t1, const float &volume) {
+float heatingEnergy(const float &t2, const float &t1, const float &gallons) {
   float c = SPECIFIC_HEAT_H2O;
-  float m = toKilograms(volume);
+  float m = toKilograms(gallons);
   float delta_temp = toCelsius(t2) - toCelsius(t1);
   return c * m * delta_temp / JOULE_PER_WATT_HOUR;
 };
@@ -129,7 +128,6 @@ Module::Module(flecs::world &world) {
         } else {
           e.remove<Event>();
         }
-        e.set<Event>(events.events.at(events.current_index));
       });
 
   world.system<Event, Temperature, Nameplate>("water draw")
@@ -140,7 +138,6 @@ Module::Module(flecs::world &world) {
         float m1 = event.gallons_per_second;
         float m2 = rating.gallons;
         temp.fahrenheit = (m1 * t1 + m2 * t2) / (m1 + m2);
-        std::cout << "Temperature : " << temp.fahrenheit << std::endl;
       });
 
   world.system<Temperature, Nameplate>("normal state")
@@ -168,17 +165,20 @@ Module::Module(flecs::world &world) {
       .each([](flecs::entity e, Temperature &temp, Nameplate &rating,
                const ecs::singleton::Clock &clock) {
         std::cout << "SHED MODE:" << std::endl;
-        float upper_bound = rating.temperature_setpoint - 2;
-        float lower_bound = rating.temperature_setpoint - 4;
+        float upper_bound = rating.temperature_setpoint - 5;
+        float lower_bound = rating.temperature_setpoint - 10;
 
         if (temp.fahrenheit > upper_bound) {
           e.remove<Power>();
         }
 
         if (temp.fahrenheit < upper_bound) {
+          float energy = heatingEnergy(rating.temperature_setpoint, upper_bound,
+                                       rating.gallons);
+          std::cout << "Energy : " << energy << std::endl;
           sep::FlowReservationRequest frq = {};
           frq.energy_requested.multiplier = 1;
-          frq.energy_requested.value = 1000;
+          frq.energy_requested.value = energy;
           frq.interval_requested.duration = 60;
           frq.interval_requested.start = clock.utc;
           frq.power_requested.multiplier = 1;
@@ -212,9 +212,14 @@ Module::Module(flecs::world &world) {
         }
       });
 
-  world.system<Power, Temperature>("heating").each(
-      [](flecs::entity e, Power &power, Temperature &temp) {
-        std::cout << "low water heater temp" << std::endl;
+  world.system<Power, Temperature, Nameplate>("heating").each(
+      [](flecs::entity e, Power &power, Temperature &temp, Nameplate &rating) {
+        std::cout << "Low Temp: " << std::endl;
+        std::cout << "t1 : " << temp.fahrenheit << std::endl;
+        float seconds_per_hour = 60 * 60;
+        temp.fahrenheit = tempChange(temp.fahrenheit, rating.gallons,
+                                     power.watts / seconds_per_hour);
+        std::cout << "t2 : " << temp.fahrenheit << std::endl;
       });
 };
 
