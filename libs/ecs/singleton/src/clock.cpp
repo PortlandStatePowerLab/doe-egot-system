@@ -11,7 +11,7 @@ void ecs::singleton::generateClock(flecs::world &world) {
   ecs::singleton::Clock clock{};
   clock.utc = boost::posix_time::to_time_t(universal);
   clock.local = boost::posix_time::to_time_t(local);
-  world.component().set<ecs::singleton::Clock>(clock);
+  world.set<ecs::singleton::Clock>(clock);
 };
 
 ecs::singleton::Module::Module(flecs::world &world) {
@@ -26,7 +26,5 @@ ecs::singleton::Module::Module(flecs::world &world) {
         boost::posix_time::second_clock::universal_time());
     clock.utc = boost::posix_time::to_time_t(universal);
     clock.local = boost::posix_time::to_time_t(local);
-    // std::cout << "clock utc : " << clock.utc << std::endl;
-    // std::cout << "clock local : " << clock.local << std::endl;
   });
 };
