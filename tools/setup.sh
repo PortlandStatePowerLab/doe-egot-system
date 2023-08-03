@@ -18,7 +18,7 @@ sudo ./b2 install
 sudo ./b2 --with-filesystem install
 sudo ./b2 --with-python install
 cd ~/temp
-wget https://dlcdn.apache.org//xerces/c/3/sources/xerces-c-3.2.4.tar.gz
+wget https://archive.apache.org/dist/xerces/c/3/sources/xerces-c-3.2.3.tar.gz
 tar -xf xerces-c-3.2.4.tar.gz
 cd xerces-c-3.2.4 && ./configure --prefix=/usr && make && sudo make install
 cd
