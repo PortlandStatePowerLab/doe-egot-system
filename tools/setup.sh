@@ -2,7 +2,7 @@
 
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt-get install -y build-essential wget git pkg-config cmake python3 python3-dev libssl-dev libmodbus-dev libgtest-dev
+sudo apt-get install -y build-essential wget git tmux pkg-config cmake python3 python3-dev libssl-dev libmodbus-dev libgtest-dev
 mkdir ~/temp
 cd ~/temp
 wget https://github.com/Kitware/CMake/releases/download/v3.18.4/cmake-3.18.4.tar.gz

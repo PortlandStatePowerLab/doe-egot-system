@@ -7,6 +7,7 @@ add_executable(dcm
 target_link_libraries(dcm
     ecs::client::sep
     ecs::simulator
+    https::client
     trust::client
     EGoT::utils
     Threads::Threads

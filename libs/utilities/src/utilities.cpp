@@ -71,7 +71,7 @@ int64_t parseTime(const std::string &time, const std::string &format,
   std::tm t = {};
   ss >> std::get_time(&t, format.c_str());
   if (overwrite_date) {
-    int64_t now = getTime();
+    time_t now = static_cast<time_t>(getTime());
     std::tm now_tp = *std::localtime(&now);
     t.tm_mday = now_tp.tm_mday;
     t.tm_mon = now_tp.tm_mon;

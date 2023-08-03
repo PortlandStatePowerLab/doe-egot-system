@@ -11,13 +11,14 @@ ecs::client::tm::Module::Module(flecs::world &world) {
 
   world.component<sep::Time>();
 
-  world.observer<sep::Time>("time")
+  world.observer<sep::Time, ecs::singleton::Clock>("time")
+      .term_at(2)
+      .singleton()
       .event(flecs::OnSet)
-      .each([](flecs::entity e, sep::Time &tm) {
-        auto *clock = e.world().get_mut<ecs::singleton::Clock>();
-        std::cout << "current time=" << tm.current_time << " , " << clock->utc
+      .each([](flecs::entity e, sep::Time &tm, ecs::singleton::Clock &clock) {
+        std::cout << "current time=" << tm.current_time << " , " << clock.utc
                   << std::endl;
-        clock->offset = tm.current_time - clock->utc;
-        std::cout << "Event Time: offset=" << clock->offset << std::endl;
+        clock.offset = tm.current_time - clock.utc;
+        std::cout << "Event Time: offset=" << clock.offset << std::endl;
       });
 };

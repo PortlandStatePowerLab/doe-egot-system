@@ -9,6 +9,7 @@ target_include_directories(ecs_simulator PUBLIC include)
 
 target_link_libraries(ecs_simulator PUBLIC
   flecs::flecs
+  https::client
   ecs::singleton
   sep::models
   sep::xml

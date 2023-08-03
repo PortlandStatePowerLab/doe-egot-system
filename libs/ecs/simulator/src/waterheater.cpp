@@ -1,13 +1,17 @@
-#include "sep/models/request_status.hpp"
+#include "sep/xml/utilities.hpp"
 #include <boost/filesystem.hpp>
 #include <boost/tokenizer.hpp>
 #include <cstddef>
 #include <cstdint>
 #include <ecs/simulator/waterheater.hpp>
 #include <ecs/singleton/clock.hpp>
+#include <flecs.h>
 #include <fstream>
+#include <https/client/single_client.hpp>
 #include <iostream>
 #include <sep/models/flow_reservation_request.hpp>
+#include <sep/models/request_status.hpp>
+#include <sep/models/simple_types.hpp>
 #include <stdlib.h> /* abs */
 #include <string>
 #include <time.h>
@@ -111,9 +115,6 @@ Module::Module(flecs::world &world) {
       .each([](flecs::entity e, Schedule &events,
                const ecs::singleton::Clock &clock) {
         int64_t current = psu::utilities::getTime();
-        std::cout << "system : " << std::ctime(&current);
-        std::cout << "global clock : " << std::ctime(&clock.utc);
-        std::cout << "global clock offset: " << clock.offset << std::endl;
         while (current > events.events[events.current_index].start_time) {
           if (events.current_index < events.events.size() - 1) {
             events.current_index++;
@@ -143,7 +144,6 @@ Module::Module(flecs::world &world) {
   world.system<Temperature, Nameplate>("normal state")
       .with(State::NORMAL)
       .each([](flecs::entity e, Temperature &temp, Nameplate &rating) {
-        std::cout << "NORMAL MODE:" << std::endl;
         float upper_bound = rating.temperature_setpoint;
         float lower_bound = rating.temperature_setpoint - 2;
 
@@ -164,31 +164,36 @@ Module::Module(flecs::world &world) {
       .with(State::SHED)
       .each([](flecs::entity e, Temperature &temp, Nameplate &rating,
                const ecs::singleton::Clock &clock) {
-        std::cout << "SHED MODE:" << std::endl;
-        float upper_bound = rating.temperature_setpoint - 5;
+        float upper_bound = rating.temperature_setpoint - 9.9;
         float lower_bound = rating.temperature_setpoint - 10;
 
         if (temp.fahrenheit > upper_bound) {
           e.remove<Power>();
+          std::cout << "shed upper bound reached : " << temp.fahrenheit
+                    << std::endl;
         }
 
-        if (temp.fahrenheit < upper_bound) {
+        auto frq_entity = e.lookup("frq");
+
+        if (temp.fahrenheit < upper_bound && frq_entity.id() == 0) {
+          std::cout << "generating flow reservation request" << std::endl;
           float energy = heatingEnergy(rating.temperature_setpoint, upper_bound,
                                        rating.gallons);
-          std::cout << "Energy : " << energy << std::endl;
           sep::FlowReservationRequest frq = {};
-          frq.energy_requested.multiplier = 1;
+          frq.energy_requested.multiplier = 0;
           frq.energy_requested.value = energy;
           frq.interval_requested.duration = 60;
           frq.interval_requested.start = clock.utc;
-          frq.power_requested.multiplier = 1;
+          frq.power_requested.multiplier = 0;
           frq.power_requested.value = rating.power;
           frq.creation_time = clock.utc;
           frq.request_status.status = sep::RequestStatus::Status::kRequested;
           frq.request_status.datetime = clock.utc;
           frq.description = "sim waterheater request";
-          e.world().set<sep::FlowReservationRequest>(frq);
+          e.world().entity("frq").child_of(e).set<sep::FlowReservationRequest>(
+              frq);
         }
+
         if (temp.fahrenheit < lower_bound) {
           Power power = {};
           power.watts = rating.power;
@@ -199,7 +204,6 @@ Module::Module(flecs::world &world) {
   world.system<Temperature, Nameplate>("load up state")
       .with(State::LOAD_UP)
       .each([](flecs::entity e, Temperature &temp, Nameplate &rating) {
-        std::cout << "LOADUP MODE:" << std::endl;
         float upper_bound = rating.temperature_setpoint;
 
         if (temp.fahrenheit > upper_bound) {
@@ -214,15 +218,37 @@ Module::Module(flecs::world &world) {
 
   world.system<Power, Temperature, Nameplate>("heating").each(
       [](flecs::entity e, Power &power, Temperature &temp, Nameplate &rating) {
-        std::cout << "Low Temp: " << std::endl;
-        std::cout << "t1 : " << temp.fahrenheit << std::endl;
+        std::cout << "Low Temp: " << temp.fahrenheit << " degrees farenheit"
+                  << std::endl;
         float seconds_per_hour = 60 * 60;
         temp.fahrenheit = tempChange(temp.fahrenheit, rating.gallons,
                                      power.watts / seconds_per_hour);
-        std::cout << "t2 : " << temp.fahrenheit << std::endl;
+      });
+
+  world.observer<Power, Nameplate>("Add Power")
+      .event(flecs::OnAdd)
+      .each([](flecs::entity e, Power &power, Nameplate &rating) {
+        std::cout << "Power Set: " << std::endl;
+        std::string packet = "p, " + std::to_string(rating.power);
+        std::string path =
+            "/der?lfdi=" +
+            xml::util::Hexify(https::SingleClient::getInstance().getLFDI());
+        auto resp = https::SingleClient::getInstance().Post(path, packet);
+        std::cout << resp << std::endl;
+      });
+
+  world.observer<Power>("Remove Power")
+      .event(flecs::OnRemove)
+      .each([](flecs::entity e, Power &power) {
+        std::cout << "Power Removed : " << std::endl;
+        std::string packet = "p, 0";
+        std::string path =
+            "/der?lfdi=" +
+            xml::util::Hexify(https::SingleClient::getInstance().getLFDI());
+        auto resp = https::SingleClient::getInstance().Post(path, packet);
+        std::cout << resp << std::endl;
       });
 };
-
 } // namespace waterheater
 } // namespace simulator
 } // namespace ecs

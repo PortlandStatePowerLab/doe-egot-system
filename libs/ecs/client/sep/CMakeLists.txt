@@ -3,8 +3,8 @@ add_library(ecs_client_sep
   src/edev.cpp
   src/rg.cpp
   src/tm.cpp
-  # src/frq.cpp
-  # src/frp.cpp
+  src/frq.cpp
+  src/frp.cpp
   # src/rsp.cpp
   # src/rsps.cpp
   # src/ps.cpp

@@ -4,6 +4,7 @@
 #include <ecs/client/sep/tm.hpp>
 #include <ecs/simulator/waterheater.hpp>
 #include <ecs/singleton/clock.hpp>
+#include <https/client/single_client.hpp>
 #include <iostream>
 #include <sep/models/device_capability.hpp>
 #include <string>
@@ -18,6 +19,7 @@ int main(int argc, char **argv) {
   g_program_path = psu::utilities::getProgramPath(argv);
   std::cout << "\tpath : " << g_program_path << std::endl;
 
+  https::Context me_ctx = {"1", g_program_path, "0.0.0.0", "8000"};
   https::Context gsp_ctx = {"1", g_program_path, "0.0.0.0", "8080"};
   https::Context dtm_ctx = {"1", g_program_path, "0.0.0.0", "8090"};
 
@@ -36,7 +38,7 @@ int main(int argc, char **argv) {
   auto der = loadSchedule(ecs, schedule);
 
   Temperature temp = {};
-  temp.fahrenheit = 100;
+  temp.fahrenheit = 109.9;
   der.set<Temperature>(temp);
   der.add(State::SHED);
   ecs::simulator::waterheater::Nameplate rating = {};
@@ -48,17 +50,18 @@ int main(int argc, char **argv) {
 
   ecs::singleton::generateClock(ecs);
 
-  // trust::HttpsClient::getInstance(gsp_ctx, dtm_ctx);
-  // ecs.import <ecs::client::dcap::Module>();
-  // ecs.import <ecs::client::edev::Module>();
-  // ecs.import <ecs::client::rg::Module>();
-  // ecs.import <ecs::client::tm::Module>();
+  https::SingleClient::getInstance(me_ctx);
+  trust::HttpsClient::getInstance(gsp_ctx, dtm_ctx);
+  ecs.import <ecs::client::dcap::Module>();
+  ecs.import <ecs::client::edev::Module>();
+  ecs.import <ecs::client::rg::Module>();
+  ecs.import <ecs::client::tm::Module>();
 
-  // sep::DeviceCapabilityLink dcap_link;
-  // dcap_link.href = "/dcap";
+  sep::DeviceCapabilityLink dcap_link;
+  dcap_link.href = "/dcap";
 
-  // auto e = ecs.entity();
-  // e.set<sep::DeviceCapabilityLink>(dcap_link);
+  auto e = ecs.entity();
+  e.set<sep::DeviceCapabilityLink>(dcap_link);
 
   ecs.app().target_fps(1).run();
 
