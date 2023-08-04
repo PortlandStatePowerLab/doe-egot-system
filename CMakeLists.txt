@@ -23,7 +23,7 @@ include(FetchContent)
 FetchContent_Declare(
   flecs
   GIT_REPOSITORY https://github.com/SanderMertens/flecs.git
-  GIT_TAG        v3.2.1
+  GIT_TAG        v3.2.4
 )
 
 FetchContent_Declare(
