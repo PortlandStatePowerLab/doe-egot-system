@@ -45,20 +45,4 @@ ecs::client::edev::Module::Module(flecs::world &world) {
           e.set<sep::Registration>(rg);
         }
       });
-
-  world
-      .observer<sep::FlowReservationRequestListLink,
-                sep::FlowReservationRequest>("frqlist")
-      .event(flecs::OnSet)
-      .each([](flecs::entity e, sep::FlowReservationRequestListLink &list_link,
-               sep::FlowReservationRequest &frq) {
-        std::cout << "Event FRQ List Link" << std::endl;
-      });
-
-  world.observer<sep::FlowReservationResponseListLink>("frplist")
-      .event(flecs::OnSet)
-      .each(
-          [](flecs::entity e, sep::FlowReservationResponseListLink &list_link) {
-            std::cout << "Event FlowReservationResponseListLink" << std::endl;
-          });
 };
