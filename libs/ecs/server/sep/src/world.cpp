@@ -56,7 +56,9 @@ World::~World() {
   }
 };
 
-void World::run() { world.app().target_fps(1).run(); };
+void World::run() {
+  world.app().enable_monitor().enable_rest().target_fps(1).run();
+};
 
 World *World::getInstance() {
   std::lock_guard<std::mutex> lock(mutex_);

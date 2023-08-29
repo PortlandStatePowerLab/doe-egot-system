@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 from urllib.parse import parse_qs
 
 HOST_NAME = "localhost"
-PORT = 8000
+PORT = 9000
 ROOT = os.path.dirname(__file__)
 LOG = ROOT
 
