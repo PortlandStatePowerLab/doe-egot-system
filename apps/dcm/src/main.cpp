@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
   auto e = ecs.entity();
   e.set<sep::DeviceCapabilityLink>(dcap_link);
 
-  ecs.app().target_fps(1).run();
+  ecs.app().enable_rest().target_fps(1).run();
 
   return 0;
 }

@@ -31,6 +31,12 @@ class handler(BaseHTTPRequestHandler):
             self.end_headers()
             with open('./Outputs To DERMS/OutputtoGSP.xml', 'r') as file:
                 self.wfile.write(bytes(file.read(), "utf-8"))
+        if (self.path == '/time'):
+            self.send_response(200)
+            self.send_header('Content-type', 'application/sep-xml')
+            self.end_headers()
+            with open(f'{ROOT}/data/Time.xml', 'r') as file:
+                self.wfile.write(bytes(file.read(), "utf-8"))
         else:
             self.send_response(404)
             self.end_headers()

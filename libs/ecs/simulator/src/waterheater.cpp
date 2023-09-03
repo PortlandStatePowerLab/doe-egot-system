@@ -1,4 +1,3 @@
-#include "sep/xml/utilities.hpp"
 #include <boost/filesystem.hpp>
 #include <boost/tokenizer.hpp>
 #include <cstddef>
@@ -12,6 +11,7 @@
 #include <sep/models/flow_reservation_request.hpp>
 #include <sep/models/request_status.hpp>
 #include <sep/models/simple_types.hpp>
+#include <sep/xml/utilities.hpp>
 #include <stdlib.h> /* abs */
 #include <string>
 #include <time.h>
@@ -164,8 +164,8 @@ Module::Module(flecs::world &world) {
       .with(State::SHED)
       .each([](flecs::entity e, Temperature &temp, Nameplate &rating,
                const ecs::singleton::Clock &clock) {
-        float upper_bound = rating.temperature_setpoint - 9.9;
-        float lower_bound = rating.temperature_setpoint - 10;
+        float upper_bound = rating.temperature_setpoint - 10;
+        float lower_bound = rating.temperature_setpoint - 20;
 
         if (temp.fahrenheit > upper_bound) {
           e.remove<Power>();
@@ -173,26 +173,29 @@ Module::Module(flecs::world &world) {
                     << std::endl;
         }
 
-        auto frq_entity = e.lookup("frq");
+        // e.world().each(
+        //     [](flecs::entity e2, sep::FlowReservationRequestListLink &frq) {
 
-        if (temp.fahrenheit < upper_bound && frq_entity.id() == 0) {
-          std::cout << "generating flow reservation request" << std::endl;
-          float energy = heatingEnergy(rating.temperature_setpoint, upper_bound,
-                                       rating.gallons);
-          sep::FlowReservationRequest frq = {};
-          frq.energy_requested.multiplier = 0;
-          frq.energy_requested.value = energy;
-          frq.interval_requested.duration = 60;
-          frq.interval_requested.start = clock.utc;
-          frq.power_requested.multiplier = 0;
-          frq.power_requested.value = rating.power;
-          frq.creation_time = clock.utc;
-          frq.request_status.status = sep::RequestStatus::Status::kRequested;
-          frq.request_status.datetime = clock.utc;
-          frq.description = "sim waterheater request";
-          e.world().entity("frq").child_of(e).set<sep::FlowReservationRequest>(
-              frq);
-        }
+        //     });
+        // if (temp.fahrenheit < upper_bound && frq_entity.id() == 0) {
+        //   std::cout << "generating flow reservation request" << std::endl;
+        //   float energy = heatingEnergy(rating.temperature_setpoint,
+        //   upper_bound,
+        //                                rating.gallons);
+        //   sep::FlowReservationRequest frq = {};
+        //   frq.energy_requested.multiplier = 0;
+        //   frq.energy_requested.value = energy;
+        //   frq.interval_requested.duration = 60;
+        //   frq.interval_requested.start = clock.utc;
+        //   frq.power_requested.multiplier = 0;
+        //   frq.power_requested.value = rating.power;
+        //   frq.creation_time = clock.utc;
+        //   frq.request_status.status = sep::RequestStatus::Status::kRequested;
+        //   frq.request_status.datetime = clock.utc;
+        //   frq.description = "sim waterheater request";
+        //   e.world().entity("frq").child_of(e).set<sep::FlowReservationRequest>(
+        //       frq);
+        // }
 
         if (temp.fahrenheit < lower_bound) {
           Power power = {};

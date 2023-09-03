@@ -1,6 +1,5 @@
-#include "sep/models/flow_reservation_request.hpp"
-#include <ecs/client/sep/frq.hpp>
-#include <iostream>
+#include <ecs/client/sep/frq.hpp> #include <iostream>
+#include <sep/models/flow_reservation_request.hpp>
 #include <sep/xml/flow_reservation_request_adapter.hpp>
 #include <sep/xml/flow_reservation_response_adapter.hpp>
 #include <trust/https/client.hpp>

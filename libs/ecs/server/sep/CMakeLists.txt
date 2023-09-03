@@ -6,15 +6,14 @@ add_library(ecs_server_sep
   src/rg.cpp
   src/dcap.cpp
   src/edev.cpp
-  src/frq.cpp
-  src/frp.cpp
   src/rsp.cpp
   src/sdev.cpp
   src/ps.cpp
   src/time.cpp
   src/world.cpp
-)
-
+  # src/frq.cpp
+  # src/frp.cpp
+) 
 # Create ALIAS targets.
 add_library(ecs::server::sep ALIAS ecs_server_sep)
 
