@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<groups>
+    <group name="global">
+        <id>0</id>
+        <areas>611 ... 692</areas>
+    </group>
+    <group name="feeder 1">
+        <id>1</id>
+        <areas>633 634</areas>
+    </group>
+</groups>

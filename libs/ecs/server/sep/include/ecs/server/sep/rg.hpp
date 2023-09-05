@@ -7,6 +7,14 @@
 
 namespace gsp {
 namespace rg {
+struct Group {
+  std::string id;
+};
+
+struct Area {
+  std::string id;
+};
+
 void generateRegistration(flecs::world &world);
 struct Module {
   Module(flecs::world &world);

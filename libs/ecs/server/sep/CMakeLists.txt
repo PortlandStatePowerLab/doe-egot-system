@@ -11,8 +11,8 @@ add_library(ecs_server_sep
   src/ps.cpp
   src/time.cpp
   src/world.cpp
-  # src/frq.cpp
-  # src/frp.cpp
+  src/frq.cpp
+  src/frp.cpp
 ) 
 # Create ALIAS targets.
 add_library(ecs::server::sep ALIAS ecs_server_sep)

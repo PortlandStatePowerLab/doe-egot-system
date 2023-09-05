@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<services>
+    <service type="emergency" mRID="1A2B3C">
+        <group>1</group>
+        <interval_duration>3600</interval_duration>
+        <interval_start>0</interval_start>
+        <power>360000</power>
+        <price>0</price>
+        <ramp>100</ramp>
+        <start_time>1672554595</start_time>
+    </service>
+</services>

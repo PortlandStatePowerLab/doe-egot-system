@@ -11,7 +11,6 @@
 #include <ecs/server/sep/uri.hpp>
 #include <ecs/server/sep/world.hpp>
 #include <ecs/singleton/clock.hpp>
-#include <sep/models/flow_reservation_response.hpp>
 #include <sep/xml/adapter.hpp>
 #include <sstream>
 #include <utilities/utilities.hpp>
@@ -57,7 +56,7 @@ World::~World() {
 };
 
 void World::run() {
-  world.app().enable_monitor().enable_rest().target_fps(1).run();
+  world.app().enable_rest().enable_monitor().target_fps(1).run();
 };
 
 World *World::getInstance() {
