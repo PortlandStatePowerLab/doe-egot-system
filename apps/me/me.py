@@ -8,35 +8,38 @@ import ssl
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
 
-HOST_NAME = "localhost"
+HOST_NAME = "127.0.0.1"
 PORT = 9000
 ROOT = os.path.dirname(__file__)
 LOG = ROOT
 
 
-def read_services():
-    try:
-        with open('./Outputs To DERMS/OutputtoGSP.xml') as f:
-            file = f.read()
-    except Exception as e:
-        file = e
-    return file
-
-
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        if (self.path == '/services'):
-            self.send_response(200)
-            self.send_header('Content-type', 'application/xml')
-            self.end_headers()
-            with open('./Outputs To DERMS/OutputtoGSP.xml', 'r') as file:
-                self.wfile.write(bytes(file.read(), "utf-8"))
-        if (self.path == '/time'):
-            self.send_response(200)
-            self.send_header('Content-type', 'application/sep-xml')
-            self.end_headers()
-            with open(f'{ROOT}/data/Time.xml', 'r') as file:
-                self.wfile.write(bytes(file.read(), "utf-8"))
+        if (self.path == '/groups'):
+            with open(f'{ROOT}/data/groups.xml', 'r') as file:
+                message = bytes(file.read(), "utf-8")
+                self.send_response(200)
+                self.send_header('Content-type', 'application/xml')
+                self.send_header('Content-Length', str(len(message)))
+                self.end_headers()
+                self.wfile.write(message)
+        elif (self.path == '/services'):
+            with open(f'{ROOT}/data/services.xml', 'r') as file:
+                message = bytes(file.read(), "utf-8")
+                self.send_response(200)
+                self.send_header('Content-type', 'application/xml')
+                self.send_header('Content-Length', str(len(message)))
+                self.end_headers()
+                self.wfile.write(message)
+        elif (self.path == '/time'):
+            with open(f'{ROOT}/data/time.xml', 'r') as file:
+                message = bytes(file.read(), "utf-8")
+                self.send_response(200)
+                self.send_header('Content-type', 'application/xml')
+                self.send_header('Content-Length', str(len(message)))
+                self.end_headers()
+                self.wfile.write(message)
         else:
             self.send_response(404)
             self.end_headers()

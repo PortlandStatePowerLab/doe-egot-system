@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<services>
+    <service type="schedule" mRID="1A2B3C4D">
+        <group>0</group>
+        <interval_duration>3600</interval_duration>
+        <interval_start>0</interval_start>
+        <power>-360000</power>
+        <price>0</price>
+        <ramp>1200</ramp>
+        <start_time>0</start_time>
+    </service>
+    <service type="emergency" mRID="1A2B3C">
+        <group>1</group>
+        <interval_duration>3600</interval_duration>
+        <interval_start>0</interval_start>
+        <power>360000</power>
+        <price>0</price>
+        <ramp>100</ramp>
+        <start_time>0</start_time>
+    </service>
+</services>

@@ -4,6 +4,7 @@ add_executable(gsp
 
 target_link_libraries(gsp
     https::server 
+    https::client
     ecs::server::sep
     EGoT::utils
 )

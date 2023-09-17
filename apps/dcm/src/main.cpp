@@ -19,6 +19,8 @@ int main(int argc, char **argv) {
   g_program_path = psu::utilities::getProgramPath(argv);
   std::cout << "\tpath : " << g_program_path << std::endl;
 
+  size_t index = std::stoi(argv[1]);
+
   https::Context me_ctx = {"1", g_program_path, "0.0.0.0", "9000"};
   https::Context gsp_ctx = {"1", g_program_path, "0.0.0.0", "8080"};
   https::Context dtm_ctx = {"1", g_program_path, "0.0.0.0", "8090"};
@@ -34,7 +36,7 @@ int main(int argc, char **argv) {
   ecs.import <ecs::simulator::waterheater::Module>();
 
   std::string schedule =
-      g_program_path + "/dhw_generator/outputs/waterdraw-1.csv";
+      g_program_path + "/dhw_generator/outputs/waterdraw-" + index + ".csv";
   auto der = loadSchedule(ecs, schedule);
 
   Temperature temp = {};
@@ -63,7 +65,7 @@ int main(int argc, char **argv) {
   auto e = ecs.entity();
   e.set<sep::DeviceCapabilityLink>(dcap_link);
 
-  ecs.app().enable_rest().target_fps(1).run();
+  ecs.app().target_fps(1).run();
 
   return 0;
 }
