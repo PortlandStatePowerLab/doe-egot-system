@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
   g_program_path = psu::utilities::getProgramPath(argv);
   std::cout << "\tpath : " << g_program_path << std::endl;
 
-  size_t index = std::stoi(argv[1]);
+  std::string index = argv[1];
 
   https::Context me_ctx = {"1", g_program_path, "0.0.0.0", "9000"};
   https::Context gsp_ctx = {"1", g_program_path, "0.0.0.0", "8080"};

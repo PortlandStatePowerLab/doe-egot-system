@@ -1,52 +1,112 @@
+#include <cstdint>
 #include <flecs.h>
 #include <iostream>
+#include <unordered_map>
 
-struct Position {
-  double x, y;
+// Applications can pass context data to a system. A common use case where this
+// comes in handy is when a system needs to iterate more than one query. The
+// following example shows how to pass a custom query into a system for a simple
+// collision detection example.
+
+struct Service {
+  std::string group_id;
+  std::string name;
+  std::string type;
+  uint64_t start_time;
+  uint64_t interval_start;
+  uint64_t interval_duration;
 };
 
-struct Walking {};
+struct Energy : public Service {
+  float power;
+  float price;
+  float ramp;
+};
+struct Reserve : public Energy {};
+struct Voltage : public Service {
+  std::unordered_map<double, double> curve;
+};
+struct Regulation : public Service {
+  std::unordered_map<double, double> curve;
+};
+struct Blackstart : public Energy {};
+
+struct Power {
+  double real, imag;
+};
+
+struct Forecast {
+  double power;
+};
 
 int main(int, char *[]) {
   flecs::world ecs;
 
-  // Create an entity with name Bob
-  flecs::entity bob =
-      ecs.entity("Bob")
-          // The set operation finds or creates a component, and sets it.
-          // Components are automatically registered with the world.
-          .set<Position>({10, 20})
-          // The add operation adds a component without setting a value. This
-          // is useful for tags, or when adding a component with its default
-          // value.
-          .add<Walking>();
+  auto sys1 = ecs.system<Energy>("substation-energy")
+                  .each([](flecs::entity e, Energy &t) {
+                    auto p = e.parent();
+                    auto f = e.world()
+                                 .filter_builder<Power>()
+                                 .term(flecs::ChildOf, p)
+                                 .build();
+                    std::cout << e.name() << " child of " << p.name()
+                              << std::endl;
 
-  // Get the value for the Position component
-  const Position *ptr = bob.get<Position>();
-  std::cout << "{" << ptr->x << ", " << ptr->y << "}"
-            << "\n";
+                    double cum_sum{0};
+                    f.each([&cum_sum, p, t](flecs::entity e2, Power &pwr) {
+                      std::cout << e2.name() << " : " << pwr.real << std::endl;
+                      cum_sum += pwr.real;
+                      if (cum_sum > t.power) {
+                        e2.child_of(p.parent());
+                      }
+                    });
+                  });
 
-  // Overwrite the value of the Position component
-  bob.set<Position>({20, 30});
+  auto ieee13 = ecs.entity("ieee13");
+  auto bus650 = ecs.entity("bus650").child_of(ieee13).set<Forecast>({3});
+  auto bus633 = ecs.entity("bus633").child_of(bus650).set<Forecast>({2});
+  auto bus634 = ecs.entity("bus634").child_of(bus633).set<Forecast>({1});
 
-  // Create another named entity
-  flecs::entity alice = ecs.entity("Alice").set<Position>({10, 20});
+  Energy abc;
+  abc.name = "abc";
+  abc.type = "Energy";
+  abc.group_id = "ieee13";
+  abc.power = 3;
+  abc.ramp = 3;
+  abc.price = 0;
+  abc.start_time = 0;
+  abc.interval_duration = 0;
 
-  // Add a tag after entity is created
-  alice.add<Walking>();
+  ecs.entity(abc.name.c_str()).child_of(ieee13).set<Energy>(abc);
 
-  // Print all of the components the entity has. This will output:
-  //    Position, Walking, (Identifier,Name)
-  std::cout << "[" << alice.type().str() << "]"
-            << "\n";
+  Energy def;
+  def.name = "def";
+  def.type = "Energy";
+  def.group_id = "bus650";
+  def.power = 2;
+  def.ramp = 2;
+  def.price = 0;
+  def.start_time = 0;
+  def.interval_duration = 0;
 
-  // Remove tag
-  alice.remove<Walking>();
+  ecs.entity(def.name.c_str()).child_of(bus650).set<Energy>(def);
 
-  // Iterate all entities with Position
-  ecs.each([](flecs::entity e, Position &p) {
-    std::cout << e.name() << ": {" << p.x << ", " << p.y << "}"
-              << "\n";
-  });
-  return 0;
+  Energy ghi;
+  ghi.name = "ghi";
+  ghi.type = "Energy";
+  ghi.group_id = "bus633";
+  ghi.power = 1;
+  ghi.ramp = 1;
+  ghi.price = 0;
+  ghi.start_time = 0;
+  ghi.interval_duration = 0;
+
+  ecs.entity(ghi.name.c_str()).child_of(bus633).set<Energy>(ghi);
+
+  ecs.entity("A").child_of(bus633).set<Power>({1, 0});
+  ecs.entity("B").child_of(bus633).set<Power>({2, 0});
+  ecs.entity("C").child_of(bus633).set<Power>({3, 0});
+
+  // Run the system
+  ecs.app().target_fps(1).run();
 }
