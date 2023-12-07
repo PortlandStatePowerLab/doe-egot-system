@@ -1,11 +1,1226 @@
-<?xml version="1.0"?>
-<groups>
-    <group name="global">
-        <id>0</id>
-        <areas>611 ... 692</areas>
-    </group>
-    <group name="feeder 1">
-        <id>1</id>
-        <areas>633 634</areas>
-    </group>
-</groups>
+<Groups>
+   <Group name ="group-1">
+      <Feeder name ="OL630-632">
+         <Segment name ="UL632-633">
+            <Transformer name ="xfmr_633_a_1">
+               <ServicePoint name="tlx_633_a_h_1" />
+               <ServicePoint name="tlx_633_a_h_2" />
+               <ServicePoint name="tlx_633_a_h_3" />
+               <ServicePoint name="tlx_633_a_h_4" />
+               <ServicePoint name="tlx_633_a_h_5" />
+               <ServicePoint name="tlx_633_a_h_6" />
+               <ServicePoint name="tlx_633_a_h_7" />
+               <ServicePoint name="tlx_633_a_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_633_a_2">
+               <ServicePoint name="tlx_633_a_h_9" />
+               <ServicePoint name="tlx_633_a_h_10" />
+               <ServicePoint name="tlx_633_a_h_11" />
+               <ServicePoint name="tlx_633_a_h_12" />
+               <ServicePoint name="tlx_633_a_h_13" />
+               <ServicePoint name="tlx_633_a_h_14" />
+               <ServicePoint name="tlx_633_a_h_15" />
+               <ServicePoint name="tlx_633_a_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_633_a_3">
+               <ServicePoint name="tlx_633_a_h_17" />
+               <ServicePoint name="tlx_633_a_h_18" />
+               <ServicePoint name="tlx_633_a_h_19" />
+               <ServicePoint name="tlx_633_a_h_20" />
+               <ServicePoint name="tlx_633_a_h_21" />
+               <ServicePoint name="tlx_633_a_h_22" />
+               <ServicePoint name="tlx_633_a_h_23" />
+               <ServicePoint name="tlx_633_a_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_633_a_4">
+               <ServicePoint name="tlx_633_a_h_25" />
+               <ServicePoint name="tlx_633_a_h_26" />
+               <ServicePoint name="tlx_633_a_h_27" />
+               <ServicePoint name="tlx_633_a_h_28" />
+               <ServicePoint name="tlx_633_a_h_29" />
+               <ServicePoint name="tlx_633_a_h_30" />
+               <ServicePoint name="tlx_633_a_h_31" />
+               <ServicePoint name="tlx_633_a_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_633_a_5">
+               <ServicePoint name="tlx_633_a_h_33" />
+               <ServicePoint name="tlx_633_a_h_34" />
+               <ServicePoint name="tlx_633_a_h_35" />
+               <ServicePoint name="tlx_633_a_h_36" />
+               <ServicePoint name="tlx_633_a_h_37" />
+               <ServicePoint name="tlx_633_a_h_38" />
+               <ServicePoint name="tlx_633_a_h_39" />
+               <ServicePoint name="tlx_633_a_h_40" />
+            </Transformer>
+            <Transformer name ="xfmr_633_b_1">
+               <ServicePoint name="tlx_633_b_h_1" />
+               <ServicePoint name="tlx_633_b_h_2" />
+               <ServicePoint name="tlx_633_b_h_3" />
+               <ServicePoint name="tlx_633_b_h_4" />
+               <ServicePoint name="tlx_633_b_h_5" />
+               <ServicePoint name="tlx_633_b_h_6" />
+               <ServicePoint name="tlx_633_b_h_7" />
+               <ServicePoint name="tlx_633_b_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_633_b_2">
+               <ServicePoint name="tlx_633_b_h_9" />
+               <ServicePoint name="tlx_633_b_h_10" />
+               <ServicePoint name="tlx_633_b_h_11" />
+               <ServicePoint name="tlx_633_b_h_12" />
+               <ServicePoint name="tlx_633_b_h_13" />
+               <ServicePoint name="tlx_633_b_h_14" />
+               <ServicePoint name="tlx_633_b_h_15" />
+               <ServicePoint name="tlx_633_b_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_633_b_3">
+               <ServicePoint name="tlx_633_b_h_17" />
+               <ServicePoint name="tlx_633_b_h_18" />
+               <ServicePoint name="tlx_633_b_h_19" />
+               <ServicePoint name="tlx_633_b_h_20" />
+               <ServicePoint name="tlx_633_b_h_21" />
+               <ServicePoint name="tlx_633_b_h_22" />
+               <ServicePoint name="tlx_633_b_h_23" />
+               <ServicePoint name="tlx_633_b_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_633_b_4">
+               <ServicePoint name="tlx_633_b_h_25" />
+               <ServicePoint name="tlx_633_b_h_26" />
+               <ServicePoint name="tlx_633_b_h_27" />
+               <ServicePoint name="tlx_633_b_h_28" />
+               <ServicePoint name="tlx_633_b_h_29" />
+               <ServicePoint name="tlx_633_b_h_30" />
+               <ServicePoint name="tlx_633_b_h_31" />
+               <ServicePoint name="tlx_633_b_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_633_b_5">
+               <ServicePoint name="tlx_633_b_h_33" />
+               <ServicePoint name="tlx_633_b_h_34" />
+               <ServicePoint name="tlx_633_b_h_35" />
+               <ServicePoint name="tlx_633_b_h_36" />
+               <ServicePoint name="tlx_633_b_h_37" />
+               <ServicePoint name="tlx_633_b_h_38" />
+               <ServicePoint name="tlx_633_b_h_39" />
+               <ServicePoint name="tlx_633_b_h_40" />
+            </Transformer>
+            <Transformer name ="xfmr_633_c_1">
+               <ServicePoint name="tlx_633_c_h_1" />
+               <ServicePoint name="tlx_633_c_h_2" />
+               <ServicePoint name="tlx_633_c_h_3" />
+               <ServicePoint name="tlx_633_c_h_4" />
+               <ServicePoint name="tlx_633_c_h_5" />
+               <ServicePoint name="tlx_633_c_h_6" />
+               <ServicePoint name="tlx_633_c_h_7" />
+               <ServicePoint name="tlx_633_c_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_633_c_2">
+               <ServicePoint name="tlx_633_c_h_9" />
+               <ServicePoint name="tlx_633_c_h_10" />
+               <ServicePoint name="tlx_633_c_h_11" />
+               <ServicePoint name="tlx_633_c_h_12" />
+               <ServicePoint name="tlx_633_c_h_13" />
+               <ServicePoint name="tlx_633_c_h_14" />
+               <ServicePoint name="tlx_633_c_h_15" />
+               <ServicePoint name="tlx_633_c_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_633_c_3">
+               <ServicePoint name="tlx_633_c_h_17" />
+               <ServicePoint name="tlx_633_c_h_18" />
+               <ServicePoint name="tlx_633_c_h_19" />
+               <ServicePoint name="tlx_633_c_h_20" />
+               <ServicePoint name="tlx_633_c_h_21" />
+               <ServicePoint name="tlx_633_c_h_22" />
+               <ServicePoint name="tlx_633_c_h_23" />
+               <ServicePoint name="tlx_633_c_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_633_c_4">
+               <ServicePoint name="tlx_633_c_h_25" />
+               <ServicePoint name="tlx_633_c_h_26" />
+               <ServicePoint name="tlx_633_c_h_27" />
+               <ServicePoint name="tlx_633_c_h_28" />
+               <ServicePoint name="tlx_633_c_h_29" />
+               <ServicePoint name="tlx_633_c_h_30" />
+               <ServicePoint name="tlx_633_c_h_31" />
+               <ServicePoint name="tlx_633_c_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_633_c_5">
+               <ServicePoint name="tlx_633_c_h_33" />
+               <ServicePoint name="tlx_633_c_h_34" />
+               <ServicePoint name="tlx_633_c_h_35" />
+               <ServicePoint name="tlx_633_c_h_36" />
+               <ServicePoint name="tlx_633_c_h_37" />
+               <ServicePoint name="tlx_633_c_h_38" />
+               <ServicePoint name="tlx_633_c_h_39" />
+               <ServicePoint name="tlx_633_c_h_40" />
+            </Transformer>
+         </Segment>
+      </Feeder>
+   </Group>
+   <Group name ="group-2">
+      <Feeder name ="UL632-645">
+         <Segment name ="ol_645_b_1">
+            <Transformer name ="xfmr_645_b_1">
+               <ServicePoint name="tlx_645_b_h_1" />
+               <ServicePoint name="tlx_645_b_h_2" />
+               <ServicePoint name="tlx_645_b_h_3" />
+               <ServicePoint name="tlx_645_b_h_4" />
+               <ServicePoint name="tlx_645_b_h_5" />
+               <ServicePoint name="tlx_645_b_h_6" />
+               <ServicePoint name="tlx_645_b_h_7" />
+               <ServicePoint name="tlx_645_b_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_645_b_2">
+               <ServicePoint name="tlx_645_b_h_9" />
+               <ServicePoint name="tlx_645_b_h_10" />
+               <ServicePoint name="tlx_645_b_h_11" />
+               <ServicePoint name="tlx_645_b_h_12" />
+               <ServicePoint name="tlx_645_b_h_13" />
+               <ServicePoint name="tlx_645_b_h_14" />
+               <ServicePoint name="tlx_645_b_h_15" />
+               <ServicePoint name="tlx_645_b_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_645_b_3">
+               <ServicePoint name="tlx_645_b_h_17" />
+               <ServicePoint name="tlx_645_b_h_18" />
+               <ServicePoint name="tlx_645_b_h_19" />
+               <ServicePoint name="tlx_645_b_h_20" />
+               <ServicePoint name="tlx_645_b_h_21" />
+               <ServicePoint name="tlx_645_b_h_22" />
+               <ServicePoint name="tlx_645_b_h_23" />
+               <ServicePoint name="tlx_645_b_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_645_b_4">
+               <ServicePoint name="tlx_645_b_h_25" />
+               <ServicePoint name="tlx_645_b_h_26" />
+               <ServicePoint name="tlx_645_b_h_27" />
+               <ServicePoint name="tlx_645_b_h_28" />
+               <ServicePoint name="tlx_645_b_h_29" />
+               <ServicePoint name="tlx_645_b_h_30" />
+               <ServicePoint name="tlx_645_b_h_31" />
+               <ServicePoint name="tlx_645_b_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_645_b_5">
+               <ServicePoint name="tlx_645_b_h_33" />
+               <ServicePoint name="tlx_645_b_h_34" />
+               <ServicePoint name="tlx_645_b_h_35" />
+               <ServicePoint name="tlx_645_b_h_36" />
+               <ServicePoint name="tlx_645_b_h_37" />
+               <ServicePoint name="tlx_645_b_h_38" />
+               <ServicePoint name="tlx_645_b_h_39" />
+               <ServicePoint name="tlx_645_b_h_40" />
+            </Transformer>
+            <Transformer name ="xfmr_645_c_1">
+               <ServicePoint name="tlx_645_c_h_1" />
+               <ServicePoint name="tlx_645_c_h_2" />
+               <ServicePoint name="tlx_645_c_h_3" />
+               <ServicePoint name="tlx_645_c_h_4" />
+               <ServicePoint name="tlx_645_c_h_5" />
+               <ServicePoint name="tlx_645_c_h_6" />
+               <ServicePoint name="tlx_645_c_h_7" />
+               <ServicePoint name="tlx_645_c_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_645_c_2">
+               <ServicePoint name="tlx_645_c_h_9" />
+               <ServicePoint name="tlx_645_c_h_10" />
+               <ServicePoint name="tlx_645_c_h_11" />
+               <ServicePoint name="tlx_645_c_h_12" />
+               <ServicePoint name="tlx_645_c_h_13" />
+               <ServicePoint name="tlx_645_c_h_14" />
+               <ServicePoint name="tlx_645_c_h_15" />
+               <ServicePoint name="tlx_645_c_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_645_c_3">
+               <ServicePoint name="tlx_645_c_h_17" />
+               <ServicePoint name="tlx_645_c_h_18" />
+               <ServicePoint name="tlx_645_c_h_19" />
+               <ServicePoint name="tlx_645_c_h_20" />
+               <ServicePoint name="tlx_645_c_h_21" />
+               <ServicePoint name="tlx_645_c_h_22" />
+               <ServicePoint name="tlx_645_c_h_23" />
+               <ServicePoint name="tlx_645_c_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_645_c_4">
+               <ServicePoint name="tlx_645_c_h_25" />
+               <ServicePoint name="tlx_645_c_h_26" />
+               <ServicePoint name="tlx_645_c_h_27" />
+               <ServicePoint name="tlx_645_c_h_28" />
+               <ServicePoint name="tlx_645_c_h_29" />
+               <ServicePoint name="tlx_645_c_h_30" />
+               <ServicePoint name="tlx_645_c_h_31" />
+               <ServicePoint name="tlx_645_c_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_645_c_5">
+               <ServicePoint name="tlx_645_c_h_33" />
+               <ServicePoint name="tlx_645_c_h_34" />
+               <ServicePoint name="tlx_645_c_h_35" />
+               <ServicePoint name="tlx_645_c_h_36" />
+               <ServicePoint name="tlx_645_c_h_37" />
+               <ServicePoint name="tlx_645_c_h_38" />
+               <ServicePoint name="tlx_645_c_h_39" />
+               <ServicePoint name="tlx_645_c_h_40" />
+            </Transformer>
+         </Segment>
+         <Segment name ="OL645-646">
+            <Transformer name ="xfmr_646_b_1">
+               <ServicePoint name="tlx_646_b_h_1" />
+               <ServicePoint name="tlx_646_b_h_2" />
+               <ServicePoint name="tlx_646_b_h_3" />
+               <ServicePoint name="tlx_646_b_h_4" />
+               <ServicePoint name="tlx_646_b_h_5" />
+               <ServicePoint name="tlx_646_b_h_6" />
+               <ServicePoint name="tlx_646_b_h_7" />
+               <ServicePoint name="tlx_646_b_h_8" />
+               <ServicePoint name="tlx_646_b_h_41" />
+               <ServicePoint name="tlx_646_b_h_42" />
+               <ServicePoint name="tlx_646_b_h_43" />
+               <ServicePoint name="tlx_646_b_h_44" />
+            </Transformer>
+            <Transformer name ="xfmr_646_b_2">
+               <ServicePoint name="tlx_646_b_h_9" />
+               <ServicePoint name="tlx_646_b_h_10" />
+               <ServicePoint name="tlx_646_b_h_11" />
+               <ServicePoint name="tlx_646_b_h_12" />
+               <ServicePoint name="tlx_646_b_h_13" />
+               <ServicePoint name="tlx_646_b_h_14" />
+               <ServicePoint name="tlx_646_b_h_15" />
+               <ServicePoint name="tlx_646_b_h_16" />
+               <ServicePoint name="tlx_646_b_h_45" />
+               <ServicePoint name="tlx_646_b_h_46" />
+               <ServicePoint name="tlx_646_b_h_47" />
+               <ServicePoint name="tlx_646_b_h_48" />
+            </Transformer>
+            <Transformer name ="xfmr_646_b_3">
+               <ServicePoint name="tlx_646_b_h_17" />
+               <ServicePoint name="tlx_646_b_h_18" />
+               <ServicePoint name="tlx_646_b_h_19" />
+               <ServicePoint name="tlx_646_b_h_20" />
+               <ServicePoint name="tlx_646_b_h_21" />
+               <ServicePoint name="tlx_646_b_h_22" />
+               <ServicePoint name="tlx_646_b_h_23" />
+               <ServicePoint name="tlx_646_b_h_24" />
+               <ServicePoint name="tlx_646_b_h_49" />
+               <ServicePoint name="tlx_646_b_h_50" />
+               <ServicePoint name="tlx_646_b_h_51" />
+               <ServicePoint name="tlx_646_b_h_52" />
+            </Transformer>
+            <Transformer name ="xfmr_646_b_4">
+               <ServicePoint name="tlx_646_b_h_25" />
+               <ServicePoint name="tlx_646_b_h_26" />
+               <ServicePoint name="tlx_646_b_h_27" />
+               <ServicePoint name="tlx_646_b_h_28" />
+               <ServicePoint name="tlx_646_b_h_29" />
+               <ServicePoint name="tlx_646_b_h_30" />
+               <ServicePoint name="tlx_646_b_h_31" />
+               <ServicePoint name="tlx_646_b_h_32" />
+               <ServicePoint name="tlx_646_b_h_53" />
+               <ServicePoint name="tlx_646_b_h_54" />
+               <ServicePoint name="tlx_646_b_h_55" />
+               <ServicePoint name="tlx_646_b_h_56" />
+            </Transformer>
+            <Transformer name ="xfmr_646_b_5">
+               <ServicePoint name="tlx_646_b_h_33" />
+               <ServicePoint name="tlx_646_b_h_34" />
+               <ServicePoint name="tlx_646_b_h_35" />
+               <ServicePoint name="tlx_646_b_h_36" />
+               <ServicePoint name="tlx_646_b_h_37" />
+               <ServicePoint name="tlx_646_b_h_38" />
+               <ServicePoint name="tlx_646_b_h_39" />
+               <ServicePoint name="tlx_646_b_h_40" />
+               <ServicePoint name="tlx_646_b_h_57" />
+               <ServicePoint name="tlx_646_b_h_58" />
+               <ServicePoint name="tlx_646_b_h_59" />
+               <ServicePoint name="tlx_646_b_h_60" />
+            </Transformer>
+            <Transformer name ="xfmr_646_c_1">
+               <ServicePoint name="tlx_646_c_h_1" />
+               <ServicePoint name="tlx_646_c_h_2" />
+               <ServicePoint name="tlx_646_c_h_3" />
+               <ServicePoint name="tlx_646_c_h_4" />
+               <ServicePoint name="tlx_646_c_h_5" />
+               <ServicePoint name="tlx_646_c_h_6" />
+               <ServicePoint name="tlx_646_c_h_7" />
+               <ServicePoint name="tlx_646_c_h_8" />
+               <ServicePoint name="tlx_646_c_h_41" />
+               <ServicePoint name="tlx_646_c_h_42" />
+               <ServicePoint name="tlx_646_c_h_43" />
+               <ServicePoint name="tlx_646_c_h_44" />
+            </Transformer>
+            <Transformer name ="xfmr_646_c_2">
+               <ServicePoint name="tlx_646_c_h_9" />
+               <ServicePoint name="tlx_646_c_h_10" />
+               <ServicePoint name="tlx_646_c_h_11" />
+               <ServicePoint name="tlx_646_c_h_12" />
+               <ServicePoint name="tlx_646_c_h_13" />
+               <ServicePoint name="tlx_646_c_h_14" />
+               <ServicePoint name="tlx_646_c_h_15" />
+               <ServicePoint name="tlx_646_c_h_16" />
+               <ServicePoint name="tlx_646_c_h_45" />
+               <ServicePoint name="tlx_646_c_h_46" />
+               <ServicePoint name="tlx_646_c_h_47" />
+               <ServicePoint name="tlx_646_c_h_48" />
+            </Transformer>
+            <Transformer name ="xfmr_646_c_3">
+               <ServicePoint name="tlx_646_c_h_17" />
+               <ServicePoint name="tlx_646_c_h_18" />
+               <ServicePoint name="tlx_646_c_h_19" />
+               <ServicePoint name="tlx_646_c_h_20" />
+               <ServicePoint name="tlx_646_c_h_21" />
+               <ServicePoint name="tlx_646_c_h_22" />
+               <ServicePoint name="tlx_646_c_h_23" />
+               <ServicePoint name="tlx_646_c_h_24" />
+               <ServicePoint name="tlx_646_c_h_49" />
+               <ServicePoint name="tlx_646_c_h_50" />
+               <ServicePoint name="tlx_646_c_h_51" />
+               <ServicePoint name="tlx_646_c_h_52" />
+            </Transformer>
+            <Transformer name ="xfmr_646_c_4">
+               <ServicePoint name="tlx_646_c_h_25" />
+               <ServicePoint name="tlx_646_c_h_26" />
+               <ServicePoint name="tlx_646_c_h_27" />
+               <ServicePoint name="tlx_646_c_h_28" />
+               <ServicePoint name="tlx_646_c_h_29" />
+               <ServicePoint name="tlx_646_c_h_30" />
+               <ServicePoint name="tlx_646_c_h_31" />
+               <ServicePoint name="tlx_646_c_h_32" />
+               <ServicePoint name="tlx_646_c_h_53" />
+               <ServicePoint name="tlx_646_c_h_54" />
+               <ServicePoint name="tlx_646_c_h_55" />
+               <ServicePoint name="tlx_646_c_h_56" />
+            </Transformer>
+            <Transformer name ="xfmr_646_c_5">
+               <ServicePoint name="tlx_646_c_h_33" />
+               <ServicePoint name="tlx_646_c_h_34" />
+               <ServicePoint name="tlx_646_c_h_35" />
+               <ServicePoint name="tlx_646_c_h_36" />
+               <ServicePoint name="tlx_646_c_h_37" />
+               <ServicePoint name="tlx_646_c_h_38" />
+               <ServicePoint name="tlx_646_c_h_39" />
+               <ServicePoint name="tlx_646_c_h_40" />
+               <ServicePoint name="tlx_646_c_h_57" />
+               <ServicePoint name="tlx_646_c_h_58" />
+               <ServicePoint name="tlx_646_c_h_59" />
+               <ServicePoint name="tlx_646_c_h_60" />
+            </Transformer>
+         </Segment>
+      </Feeder>
+   </Group>
+   <Group name ="group-3">
+      <Feeder name ="OL632-671">
+         <Segment name ="OL_671_A">
+            <Transformer name ="xfmr_671_a_1">
+               <ServicePoint name="tlx_671_a_h_1" />
+               <ServicePoint name="tlx_671_a_h_2" />
+               <ServicePoint name="tlx_671_a_h_3" />
+               <ServicePoint name="tlx_671_a_h_4" />
+               <ServicePoint name="tlx_671_a_h_5" />
+               <ServicePoint name="tlx_671_a_h_6" />
+               <ServicePoint name="tlx_671_a_h_7" />
+               <ServicePoint name="tlx_671_a_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_671_a_2">
+               <ServicePoint name="tlx_671_a_h_9" />
+               <ServicePoint name="tlx_671_a_h_10" />
+               <ServicePoint name="tlx_671_a_h_11" />
+               <ServicePoint name="tlx_671_a_h_12" />
+               <ServicePoint name="tlx_671_a_h_13" />
+               <ServicePoint name="tlx_671_a_h_14" />
+               <ServicePoint name="tlx_671_a_h_15" />
+               <ServicePoint name="tlx_671_a_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_671_a_3">
+               <ServicePoint name="tlx_671_a_h_17" />
+               <ServicePoint name="tlx_671_a_h_18" />
+               <ServicePoint name="tlx_671_a_h_19" />
+               <ServicePoint name="tlx_671_a_h_20" />
+               <ServicePoint name="tlx_671_a_h_21" />
+               <ServicePoint name="tlx_671_a_h_22" />
+               <ServicePoint name="tlx_671_a_h_23" />
+               <ServicePoint name="tlx_671_a_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_671_a_4">
+               <ServicePoint name="tlx_671_a_h_25" />
+               <ServicePoint name="tlx_671_a_h_26" />
+               <ServicePoint name="tlx_671_a_h_27" />
+               <ServicePoint name="tlx_671_a_h_28" />
+               <ServicePoint name="tlx_671_a_h_29" />
+               <ServicePoint name="tlx_671_a_h_30" />
+               <ServicePoint name="tlx_671_a_h_31" />
+               <ServicePoint name="tlx_671_a_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_671_a_5">
+               <ServicePoint name="tlx_671_a_h_33" />
+               <ServicePoint name="tlx_671_a_h_34" />
+               <ServicePoint name="tlx_671_a_h_35" />
+               <ServicePoint name="tlx_671_a_h_36" />
+               <ServicePoint name="tlx_671_a_h_37" />
+               <ServicePoint name="tlx_671_a_h_38" />
+               <ServicePoint name="tlx_671_a_h_39" />
+               <ServicePoint name="tlx_671_a_h_40" />
+            </Transformer>
+            <Transformer name ="xfmr_671_b_1">
+               <ServicePoint name="tlx_671_b_h_1" />
+               <ServicePoint name="tlx_671_b_h_2" />
+               <ServicePoint name="tlx_671_b_h_3" />
+               <ServicePoint name="tlx_671_b_h_4" />
+               <ServicePoint name="tlx_671_b_h_5" />
+               <ServicePoint name="tlx_671_b_h_6" />
+               <ServicePoint name="tlx_671_b_h_7" />
+               <ServicePoint name="tlx_671_b_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_671_b_2">
+               <ServicePoint name="tlx_671_b_h_9" />
+               <ServicePoint name="tlx_671_b_h_10" />
+               <ServicePoint name="tlx_671_b_h_11" />
+               <ServicePoint name="tlx_671_b_h_12" />
+               <ServicePoint name="tlx_671_b_h_13" />
+               <ServicePoint name="tlx_671_b_h_14" />
+               <ServicePoint name="tlx_671_b_h_15" />
+               <ServicePoint name="tlx_671_b_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_671_b_3">
+               <ServicePoint name="tlx_671_b_h_17" />
+               <ServicePoint name="tlx_671_b_h_18" />
+               <ServicePoint name="tlx_671_b_h_19" />
+               <ServicePoint name="tlx_671_b_h_20" />
+               <ServicePoint name="tlx_671_b_h_21" />
+               <ServicePoint name="tlx_671_b_h_22" />
+               <ServicePoint name="tlx_671_b_h_23" />
+               <ServicePoint name="tlx_671_b_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_671_b_4">
+               <ServicePoint name="tlx_671_b_h_25" />
+               <ServicePoint name="tlx_671_b_h_26" />
+               <ServicePoint name="tlx_671_b_h_27" />
+               <ServicePoint name="tlx_671_b_h_28" />
+               <ServicePoint name="tlx_671_b_h_29" />
+               <ServicePoint name="tlx_671_b_h_30" />
+               <ServicePoint name="tlx_671_b_h_31" />
+               <ServicePoint name="tlx_671_b_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_671_b_5">
+               <ServicePoint name="tlx_671_b_h_33" />
+               <ServicePoint name="tlx_671_b_h_34" />
+               <ServicePoint name="tlx_671_b_h_35" />
+               <ServicePoint name="tlx_671_b_h_36" />
+               <ServicePoint name="tlx_671_b_h_37" />
+               <ServicePoint name="tlx_671_b_h_38" />
+               <ServicePoint name="tlx_671_b_h_39" />
+               <ServicePoint name="tlx_671_b_h_40" />
+            </Transformer>
+            <Transformer name ="xfmr_671_c_1">
+               <ServicePoint name="tlx_671_c_h_1" />
+               <ServicePoint name="tlx_671_c_h_2" />
+               <ServicePoint name="tlx_671_c_h_3" />
+               <ServicePoint name="tlx_671_c_h_4" />
+               <ServicePoint name="tlx_671_c_h_5" />
+               <ServicePoint name="tlx_671_c_h_6" />
+               <ServicePoint name="tlx_671_c_h_7" />
+               <ServicePoint name="tlx_671_c_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_671_c_2">
+               <ServicePoint name="tlx_671_c_h_9" />
+               <ServicePoint name="tlx_671_c_h_10" />
+               <ServicePoint name="tlx_671_c_h_11" />
+               <ServicePoint name="tlx_671_c_h_12" />
+               <ServicePoint name="tlx_671_c_h_13" />
+               <ServicePoint name="tlx_671_c_h_14" />
+               <ServicePoint name="tlx_671_c_h_15" />
+               <ServicePoint name="tlx_671_c_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_671_c_3">
+               <ServicePoint name="tlx_671_c_h_17" />
+               <ServicePoint name="tlx_671_c_h_18" />
+               <ServicePoint name="tlx_671_c_h_19" />
+               <ServicePoint name="tlx_671_c_h_20" />
+               <ServicePoint name="tlx_671_c_h_21" />
+               <ServicePoint name="tlx_671_c_h_22" />
+               <ServicePoint name="tlx_671_c_h_23" />
+               <ServicePoint name="tlx_671_c_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_671_c_4">
+               <ServicePoint name="tlx_671_c_h_25" />
+               <ServicePoint name="tlx_671_c_h_26" />
+               <ServicePoint name="tlx_671_c_h_27" />
+               <ServicePoint name="tlx_671_c_h_28" />
+               <ServicePoint name="tlx_671_c_h_29" />
+               <ServicePoint name="tlx_671_c_h_30" />
+               <ServicePoint name="tlx_671_c_h_31" />
+               <ServicePoint name="tlx_671_c_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_671_c_5">
+               <ServicePoint name="tlx_671_c_h_33" />
+               <ServicePoint name="tlx_671_c_h_34" />
+               <ServicePoint name="tlx_671_c_h_35" />
+               <ServicePoint name="tlx_671_c_h_36" />
+               <ServicePoint name="tlx_671_c_h_37" />
+               <ServicePoint name="tlx_671_c_h_38" />
+               <ServicePoint name="tlx_671_c_h_39" />
+               <ServicePoint name="tlx_671_c_h_40" />
+            </Transformer>
+         </Segment>
+         <Segment name ="OL671-684">
+            <Transformer name ="xfmr_684_a_1">
+               <ServicePoint name="tlx_684_a_h_1" />
+               <ServicePoint name="tlx_684_a_h_2" />
+               <ServicePoint name="tlx_684_a_h_3" />
+               <ServicePoint name="tlx_684_a_h_4" />
+               <ServicePoint name="tlx_684_a_h_5" />
+               <ServicePoint name="tlx_684_a_h_6" />
+               <ServicePoint name="tlx_684_a_h_7" />
+               <ServicePoint name="tlx_684_a_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_684_a_2">
+               <ServicePoint name="tlx_684_a_h_9" />
+               <ServicePoint name="tlx_684_a_h_10" />
+               <ServicePoint name="tlx_684_a_h_11" />
+               <ServicePoint name="tlx_684_a_h_12" />
+               <ServicePoint name="tlx_684_a_h_13" />
+               <ServicePoint name="tlx_684_a_h_14" />
+               <ServicePoint name="tlx_684_a_h_15" />
+               <ServicePoint name="tlx_684_a_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_684_a_3">
+               <ServicePoint name="tlx_684_a_h_17" />
+               <ServicePoint name="tlx_684_a_h_18" />
+               <ServicePoint name="tlx_684_a_h_19" />
+               <ServicePoint name="tlx_684_a_h_20" />
+               <ServicePoint name="tlx_684_a_h_21" />
+               <ServicePoint name="tlx_684_a_h_22" />
+               <ServicePoint name="tlx_684_a_h_23" />
+               <ServicePoint name="tlx_684_a_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_684_a_4">
+               <ServicePoint name="tlx_684_a_h_25" />
+               <ServicePoint name="tlx_684_a_h_26" />
+               <ServicePoint name="tlx_684_a_h_27" />
+               <ServicePoint name="tlx_684_a_h_28" />
+               <ServicePoint name="tlx_684_a_h_29" />
+               <ServicePoint name="tlx_684_a_h_30" />
+               <ServicePoint name="tlx_684_a_h_31" />
+               <ServicePoint name="tlx_684_a_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_684_a_5">
+               <ServicePoint name="tlx_684_a_h_33" />
+               <ServicePoint name="tlx_684_a_h_34" />
+               <ServicePoint name="tlx_684_a_h_35" />
+               <ServicePoint name="tlx_684_a_h_36" />
+               <ServicePoint name="tlx_684_a_h_37" />
+               <ServicePoint name="tlx_684_a_h_38" />
+               <ServicePoint name="tlx_684_a_h_39" />
+               <ServicePoint name="tlx_684_a_h_40" />
+            </Transformer>
+            <Transformer name ="xfmr_684_c_1">
+               <ServicePoint name="tlx_684_c_h_1" />
+               <ServicePoint name="tlx_684_c_h_2" />
+               <ServicePoint name="tlx_684_c_h_3" />
+               <ServicePoint name="tlx_684_c_h_4" />
+               <ServicePoint name="tlx_684_c_h_5" />
+               <ServicePoint name="tlx_684_c_h_6" />
+               <ServicePoint name="tlx_684_c_h_7" />
+               <ServicePoint name="tlx_684_c_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_684_c_2">
+               <ServicePoint name="tlx_684_c_h_9" />
+               <ServicePoint name="tlx_684_c_h_10" />
+               <ServicePoint name="tlx_684_c_h_11" />
+               <ServicePoint name="tlx_684_c_h_12" />
+               <ServicePoint name="tlx_684_c_h_13" />
+               <ServicePoint name="tlx_684_c_h_14" />
+               <ServicePoint name="tlx_684_c_h_15" />
+               <ServicePoint name="tlx_684_c_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_684_c_3">
+               <ServicePoint name="tlx_684_c_h_17" />
+               <ServicePoint name="tlx_684_c_h_18" />
+               <ServicePoint name="tlx_684_c_h_19" />
+               <ServicePoint name="tlx_684_c_h_20" />
+               <ServicePoint name="tlx_684_c_h_21" />
+               <ServicePoint name="tlx_684_c_h_22" />
+               <ServicePoint name="tlx_684_c_h_23" />
+               <ServicePoint name="tlx_684_c_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_684_c_4">
+               <ServicePoint name="tlx_684_c_h_25" />
+               <ServicePoint name="tlx_684_c_h_26" />
+               <ServicePoint name="tlx_684_c_h_27" />
+               <ServicePoint name="tlx_684_c_h_28" />
+               <ServicePoint name="tlx_684_c_h_29" />
+               <ServicePoint name="tlx_684_c_h_30" />
+               <ServicePoint name="tlx_684_c_h_31" />
+               <ServicePoint name="tlx_684_c_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_684_c_5">
+               <ServicePoint name="tlx_684_c_h_33" />
+               <ServicePoint name="tlx_684_c_h_34" />
+               <ServicePoint name="tlx_684_c_h_35" />
+               <ServicePoint name="tlx_684_c_h_36" />
+               <ServicePoint name="tlx_684_c_h_37" />
+               <ServicePoint name="tlx_684_c_h_38" />
+               <ServicePoint name="tlx_684_c_h_39" />
+               <ServicePoint name="tlx_684_c_h_40" />
+            </Transformer>
+         </Segment>
+         <Segment name ="UL684-652">
+            <Transformer name ="xfmr_652_a_1">
+               <ServicePoint name="tlx_652_a_h_1" />
+               <ServicePoint name="tlx_652_a_h_2" />
+               <ServicePoint name="tlx_652_a_h_3" />
+               <ServicePoint name="tlx_652_a_h_4" />
+               <ServicePoint name="tlx_652_a_h_5" />
+               <ServicePoint name="tlx_652_a_h_6" />
+               <ServicePoint name="tlx_652_a_h_7" />
+               <ServicePoint name="tlx_652_a_h_8" />
+            </Transformer>
+         </Segment>
+         <Segment name ="ol_652_a_2">
+            <Transformer name ="xfmr_652_a_2">
+               <ServicePoint name="tlx_652_a_h_9" />
+               <ServicePoint name="tlx_652_a_h_10" />
+               <ServicePoint name="tlx_652_a_h_11" />
+               <ServicePoint name="tlx_652_a_h_12" />
+               <ServicePoint name="tlx_652_a_h_13" />
+               <ServicePoint name="tlx_652_a_h_14" />
+               <ServicePoint name="tlx_652_a_h_15" />
+               <ServicePoint name="tlx_652_a_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_652_a_3">
+               <ServicePoint name="tlx_652_a_h_17" />
+               <ServicePoint name="tlx_652_a_h_18" />
+               <ServicePoint name="tlx_652_a_h_19" />
+               <ServicePoint name="tlx_652_a_h_20" />
+               <ServicePoint name="tlx_652_a_h_21" />
+               <ServicePoint name="tlx_652_a_h_22" />
+               <ServicePoint name="tlx_652_a_h_23" />
+               <ServicePoint name="tlx_652_a_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_652_a_4">
+               <ServicePoint name="tlx_652_a_h_25" />
+               <ServicePoint name="tlx_652_a_h_26" />
+               <ServicePoint name="tlx_652_a_h_27" />
+               <ServicePoint name="tlx_652_a_h_28" />
+               <ServicePoint name="tlx_652_a_h_29" />
+               <ServicePoint name="tlx_652_a_h_30" />
+               <ServicePoint name="tlx_652_a_h_31" />
+               <ServicePoint name="tlx_652_a_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_652_a_5">
+               <ServicePoint name="tlx_652_a_h_33" />
+               <ServicePoint name="tlx_652_a_h_34" />
+               <ServicePoint name="tlx_652_a_h_35" />
+               <ServicePoint name="tlx_652_a_h_36" />
+               <ServicePoint name="tlx_652_a_h_37" />
+               <ServicePoint name="tlx_652_a_h_38" />
+               <ServicePoint name="tlx_652_a_h_39" />
+               <ServicePoint name="tlx_652_a_h_40" />
+            </Transformer>
+         </Segment>
+         <Segment name ="ol684611">
+            <Transformer name ="xfmr_611_c_1">
+               <ServicePoint name="tlx_611_c_h_1" />
+               <ServicePoint name="tlx_611_c_h_2" />
+               <ServicePoint name="tlx_611_c_h_3" />
+               <ServicePoint name="tlx_611_c_h_4" />
+               <ServicePoint name="tlx_611_c_h_5" />
+               <ServicePoint name="tlx_611_c_h_6" />
+               <ServicePoint name="tlx_611_c_h_7" />
+               <ServicePoint name="tlx_611_c_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_611_c_2">
+               <ServicePoint name="tlx_611_c_h_9" />
+               <ServicePoint name="tlx_611_c_h_10" />
+               <ServicePoint name="tlx_611_c_h_11" />
+               <ServicePoint name="tlx_611_c_h_12" />
+               <ServicePoint name="tlx_611_c_h_13" />
+               <ServicePoint name="tlx_611_c_h_14" />
+               <ServicePoint name="tlx_611_c_h_15" />
+               <ServicePoint name="tlx_611_c_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_611_c_3">
+               <ServicePoint name="tlx_611_c_h_17" />
+               <ServicePoint name="tlx_611_c_h_18" />
+               <ServicePoint name="tlx_611_c_h_19" />
+               <ServicePoint name="tlx_611_c_h_20" />
+               <ServicePoint name="tlx_611_c_h_21" />
+               <ServicePoint name="tlx_611_c_h_22" />
+               <ServicePoint name="tlx_611_c_h_23" />
+               <ServicePoint name="tlx_611_c_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_611_c_4">
+               <ServicePoint name="tlx_611_c_h_25" />
+               <ServicePoint name="tlx_611_c_h_26" />
+               <ServicePoint name="tlx_611_c_h_27" />
+               <ServicePoint name="tlx_611_c_h_28" />
+               <ServicePoint name="tlx_611_c_h_29" />
+               <ServicePoint name="tlx_611_c_h_30" />
+               <ServicePoint name="tlx_611_c_h_31" />
+               <ServicePoint name="tlx_611_c_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_611_c_5">
+               <ServicePoint name="tlx_611_c_h_33" />
+               <ServicePoint name="tlx_611_c_h_34" />
+               <ServicePoint name="tlx_611_c_h_35" />
+               <ServicePoint name="tlx_611_c_h_36" />
+               <ServicePoint name="tlx_611_c_h_37" />
+               <ServicePoint name="tlx_611_c_h_38" />
+               <ServicePoint name="tlx_611_c_h_39" />
+               <ServicePoint name="tlx_611_c_h_40" />
+            </Transformer>
+         </Segment>
+         <Segment name ="OL671_680">
+            <Transformer name ="xfmr_680_a_1">
+               <ServicePoint name="tlx_680_a_h_1" />
+               <ServicePoint name="tlx_680_a_h_2" />
+               <ServicePoint name="tlx_680_a_h_3" />
+               <ServicePoint name="tlx_680_a_h_4" />
+               <ServicePoint name="tlx_680_a_h_5" />
+               <ServicePoint name="tlx_680_a_h_6" />
+               <ServicePoint name="tlx_680_a_h_7" />
+               <ServicePoint name="tlx_680_a_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_680_a_2">
+               <ServicePoint name="tlx_680_a_h_9" />
+               <ServicePoint name="tlx_680_a_h_10" />
+               <ServicePoint name="tlx_680_a_h_11" />
+               <ServicePoint name="tlx_680_a_h_12" />
+               <ServicePoint name="tlx_680_a_h_13" />
+               <ServicePoint name="tlx_680_a_h_14" />
+               <ServicePoint name="tlx_680_a_h_15" />
+               <ServicePoint name="tlx_680_a_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_680_a_3">
+               <ServicePoint name="tlx_680_a_h_17" />
+               <ServicePoint name="tlx_680_a_h_18" />
+               <ServicePoint name="tlx_680_a_h_19" />
+               <ServicePoint name="tlx_680_a_h_20" />
+               <ServicePoint name="tlx_680_a_h_21" />
+               <ServicePoint name="tlx_680_a_h_22" />
+               <ServicePoint name="tlx_680_a_h_23" />
+               <ServicePoint name="tlx_680_a_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_680_a_4">
+               <ServicePoint name="tlx_680_a_h_25" />
+               <ServicePoint name="tlx_680_a_h_26" />
+               <ServicePoint name="tlx_680_a_h_27" />
+               <ServicePoint name="tlx_680_a_h_28" />
+               <ServicePoint name="tlx_680_a_h_29" />
+               <ServicePoint name="tlx_680_a_h_30" />
+               <ServicePoint name="tlx_680_a_h_31" />
+               <ServicePoint name="tlx_680_a_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_680_a_5">
+               <ServicePoint name="tlx_680_a_h_33" />
+               <ServicePoint name="tlx_680_a_h_34" />
+               <ServicePoint name="tlx_680_a_h_35" />
+               <ServicePoint name="tlx_680_a_h_36" />
+               <ServicePoint name="tlx_680_a_h_37" />
+               <ServicePoint name="tlx_680_a_h_38" />
+               <ServicePoint name="tlx_680_a_h_39" />
+               <ServicePoint name="tlx_680_a_h_40" />
+            </Transformer>
+            <Transformer name ="xfmr_680_b_1">
+               <ServicePoint name="tlx_680_b_h_1" />
+               <ServicePoint name="tlx_680_b_h_2" />
+               <ServicePoint name="tlx_680_b_h_3" />
+               <ServicePoint name="tlx_680_b_h_4" />
+               <ServicePoint name="tlx_680_b_h_5" />
+               <ServicePoint name="tlx_680_b_h_6" />
+               <ServicePoint name="tlx_680_b_h_7" />
+               <ServicePoint name="tlx_680_b_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_680_b_2">
+               <ServicePoint name="tlx_680_b_h_9" />
+               <ServicePoint name="tlx_680_b_h_10" />
+               <ServicePoint name="tlx_680_b_h_11" />
+               <ServicePoint name="tlx_680_b_h_12" />
+               <ServicePoint name="tlx_680_b_h_13" />
+               <ServicePoint name="tlx_680_b_h_14" />
+               <ServicePoint name="tlx_680_b_h_15" />
+               <ServicePoint name="tlx_680_b_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_680_b_3">
+               <ServicePoint name="tlx_680_b_h_17" />
+               <ServicePoint name="tlx_680_b_h_18" />
+               <ServicePoint name="tlx_680_b_h_19" />
+               <ServicePoint name="tlx_680_b_h_20" />
+               <ServicePoint name="tlx_680_b_h_21" />
+               <ServicePoint name="tlx_680_b_h_22" />
+               <ServicePoint name="tlx_680_b_h_23" />
+               <ServicePoint name="tlx_680_b_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_680_b_4">
+               <ServicePoint name="tlx_680_b_h_25" />
+               <ServicePoint name="tlx_680_b_h_26" />
+               <ServicePoint name="tlx_680_b_h_27" />
+               <ServicePoint name="tlx_680_b_h_28" />
+               <ServicePoint name="tlx_680_b_h_29" />
+               <ServicePoint name="tlx_680_b_h_30" />
+               <ServicePoint name="tlx_680_b_h_31" />
+               <ServicePoint name="tlx_680_b_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_680_b_5">
+               <ServicePoint name="tlx_680_b_h_33" />
+               <ServicePoint name="tlx_680_b_h_34" />
+               <ServicePoint name="tlx_680_b_h_35" />
+               <ServicePoint name="tlx_680_b_h_36" />
+               <ServicePoint name="tlx_680_b_h_37" />
+               <ServicePoint name="tlx_680_b_h_38" />
+               <ServicePoint name="tlx_680_b_h_39" />
+               <ServicePoint name="tlx_680_b_h_40" />
+            </Transformer>
+            <Transformer name ="xfmr_680_c_1">
+               <ServicePoint name="tlx_680_c_h_1" />
+               <ServicePoint name="tlx_680_c_h_2" />
+               <ServicePoint name="tlx_680_c_h_3" />
+               <ServicePoint name="tlx_680_c_h_4" />
+               <ServicePoint name="tlx_680_c_h_5" />
+               <ServicePoint name="tlx_680_c_h_6" />
+               <ServicePoint name="tlx_680_c_h_7" />
+               <ServicePoint name="tlx_680_c_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_680_c_2">
+               <ServicePoint name="tlx_680_c_h_9" />
+               <ServicePoint name="tlx_680_c_h_10" />
+               <ServicePoint name="tlx_680_c_h_11" />
+               <ServicePoint name="tlx_680_c_h_12" />
+               <ServicePoint name="tlx_680_c_h_13" />
+               <ServicePoint name="tlx_680_c_h_14" />
+               <ServicePoint name="tlx_680_c_h_15" />
+               <ServicePoint name="tlx_680_c_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_680_c_3">
+               <ServicePoint name="tlx_680_c_h_17" />
+               <ServicePoint name="tlx_680_c_h_18" />
+               <ServicePoint name="tlx_680_c_h_19" />
+               <ServicePoint name="tlx_680_c_h_20" />
+               <ServicePoint name="tlx_680_c_h_21" />
+               <ServicePoint name="tlx_680_c_h_22" />
+               <ServicePoint name="tlx_680_c_h_23" />
+               <ServicePoint name="tlx_680_c_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_680_c_4">
+               <ServicePoint name="tlx_680_c_h_25" />
+               <ServicePoint name="tlx_680_c_h_26" />
+               <ServicePoint name="tlx_680_c_h_27" />
+               <ServicePoint name="tlx_680_c_h_28" />
+               <ServicePoint name="tlx_680_c_h_29" />
+               <ServicePoint name="tlx_680_c_h_30" />
+               <ServicePoint name="tlx_680_c_h_31" />
+               <ServicePoint name="tlx_680_c_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_680_c_5">
+               <ServicePoint name="tlx_680_c_h_33" />
+               <ServicePoint name="tlx_680_c_h_34" />
+               <ServicePoint name="tlx_680_c_h_35" />
+               <ServicePoint name="tlx_680_c_h_36" />
+               <ServicePoint name="tlx_680_c_h_37" />
+               <ServicePoint name="tlx_680_c_h_38" />
+               <ServicePoint name="tlx_680_c_h_39" />
+               <ServicePoint name="tlx_680_c_h_40" />
+            </Transformer>
+         </Segment>
+         <Segment name ="S671-692">
+            <Transformer name ="xfmr_692_a_1">
+               <ServicePoint name="tlx_692_a_h_1" />
+               <ServicePoint name="tlx_692_a_h_2" />
+               <ServicePoint name="tlx_692_a_h_3" />
+               <ServicePoint name="tlx_692_a_h_4" />
+               <ServicePoint name="tlx_692_a_h_5" />
+               <ServicePoint name="tlx_692_a_h_6" />
+               <ServicePoint name="tlx_692_a_h_7" />
+               <ServicePoint name="tlx_692_a_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_692_a_2">
+               <ServicePoint name="tlx_692_a_h_9" />
+               <ServicePoint name="tlx_692_a_h_10" />
+               <ServicePoint name="tlx_692_a_h_11" />
+               <ServicePoint name="tlx_692_a_h_12" />
+               <ServicePoint name="tlx_692_a_h_13" />
+               <ServicePoint name="tlx_692_a_h_14" />
+               <ServicePoint name="tlx_692_a_h_15" />
+               <ServicePoint name="tlx_692_a_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_692_a_3">
+               <ServicePoint name="tlx_692_a_h_17" />
+               <ServicePoint name="tlx_692_a_h_18" />
+               <ServicePoint name="tlx_692_a_h_19" />
+               <ServicePoint name="tlx_692_a_h_20" />
+               <ServicePoint name="tlx_692_a_h_21" />
+               <ServicePoint name="tlx_692_a_h_22" />
+               <ServicePoint name="tlx_692_a_h_23" />
+               <ServicePoint name="tlx_692_a_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_692_a_4">
+               <ServicePoint name="tlx_692_a_h_25" />
+               <ServicePoint name="tlx_692_a_h_26" />
+               <ServicePoint name="tlx_692_a_h_27" />
+               <ServicePoint name="tlx_692_a_h_28" />
+               <ServicePoint name="tlx_692_a_h_29" />
+               <ServicePoint name="tlx_692_a_h_30" />
+               <ServicePoint name="tlx_692_a_h_31" />
+               <ServicePoint name="tlx_692_a_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_692_a_5">
+               <ServicePoint name="tlx_692_a_h_33" />
+               <ServicePoint name="tlx_692_a_h_34" />
+               <ServicePoint name="tlx_692_a_h_35" />
+               <ServicePoint name="tlx_692_a_h_36" />
+               <ServicePoint name="tlx_692_a_h_37" />
+               <ServicePoint name="tlx_692_a_h_38" />
+               <ServicePoint name="tlx_692_a_h_39" />
+               <ServicePoint name="tlx_692_a_h_40" />
+            </Transformer>
+            <Transformer name ="xfmr_692_b_1">
+               <ServicePoint name="tlx_692_b_h_1" />
+               <ServicePoint name="tlx_692_b_h_2" />
+               <ServicePoint name="tlx_692_b_h_3" />
+               <ServicePoint name="tlx_692_b_h_4" />
+               <ServicePoint name="tlx_692_b_h_5" />
+               <ServicePoint name="tlx_692_b_h_6" />
+               <ServicePoint name="tlx_692_b_h_7" />
+               <ServicePoint name="tlx_692_b_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_692_b_2">
+               <ServicePoint name="tlx_692_b_h_9" />
+               <ServicePoint name="tlx_692_b_h_10" />
+               <ServicePoint name="tlx_692_b_h_11" />
+               <ServicePoint name="tlx_692_b_h_12" />
+               <ServicePoint name="tlx_692_b_h_13" />
+               <ServicePoint name="tlx_692_b_h_14" />
+               <ServicePoint name="tlx_692_b_h_15" />
+               <ServicePoint name="tlx_692_b_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_692_b_3">
+               <ServicePoint name="tlx_692_b_h_17" />
+               <ServicePoint name="tlx_692_b_h_18" />
+               <ServicePoint name="tlx_692_b_h_19" />
+               <ServicePoint name="tlx_692_b_h_20" />
+               <ServicePoint name="tlx_692_b_h_21" />
+               <ServicePoint name="tlx_692_b_h_22" />
+               <ServicePoint name="tlx_692_b_h_23" />
+               <ServicePoint name="tlx_692_b_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_692_b_4">
+               <ServicePoint name="tlx_692_b_h_25" />
+               <ServicePoint name="tlx_692_b_h_26" />
+               <ServicePoint name="tlx_692_b_h_27" />
+               <ServicePoint name="tlx_692_b_h_28" />
+               <ServicePoint name="tlx_692_b_h_29" />
+               <ServicePoint name="tlx_692_b_h_30" />
+               <ServicePoint name="tlx_692_b_h_31" />
+               <ServicePoint name="tlx_692_b_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_692_b_5">
+               <ServicePoint name="tlx_692_b_h_33" />
+               <ServicePoint name="tlx_692_b_h_34" />
+               <ServicePoint name="tlx_692_b_h_35" />
+               <ServicePoint name="tlx_692_b_h_36" />
+               <ServicePoint name="tlx_692_b_h_37" />
+               <ServicePoint name="tlx_692_b_h_38" />
+               <ServicePoint name="tlx_692_b_h_39" />
+               <ServicePoint name="tlx_692_b_h_40" />
+            </Transformer>
+            <Transformer name ="xfmr_692_c_1">
+               <ServicePoint name="tlx_692_c_h_1" />
+               <ServicePoint name="tlx_692_c_h_2" />
+               <ServicePoint name="tlx_692_c_h_3" />
+               <ServicePoint name="tlx_692_c_h_4" />
+               <ServicePoint name="tlx_692_c_h_5" />
+               <ServicePoint name="tlx_692_c_h_6" />
+               <ServicePoint name="tlx_692_c_h_7" />
+               <ServicePoint name="tlx_692_c_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_692_c_2">
+               <ServicePoint name="tlx_692_c_h_9" />
+               <ServicePoint name="tlx_692_c_h_10" />
+               <ServicePoint name="tlx_692_c_h_11" />
+               <ServicePoint name="tlx_692_c_h_12" />
+               <ServicePoint name="tlx_692_c_h_13" />
+               <ServicePoint name="tlx_692_c_h_14" />
+               <ServicePoint name="tlx_692_c_h_15" />
+               <ServicePoint name="tlx_692_c_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_692_c_3">
+               <ServicePoint name="tlx_692_c_h_17" />
+               <ServicePoint name="tlx_692_c_h_18" />
+               <ServicePoint name="tlx_692_c_h_19" />
+               <ServicePoint name="tlx_692_c_h_20" />
+               <ServicePoint name="tlx_692_c_h_21" />
+               <ServicePoint name="tlx_692_c_h_22" />
+               <ServicePoint name="tlx_692_c_h_23" />
+               <ServicePoint name="tlx_692_c_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_692_c_4">
+               <ServicePoint name="tlx_692_c_h_25" />
+               <ServicePoint name="tlx_692_c_h_26" />
+               <ServicePoint name="tlx_692_c_h_27" />
+               <ServicePoint name="tlx_692_c_h_28" />
+               <ServicePoint name="tlx_692_c_h_29" />
+               <ServicePoint name="tlx_692_c_h_30" />
+               <ServicePoint name="tlx_692_c_h_31" />
+               <ServicePoint name="tlx_692_c_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_692_c_5">
+               <ServicePoint name="tlx_692_c_h_33" />
+               <ServicePoint name="tlx_692_c_h_34" />
+               <ServicePoint name="tlx_692_c_h_35" />
+               <ServicePoint name="tlx_692_c_h_36" />
+               <ServicePoint name="tlx_692_c_h_37" />
+               <ServicePoint name="tlx_692_c_h_38" />
+               <ServicePoint name="tlx_692_c_h_39" />
+               <ServicePoint name="tlx_692_c_h_40" />
+            </Transformer>
+         </Segment>
+         <Segment name ="UL692-675">
+            <Transformer name ="xfmr_675_a_1">
+               <ServicePoint name="tlx_675_a_h_1" />
+               <ServicePoint name="tlx_675_a_h_2" />
+               <ServicePoint name="tlx_675_a_h_3" />
+               <ServicePoint name="tlx_675_a_h_4" />
+               <ServicePoint name="tlx_675_a_h_5" />
+               <ServicePoint name="tlx_675_a_h_6" />
+               <ServicePoint name="tlx_675_a_h_7" />
+               <ServicePoint name="tlx_675_a_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_675_a_2">
+               <ServicePoint name="tlx_675_a_h_9" />
+               <ServicePoint name="tlx_675_a_h_10" />
+               <ServicePoint name="tlx_675_a_h_11" />
+               <ServicePoint name="tlx_675_a_h_12" />
+               <ServicePoint name="tlx_675_a_h_13" />
+               <ServicePoint name="tlx_675_a_h_14" />
+               <ServicePoint name="tlx_675_a_h_15" />
+               <ServicePoint name="tlx_675_a_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_675_a_3">
+               <ServicePoint name="tlx_675_a_h_17" />
+               <ServicePoint name="tlx_675_a_h_18" />
+               <ServicePoint name="tlx_675_a_h_19" />
+               <ServicePoint name="tlx_675_a_h_20" />
+               <ServicePoint name="tlx_675_a_h_21" />
+               <ServicePoint name="tlx_675_a_h_22" />
+               <ServicePoint name="tlx_675_a_h_23" />
+               <ServicePoint name="tlx_675_a_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_675_a_4">
+               <ServicePoint name="tlx_675_a_h_25" />
+               <ServicePoint name="tlx_675_a_h_26" />
+               <ServicePoint name="tlx_675_a_h_27" />
+               <ServicePoint name="tlx_675_a_h_28" />
+               <ServicePoint name="tlx_675_a_h_29" />
+               <ServicePoint name="tlx_675_a_h_30" />
+               <ServicePoint name="tlx_675_a_h_31" />
+               <ServicePoint name="tlx_675_a_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_675_a_5">
+               <ServicePoint name="tlx_675_a_h_33" />
+               <ServicePoint name="tlx_675_a_h_34" />
+               <ServicePoint name="tlx_675_a_h_35" />
+               <ServicePoint name="tlx_675_a_h_36" />
+               <ServicePoint name="tlx_675_a_h_37" />
+               <ServicePoint name="tlx_675_a_h_38" />
+               <ServicePoint name="tlx_675_a_h_39" />
+               <ServicePoint name="tlx_675_a_h_40" />
+            </Transformer>
+            <Transformer name ="xfmr_675_b_1">
+               <ServicePoint name="tlx_675_b_h_1" />
+               <ServicePoint name="tlx_675_b_h_2" />
+               <ServicePoint name="tlx_675_b_h_3" />
+               <ServicePoint name="tlx_675_b_h_4" />
+               <ServicePoint name="tlx_675_b_h_5" />
+               <ServicePoint name="tlx_675_b_h_6" />
+               <ServicePoint name="tlx_675_b_h_7" />
+               <ServicePoint name="tlx_675_b_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_675_b_2">
+               <ServicePoint name="tlx_675_b_h_9" />
+               <ServicePoint name="tlx_675_b_h_10" />
+               <ServicePoint name="tlx_675_b_h_11" />
+               <ServicePoint name="tlx_675_b_h_12" />
+               <ServicePoint name="tlx_675_b_h_13" />
+               <ServicePoint name="tlx_675_b_h_14" />
+               <ServicePoint name="tlx_675_b_h_15" />
+               <ServicePoint name="tlx_675_b_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_675_b_3">
+               <ServicePoint name="tlx_675_b_h_17" />
+               <ServicePoint name="tlx_675_b_h_18" />
+               <ServicePoint name="tlx_675_b_h_19" />
+               <ServicePoint name="tlx_675_b_h_20" />
+               <ServicePoint name="tlx_675_b_h_21" />
+               <ServicePoint name="tlx_675_b_h_22" />
+               <ServicePoint name="tlx_675_b_h_23" />
+               <ServicePoint name="tlx_675_b_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_675_b_4">
+               <ServicePoint name="tlx_675_b_h_25" />
+               <ServicePoint name="tlx_675_b_h_26" />
+               <ServicePoint name="tlx_675_b_h_27" />
+               <ServicePoint name="tlx_675_b_h_28" />
+               <ServicePoint name="tlx_675_b_h_29" />
+               <ServicePoint name="tlx_675_b_h_30" />
+               <ServicePoint name="tlx_675_b_h_31" />
+               <ServicePoint name="tlx_675_b_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_675_b_5">
+               <ServicePoint name="tlx_675_b_h_33" />
+               <ServicePoint name="tlx_675_b_h_34" />
+               <ServicePoint name="tlx_675_b_h_35" />
+               <ServicePoint name="tlx_675_b_h_36" />
+               <ServicePoint name="tlx_675_b_h_37" />
+               <ServicePoint name="tlx_675_b_h_38" />
+               <ServicePoint name="tlx_675_b_h_39" />
+               <ServicePoint name="tlx_675_b_h_40" />
+            </Transformer>
+            <Transformer name ="xfmr_675_c_1">
+               <ServicePoint name="tlx_675_c_h_1" />
+               <ServicePoint name="tlx_675_c_h_2" />
+               <ServicePoint name="tlx_675_c_h_3" />
+               <ServicePoint name="tlx_675_c_h_4" />
+               <ServicePoint name="tlx_675_c_h_5" />
+               <ServicePoint name="tlx_675_c_h_6" />
+               <ServicePoint name="tlx_675_c_h_7" />
+               <ServicePoint name="tlx_675_c_h_8" />
+            </Transformer>
+            <Transformer name ="xfmr_675_c_2">
+               <ServicePoint name="tlx_675_c_h_9" />
+               <ServicePoint name="tlx_675_c_h_10" />
+               <ServicePoint name="tlx_675_c_h_11" />
+               <ServicePoint name="tlx_675_c_h_12" />
+               <ServicePoint name="tlx_675_c_h_13" />
+               <ServicePoint name="tlx_675_c_h_14" />
+               <ServicePoint name="tlx_675_c_h_15" />
+               <ServicePoint name="tlx_675_c_h_16" />
+            </Transformer>
+            <Transformer name ="xfmr_675_c_3">
+               <ServicePoint name="tlx_675_c_h_17" />
+               <ServicePoint name="tlx_675_c_h_18" />
+               <ServicePoint name="tlx_675_c_h_19" />
+               <ServicePoint name="tlx_675_c_h_20" />
+               <ServicePoint name="tlx_675_c_h_21" />
+               <ServicePoint name="tlx_675_c_h_22" />
+               <ServicePoint name="tlx_675_c_h_23" />
+               <ServicePoint name="tlx_675_c_h_24" />
+            </Transformer>
+            <Transformer name ="xfmr_675_c_4">
+               <ServicePoint name="tlx_675_c_h_25" />
+               <ServicePoint name="tlx_675_c_h_26" />
+               <ServicePoint name="tlx_675_c_h_27" />
+               <ServicePoint name="tlx_675_c_h_28" />
+               <ServicePoint name="tlx_675_c_h_29" />
+               <ServicePoint name="tlx_675_c_h_30" />
+               <ServicePoint name="tlx_675_c_h_31" />
+               <ServicePoint name="tlx_675_c_h_32" />
+            </Transformer>
+            <Transformer name ="xfmr_675_c_5">
+               <ServicePoint name="tlx_675_c_h_33" />
+               <ServicePoint name="tlx_675_c_h_34" />
+               <ServicePoint name="tlx_675_c_h_35" />
+               <ServicePoint name="tlx_675_c_h_36" />
+               <ServicePoint name="tlx_675_c_h_37" />
+               <ServicePoint name="tlx_675_c_h_38" />
+               <ServicePoint name="tlx_675_c_h_39" />
+               <ServicePoint name="tlx_675_c_h_40" />
+            </Transformer>
+         </Segment>
+      </Feeder>
+   </Group>
+</Groups>

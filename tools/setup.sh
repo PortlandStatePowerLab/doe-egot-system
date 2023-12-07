@@ -2,7 +2,7 @@
 
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt-get install -y build-essential wget git tmux pkg-config cmake python3 python3-dev libssl-dev libmodbus-dev libgtest-dev
+sudo apt-get install -y build-essential wget git tmux pkg-config cmake doxygen python3 python3-dev libssl-dev libmodbus-dev libgtest-dev
 mkdir ~/temp
 cd ~/temp
 wget https://boostorg.jfrog.io/artifactory/main/release/1.76.0/source/boost_1_76_0.tar.gz

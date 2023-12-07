@@ -19,6 +19,23 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 cmake --build build
 ```
 
+### Documentation
+If you would like to build the documentation install the following requirments and run doxygen.
+```shell
+sudo apt install doxygen graphviz
+cd docs
+doxygen
+```
+
+If you would like a PDF of the documentation run install the following requirments and run make within the latex folder.
+```shell
+sudo apt install texlive-base texlive-latex-recommended texlive-latex-extra
+cd docs
+doxygen
+cd latex
+make
+```
+
 ## Running
 Running the system as a whole is done through the *run_egot.sh* script found in tools. It will spawn tree tmux sessions: GSP, DTMC, and DERS. The DERS session will have *n* number of DCMS running in individual windows within the session. See snapshot of terminal after running.
 
