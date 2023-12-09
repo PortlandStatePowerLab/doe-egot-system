@@ -15,12 +15,6 @@ find_package(Boost REQUIRED python filesystem)
 
 find_package(Python3 COMPONENTS Interpreter Development)
 
-find_package(Doxygen)
-doxygen_add_docs(
-  ALL doxygen ${PROJECT_SOURCE_DIR}
-  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-  COMMENT "Generate html pages")
-
 include(FindThreads)
 
 include(FindXercesC)

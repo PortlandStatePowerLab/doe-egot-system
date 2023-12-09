@@ -14,12 +14,13 @@ using underlying_type_t = typename std::underlying_type<T>::type;
 
 namespace xml {
 namespace util {
+///
+/// this part overwrite schema info for validation or fills in the attrs that
+/// are needed
+/// TODO: it would be nice to figure out how to validate without overwriting
+/// the xsi stuff
+///
 static void SetSchema(boost::property_tree::ptree *pt) {
-  // this part overwrite schema info for validation or fills in the attrs that
-  // are needed
-  // TODO: it would be nice to figure out how to validate without overwriting
-  // the xsi stuff
-  // TODO: This function doesn't work currently
   std::string root = pt->begin()->first;
   pt->put(root + ".<xmlattr>.xmlns", "urn:ieee:std:2030.5:ns");
   pt->put(root + ".<xmlattr>.xmlns:xsi",
@@ -28,27 +29,36 @@ static void SetSchema(boost::property_tree::ptree *pt) {
           "urn:ieee:std:2030.5:ns sep.xsd");
 };
 
+///
+/// utility function to help translate strings to/from objects
+///
 static boost::property_tree::ptree Treeify(const std::string &xml_str) {
-  // utility function to help translate strings to/from objects
   std::stringstream ss(xml_str);
   boost::property_tree::ptree pt;
   boost::property_tree::xml_parser::read_xml(ss, pt);
   return pt;
 };
 
+///
+/// utility function to help translate strings to/from objects
+///
 static std::string Stringify(boost::property_tree::ptree *pt) {
-  // utility function to help translate strings to/from objects
   SetSchema(pt);
   std::stringstream ss;
   boost::property_tree::xml_parser::write_xml(ss, *pt);
   return ss.str();
 };
 
-// c++23 helper
+///
+/// c++23 helper for c++11
+///
 template <class Enum> static underlying_type_t<Enum> ToUnderlyingType(Enum e) {
   return static_cast<underlying_type_t<Enum>>(e);
 };
 
+///
+/// Convert a number into a hex string of any the max boost multiprecision value
+///
 template <typename T> static std::string Hexify(T number) {
   std::string hex_str;
   bool type_is_number =
@@ -69,6 +79,9 @@ template <typename T> static std::string Hexify(T number) {
   return hex_str;
 };
 
+///
+/// Convert a hex value string into a number of the specified template type
+///
 template <typename T> static T Dehexify(const std::string hexidecimal) {
   T number;
   std::stringstream ss;
@@ -77,6 +90,9 @@ template <typename T> static T Dehexify(const std::string hexidecimal) {
   return number;
 };
 
+///
+/// IEEE 2030.5 sfdi utility to ensure the sfdi is valid
+///
 template <typename T> static uint8_t Checksum(T value) {
   T remainder, total;
   for (total = 0; value > 0; value = value / 10) {
@@ -88,14 +104,26 @@ template <typename T> static uint8_t Checksum(T value) {
   return (checksum == 0) ? checksum : 10 - (total % 10);
 };
 
+///
+/// ensure the sfdi was generated correctly from a lfdi
+///
 static bool validateSFDI(const uint64_t sfdi) { return Checksum(sfdi) == 0; };
 
+///
+/// generate the sfdi for a given lfdi
+///
 static sep::SFDIType getSFDI(const std::string &lfdi) {
   sep::SFDIType sfdi = Dehexify<uint64_t>(lfdi.substr(0, 9));
   uint8_t checksum = Checksum(sfdi);
   return (sfdi * 10) + checksum;
 };
 
+///
+/// helper function the generate a pin from the lfdi.
+///
+/// Note: this should be designated by the ownder of the DER or the server for
+/// which the DER interacts.
+///
 static uint32_t generatePIN(const std::string &lfdi) {
   sep::SFDIType sfdi = Dehexify<sep::SFDIType>(lfdi.substr(0, 9));
   std::string pin = std::to_string(sfdi);
@@ -104,6 +132,9 @@ static uint32_t generatePIN(const std::string &lfdi) {
   return (sfdi * 10) + checksum;
 };
 
+///
+/// utility function to recursively walk a tree data structure
+///
 static void walk_ptree(const boost::property_tree::ptree &tree,
                        const std::string &parent_key,
                        std::unordered_set<std::string> *key_set) {
@@ -122,6 +153,9 @@ static void walk_ptree(const boost::property_tree::ptree &tree,
   }
 };
 
+///
+/// utility function to display a given set
+///
 static void printSet(std::unordered_set<std::string> &key_set) {
   for (auto itr = key_set.begin(); itr != key_set.end(); itr++) {
     std::cout << (*itr) << std::endl;

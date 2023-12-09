@@ -6,7 +6,9 @@
 #include <boost/optional.hpp>
 
 namespace sep {
-// An IdentifiedObject to which a Response can be requested.
+///
+/// An IdentifiedObject to which a Response can be requested.
+///
 struct RespondableSubscribableIdentifiedObject : RespondableResource {
   mRIDType mrid;
   boost::optional<String32> description;

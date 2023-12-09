@@ -13,7 +13,9 @@ enum class BatteryStatus : UInt8 { kUnknown, kNormal, kLow, kDepleted, kNA };
 struct PowerStatusListLink : ListLink {};
 struct PowerStatusLink : Link {};
 
-// Contains the status of the device's power sources
+///
+/// Contains the status of the device's power sources
+///
 struct PowerStatus : Resource {
   BatteryStatus battery_status;
   TimeType changed_time;

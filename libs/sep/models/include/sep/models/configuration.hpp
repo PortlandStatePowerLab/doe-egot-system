@@ -11,8 +11,10 @@
 namespace sep {
 struct ConfigurationLink : Link {};
 
-// This resource contains various settings to control
-// the operation of the device.
+///
+/// This resource contains various settings to control
+/// the operation of the device.
+///
 struct Configuration : SubscribableResource {
   LocaleType current_locale;
   PowerConfiguration power_configuration;

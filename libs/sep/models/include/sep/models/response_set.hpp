@@ -10,8 +10,10 @@ namespace sep {
 struct ResponseSetListLink : ListLink {};
 struct ReponseSetLink : Link {};
 
-// The Response object is the generic response data repository
-// which is extended for specific function sets.
+///
+/// The Response object is the generic response data repository
+/// which is extended for specific function sets.
+///
 struct ResponseSet : IdentifiedObject {
   boost::optional<ResponseListLink> response_list_link;
 };

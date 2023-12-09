@@ -3,13 +3,15 @@
 #include "simple_types.hpp"
 
 namespace sep {
-    struct FileStatusListLink : ListLink {};
-    struct FileStatusLink : Link {};
+struct FileStatusListLink : ListLink {};
+struct FileStatusLink : Link {};
 
-    // This object provides status of device file load and activation operations.
-    struct FileStatus : Resource {
-        // TODO
-    };
-}
+///
+/// This object provides status of device file load and activation operations.
+///
+struct FileStatus : Resource {
+  // TODO
+};
+} // namespace sep
 
 #endif // __FILE_STATUS_H__

@@ -3,13 +3,15 @@
 #include "simple_types.hpp"
 
 namespace sep {
-    struct PrepaymentListLink : ListLink {};
-    struct PrepaymentLink : Link {};
+struct PrepaymentListLink : ListLink {};
+struct PrepaymentLink : Link {};
 
-    // Prepayment (inherited from CIM SDPAccountingFunction)
-    struct Prepayment : IdentifiedObject{
-        // TODO
-    };
-}
+///
+/// Prepayment (inherited from CIM SDPAccountingFunction)
+///
+struct Prepayment : IdentifiedObject {
+  // TODO
+};
+} // namespace sep
 
 #endif // __PREPAYMENT_H__

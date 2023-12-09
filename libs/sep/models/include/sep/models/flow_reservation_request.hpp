@@ -13,11 +13,13 @@ namespace sep {
 struct FlowReservationRequestListLink : ListLink {};
 struct FlowReservationRequestLink : Link {};
 
-// Used to request flow transactions. Client EndDevices submit a request for
-// charging or discharging from the server. The server creates an associated
-// FlowReservationResponse containing the charging parameters and interval to
-// provide a lower aggregated demand at the premises, or within a larger part
-// of the distribution system
+///
+/// Used to request flow transactions. Client EndDevices submit a request for
+/// charging or discharging from the server. The server creates an associated
+/// FlowReservationResponse containing the charging parameters and interval to
+/// provide a lower aggregated demand at the premises, or within a larger part
+/// of the distribution system
+///
 struct FlowReservationRequest : IdentifiedObject {
   TimeType creation_time;
   SignedRealEnergy energy_requested;

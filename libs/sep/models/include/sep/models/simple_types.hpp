@@ -37,23 +37,41 @@ using mRIDType = HexBinary128;
 using SFDIType = UInt40;
 using PowerOfTenMultiplierType = Int8;
 
+///
+/// The subscription from which this notification was triggered. This attribute
+/// SHALL be a fully-qualified absolute URI, not a relative reference.
+///
 struct Resource {
   std::string href;
 };
 
+///
+/// Links provide a reference, via URI, to another resource.
+///
 struct Link {
   std::string href;
 };
 
+///
+/// Container to hold a collection of object instances or references. See Design
+/// Pattern section for additional details.
+///
 struct List : Resource {
   UInt32 all;
   UInt32 results;
 };
 
+///
+/// ListLinks provide a reference, via URI, to a List.
+///
 struct ListLink : Link {
   UInt32 all;
 };
 
+///
+/// This is a root class to provide common naming attributes for all classes
+/// needing naming attributes
+///
 struct IdentifiedObject : Resource {
   mRIDType mrid;
   boost::optional<String32> description;
