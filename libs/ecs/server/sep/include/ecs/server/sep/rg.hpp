@@ -16,6 +16,12 @@ struct Area {
 };
 
 ///
+/// generate the Registration resource for all clients registered with the
+/// system
+///
+void generateRegistration(flecs::world &world);
+
+///
 /// this module establishes the Registration resources a a component within the
 /// ECS world
 ///
@@ -26,12 +32,6 @@ struct Area {
 ///
 struct Module {
   Module(flecs::world &world);
-
-  ///
-  /// generate the Registration resource for all clients registered with the
-  /// system
-  ///
-  void generateRegistration(flecs::world &world);
 };
 
 } // namespace rg

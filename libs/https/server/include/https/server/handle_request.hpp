@@ -10,6 +10,7 @@
 #include <boost/config.hpp>
 #include <cstdlib>
 #include <ecs/server/sep/world.hpp>
+#include <iostream>
 #include <memory>
 #include <regex>
 #include <sep/wadl/wadl.hpp>
@@ -170,6 +171,7 @@ void HandleRequest(const std::string fingerprint,
   // If open path "/" then default to dcap
   std::string path = path_cat("", req.target());
   Href href = extractHref(path, fingerprint);
+  std::cout << "request : " << path << " , " << fingerprint << std::endl;
 
   // verify the path is legal, might still send not_found when
   // the ECS actually tries to get the resource.
@@ -178,6 +180,7 @@ void HandleRequest(const std::string fingerprint,
   sep::WADLResource wadl_res = wadl->getResource(href.uri);
 
   if (wadl_res.properties.empty()) {
+    std::cout << "wadl empty " << std::endl;
     return send(not_found(path));
   }
 
@@ -214,6 +217,7 @@ void HandleRequest(const std::string fingerprint,
     // attempt to access resource
     std::string body = World::getInstance()->Get(href);
     if (body == "") {
+      std::cout << "body empty " << std::endl;
       return send(not_found(path));
     }
 

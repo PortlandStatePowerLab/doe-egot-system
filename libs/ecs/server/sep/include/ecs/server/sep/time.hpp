@@ -9,17 +9,16 @@ namespace server {
 namespace time {
 
 ///
+/// This function creates a Time resource to act as the clock for all clients
+///
+void generateTime(flecs::world &world);
+
+///
 /// this module established the Time resources as a component within the ECS
 /// world
 ///
 struct Module {
   Module(flecs::world &world);
-
-  ///
-  /// This function creates a Time resource to act as the clock for all clients
-  ///
-  static void generateTime(flecs::world &world);
-
   ///
   /// updates the Time resource ever second for all clients rather than updating
   /// every time the server recieves a request

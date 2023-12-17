@@ -10,7 +10,7 @@ extern std::string g_program_path;
 namespace ecs {
 namespace server {
 namespace time {
-void Module::generateTime(flecs::world &world) {
+void generateTime(flecs::world &world) {
   boost::posix_time::ptime local(boost::posix_time::second_clock::local_time());
   boost::posix_time::ptime universal(
       boost::posix_time::second_clock::universal_time());
@@ -46,8 +46,6 @@ void Module::updateTime(flecs::entity e, sep::Time &tm) {
 Module::Module(flecs::world &world) {
   world.module<Module>();
   world.component<sep::Time>();
-
-  Module::generateTime(world);
 
   world.system<sep::Time>("update-time").each(Module::updateTime);
 };

@@ -16,6 +16,8 @@ void func() { HttpsServer server("0.0.0.0", 8080, g_program_path, 4); }
 int main(int argc, char **argv) {
   g_program_path = psu::utilities::getProgramPath(argv);
 
+  ecs::server::World::getInstance();
+
   https::Context ctx = {"1", g_program_path, "0.0.0.0", "8080"};
 
   // init context so other calls don't need it
@@ -25,8 +27,7 @@ int main(int argc, char **argv) {
   std::thread first(func);
   first.detach();
 
-  std::this_thread::sleep_for(1s);
-
   ::testing::InitGoogleTest(&argc, argv);
+  std::this_thread::sleep_for(1s);
   return RUN_ALL_TESTS();
 }

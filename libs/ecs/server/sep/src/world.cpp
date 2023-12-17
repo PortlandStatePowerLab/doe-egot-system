@@ -33,9 +33,11 @@ World::World() {
   world.import <ecs::singleton::Module>();
   ecs::singleton::generateClock(world);
   world.import <rg::Module>();
+  ecs::server::rg::generateRegistration(world);
   world.import <dcap::Module>();
   world.import <edev::Module>();
   world.import <time::Module>();
+  ecs::server::time::generateTime(world);
 
   // world.import <sdev::Module>();
   // world.import <frp::Module>();
@@ -66,10 +68,12 @@ std::string World::Get(const Href &href) {
   std::string response = "";
   auto client = world.lookup(href.lfdi.c_str());
   if (client.id() == 0) {
+    std::cout << "client not found" << std::endl;
     return response;
   }
 
   if (uri_map.count(href.uri) == 0) {
+    std::cout << "uri not found" << std::endl;
     return response;
   }
 
