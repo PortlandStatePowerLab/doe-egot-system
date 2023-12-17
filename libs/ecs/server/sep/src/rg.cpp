@@ -13,8 +13,10 @@
 extern std::string g_program_path;
 using Sep = boost::char_separator<char>;
 using Tokenizer = boost::tokenizer<Sep>;
-
-void gsp::rg::generateRegistration(flecs::world &world) {
+namespace ecs {
+namespace server {
+namespace rg {
+void Module::generateRegistration(flecs::world &world) {
   boost::filesystem::path path = g_program_path + "/root-ca/registration.csv";
   if (boost::filesystem::exists(path)) {
     std::ifstream file(path.c_str());
@@ -39,15 +41,12 @@ void gsp::rg::generateRegistration(flecs::world &world) {
         col++;
       }
 
-      auto p = world.entity(lfdi.c_str());
-      p.set<Area>(area);
-
       sep::Registration rg;
       rg.href = "/rg/" + lfdi;
       rg.poll_rate = 300;
       rg.date_time_registered = psu::utilities::getTime();
       rg.pin = xml::util::generatePIN(lfdi);
-      world.entity(rg.href.c_str()).child_of(p).set<sep::Registration>(rg);
+      world.entity(rg.href.c_str()).set<sep::Registration>(rg);
 
       sep::EndDevice edev;
       edev.href = "/edev/" + lfdi;
@@ -71,14 +70,18 @@ void gsp::rg::generateRegistration(flecs::world &world) {
       edev.device_status_link.emplace(ds);
       edev.lfdi.emplace(xml::util::Dehexify<sep::HexBinary160>(lfdi));
       edev.sfdi = xml::util::getSFDI(lfdi);
-      world.entity(edev.href.c_str()).child_of(p).set<sep::EndDevice>(edev);
+      world.entity(edev.href.c_str()).set<sep::EndDevice>(edev);
     }
   } else {
     std::cout << path << " does not exist\n";
   }
 };
 
-gsp::rg::Module::Module(flecs::world &world) {
+Module::Module(flecs::world &world) {
   world.module<Module>();
   world.component<sep::Registration>();
+  Module::generateRegistration(world);
 };
+} // namespace rg
+} // namespace server
+} // namespace ecs

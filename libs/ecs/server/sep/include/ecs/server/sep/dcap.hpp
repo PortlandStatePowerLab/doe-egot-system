@@ -2,15 +2,20 @@
 #define __GSP_ECS_DCAP_H__
 
 #include <flecs.h>
-#include <sep/models/device_capability.hpp>
 
-namespace gsp {
+namespace ecs {
+namespace server {
 namespace dcap {
 
+///
+/// this module establishes the DeviceCapability as a component within the ECS
+/// world
+///
 struct Module {
   Module(flecs::world &world);
 };
 
 } // namespace dcap
-} // namespace gsp
+} // namespace server
+} // namespace ecs
 #endif // __GSP_ECS_DCAP_H__

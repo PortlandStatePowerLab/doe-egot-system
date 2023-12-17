@@ -2,12 +2,15 @@
 #include <sep/xml/utilities.hpp>
 #include <utilities/utilities.hpp>
 
-std::string gsp::frq::generateURI(const sep::FlowReservationRequest &frq) {
+namespace ecs {
+namespace server {
+namespace frq {
+std::string generateURI(const sep::FlowReservationRequest &frq) {
   return frq.href + "/" + xml::util::Hexify(frq.mrid);
 };
 
 sep::FlowReservationResponse
-gsp::frq::generateResponse(const sep::FlowReservationRequest &frq) {
+generateResponse(const sep::FlowReservationRequest &frq) {
   sep::FlowReservationResponse frp;
   frp.href = "/frp/" + xml::util::Hexify(frq.mrid);
   frp.energy_available = frq.energy_requested;
@@ -33,7 +36,10 @@ gsp::frq::generateResponse(const sep::FlowReservationRequest &frq) {
   return frp;
 };
 
-gsp::frq::Module::Module(flecs::world &world) {
+Module::Module(flecs::world &world) {
   world.module<Module>();
   world.component<sep::FlowReservationRequest>();
 };
+} // namespace frq
+} // namespace server
+} // namespace ecs

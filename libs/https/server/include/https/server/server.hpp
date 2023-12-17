@@ -9,40 +9,28 @@
 // Official repository: https://github.com/vinniefalco/CppCon2018
 //
 
+#include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/ssl/stream.hpp>
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/ssl.hpp>
 #include <boost/beast/version.hpp>
-#include <boost/asio/ip/tcp.hpp>
-#include <boost/asio/ssl/stream.hpp>
 #include <boost/config.hpp>
 #include <flecs.h>
-#include <cstdlib>
-#include <iostream>
 #include <memory>
 #include <string>
-#include <thread>
-#include <unordered_map>
 
-
-namespace beast = boost::beast;         // from <boost/beast.hpp>
-namespace http = beast::http;           // from <boost/beast/http.hpp>
-namespace net = boost::asio;            // from <boost/asio.hpp>
-namespace ssl = boost::asio::ssl;       // from <boost/asio/ssl.hpp>
-
-
-class HttpsServer
-{
+class HttpsServer {
 public:
-    HttpsServer(const std::string &address, uint16_t port, const std::string &doc_root, int threads);
-    ~HttpsServer();
-    
-private:
-    bool stop;
-    std::string address_;
-    uint16_t port_;
-    std::shared_ptr<std::string> doc_root_;
-};
+  HttpsServer(const std::string &address, uint16_t port,
+              const std::string &doc_root, int threads);
+  ~HttpsServer();
 
+private:
+  bool stop;
+  std::string address_;
+  uint16_t port_;
+  std::shared_ptr<std::string> doc_root_;
+};
 
 #endif // __HTTPS_SERVER_H__

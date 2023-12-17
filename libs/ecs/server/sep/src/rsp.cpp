@@ -1,10 +1,17 @@
 #include <ecs/server/sep/rsp.hpp>
 #include <sep/xml/utilities.hpp>
 
-std::string gsp::rsp::generateURI(const sep::Response &rsp) {
+namespace ecs {
+namespace server {
+namespace rsp {
+std::string generateURI(const sep::Response &rsp) {
   return "/rsp/" + xml::util::Hexify(rsp.subject);
 };
-gsp::rsp::Module::Module(flecs::world &world) {
+
+Module::Module(flecs::world &world) {
   world.module<Module>();
   world.component<sep::Response>();
 };
+} // namespace rsp
+} // namespace server
+} // namespace ecs

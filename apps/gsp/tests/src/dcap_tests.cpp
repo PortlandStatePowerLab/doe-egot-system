@@ -1,14 +1,12 @@
-#include <algorithm>
-#include <fstream>
 #include <gtest/gtest.h>
 #include <https/client/single_client.hpp>
 #include <https/server/server.hpp>
+#include <iostream>
 #include <sep/models/device_capability.hpp>
 #include <sep/wadl/wadl.hpp>
 #include <sep/xml/adapter.hpp>
 #include <sep/xml/xml_validator.hpp>
 #include <string>
-#include <thread>
 #include <utilities/utilities.hpp>
 #include <wadl_check.hpp>
 
@@ -31,6 +29,7 @@ protected:
 TEST_F(HttpsDeviceCapabilityTests, GetDeviceCapability) {
   try {
     auto resp = SingleClient::getInstance().Get(path);
+    std::cout << resp << std::endl;
     std::string msg = boost::beast::buffers_to_string(resp.body().data());
 
     sep::DeviceCapability dcap;

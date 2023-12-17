@@ -12,10 +12,9 @@
 #include <ecs/server/sep/world.hpp>
 #include <ecs/singleton/clock.hpp>
 #include <sep/xml/adapter.hpp>
-#include <sstream>
 #include <utilities/utilities.hpp>
 
-using namespace gsp;
+using namespace ecs::server;
 extern std::string g_program_path;
 std::string var;
 
@@ -34,11 +33,9 @@ World::World() {
   world.import <ecs::singleton::Module>();
   ecs::singleton::generateClock(world);
   world.import <rg::Module>();
-  rg::generateRegistration(world);
   world.import <dcap::Module>();
   world.import <edev::Module>();
   world.import <time::Module>();
-  time::generateTime(world);
 
   // world.import <sdev::Module>();
   // world.import <frp::Module>();
@@ -452,7 +449,7 @@ std::string World::Post(const Href &href, const std::string &message) {
   case (Uri::edev_list): {
     sep::EndDevice edev;
     xml::Parse(message, &edev);
-    std::string uri = gsp::edev::generateURI(edev);
+    std::string uri = edev::generateURI(edev);
     auto e = client.lookup(uri.c_str());
     if (e.id() == 0) {
       world.entity(uri.c_str()).child_of(client).set<sep::EndDevice>(edev);
@@ -463,7 +460,7 @@ std::string World::Post(const Href &href, const std::string &message) {
   case (Uri::rsp_list): {
     sep::Response rsp;
     xml::Parse(message, &rsp);
-    std::string uri = gsp::rsp::generateURI(rsp);
+    std::string uri = rsp::generateURI(rsp);
     auto e = client.lookup(uri.c_str());
     if (e.id() == 0) {
       auto e2 = world.entity(uri.c_str()).child_of(client);
@@ -483,13 +480,13 @@ std::string World::Post(const Href &href, const std::string &message) {
   case (Uri::frq_list): {
     sep::FlowReservationRequest frq;
     xml::Parse(message, &frq);
-    std::string uri = gsp::frq::generateURI(frq);
+    std::string uri = frq::generateURI(frq);
     auto e = client.lookup(uri.c_str());
     if (e.id() == 0) {
       world.entity(uri.c_str())
           .child_of(client)
           .set<sep::FlowReservationRequest>(frq);
-      sep::FlowReservationResponse frp = gsp::frq::generateResponse(frq);
+      sep::FlowReservationResponse frp = frq::generateResponse(frq);
       world.entity(frp.href.c_str())
           .child_of(client)
           .set<sep::FlowReservationResponse>(frp);
@@ -510,7 +507,7 @@ std::string World::Put(const Href &href, const std::string &message) {
   case (Uri::rsp): {
     sep::Response rsp;
     xml::Parse(message, &rsp);
-    std::string uri = gsp::rsp::generateURI(rsp);
+    std::string uri = rsp::generateURI(rsp);
     auto e = client.lookup(uri.c_str());
     if (e.id() == 0) {
       auto e2 = world.entity(uri.c_str()).child_of(client);
@@ -547,7 +544,7 @@ std::string World::Put(const Href &href, const std::string &message) {
   case (Uri::frq): {
     sep::FlowReservationRequest frq;
     xml::Parse(message, &frq);
-    std::string uri = gsp::frq::generateURI(frq).c_str();
+    std::string uri = frq::generateURI(frq).c_str();
     auto e = client.lookup(uri.c_str());
 
     if (e.id() == 0) {
@@ -557,7 +554,7 @@ std::string World::Put(const Href &href, const std::string &message) {
     } else {
       e.set<sep::FlowReservationRequest>(frq);
     }
-    sep::FlowReservationResponse frp = gsp::frq::generateResponse(frq);
+    sep::FlowReservationResponse frp = frq::generateResponse(frq);
     auto e2 = client.lookup(frp.href.c_str());
     if (e2.id() == 0) {
       world.entity(frp.href.c_str())

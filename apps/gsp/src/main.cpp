@@ -9,7 +9,7 @@ std::string g_program_path;
 int main(int argc, char **argv) {
   g_program_path = psu::utilities::getProgramPath(argv);
 
-  World::getInstance();
+  ecs::server::World::getInstance();
 
   https::Context me_ctx = {"1", g_program_path, "127.0.0.1", "9000"};
   https::SingleClient::getInstance(me_ctx);

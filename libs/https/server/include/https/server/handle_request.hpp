@@ -1,8 +1,6 @@
 #ifndef __HTTPS_SERVER_HANDLE_REQUEST_H__
 #define __HTTPS_SERVER_HANDLE_REQUEST_H__
 
-#include "certificates.hpp"
-
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/beast/core.hpp>
@@ -12,20 +10,19 @@
 #include <boost/config.hpp>
 #include <cstdlib>
 #include <ecs/server/sep/world.hpp>
-#include <iostream>
 #include <memory>
 #include <regex>
 #include <sep/wadl/wadl.hpp>
 #include <string>
-#include <thread>
 
-namespace beast = boost::beast;   // from <boost/beast.hpp>
-namespace http = beast::http;     // from <boost/beast/http.hpp>
-namespace net = boost::asio;      // from <boost/asio.hpp>
-namespace ssl = boost::asio::ssl; // from <boost/asio/ssl.hpp>
+namespace beast = boost::beast; // from <boost/beast.hpp>
+namespace http = beast::http;   // from <boost/beast/http.hpp>
+using namespace ecs::server;
 
-// Append an HTTP rel-path to a local filesystem path.
-// The returned path is normalized for the platform.
+///
+/// Append an HTTP rel-path to a local filesystem path.
+/// The returned path is normalized for the platform.
+///
 inline std::string path_cat(beast::string_view base, beast::string_view path) {
   if (base.empty())
     return std::string(path);
@@ -47,6 +44,9 @@ inline std::string path_cat(beast::string_view base, beast::string_view path) {
   return result;
 }
 
+///
+/// extract a query string from an http request
+///
 inline std::string seperateQuery(const std::string &target, Href *href) {
   std::vector<std::string> parts;
   size_t pos = target.find("?");
@@ -76,6 +76,9 @@ inline std::string seperateQuery(const std::string &target, Href *href) {
   return target;
 }
 
+///
+/// extract the uri path from an http request
+///
 inline void seperateUri(const std::string &target, Href *href) {
   std::regex path_regex("((\\/\\w+))");
   std::smatch match;
@@ -91,6 +94,9 @@ inline void seperateUri(const std::string &target, Href *href) {
   }
 }
 
+///
+/// Utility function to extract query string from uri into utility class
+///
 inline Href extractHref(const std::string &target,
                         const std::string &fingerprint) {
   Href href;
@@ -102,10 +108,12 @@ inline Href extractHref(const std::string &target,
   return href;
 }
 
-// This function produces an HTTP response for the given
-// request. The type of the response object depends on the
-// contents of the request, so the interface requires the
-// caller to pass a generic lambda for receiving the response.
+///
+/// This function produces an HTTP response for the given
+/// request. The type of the response object depends on the
+/// contents of the request, so the interface requires the
+/// caller to pass a generic lambda for receiving the response.
+///
 template <class Body, class Allocator, class Send>
 void HandleRequest(const std::string fingerprint,
                    std::shared_ptr<const std::string> doc_root,

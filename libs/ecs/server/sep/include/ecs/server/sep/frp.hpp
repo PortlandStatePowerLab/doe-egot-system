@@ -2,15 +2,20 @@
 #define __GSP_ECS_FRP_H__
 
 #include <flecs.h>
-#include <sep/models/flow_reservation_response.hpp>
 
-namespace gsp {
+namespace ecs {
+namespace server {
 namespace frp {
 
+///
+/// This module establishes the FlowReservationResponse as a component withint
+/// he ECS world
+///
 struct Module {
   Module(flecs::world &world);
 };
 
 } // namespace frp
-} // namespace gsp
+} // namespace server
+} // namespace ecs
 #endif // __GSP_ECS_FRP_H__

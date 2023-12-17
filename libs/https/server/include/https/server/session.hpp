@@ -9,15 +9,17 @@
 #include <boost/beast/http.hpp>
 #include <boost/beast/ssl.hpp>
 #include <boost/beast/version.hpp>
+#include <boost/bind.hpp>
 #include <boost/config.hpp>
 #include <cstdlib>
 #include <functional>
 #include <iostream>
 #include <memory>
 #include <string>
-#include <thread>
 
 #include "handle_request.hpp"
+namespace net = boost::asio;      // from <boost/asio.hpp>
+namespace ssl = boost::asio::ssl; // from <boost/asio/ssl.hpp>
 
 // Handles an HTTP server connection
 class Session : public boost::asio::coroutine,

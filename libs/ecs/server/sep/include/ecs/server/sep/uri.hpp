@@ -4,6 +4,12 @@
 #include <string>
 #include <unordered_map>
 
+namespace ecs {
+namespace server {
+
+///
+/// designated uniform resource identifiers (URI) for the server
+///
 enum class Uri {
   dcap,
   sdev,
@@ -133,6 +139,9 @@ enum class Uri {
   dc_list
 };
 
+///
+/// hashmap of URI's for the server to quickly check if the request is valid
+///
 static std::unordered_map<std::string, Uri> uri_map = {
     {"/dcap", Uri::dcap},
     {"/sdev", Uri::sdev},
@@ -260,4 +269,6 @@ static std::unordered_map<std::string, Uri> uri_map = {
     {"/dc/*", Uri::dc},
     {"/dc", Uri::dc_list}};
 
+} // namespace server
+} // namespace ecs
 #endif // __URI_H__
