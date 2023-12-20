@@ -1,11 +1,8 @@
 #ifndef __ECS_CLIENT_DCAP_H__
 #define __ECS_CLIENT_DCAP_H__
 
-/** @file dcap.hpp */
-
 #include <flecs.h>
 #include <sep/models/device_capability.hpp>
-#include <string>
 
 namespace ecs {
 namespace client {

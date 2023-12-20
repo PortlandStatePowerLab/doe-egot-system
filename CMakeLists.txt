@@ -29,11 +29,11 @@ FetchContent_Declare(
   GIT_TAG master)
 
 FetchContent_Declare(
-  cta2045
+  cea2045
   GIT_REPOSITORY https://github.com/epri-dev/CTA-2045-UCM-CPP-Library.git
   GIT_TAG v1.0)
 
-FetchContent_MakeAvailable(flecs cta2045)
+FetchContent_MakeAvailable(flecs cea2045)
 
 add_subdirectory(libs)
 add_subdirectory(apps)

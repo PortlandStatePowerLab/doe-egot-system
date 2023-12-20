@@ -3,14 +3,21 @@
 
 #include <flecs.h>
 #include <sep/models/flow_reservation_request.hpp>
-#include <string>
 
 namespace ecs {
 namespace client {
 namespace frq {
 
+///
+/// this module establishes the FlowReservationRequest as a component within the
+/// ECS world
+///
 struct Module {
   Module(flecs::world &world);
+
+  ///
+  /// post a FlowReservationRequest to an IEEE 2030.5 server
+  ///
 };
 
 } // namespace frq

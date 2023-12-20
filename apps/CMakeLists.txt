@@ -1,5 +1,6 @@
 add_subdirectory(dtm)
 add_subdirectory(dcm)
+add_subdirectory(dcm-aosmith)
 add_subdirectory(gsp)
 add_subdirectory(simple)
 execute_process(

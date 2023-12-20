@@ -2,37 +2,21 @@
 #define __FSA_H__
 
 #include <flecs.h>
-#include <string>
-#include "simple_types.hpp"
 
-namespace sep {
+namespace ecs {
+namespace client {
 namespace fsab {
 
-struct FunctionSetAssignmentsBase : sep::Resource {};
-    
-struct CustomerAccountListLink : ListLink {};
-
-struct DemandResponseProgramListLink : ListLink {};
-
-struct DERProgramListLink : ListLink {};
-
-struct FileListLink : ListLink {};
-
-struct MessagingProgramListLink : ListLink {};
-
-struct PrepaymentListLink : ListLink {};
-
-struct ResponseSetListLink : ListLink {};
-
-struct TariffProfileListLink : ListLink {};
-
-struct UsagePointListLink : ListLink {};
-
+///
+/// this module establishes the FunctionSetAssignmentResource as a component
+/// within the ECS world
+///
 struct Module {
-    Module(flecs::world& world);
+  Module(flecs::world &world);
 };
 
 } // namespace fsab
-} // namespace sep
+} // namespace client
+} // namespace ecs
 
 #endif // __FSA_H__

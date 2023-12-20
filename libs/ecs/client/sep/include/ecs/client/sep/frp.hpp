@@ -4,12 +4,15 @@
 #include <flecs.h>
 #include <sep/models/flow_reservation_response.hpp>
 #include <sep/models/flow_reservation_response_response.hpp>
-#include <string>
 
 namespace ecs {
 namespace client {
 namespace frp {
 
+///
+/// this modules establishes the FlowReservationResponse as a component within
+/// the ECS world
+///
 struct Module {
   Module(flecs::world &world);
 };

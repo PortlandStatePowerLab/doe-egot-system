@@ -3,12 +3,15 @@
 
 #include <flecs.h>
 #include <sep/models/registration.hpp>
-#include <string>
 
 namespace ecs {
 namespace client {
 namespace rg {
 
+///
+/// this module establishes the Registration resources as a component within the
+/// ECS world
+///
 struct Module {
   Module(flecs::world &world);
 };

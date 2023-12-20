@@ -1,4 +1,5 @@
-#include <cta2045/cta2045_reciever.hpp>
+#include <cta2045/cta2045_receiver.hpp>
+
 namespace dcm {
 using namespace cea2045;
 CTA2045Receiver::CTA2045Receiver(CombinedHttpsClient *c)

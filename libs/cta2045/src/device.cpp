@@ -1,6 +1,6 @@
 #include <cta2045/device.hpp>
 
-using namespace cta2045;
+using namespace cea2045;
 
 cta2045::Device *cta2045::Device::instance_{nullptr};
 std::mutex cta2045::Device::mutex_;

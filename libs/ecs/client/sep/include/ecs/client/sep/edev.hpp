@@ -3,12 +3,14 @@
 
 #include <flecs.h>
 #include <sep/models/end_device.hpp>
-#include <string>
 
 namespace ecs {
 namespace client {
 namespace edev {
 
+///
+/// this module establishes the EndDevice as a component within the ECS world
+///
 struct Module {
   Module(flecs::world &world);
 };
