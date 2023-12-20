@@ -1,12 +1,12 @@
-#include <https/single_client.hpp>
-#include <trust_cta2045/trust_ucm.hpp>
-#include <trust_xml/trust_xml.hpp>
+#include <https/client/client.hpp>
+#include <trust/cta2045/trust_ucm.hpp>
+#include <trust/xml/utils.hpp>
 #include <utilities/utilities.hpp>
 
 using namespace cea2045;
 
 namespace trust {
-cea2045UCM::cea2045UCM() {
+cea2045UCM::cea2045UCM(const https::Context &dtm) : dtm_client(dtm) {
   max_payload_ = cea2045::MaxPayloadLengthCode::LENGTH2;
 }
 
@@ -21,7 +21,7 @@ bool cea2045UCM::isMessageTypeSupported(MessageTypeCode type_code) {
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "isMessageTypeSupported";
   msg.contents["MessageTypeCode"] = psu::utilities::ToUnderlyingType(type_code);
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 
   if (type_code == MessageTypeCode::NONE) {
     return false;
@@ -40,7 +40,7 @@ void cea2045UCM::processMaxPayloadResponse(MaxPayloadLengthCode payload) {
   msg.contents["response"] = "processMaxPayloadResponse";
   msg.contents["MaxPayloadLengthCode"] =
       psu::utilities::ToUnderlyingType(max_payload_);
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 
   max_payload_ = payload;
 }
@@ -70,7 +70,7 @@ void cea2045UCM::processDeviceInfoResponse(cea2045DeviceInfoResponse *message) {
   msg.contents["firmwareYear"] = device_info_.firmware_year;
   msg.contents["firmwareMinor"] = device_info_.firmware_minor;
   msg.contents["firmwareMajor"] = device_info_.firmware_major;
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processCommodityResponse(cea2045CommodityResponse *message) {
@@ -85,14 +85,15 @@ void cea2045UCM::processCommodityResponse(cea2045CommodityResponse *message) {
     cea2045CommodityData data = *message->getCommodityData(i);
     commodities_[(uint8_t)data.commodityCode] = data;
 
-    msg.contents["commodityCode:" + data.commodityCode] = data.commodityCode;
-    msg.contents[data.commodityCode + ":instantaneousRate"] =
+    msg.contents["commodityCode:" + std::to_string(data.commodityCode)] =
+        data.commodityCode;
+    msg.contents[std::to_string(data.commodityCode) + ":instantaneousRate"] =
         data.getInstantaneousRate();
-    msg.contents[data.commodityCode + ":cumulativeAmount"] =
+    msg.contents[std::to_string(data.commodityCode) + ":cumulativeAmount"] =
         data.getCumulativeAmount();
   }
 
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processSetEnergyPriceResponse(
@@ -102,7 +103,7 @@ void cea2045UCM::processSetEnergyPriceResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processSetEnergyPriceResponse";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processSetTemperatureOffsetResponse(
@@ -112,7 +113,7 @@ void cea2045UCM::processSetTemperatureOffsetResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processSetTemperatureOffsetResponse";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processGetTemperatureOffsetResponse(
@@ -122,7 +123,7 @@ void cea2045UCM::processGetTemperatureOffsetResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processGetTemperatureOffsetResponse";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processSetSetpointsResponse(
@@ -132,18 +133,17 @@ void cea2045UCM::processSetSetpointsResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processSetSetpointsResponse";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
-"
-    void
-    cea2045UCM::processGetSetpointsResponse(
-        cea2045GetSetpointsResponse1 *message) {
+
+void cea2045UCM::processGetSetpointsResponse(
+    cea2045GetSetpointsResponse1 *message) {
   trust::Message msg;
   msg.to = "DCM";
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processGetSetpointsResponse";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processGetSetpointsResponse(
@@ -153,7 +153,7 @@ void cea2045UCM::processGetSetpointsResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processGetSetpointsResponse";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processStartCyclingResponse(
@@ -163,7 +163,7 @@ void cea2045UCM::processStartCyclingResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processStartCyclingResponse";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processTerminateCyclingResponse(
@@ -175,7 +175,7 @@ void cea2045UCM::processTerminateCyclingResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processTerminateCyclingResponse";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processGetPresentTemperatureResponse(
@@ -185,7 +185,7 @@ void cea2045UCM::processGetPresentTemperatureResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processGetPresentTemperatureResponse";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processGetUTCTimeResponse(cea2045GetUTCTimeResponse *message) {
@@ -194,7 +194,7 @@ void cea2045UCM::processGetUTCTimeResponse(cea2045GetUTCTimeResponse *message) {
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processGetUTCTimeResponse";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processAckReceived(MessageCode code) {
@@ -203,7 +203,7 @@ void cea2045UCM::processAckReceived(MessageCode code) {
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processAckReceived";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processNakReceived(LinkLayerNakCode nak, MessageCode code) {
@@ -212,7 +212,7 @@ void cea2045UCM::processNakReceived(LinkLayerNakCode nak, MessageCode code) {
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processNakReceived";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processAppAckReceived(cea2045Basic *message) {
@@ -221,7 +221,7 @@ void cea2045UCM::processAppAckReceived(cea2045Basic *message) {
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processAppAckReceived";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processAppNakReceived(cea2045Basic *message) {
@@ -230,7 +230,7 @@ void cea2045UCM::processAppNakReceived(cea2045Basic *message) {
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processAppNakReceived";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processOperationalStateReceived(cea2045Basic *message) {
@@ -239,7 +239,7 @@ void cea2045UCM::processOperationalStateReceived(cea2045Basic *message) {
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processOperationalStateReceived";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processAppCustomerOverride(cea2045Basic *message) {
@@ -248,7 +248,7 @@ void cea2045UCM::processAppCustomerOverride(cea2045Basic *message) {
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processAppCustomerOverride";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 void cea2045UCM::processIncompleteMessage(const unsigned char *buffer,
@@ -258,7 +258,7 @@ void cea2045UCM::processIncompleteMessage(const unsigned char *buffer,
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processIncompleteMessage";
-  https::SingleClient::getInstance().Post("", trust::Stringify(msg));
+  dtm_client.Post("", trust::Stringify(msg));
 }
 
 } // namespace trust
