@@ -21,7 +21,7 @@ bool cea2045UCM::isMessageTypeSupported(MessageTypeCode type_code) {
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "isMessageTypeSupported";
   msg.contents["MessageTypeCode"] = psu::utilities::ToUnderlyingType(type_code);
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 
   if (type_code == MessageTypeCode::NONE) {
     return false;
@@ -40,7 +40,7 @@ void cea2045UCM::processMaxPayloadResponse(MaxPayloadLengthCode payload) {
   msg.contents["response"] = "processMaxPayloadResponse";
   msg.contents["MaxPayloadLengthCode"] =
       psu::utilities::ToUnderlyingType(max_payload_);
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 
   max_payload_ = payload;
 }
@@ -70,7 +70,7 @@ void cea2045UCM::processDeviceInfoResponse(cea2045DeviceInfoResponse *message) {
   msg.contents["firmwareYear"] = device_info_.firmware_year;
   msg.contents["firmwareMinor"] = device_info_.firmware_minor;
   msg.contents["firmwareMajor"] = device_info_.firmware_major;
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processCommodityResponse(cea2045CommodityResponse *message) {
@@ -93,7 +93,7 @@ void cea2045UCM::processCommodityResponse(cea2045CommodityResponse *message) {
         data.getCumulativeAmount();
   }
 
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processSetEnergyPriceResponse(
@@ -103,7 +103,7 @@ void cea2045UCM::processSetEnergyPriceResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processSetEnergyPriceResponse";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processSetTemperatureOffsetResponse(
@@ -113,7 +113,7 @@ void cea2045UCM::processSetTemperatureOffsetResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processSetTemperatureOffsetResponse";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processGetTemperatureOffsetResponse(
@@ -123,7 +123,7 @@ void cea2045UCM::processGetTemperatureOffsetResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processGetTemperatureOffsetResponse";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processSetSetpointsResponse(
@@ -133,7 +133,7 @@ void cea2045UCM::processSetSetpointsResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processSetSetpointsResponse";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processGetSetpointsResponse(
@@ -143,7 +143,7 @@ void cea2045UCM::processGetSetpointsResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processGetSetpointsResponse";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processGetSetpointsResponse(
@@ -153,7 +153,7 @@ void cea2045UCM::processGetSetpointsResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processGetSetpointsResponse";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processStartCyclingResponse(
@@ -163,7 +163,7 @@ void cea2045UCM::processStartCyclingResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processStartCyclingResponse";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processTerminateCyclingResponse(
@@ -175,7 +175,7 @@ void cea2045UCM::processTerminateCyclingResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processTerminateCyclingResponse";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processGetPresentTemperatureResponse(
@@ -185,7 +185,7 @@ void cea2045UCM::processGetPresentTemperatureResponse(
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processGetPresentTemperatureResponse";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processGetUTCTimeResponse(cea2045GetUTCTimeResponse *message) {
@@ -194,7 +194,7 @@ void cea2045UCM::processGetUTCTimeResponse(cea2045GetUTCTimeResponse *message) {
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processGetUTCTimeResponse";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processAckReceived(MessageCode code) {
@@ -203,7 +203,7 @@ void cea2045UCM::processAckReceived(MessageCode code) {
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processAckReceived";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processNakReceived(LinkLayerNakCode nak, MessageCode code) {
@@ -212,7 +212,7 @@ void cea2045UCM::processNakReceived(LinkLayerNakCode nak, MessageCode code) {
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processNakReceived";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processAppAckReceived(cea2045Basic *message) {
@@ -221,7 +221,7 @@ void cea2045UCM::processAppAckReceived(cea2045Basic *message) {
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processAppAckReceived";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processAppNakReceived(cea2045Basic *message) {
@@ -230,7 +230,7 @@ void cea2045UCM::processAppNakReceived(cea2045Basic *message) {
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processAppNakReceived";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processOperationalStateReceived(cea2045Basic *message) {
@@ -239,7 +239,7 @@ void cea2045UCM::processOperationalStateReceived(cea2045Basic *message) {
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processOperationalStateReceived";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processAppCustomerOverride(cea2045Basic *message) {
@@ -248,7 +248,7 @@ void cea2045UCM::processAppCustomerOverride(cea2045Basic *message) {
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processAppCustomerOverride";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 void cea2045UCM::processIncompleteMessage(const unsigned char *buffer,
@@ -258,7 +258,7 @@ void cea2045UCM::processIncompleteMessage(const unsigned char *buffer,
   msg.from = "DER";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["response"] = "processIncompleteMessage";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 }
 
 } // namespace trust

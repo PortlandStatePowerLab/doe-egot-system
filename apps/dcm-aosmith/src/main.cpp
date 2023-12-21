@@ -4,6 +4,7 @@
 #include <string>
 #include <trust/cta2045/trust_device.hpp>
 #include <utilities/utilities.hpp>
+
 std::string g_program_path;
 
 int main(int argc, char **argv) {
@@ -14,10 +15,8 @@ int main(int argc, char **argv) {
   ecs.import <ecs::client::commodity::Module>();
   cea2045::cea2045CommodityData commodity_data;
   ecs.entity().set<cea2045::cea2045CommodityData>(commodity_data);
-
   https::Context dtm_ctx = {"1", g_program_path, "0.0.0.0", "8090"};
-  trust::cta2045Device::getInstance("/ttyAMA0", dtm_ctx);
-
+  trust::cta2045Device::getInstance("usb 1-1", dtm_ctx);
   ecs.app().target_fps(1).run();
   return 0;
 }

@@ -45,7 +45,7 @@ cta2045Device::~cta2045Device() {
 
 cta2045Device &cta2045Device::getInstance(const std::string &ctx,
                                           const https::Context &dtm) {
-  if (ctx != "" && !initialized_s) {
+  if (ctx != "/na" && !initialized_s) {
     initialized_s = true;
   }
 
@@ -63,7 +63,7 @@ cta2045::DeviceInfo cta2045Device::getDeviceInfo() {
   msg.from = "DCM";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["request"] = "intermediateGetDeviceInformation";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 
   response_codes_ = device_->intermediateGetDeviceInformation().get();
 
@@ -83,7 +83,7 @@ cta2045::commodity_map cta2045Device::getCommodity() {
   msg.from = "DCM";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["request"] = "intermediateGetCommodity";
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 
   response_codes_ = device_->intermediateGetCommodity().get();
   if (response_codes_.responesCode != ResponseCode::OK) {
@@ -101,7 +101,7 @@ cea2045::ResponseCodes cta2045Device::loadUp(const uint8_t duration) {
   msg.timestamp = psu::utilities::getTime();
   msg.contents["request"] = "basicLoadUp";
   msg.contents["duration"] = duration;
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 
   response_codes_ = device_->basicLoadUp(duration).get();
   if (response_codes_.responesCode != ResponseCode::OK) {
@@ -119,7 +119,7 @@ cea2045::ResponseCodes cta2045Device::shed(const uint8_t duration) {
   msg.timestamp = psu::utilities::getTime();
   msg.contents["request"] = "basicLoadUp";
   msg.contents["duration"] = duration;
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 
   response_codes_ = device_->basicShed(duration).get();
   if (response_codes_.responesCode != ResponseCode::OK) {
@@ -137,7 +137,7 @@ cea2045::ResponseCodes cta2045Device::endShed(const uint8_t duration) {
   msg.timestamp = psu::utilities::getTime();
   msg.contents["request"] = "basicEndShed";
   msg.contents["duration"] = duration;
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 
   response_codes_ = device_->basicEndShed(duration).get();
   if (response_codes_.responesCode != ResponseCode::OK) {
@@ -156,7 +156,7 @@ cta2045Device::criticalPeakEvent(const uint8_t duration) {
   msg.timestamp = psu::utilities::getTime();
   msg.contents["request"] = "basicCriticalPeakEvent";
   msg.contents["duration"] = duration;
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 
   response_codes_ = device_->basicCriticalPeakEvent(duration).get();
   if (response_codes_.responesCode != ResponseCode::OK) {
@@ -175,7 +175,7 @@ cea2045::ResponseCodes cta2045Device::gridEmergency(const uint8_t duration) {
   msg.timestamp = psu::utilities::getTime();
   msg.contents["request"] = "basicGridEmergency";
   msg.contents["duration"] = duration;
-  dtm_client.Post("", trust::Stringify(msg));
+  dtm_client.Post("/na", trust::Stringify(msg));
 
   response_codes_ = device_->basicGridEmergency(duration).get();
   if (response_codes_.responesCode != ResponseCode::OK) {
