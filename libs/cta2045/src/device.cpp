@@ -1,4 +1,5 @@
 #include <cta2045/device.hpp>
+#include <iostream>
 
 using namespace cea2045;
 
