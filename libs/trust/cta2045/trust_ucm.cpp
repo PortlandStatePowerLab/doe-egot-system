@@ -83,7 +83,8 @@ void cea2045UCM::processCommodityResponse(cea2045CommodityResponse *message) {
   size_t count = message->getCommodityDataCount();
   for (size_t i = 0; i < count; i++) {
     cea2045CommodityData data = *message->getCommodityData(i);
-    commodities_[(uint8_t)data.commodityCode] = data;
+    commodities_[cta2045::Commodity{data.commodityCode}] = {
+        data.getInstantaneousRate(), data.getCumulativeAmount()};
 
     msg.contents["commodityCode:" + std::to_string(data.commodityCode)] =
         data.commodityCode;

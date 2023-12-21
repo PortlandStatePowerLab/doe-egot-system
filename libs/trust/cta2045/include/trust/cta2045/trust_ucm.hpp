@@ -6,9 +6,6 @@
 #include <unordered_map>
 
 namespace cta2045 {
-using commodity_map =
-    std::unordered_map<uint8_t, cea2045::cea2045CommodityData>;
-
 enum class Commodity : uint8_t {
   kElectricityConsumed,
   kElectricityProduced,
@@ -23,6 +20,13 @@ enum class Commodity : uint8_t {
   kTotalLoadUp,
   kPresentLoadup
 };
+
+struct CommodityData {
+  int64_t instantaneous;
+  int64_t cummulative;
+};
+
+using commodity_map = std::unordered_map<Commodity, CommodityData>;
 
 enum class DeviceType : uint8_t {
   kUnspecified,
