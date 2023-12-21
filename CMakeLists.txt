@@ -22,21 +22,20 @@ include(FindXercesC)
 include(FindGTest)
 
 include(FetchContent)
-FetchContent_GetProperties(flecs)
-if(NOT flecs_POPULATED)
-  FetchContent_Declare(
-    flecs
-    GIT_REPOSITORY https://github.com/SanderMertens/flecs.git
-    GIT_TAG master)
-endif()
+# toggle with previous set after first build to stop downloading and building
+# fetched libs
+set(FETCHCONTENT_UPDATES_DISCONNECTED=ON)
+# set(FETCHCONTENT_FULLY_DISCONNECTED=ON)
 
-FetchContent_GetProperties(cea2045)
-if(NOT cea2045_POPULATED)
-  FetchContent_Declare(
-    cea2045
-    GIT_REPOSITORY https://github.com/epri-dev/CTA-2045-UCM-CPP-Library.git
-    GIT_TAG v1.0)
-endif()
+FetchContent_Declare(
+  flecs
+  GIT_REPOSITORY https://github.com/SanderMertens/flecs.git
+  GIT_TAG master)
+
+FetchContent_Declare(
+  cea2045
+  GIT_REPOSITORY https://github.com/epri-dev/CTA-2045-UCM-CPP-Library.git
+  GIT_TAG v1.0)
 
 FetchContent_MakeAvailable(flecs cea2045)
 
