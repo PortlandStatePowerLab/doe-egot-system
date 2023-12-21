@@ -4,15 +4,15 @@
 #include <flecs.h>
 
 namespace ecs {
-namespace cta2045 {
-namespace ucm {
+namespace client {
+namespace commodity {
 ///
 /// this module
 ///
 struct Module {
   Module(flecs::world &ecs);
 };
-} // namespace ucm
-} // namespace cta2045
+} // namespace commodity
+} // namespace client
 } // namespace ecs
 #endif // __DCM_CTA2045_MODULE_H__
