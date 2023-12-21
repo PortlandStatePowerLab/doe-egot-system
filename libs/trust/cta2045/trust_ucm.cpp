@@ -81,6 +81,7 @@ void cea2045UCM::processCommodityResponse(cea2045CommodityResponse *message) {
   msg.contents["response"] = "processCommodityResponse";
 
   size_t count = message->getCommodityDataCount();
+  std::cout << "commodity count " << count << std::endl;
   for (size_t i = 0; i < count; i++) {
     cea2045CommodityData data = *message->getCommodityData(i);
     commodities_[cta2045::Commodity{
@@ -93,6 +94,11 @@ void cea2045UCM::processCommodityResponse(cea2045CommodityResponse *message) {
         data.getInstantaneousRate();
     msg.contents[std::to_string(data.commodityCode) + ":cumulativeAmount"] =
         data.getCumulativeAmount();
+
+    for (const auto content : commodities_) {
+      std::cout << (int)content.first << "\n\t" << content.second.instantaneous
+                << " , " << content.second.cummulative << std::endl;
+    }
   }
 
   dtm_client.Post("/na", trust::Stringify(msg));

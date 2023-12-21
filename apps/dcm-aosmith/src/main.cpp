@@ -1,6 +1,8 @@
 #include <ecs/client/cta2045/commodity.hpp>
 #include <https/client/client.hpp>
 #include <iostream>
+#include <sep/models/active_power.hpp>
+#include <sep/models/real_energy.hpp>
 #include <string>
 #include <trust/cta2045/trust_device.hpp>
 #include <utilities/utilities.hpp>
@@ -13,8 +15,8 @@ int main(int argc, char **argv) {
 
   flecs::world ecs;
   ecs.import <ecs::client::commodity::Module>();
-  cea2045::cea2045CommodityData commodity_data;
-  ecs.entity().set<cea2045::cea2045CommodityData>(commodity_data);
+  ecs.entity().set<sep::ActivePower>({0, 0});
+  ecs.entity().set<sep::RealEnergy>({0, 0});
   https::Context dtm_ctx = {"1", g_program_path, "0.0.0.0", "8090"};
   trust::cta2045Device::getInstance("usb 1-1", dtm_ctx);
   ecs.app().target_fps(1).run();

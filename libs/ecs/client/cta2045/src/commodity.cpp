@@ -14,7 +14,7 @@ Module::Module(flecs::world &ecs) {
 
   /* Register system */
   ecs.system<sep::ActivePower, sep::RealEnergy>("waterheater-metrics")
-      .each([&](flecs::entity e, sep::ActivePower &w, sep::RealEnergy &wh) {
+      .each([](flecs::entity e, sep::ActivePower &w, sep::RealEnergy &wh) {
         std::cout << "cta2045: getting commodity data" << std::endl;
         cta2045::commodity_map commodities =
             trust::cta2045Device::getInstance().getCommodity();
