@@ -90,16 +90,19 @@ int main(int argc, char *argv[]) {
     std::cout << e.what() << std::endl;
   }
 
-  auto sys2 = ecs.system<Power>("reallocate").each([](flecs::entity e, Power) {
-    auto p = e.parent();
-    auto f = e.world().filter_builder<Energy>().term(flecs::ChildOf, p).build();
-    if (f.count() == 0) {
-      std::cout << e.name() << " reallocated to " << p.parent().name()
-                << std::endl;
-      e.remove<Available>();
-      e.child_of(p.parent());
-    }
-  });
+  auto sys2 =
+      ecs.system<Power>("reallocate").each([](flecs::entity e, Power &pwr) {
+        e.set<Power>({pwr.real, pwr.imag});
+        auto p = e.parent();
+        auto f =
+            e.world().filter_builder<Energy>().term(flecs::ChildOf, p).build();
+        if (f.count() == 0) {
+          std::cout << e.name() << " reallocated to " << p.parent().name()
+                    << std::endl;
+          e.remove<Available>();
+          e.child_of(p.parent());
+        }
+      });
 
   auto sys1 = ecs.system<Energy>("substation-energy")
                   .each([](flecs::entity e, Energy &t) {
@@ -122,6 +125,10 @@ int main(int argc, char *argv[]) {
                       }
                     });
                   });
+
+  ecs.observer<Power>().event(flecs::OnSet).each([](flecs::entity e, Power &p) {
+    std::cout << "Power value has changed !!!! " << e.name() << std::endl;
+  });
 
   Energy abc;
   abc.name = "abc";

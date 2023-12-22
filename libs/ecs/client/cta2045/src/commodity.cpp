@@ -21,12 +21,14 @@ Module::Module(flecs::world &ecs) {
         for (const auto commodity : commodities) {
           if (commodity.first == cta2045::Commodity::kElectricityConsumed) {
             if (w.value != commodity.second.instantaneous) {
-              w.value = commodity.second.instantaneous;
+              e.set<sep::ActivePower>(
+                  {1, static_cast<sep::Int16>(commodity.second.instantaneous)});
             }
           }
           if (commodity.first == cta2045::Commodity::kTotalEnergy) {
             if (wh.value != commodity.second.cummulative) {
-              wh.value = commodity.second.cummulative;
+              e.set<sep::RealEnergy>(
+                  {1, static_cast<sep::UInt48>(commodity.second.cummulative)});
             }
           }
         }
