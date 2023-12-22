@@ -1,4 +1,3 @@
-#include <boost/asio/ssl/error.hpp>
 #define BOOST_BIND_GLOBAL_PLACEHOLDERS // had to to remove boost warning
 #include <boost/asio/ssl/rfc2818_verification.hpp>
 #include <https/client/client.hpp>
@@ -125,9 +124,9 @@ Client::Send(bb::http::request<bb::http::string_body> &req) {
 
     // Receive the HTTP response
     bb::http::read(stream, buffer, res);
-  } catch (const boost::beast::error_code &e) {
-    if (e != boost::asio::ssl::error::stream_truncated) {
-      std::cerr << e << '\n';
+  } catch (const std::exception &e) {
+    if (static_cast<std::string>(e.what()) != "stream truncated") {
+      std::cerr << e.what() << '\n';
     }
   }
 

@@ -83,17 +83,17 @@ void cea2045UCM::processCommodityResponse(cea2045CommodityResponse *message) {
   size_t count = message->getCommodityDataCount();
   std::cout << "commodity count " << count << std::endl;
   for (size_t i = 0; i < count; i++) {
-    cea2045CommodityData data = *message->getCommodityData(i);
+    cea2045CommodityData *data = message->getCommodityData(i);
     commodities_[cta2045::Commodity{
-        static_cast<cta2045::Commodity>(data.commodityCode)}] = {
-        data.getInstantaneousRate(), data.getCumulativeAmount()};
+        static_cast<cta2045::Commodity>(data->commodityCode)}] = {
+        data->getInstantaneousRate(), data->getCumulativeAmount()};
 
-    msg.contents["commodityCode:" + std::to_string(data.commodityCode)] =
-        data.commodityCode;
-    msg.contents[std::to_string(data.commodityCode) + ":instantaneousRate"] =
-        data.getInstantaneousRate();
-    msg.contents[std::to_string(data.commodityCode) + ":cumulativeAmount"] =
-        data.getCumulativeAmount();
+    msg.contents["commodityCode:" + std::to_string(data->commodityCode)] =
+        data->commodityCode;
+    msg.contents[std::to_string(data->commodityCode) + ":instantaneousRate"] =
+        data->getInstantaneousRate();
+    msg.contents[std::to_string(data->commodityCode) + ":cumulativeAmount"] =
+        data->getCumulativeAmount();
 
     for (const auto content : commodities_) {
       std::cout << (int)content.first << "\n\t" << content.second.instantaneous
