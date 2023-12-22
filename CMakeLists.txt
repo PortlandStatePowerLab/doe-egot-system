@@ -22,10 +22,10 @@ include(FindXercesC)
 include(FindGTest)
 
 include(FetchContent)
-# toggle with previous set after first build to stop downloading and building
-# fetched libs
-set(FETCHCONTENT_UPDATES_DISCONNECTED=ON)
-# set(FETCHCONTENT_FULLY_DISCONNECTED=ON)
+
+set(FETCHCONTENT_UPDATES_DISCONNECTED
+    ON
+    CACHE BOOL "Do not update everytime I run cmake, please")
 
 FetchContent_Declare(
   flecs
