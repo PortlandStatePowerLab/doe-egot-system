@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
   ecs.entity().set<sep::ActivePower>({0, 0});
   ecs.entity().set<sep::RealEnergy>({0, 0});
   https::Context dtm_ctx = {"1", g_program_path, "0.0.0.0", "8090"};
-  trust::cta2045Device::getInstance("usb 1-1", dtm_ctx);
+  trust::cta2045Device::getInstance("/dev/ttyAMA0", dtm_ctx);
   ecs.app().target_fps(1).run();
   return 0;
 }
