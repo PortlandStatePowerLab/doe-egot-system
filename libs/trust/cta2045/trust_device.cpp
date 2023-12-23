@@ -94,13 +94,48 @@ cta2045::commodity_map cta2045Device::getCommodity() {
   return ucm_.commodities_;
 }
 
+cea2045::ResponseCodes cta2045Device::getOperationalState(){
+  trust::Message msg;
+  msg.to = "DER";
+  msg.from = "DCM";
+  msg.timestamp = psu::utilities::getTime();
+  msg.contents["request"] = "basicQueryOperationalState";
+  dtm_client.Post("/na", trust::Stringify(msg));
+
+  response_codes_ = device_->basicQueryOperationalState().get();
+  if (response_codes_.responesCode != ResponseCode::OK) {
+    std::cout << "CTA2045 Device: does not support QueryOperationalState with code = "
+              << static_cast<int>(response_codes_.responesCode);
+    abort();
+  }
+  return response_codes_;
+}
+
+cea2045::ResponseCodes cta2045Device::getOutsideCommunicationStatus(cea2045::OutsideCommuncatonStatusCode code){
+  trust::Message msg;
+  msg.to = "DER";
+  msg.from = "DCM";
+  msg.timestamp = psu::utilities::getTime();
+  msg.contents["request"] = "basicOutsideCommConnectionStatus";
+  msg.contents["code"] = std::to_string((int)code);
+  dtm_client.Post("/na", trust::Stringify(msg));
+
+  response_codes_ = device_->basicOutsideCommConnectionStatus(code).get();
+  if (response_codes_.responesCode != ResponseCode::OK) {
+    std::cout << "CTA2045 Device: does not support basicOutsideCommConnectionStatus with code = "
+              << static_cast<int>(response_codes_.responesCode);
+    abort();
+  }
+  return response_codes_;
+}
+
 cea2045::ResponseCodes cta2045Device::loadUp(const uint8_t duration) {
   trust::Message msg;
   msg.to = "DER";
   msg.from = "DCM";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["request"] = "basicLoadUp";
-  msg.contents["duration"] = duration;
+  msg.contents["duration"] = std::to_string(duration);
   dtm_client.Post("/na", trust::Stringify(msg));
 
   response_codes_ = device_->basicLoadUp(duration).get();
@@ -118,7 +153,7 @@ cea2045::ResponseCodes cta2045Device::shed(const uint8_t duration) {
   msg.from = "DCM";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["request"] = "basicLoadUp";
-  msg.contents["duration"] = duration;
+  msg.contents["duration"] = std::to_string(duration);
   dtm_client.Post("/na", trust::Stringify(msg));
 
   response_codes_ = device_->basicShed(duration).get();
@@ -136,7 +171,7 @@ cea2045::ResponseCodes cta2045Device::endShed(const uint8_t duration) {
   msg.from = "DCM";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["request"] = "basicEndShed";
-  msg.contents["duration"] = duration;
+  msg.contents["duration"] = std::to_string(duration);
   dtm_client.Post("/na", trust::Stringify(msg));
 
   response_codes_ = device_->basicEndShed(duration).get();
@@ -155,7 +190,7 @@ cta2045Device::criticalPeakEvent(const uint8_t duration) {
   msg.from = "DCM";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["request"] = "basicCriticalPeakEvent";
-  msg.contents["duration"] = duration;
+  msg.contents["duration"] = std::to_string(duration);
   dtm_client.Post("/na", trust::Stringify(msg));
 
   response_codes_ = device_->basicCriticalPeakEvent(duration).get();
@@ -174,7 +209,7 @@ cea2045::ResponseCodes cta2045Device::gridEmergency(const uint8_t duration) {
   msg.from = "DCM";
   msg.timestamp = psu::utilities::getTime();
   msg.contents["request"] = "basicGridEmergency";
-  msg.contents["duration"] = duration;
+  msg.contents["duration"] = std::to_string(duration);
   dtm_client.Post("/na", trust::Stringify(msg));
 
   response_codes_ = device_->basicGridEmergency(duration).get();

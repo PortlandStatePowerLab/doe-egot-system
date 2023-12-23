@@ -29,7 +29,7 @@ set(FETCHCONTENT_UPDATES_DISCONNECTED
 
 FetchContent_Declare(
   flecs
-  GIT_REPOSITORY https://github.com/SanderMertens/flecs.git
+  GIT_REPOSITORY git@github.com:SanderMertens/flecs.git
   GIT_TAG master)
 
 FetchContent_Declare(

@@ -18,6 +18,8 @@ public:
 
   cta2045::DeviceInfo getDeviceInfo();
   cta2045::commodity_map getCommodity();
+  cea2045::ResponseCodes getOperationalState();
+  cea2045::ResponseCodes getOutsideCommunicationStatus(cea2045::OutsideCommuncatonStatusCode code);
   cea2045::ResponseCodes loadUp(const uint8_t duration);
   cea2045::ResponseCodes shed(const uint8_t duration);
   cea2045::ResponseCodes endShed(const uint8_t duration);
