@@ -8,6 +8,9 @@
 #include <utilities/utilities.hpp>
 
 std::string g_program_path;
+// create config xml with these values and store somewhere
+float frr_time_window;
+float comfort_threshold;
 
 int main(int argc, char **argv) {
   std::cout << "Starting DCM for AOSmith water heater\n";

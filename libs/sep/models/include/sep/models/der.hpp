@@ -7,6 +7,7 @@
 #include "der_status.hpp"
 #include "subscribable_resource.hpp"
 #include "usage_point_base.hpp"
+#include <boost/optional.hpp>
 
 namespace sep {
 struct DERListLink : ListLink {};
@@ -16,13 +17,14 @@ struct DERList : List {};
 /// Contains links to DER resources.
 ///
 struct DER : SubscribableResource {
-  AssociatedDERProgramListLink associated_der_program_list_link;
-  AssociatedUsagePointLink associated_usage_program_link;
-  CurrentDERProgramLink current_der_program_link;
-  DERAvailabilityLink der_availability_link;
-  DERCapabilityLink der_capability_link;
-  DERSettingsLink der_settings_link;
-  DERStatusLink der_status_link;
+  boost::optional<AssociatedDERProgramListLink>
+      associated_der_program_list_link;
+  boost::optional<AssociatedUsagePointLink> associated_usage_program_link;
+  boost::optional<CurrentDERProgramLink> current_der_program_link;
+  boost::optional<DERAvailabilityLink> der_availability_link;
+  boost::optional<DERCapabilityLink> der_capability_link;
+  boost::optional<DERSettingsLink> der_settings_link;
+  boost::optional<DERStatusLink> der_status_link;
 };
 
 } // namespace sep

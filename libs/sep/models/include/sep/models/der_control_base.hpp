@@ -34,11 +34,11 @@ struct DERControlBase {
   PerCent op_mod_max_lim_w;
   ReactivePower op_mod_target_var;
   ActivePower op_mod_target_w;
-  Link op_mod_volt_var;
-  Link op_mod_volt_watt;
-  Link op_mod_watt_pf;
-  Link op_mod_watt_var;
-  uint16_t ramp_tms; // ramp time, in hundredths of a second
+  DERCurveLink op_mod_volt_var;
+  DERCurveLink op_mod_volt_watt;
+  DERCurveLink op_mod_watt_pf;
+  DERCurveLink op_mod_watt_var;
+  UInt16 ramp_tms; // ramp time, in hundredths of a second
 };
 };     // namespace sep
 #endif // __DER_CONTROL_BASE_H__

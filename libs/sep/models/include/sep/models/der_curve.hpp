@@ -5,6 +5,7 @@
 #include "der_unit_ref_type.hpp"
 #include "per_cent.hpp"
 #include "simple_types.hpp"
+#include <vector>
 
 namespace sep {
 struct DERCurveListLink : ListLink {};
@@ -18,7 +19,7 @@ struct DERCurve : IdentifiedObject {
   bool autonomous_vref_enable;
   UInt32 autonomous_vref_time_constant;
   TimeType creation_time;
-  CurveData curve_data;
+  std::vector<CurveData> curve_data;
   DERCurveType curve_type;
   UInt16 open_loop_tms;
   UInt16 ramp_dec_tms;
