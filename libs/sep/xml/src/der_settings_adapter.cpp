@@ -22,7 +22,7 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::DERSettings *derg) {
   derg->set_max_w.multiplier = pt.get<sep::Int8>(path, 0);
 
   path = "DERSettings.setGradW.multiplier";
-  derg->set_gradrw = pt.get<sep::UInt16>(path, 0);
+  derg->set_grad_w = pt.get<sep::UInt16>(path, 0);
 
   path = "DERSettings.updatedTime";
   derg->updated_time = pt.get<sep::TimeType>(path, 0);
@@ -31,6 +31,41 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::DERSettings *derg) {
   if (auto value = pt.get_optional<std::string>(path)) {
     derg->modes_enabled = static_cast<sep::DERControlType>(
         util::Dehexify<sep::HexBinary32>(value.value()));
+  }
+
+  path = "DERSettings.setESDelay";
+  if (auto opt = pt.get_optional<sep::UInt32>(path)) {
+    derg->set_es_random_delay = opt.value();
+  }
+
+  path = "DERSettings.setESHighFreq";
+  if (auto opt = pt.get_optional<sep::UInt16>(path)) {
+    derg->set_es_high_freq = opt.value();
+  }
+
+  path = "DERSettings.setESHighVolt";
+  if (auto opt = pt.get_optional<sep::UInt16>(path)) {
+    derg->set_es_high_volt = opt.value();
+  }
+
+  path = "DERSettings.setESLowFreq";
+  if (auto opt = pt.get_optional<sep::UInt16>(path)) {
+    derg->set_es_low_freq = opt.value();
+  }
+
+  path = "DERSettings.setESLowVolt";
+  if (auto opt = pt.get_optional<sep::UInt16>(path)) {
+    derg->set_es_low_volt = opt.value();
+  }
+
+  path = "DERSettings.setESRampTms";
+  if (auto opt = pt.get_optional<sep::UInt32>(path)) {
+    derg->set_es_ramp_tms = opt.value();
+  }
+
+  path = "DERSettings.setESRandomDelay";
+  if (auto opt = pt.get_optional<sep::UInt32>(path)) {
+    derg->set_es_random_delay = opt.value();
   }
 
   path = "DERSettings.setMaxA";
@@ -186,14 +221,64 @@ void TreeMap(const sep::DERSettings &derg, boost::property_tree::ptree *pt) {
   std::string path = "DERSettings.<xmlattr>.href";
   pt->put(path, derg.href);
 
-  path = "DERSettings.modesSupported";
-  pt->put(path, util::Hexify(util::ToUnderlyingType(derg.modes_enabled)));
+  path = "DERSettings.<xmlattr>.subscribable";
+  pt->put(path, util::ToUnderlyingType(derg.subscribable));
 
   path = "DERSettings.setMaxW.value";
   pt->put(path, derg.set_max_w.value);
 
   path = "DERSettings.setMaxW.multiplier";
   pt->put(path, derg.set_max_w.multiplier);
+
+  path = "DERSettings.setGradW";
+  pt->put(path, derg.set_grad_w);
+
+  if (derg.modes_enabled.is_initialized()) {
+    path = "DERSettings.modesSupported";
+    pt->put(path,
+            util::Hexify(util::ToUnderlyingType(derg.modes_enabled.value())));
+  }
+
+  if (derg.modes_enabled.is_initialized()) {
+    path = "DERSettings.modesSupported";
+    pt->put(path,
+            util::Hexify(util::ToUnderlyingType(derg.modes_enabled.value())));
+  }
+
+  if (derg.set_es_delay.is_initialized()) {
+    path = "DERSettings.setESDelay";
+    pt->put(path, derg.set_es_delay.value());
+  }
+
+  if (derg.set_es_high_freq.is_initialized()) {
+    path = "DERSettings.setHighFreq";
+    pt->put(path, derg.set_es_high_freq.value());
+  }
+
+  if (derg.set_es_high_volt.is_initialized()) {
+    path = "DERSettings.setESHighVolt";
+    pt->put(path, derg.set_es_high_volt.value());
+  }
+
+  if (derg.set_es_low_freq.is_initialized()) {
+    path = "DERSettings.setESLowFreq";
+    pt->put(path, derg.set_es_low_freq.value());
+  }
+
+  if (derg.set_es_low_volt.is_initialized()) {
+    path = "DERSettings.setESLowVolt";
+    pt->put(path, derg.set_es_low_volt.value());
+  }
+
+  if (derg.set_es_ramp_tms.is_initialized()) {
+    path = "DERSettings.setESRampTms";
+    pt->put(path, derg.set_es_ramp_tms.value());
+  }
+
+  if (derg.set_es_random_delay.is_initialized()) {
+    path = "DERSettings.setESRandomDelay";
+    pt->put(path, derg.set_es_random_delay.value());
+  }
 
   if (derg.set_max_a.is_initialized()) {
     path = "DERSettings.setMaxA.value";
@@ -293,44 +378,25 @@ void TreeMap(const sep::DERSettings &derg, boost::property_tree::ptree *pt) {
     pt->put(path, derg.set_min_v.get().multiplier);
   }
 
-  if (derg.set_normal_category.is_initialized()) {
-    path = "DERSettings.setNormalCategory";
-    pt->put(path, util::ToUnderlyingType(derg.set_normal_category.get()));
-  }
-
-  if (derg.set_over_excited_pf.is_initialized()) {
-    path = "DERSettings.setOverExcitedPF.displacement";
-    pt->put(path, derg.set_over_excited_pf.get().displacement);
-    path = "DERSettings.setOverExcitedPF.multiplier";
-    pt->put(path, derg.set_over_excited_pf.get().multiplier);
-  }
-
-  if (derg.set_over_excited_w.is_initialized()) {
-    path = "DERSettings.setOverExcitedW.value";
-    pt->put(path, derg.set_over_excited_w.get().value);
-    path = "DERSettings.setOverExcitedW.multiplier";
-    pt->put(path, derg.set_over_excited_w.get().multiplier);
-  }
-
-  if (derg.set_reactive_susceptance.is_initialized()) {
-    path = "DERSettings.setReactiveSusceptance.value";
-    pt->put(path, derg.set_reactive_susceptance.get().value);
-    path = "DERSettings.setReactiveSusceptance.multiplier";
-    pt->put(path, derg.set_reactive_susceptance.get().multiplier);
-  }
-
-  if (derg.set_under_excited_w.is_initialized()) {
-    path = "DERSettings.setUnderExcitedW.value";
-    pt->put(path, derg.set_under_excited_w.get().value);
-    path = "DERSettings.setUnderExcitedW.multiplier";
-    pt->put(path, derg.set_under_excited_w.get().multiplier);
-  }
-
   if (derg.set_v_nom.is_initialized()) {
     path = "DERSettings.setVNom.value";
     pt->put(path, derg.set_v_nom.get().value);
     path = "DERSettings.setVNom.multiplier";
     pt->put(path, derg.set_v_nom.get().multiplier);
+  }
+
+  if (derg.set_v_ref.is_initialized()) {
+    path = "DERSettings.setVRef.value";
+    pt->put(path, derg.set_v_ref.get().value);
+    path = "DERSettings.setVRef.multiplier";
+    pt->put(path, derg.set_v_ref.get().multiplier);
+  }
+
+  if (derg.set_v_ref_ofs.is_initialized()) {
+    path = "DERSettings.setVRefOfs.value";
+    pt->put(path, derg.set_v_ref_ofs.get().value);
+    path = "DERSettings.setVRefOfs.multiplier";
+    pt->put(path, derg.set_v_ref_ofs.get().multiplier);
   }
 };
 

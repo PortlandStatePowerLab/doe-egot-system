@@ -21,7 +21,7 @@ struct DERSettingsLink : Link {};
 ///
 struct DERSettings : SubscribableResource {
 
-  UInt16 set_gradrw;
+  UInt16 set_grad_w;
   ActivePower set_max_w;
   TimeType updated_time;
   boost::optional<DERControlType> modes_enabled;
@@ -45,12 +45,8 @@ struct DERSettings : SubscribableResource {
   boost::optional<ReactivePower> set_max_var_neg;
   boost::optional<WattHour> set_max_wh;
   boost::optional<PowerFactor> set_min_pf_over_excited;
+  boost::optional<PowerFactor> set_min_pf_under_excited;
   boost::optional<VoltageRMS> set_min_v;
-  boost::optional<PowerFactor> set_over_excited_pf;
-  boost::optional<ActivePower> set_over_excited_w;
-  boost::optional<ReactivePower> set_reactive_susceptance;
-  boost::optional<PowerFactor> set_under_excited_pf;
-  boost::optional<ActivePower> set_under_excited_w;
   boost::optional<VoltageRMS> set_v_nom;
   boost::optional<VoltageRMS> set_v_ref;
   boost::optional<VoltageRMS> set_v_ref_ofs;

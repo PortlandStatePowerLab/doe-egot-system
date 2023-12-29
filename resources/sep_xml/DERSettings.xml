@@ -26,11 +26,11 @@
     <value>1</value>
   </setMaxChargeRateW>
   <setMaxDischargeRateVA>
-    <multiplier>-128</multiplier>
+    <multiplier>-8</multiplier>
     <value>0</value>
   </setMaxDischargeRateVA>
   <setMaxDischargeRateW>
-    <multiplier>-128</multiplier>
+    <multiplier>-8</multiplier>
     <value>1</value>
   </setMaxDischargeRateW>
   <setMaxV>
@@ -38,7 +38,7 @@
     <value>0</value>
   </setMaxV>
   <setMaxVA>
-    <multiplier>127</multiplier>
+    <multiplier>7</multiplier>
     <value>0</value>
   </setMaxVA>
   <setMaxVar>
@@ -46,11 +46,11 @@
     <value>1</value>
   </setMaxVar>
   <setMaxVarNeg>
-    <multiplier>-128</multiplier>
+    <multiplier>-8</multiplier>
     <value>1</value>
   </setMaxVarNeg>
   <setMaxW>
-    <multiplier>127</multiplier>
+    <multiplier>7</multiplier>
     <value>1</value>
   </setMaxW>
   <setMaxWh>
@@ -63,15 +63,15 @@
   </setMinPFOverExcited>
   <setMinPFUnderExcited>
     <displacement>0</displacement>
-    <multiplier>-128</multiplier>
+    <multiplier>-8</multiplier>
   </setMinPFUnderExcited>
   <setMinV>
-    <multiplier>-128</multiplier>
+    <multiplier>-8</multiplier>
     <value>0</value>
   </setMinV>
   <setSoftGradW>0</setSoftGradW>
   <setVNom>
-    <multiplier>127</multiplier>
+    <multiplier>7</multiplier>
     <value>0</value>
   </setVNom>
   <setVRef>

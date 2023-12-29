@@ -38,8 +38,6 @@ TEST_F(TestDERCapabilityXML, IsAdapterTranslationAccurate) {
   sep::DERCapability dercap;
   xml::Parse(xml_str, &dercap);
 
-  std::cout << xml::Serialize(dercap) << std::endl;
-
   std::string uri = "http://uri1";
   EXPECT_EQ(dercap.href, uri);
   EXPECT_EQ(dercap.type, sep::DERType::kNA);
