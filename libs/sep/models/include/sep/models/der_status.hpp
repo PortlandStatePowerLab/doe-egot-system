@@ -9,6 +9,7 @@
 #include "state_of_charge_status_type.hpp"
 #include "storage_mode_status_type.hpp"
 #include "subscribable_resource.hpp"
+#include <boost/optional.hpp>
 
 namespace sep {
 struct DERStatusLink : Link {};
@@ -18,29 +19,29 @@ struct DERStatusLink : Link {};
 ///
 struct DERStatus : SubscribableResource {
   enum class AlarmStatus : HexBinary16 {
-    kOverCurrent = 0 << 1,
-    kOverVoltage = 0 << 2,
-    kUnderVoltage = 0 << 3,
-    kOverFrequency = 0 << 4,
-    kUnderFrequency = 0 << 5,
-    kVoltageImbalance = 0 << 6,
-    kCurrentImbalance = 0 << 7,
-    kEmergencyLocal = 0 << 8,
-    kEmergencyRemote = 0 << 9,
-    kLowPowerInput = 0 << 10,
-    kPhaseRotation = 0 << 11
+    kOverCurrent = 0,
+    kOverVoltage = 1 << 0,
+    kUnderVoltage = 1 << 1,
+    kOverFrequency = 1 << 2,
+    kUnderFrequency = 1 << 3,
+    kVoltageImbalance = 1 << 4,
+    kCurrentImbalance = 1 << 5,
+    kEmergencyLocal = 1 << 6,
+    kEmergencyRemote = 1 << 7,
+    kLowPowerInput = 1 << 8,
+    kPhaseRotation = 1 << 9
   };
 
-  AlarmStatus alarm_status;
-  ConnectStatusType gen_connection_status;
-  InverterStatusType inverter_status;
-  LocalControlModeStatusType local_control_mode_status;
-  ManufacturerStatusType manufacturer_status;
-  OperationalModeStatusType operational_mode_status;
   TimeType reading_time;
-  StateOfChargeStatusType state_of_charge_status;
-  StorageModeStatusType storageModeStatus;
-  ConnectStatusType stor_connect_status;
+  boost::optional<AlarmStatus> alarm_status;
+  boost::optional<ConnectStatusType> gen_connection_status;
+  boost::optional<InverterStatusType> inverter_status;
+  boost::optional<LocalControlModeStatusType> local_control_mode_status;
+  boost::optional<ManufacturerStatusType> manufacturer_status;
+  boost::optional<OperationalModeStatusType> operational_mode_status;
+  boost::optional<StateOfChargeStatusType> state_of_charge_status;
+  boost::optional<StorageModeStatusType> storage_mode_status;
+  boost::optional<ConnectStatusType> stor_connect_status;
 };
 
 } // namespace sep

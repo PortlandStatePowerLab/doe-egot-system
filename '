@@ -1,0 +1,104 @@
+#include <boost/optional.hpp>
+#include <sep/models/simple_types.hpp>
+#include <sep/xml/der_status_adapter.hpp>
+#include <sep/xml/utilities.hpp>
+
+namespace xml {
+void ObjectMap(const boost::property_tree::ptree &pt, sep::DERStatus *ders) {
+  std::string path = "DERStatus.<xmlattr>.href";
+  ders->href = pt.get<std::string>(path);
+
+  path = "DERStatus.<xmlatter>.subscribable";
+  ders->subscribable =
+      static_cast<sep::SubscribableType>(pt.get<sep::UInt8>(path, 0));
+
+  path = "DERStatus.readingTime";
+  ders->reading_time = pt.get<sep::TimeType>(path);
+
+  path = "DERStatus.alarmStatus";
+  if (auto opt = pt.get_optional<sep::HexBinary16>(path)) {
+    ders->alarm_status.emplace(opt.value());
+  }
+
+  path = "DERStatus.inverterStatus.dateTime";
+  if (auto opt = pt.get_optional<sep::TimeType>(path)) {
+    ders->inverter_status->date_time = opt.value();
+  }
+
+  path = "DERStatus.inverterStatus.value";
+  if (auto opt = pt.get_optional<sep::UInt8>(path)) {
+    ders->inverter_status->value =
+        static_cast<sep::InverterStatusType::Status>(opt.value());
+  }
+
+  path = "DERStatus.localControlModeStatus.dateTime";
+  if (auto opt = pt.get_optional<sep::TimeType>(path)) {
+    ders->local_control_mode_status->date_time = opt.value();
+  }
+
+  path = "DERStatus.localControlModeStatus.value";
+  if (auto opt = pt.get_optional<sep::UInt8>(path)) {
+    ders->local_control_mode_status->value =
+        static_cast<sep::LocalControlModeStatusType::ControlStatus>(
+            opt.value());
+  }
+
+  path = "DERStatus.manufacturerStatus.dateTime";
+  if (auto opt = pt.get_optional<sep::TimeType>(path)) {
+    ders->manufacturer_status->date_time = opt.value();
+  }
+
+  path = "DERStatus.manufacturerStatus.value";
+  if (auto opt = pt.get_optional<sep::String6>(path)) {
+    ders->manufacturer_status->value = opt.value();
+  }
+
+  path = "DERStatus.operationalModeStatus.dateTime";
+  if (auto opt = pt.get_optional<sep::TimeType>(path)) {
+    ders->gen_connection_status->date_time = opt.value();
+  }
+
+  path = "DERStatus.operationalModeStatus.value";
+  if (auto opt = pt.get_optional<sep::UInt8>(path)) {
+    ders->operational_mode_status->value =
+        static_cast<sep::OperationalModeStatusType::Status>(opt.value());
+  }
+
+  path = "DERStatus.genConnectStatus.dateTime";
+  if (auto opt = pt.get_optional<sep::TimeType>(path)) {
+    ders->gen_connection_status->date_time = opt.value();
+  }
+
+  path = "DERStatus.genConnectStatus.value";
+  if (auto opt = pt.get_optional<sep::UInt8>(path)) {
+    ders->gen_connection_status->value =
+        static_cast<sep::ConnectStatusType::Status>(opt.value());
+  }
+};
+
+void TreeMap(const sep::DERStatus &ders, boost::property_tree::ptree *pt) {
+  std::string path = "DERStatus.<xmlattr>.href";
+  pt->put(path, ders.href);
+  path = "DERStatus.<xmlattr>.pollRate";
+  pt->put(path, ders.poll_rate);
+  if (ders.customer_account_list_link.is_initialized()) {
+    path = "DERStatus.CustomerAccountListLink.<xmlattr>.href";
+    pt->put(path, ders.customer_account_list_link.get().href);
+    path = "DERStatus.CustomerAccountListLink.<xmlattr>.all";
+    pt->put(path, ders.customer_account_list_link.get().all);
+  }
+};
+
+std::string Serialize(const sep::DERStatus &ders) {
+  boost::property_tree::ptree pt;
+  TreeMap(ders, &pt);
+
+  xml::util::SetSchema(&pt);
+  return xml::util::Stringify(&pt);
+}
+
+void Parse(const std::string &xml_str, sep::DERStatus *ders) {
+  boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+  ObjectMap(pt, ders);
+}
+} // namespace xml

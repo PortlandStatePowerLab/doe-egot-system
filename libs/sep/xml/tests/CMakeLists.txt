@@ -8,8 +8,9 @@ add_executable(
   src/der_tests.cpp
   src/dercap_tests.cpp
   src/derg_tests.cpp
-  # src/dera_tests.cpp src/ders_tests.cpp
-  # src/derc_tests.cpp src/fsa_tests.cpp
+  src/ders_tests.cpp
+  src/dera_tests.cpp
+  # src/derc_tests.cpp src/dc_tests.cpp src/fsa_tests.cpp
   src/dcap_tests.cpp
   src/sdev_tests.cpp
   src/edev_tests.cpp
