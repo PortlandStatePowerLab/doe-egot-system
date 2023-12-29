@@ -7,6 +7,7 @@ add_library(
   src/rg.cpp
   src/dcap.cpp
   src/edev.cpp
+  src/der.cpp
   src/rsp.cpp
   src/sdev.cpp
   src/ps.cpp

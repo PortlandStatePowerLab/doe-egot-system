@@ -43,8 +43,7 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::DERCurve *dc) {
   }
 };
 
-void TreeMap(const sep::DeviceCapability &dcap,
-             boost::property_tree::ptree *pt) {
+void TreeMap(const sep::DERCurve &dcap, boost::property_tree::ptree *pt) {
   std::string path = "DeviceCapability.<xmlattr>.href";
   pt->put(path, dcap.href);
   path = "DeviceCapability.<xmlattr>.pollRate";
@@ -57,7 +56,7 @@ void TreeMap(const sep::DeviceCapability &dcap,
   }
 };
 
-std::string Serialize(const sep::DeviceCapability &dcap) {
+std::string Serialize(const sep::DERCurve &dcap) {
   boost::property_tree::ptree pt;
   TreeMap(dcap, &pt);
 

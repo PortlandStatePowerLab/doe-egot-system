@@ -64,6 +64,11 @@ void generateRegistration(flecs::world &world) {
           sep::RegistrationLink rg_link;
           rg_link.href = rg.href;
           edev.registration_link.emplace(rg_link);
+          sep::DERListLink der_ll;
+          der_ll.href = "/der";
+          der_ll.all = 0;
+
+          edev.der_list_link.emplace(der_ll);
           sep::FlowReservationRequestListLink frq;
           frq.href = "/frq";
           frq.all = 0;
@@ -80,6 +85,21 @@ void generateRegistration(flecs::world &world) {
           edev.sfdi = xml::util::getSFDI(lfdi);
           world.entity(edev.href.c_str()).child_of(p).set<sep::EndDevice>(edev);
 
+          sep::DER der;
+          der.href = "/der/" + lfdi;
+          sep::DERCapabilityLink derc;
+          derc.href = "/dercap";
+          der.der_capability_link.emplace(derc);
+          sep::DERSettingsLink derg;
+          derg.href = "/derg";
+          der.der_settings_link.emplace(derg);
+          sep::DERStatusLink ders;
+          ders.href = "/ders";
+          der.der_status_link.emplace(ders);
+          sep::DERAvailabilityLink dera;
+          dera.href = "/dera";
+          der.der_availability_link.emplace(dera);
+          world.entity(der.href.c_str()).child_of(p).set<sep::DER>(der);
           X509_free(cert);
           fclose(fp);
         }

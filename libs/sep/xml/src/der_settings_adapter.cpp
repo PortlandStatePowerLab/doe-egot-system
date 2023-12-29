@@ -188,32 +188,35 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::DERSettings *derg) {
 
   path = "DERSettings.setVNom";
   if (auto child = pt.get_child_optional(path)) {
-    auto value = child.value().get<sep::Int16>("value", 0);
-    auto multi = child.value().get<sep::Int8>("multiplier", 0);
+    auto val = child.value().get<sep::UInt16>("value", 0);
+    auto multi =
+        child.value().get<sep::PowerOfTenMultiplierType>("multiplier", 0);
     sep::VoltageRMS obj;
-    obj.value = value;
+    obj.value = val;
     obj.multiplier = multi;
-    derg->set_v_nom.emplace(obj);
+    derg->set_v_nom = obj;
   }
 
   path = "DERSettings.setVRef";
   if (auto child = pt.get_child_optional(path)) {
-    auto value = child.value().get<sep::Int16>("value", 0);
-    auto multi = child.value().get<sep::Int8>("multiplier", 0);
+    auto val = child.value().get<sep::UInt16>("value", 0);
+    auto multi =
+        child.value().get<sep::PowerOfTenMultiplierType>("multiplier", 0);
     sep::VoltageRMS obj;
-    obj.value = value;
+    obj.value = val;
     obj.multiplier = multi;
-    derg->set_v_ref.emplace(obj);
+    derg->set_v_ref = obj;
   }
 
   path = "DERSettings.setVRefOfs";
   if (auto child = pt.get_child_optional(path)) {
-    auto value = child.value().get<sep::Int16>("value", 0);
-    auto multi = child.value().get<sep::Int8>("multiplier", 0);
+    auto val = child.value().get<sep::UInt16>("value", 0);
+    auto multi =
+        child.value().get<sep::PowerOfTenMultiplierType>("multiplier", 0);
     sep::VoltageRMS obj;
-    obj.value = value;
+    obj.value = val;
     obj.multiplier = multi;
-    derg->set_v_ref_ofs.emplace(obj);
+    derg->set_v_ref_ofs = obj;
   }
 };
 

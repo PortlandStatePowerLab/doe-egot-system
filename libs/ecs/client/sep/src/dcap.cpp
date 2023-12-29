@@ -2,7 +2,6 @@
 #include <ecs/client/sep/edev.hpp>
 #include <ecs/client/sep/rg.hpp>
 #include <ecs/client/sep/tm.hpp>
-#include <iostream>
 #include <sep/xml/device_capability_adapter.hpp>
 #include <sep/xml/end_device_adapter.hpp>
 #include <sep/xml/self_device_adapter.hpp>
@@ -10,20 +9,17 @@
 #include <trust/https/client.hpp>
 #include <utilities/utilities.hpp>
 
-#include "sep/models/flow_reservation_response.hpp"
 #include <sep/models/flow_reservation_request.hpp>
 
 using namespace ecs::client::dcap;
 
 void Module::getDeviceCapability(flecs::entity e,
                                  sep::DeviceCapabilityLink &link) {
-  std::cout << "Running DeviceCapabilities" << std::endl;
   auto resp = trust::HttpsClient::getInstance().Get(link.href);
-
-  std::cout << resp << std::endl;
 
   if (resp.result_int() == 200) {
     std::string msg = boost::beast::buffers_to_string(resp.body().data());
+    std::cout << msg << std::endl;
     sep::DeviceCapability dcap;
     xml::Parse(msg, &dcap);
     e.set<sep::DeviceCapability>(dcap);
@@ -47,10 +43,10 @@ void Module::updateDeviceCapability(flecs::entity e,
     e.set<sep::FlowReservationRequest>(frq);
   }
   if (psu::utilities::getTime() % 30 == 0) {
-    std::cout << "Polling DeviceCapabilities ..." << std::endl;
     auto resp = trust::HttpsClient::getInstance().Get(dcap.href);
 
     std::string msg = boost::beast::buffers_to_string(resp.body().data());
+    std::cout << msg << std::endl;
     xml::Parse(msg, &dcap);
     if (dcap.end_device_list_link.has_value()) {
       e.set<sep::EndDeviceListLink>(dcap.end_device_list_link.value());
@@ -65,10 +61,10 @@ void Module::updateDeviceCapability(flecs::entity e,
 };
 
 void Module::getSelfDevice(flecs::entity e, sep::SelfDeviceLink &link) {
-  std::cout << "Event SelfDeviceLink" << std::endl;
   auto resp = trust::HttpsClient::getInstance().Get(link.href);
   if (resp.result_int() == 200) {
     std::string msg = boost::beast::buffers_to_string(resp.body().data());
+    std::cout << msg << std::endl;
     sep::SelfDevice sdev;
     xml::Parse(msg, &sdev);
     e.set<sep::SelfDevice>(sdev);
@@ -76,7 +72,6 @@ void Module::getSelfDevice(flecs::entity e, sep::SelfDeviceLink &link) {
 };
 
 void Module::getEndDevice(flecs::entity e, sep::EndDeviceListLink &list_link) {
-  std::cout << "Event EndDeviceList" << std::endl;
   auto resp = trust::HttpsClient::getInstance().Get(list_link.href);
   if (resp.result_int() == 200) {
     std::string msg = boost::beast::buffers_to_string(resp.body().data());
@@ -91,7 +86,6 @@ void Module::getEndDevice(flecs::entity e, sep::EndDeviceListLink &list_link) {
 };
 
 void Module::getTime(flecs::entity e, sep::TimeLink &link) {
-  std::cout << "Event TimeLink" << std::endl;
   auto resp = trust::HttpsClient::getInstance().Get(link.href);
   if (resp.result_int() == 200) {
     std::string msg = boost::beast::buffers_to_string(resp.body().data());

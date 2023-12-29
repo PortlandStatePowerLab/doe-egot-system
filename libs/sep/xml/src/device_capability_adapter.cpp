@@ -1,4 +1,5 @@
 #include <boost/optional.hpp>
+#include <iostream>
 #include <sep/models/simple_types.hpp>
 #include <sep/xml/device_capability_adapter.hpp>
 #include <sep/xml/utilities.hpp>

@@ -6,15 +6,15 @@ add_library(
   src/der_adapter.cpp
   src/der_availability_adapter.cpp
   src/der_capability_adapter.cpp
-  src/der_control_adapter.cpp
-  src/der_curve_adapter.cpp
+  # src/der_control_adapter.cpp
+  # src/der_curve_adapter.cpp
   src/der_settings_adapter.cpp
   src/der_status_adapter.cpp
   src/device_capability_adapter.cpp
   src/end_device_adapter.cpp
   src/flow_reservation_response_adapter.cpp
   src/flow_reservation_request_adapter.cpp
-  src/function_set_assignments_adapter.cpp
+  # src/function_set_assignments_adapter.cpp
   src/power_status_adapter.cpp
   src/registration_adapter.cpp
   src/response_adapter.cpp

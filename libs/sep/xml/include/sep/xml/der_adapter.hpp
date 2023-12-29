@@ -11,6 +11,9 @@ void TreeMap(const sep::DER &der, boost::property_tree::ptree *pt);
 
 std::string Serialize(const sep::DER &tm);
 void Parse(const std::string &xml_str, sep::DER *der);
+
+std::string Serialize(const sep::DERList &list);
+void Parse(const std::string &xml_str, sep::DERList *list);
 } // namespace xml
 
 #endif // __DER_ADAPTER_H__

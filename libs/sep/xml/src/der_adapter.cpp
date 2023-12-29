@@ -1,6 +1,6 @@
-
 #include "sep/models/der_availability.hpp"
 #include "sep/models/der_capability.hpp"
+#include <boost/foreach.hpp>
 #include <sep/xml/der_adapter.hpp>
 #include <sep/xml/utilities.hpp>
 
@@ -121,5 +121,42 @@ std::string Serialize(const sep::DER &der) {
 void Parse(const std::string &xml_str, sep::DER *der) {
   boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
   ObjectMap(pt, der);
+};
+
+std::string Serialize(const sep::DERList &list) {
+  boost::property_tree::ptree pt;
+  pt.put("DERList.<xmlattr>.all", list.all);
+  pt.put("DERList.<xmlattr>.results", list.ders.size());
+  pt.put("DERList.<xmlattr>.href", list.href);
+  pt.put("DERList.<xmlattr>.pollRate", list.poll_rate);
+
+  for (const auto &der : list.ders) {
+    boost::property_tree::ptree pt2;
+    TreeMap(der, &pt2);
+    pt.add_child("DERList.DER", pt2.get_child("DER"));
+  }
+
+  xml::util::SetSchema(&pt);
+  return xml::util::Stringify(&pt);
+};
+
+void Parse(const std::string &xml_str, sep::DERList *list) {
+  boost::property_tree::ptree pt = xml::util::Treeify(xml_str);
+  list->all = pt.get<sep::UInt32>("DERList.<xmlattr>.all", 0);
+  list->href = pt.get<std::string>("DERList.<xmlattr>.href", "");
+  list->results = pt.get<sep::UInt32>("DERList.<xmlattr>.results", 0);
+  list->poll_rate = pt.get<sep::UInt32>("DERList.<xmlattr>.pollRate", 900);
+
+  BOOST_FOREACH (boost::property_tree::ptree::value_type &subtree,
+                 pt.get_child("DERList")) {
+    if (subtree.first == "DER") {
+      boost::property_tree::ptree temp;
+      temp.add_child("DER", subtree.second);
+
+      sep::DER der;
+      ObjectMap(temp, &der);
+      list->ders.emplace_back(der);
+    }
+  }
 };
 } // namespace xml

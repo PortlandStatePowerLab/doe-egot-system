@@ -8,11 +8,9 @@
 #include "subscribable_resource.hpp"
 #include "usage_point_base.hpp"
 #include <boost/optional.hpp>
+#include <vector>
 
 namespace sep {
-struct DERListLink : ListLink {};
-struct DERList : List {};
-
 ///
 /// Contains links to DER resources.
 ///
@@ -25,6 +23,13 @@ struct DER : SubscribableResource {
   boost::optional<DERCapabilityLink> der_capability_link;
   boost::optional<DERSettingsLink> der_settings_link;
   boost::optional<DERStatusLink> der_status_link;
+};
+
+struct DERListLink : ListLink {};
+
+struct DERList : List {
+  std::vector<DER> ders;
+  sep::UInt32 poll_rate = 900;
 };
 
 } // namespace sep

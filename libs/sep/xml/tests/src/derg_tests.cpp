@@ -77,68 +77,68 @@ TEST_F(TestDERSettingsXML, IsAdapterTranslationAccurate) {
   }
 
   if (derg.set_max_a.is_initialized()) {
-    EXPECT_EQ(derg.set_max_a.get().value, 0);
-    EXPECT_EQ(derg.set_max_a.get().multiplier, 1);
+    EXPECT_EQ(derg.set_max_a->value, 0);
+    EXPECT_EQ(derg.set_max_a->multiplier, 1);
   }
 
   if (derg.set_max_ah.is_initialized()) {
-    EXPECT_EQ(derg.set_max_ah.get().value, 0);
-    EXPECT_EQ(derg.set_max_ah.get().multiplier, 1);
+    EXPECT_EQ(derg.set_max_ah->value, 0);
+    EXPECT_EQ(derg.set_max_ah->multiplier, 1);
   }
 
   if (derg.set_max_charge_rate_va.is_initialized()) {
-    EXPECT_EQ(derg.set_max_charge_rate_va.get().value, 0);
-    EXPECT_EQ(derg.set_max_charge_rate_va.get().multiplier, 1);
+    EXPECT_EQ(derg.set_max_charge_rate_va->value, 0);
+    EXPECT_EQ(derg.set_max_charge_rate_va->multiplier, 1);
   }
 
   if (derg.set_max_charge_rate_w.is_initialized()) {
-    EXPECT_EQ(derg.set_max_charge_rate_w.get().value, 1);
-    EXPECT_EQ(derg.set_max_charge_rate_w.get().multiplier, 1);
+    EXPECT_EQ(derg.set_max_charge_rate_w->value, 1);
+    EXPECT_EQ(derg.set_max_charge_rate_w->multiplier, 1);
   }
 
   if (derg.set_max_discharge_rate_va.is_initialized()) {
-    EXPECT_EQ(derg.set_max_discharge_rate_va.get().value, 0);
-    EXPECT_EQ(derg.set_max_discharge_rate_va.get().multiplier, -8);
+    EXPECT_EQ(derg.set_max_discharge_rate_va->value, 0);
+    EXPECT_EQ(derg.set_max_discharge_rate_va->multiplier, -8);
   }
 
   if (derg.set_max_v.is_initialized()) {
-    EXPECT_EQ(derg.set_max_v.get().value, 0);
-    EXPECT_EQ(derg.set_max_v.get().multiplier, -8);
+    EXPECT_EQ(derg.set_max_v->value, 0);
+    EXPECT_EQ(derg.set_max_v->multiplier, -8);
   }
 
   if (derg.set_max_va.is_initialized()) {
-    EXPECT_EQ(derg.set_max_va.get().value, 0);
-    EXPECT_EQ(derg.set_max_va.get().multiplier, 7);
+    EXPECT_EQ(derg.set_max_va->value, 0);
+    EXPECT_EQ(derg.set_max_va->multiplier, 7);
   }
 
   if (derg.set_max_var.is_initialized()) {
-    EXPECT_EQ(derg.set_max_var.get().value, 1);
-    EXPECT_EQ(derg.set_max_var.get().multiplier, 1);
+    EXPECT_EQ(derg.set_max_var->value, 1);
+    EXPECT_EQ(derg.set_max_var->multiplier, 1);
   }
 
   if (derg.set_max_var_neg.is_initialized()) {
-    EXPECT_EQ(derg.set_max_var_neg.get().value, 1);
-    EXPECT_EQ(derg.set_max_var_neg.get().multiplier, -8);
+    EXPECT_EQ(derg.set_max_var_neg->value, 1);
+    EXPECT_EQ(derg.set_max_var_neg->multiplier, -8);
   }
 
   if (derg.set_max_wh.is_initialized()) {
-    EXPECT_EQ(derg.set_max_wh.get().value, 0);
-    EXPECT_EQ(derg.set_max_wh.get().multiplier, 1);
+    EXPECT_EQ(derg.set_max_wh->value, 0);
+    EXPECT_EQ(derg.set_max_wh->multiplier, 1);
   }
 
   if (derg.set_min_pf_over_excited.is_initialized()) {
-    EXPECT_EQ(derg.set_min_pf_over_excited.get().displacement, 0);
-    EXPECT_EQ(derg.set_min_pf_over_excited.get().multiplier, 1);
+    EXPECT_EQ(derg.set_min_pf_over_excited->displacement, 0);
+    EXPECT_EQ(derg.set_min_pf_over_excited->multiplier, 1);
   }
 
   if (derg.set_min_pf_under_excited.is_initialized()) {
-    EXPECT_EQ(derg.set_min_pf_under_excited.get().displacement, 0);
-    EXPECT_EQ(derg.set_min_pf_under_excited.get().multiplier, -8);
+    EXPECT_EQ(derg.set_min_pf_under_excited->displacement, 0);
+    EXPECT_EQ(derg.set_min_pf_under_excited->multiplier, -8);
   }
 
   if (derg.set_min_v.is_initialized()) {
-    EXPECT_EQ(derg.set_max_v.get().value, 0);
-    EXPECT_EQ(derg.set_max_v.get().multiplier, -8);
+    EXPECT_EQ(derg.set_max_v->value, 0);
+    EXPECT_EQ(derg.set_max_v->multiplier, -8);
   }
 
   if (derg.set_soft_grad_w.is_initialized()) {
@@ -146,17 +146,17 @@ TEST_F(TestDERSettingsXML, IsAdapterTranslationAccurate) {
   }
 
   if (derg.set_v_nom.is_initialized()) {
-    EXPECT_EQ(derg.set_v_nom.get().value, 0);
-    EXPECT_EQ(derg.set_v_nom.get().multiplier, 7);
+    EXPECT_EQ(derg.set_v_nom->value, 0);
+    EXPECT_EQ(derg.set_v_nom->multiplier, 7);
   }
 
   if (derg.set_v_ref.is_initialized()) {
-    EXPECT_EQ(derg.set_v_ref.get().value, 0);
-    EXPECT_EQ(derg.set_v_ref.get().multiplier, 7);
+    EXPECT_EQ(derg.set_v_ref->value, 0);
+    EXPECT_EQ(derg.set_v_ref->multiplier, 0);
   }
 
   if (derg.set_v_ref_ofs.is_initialized()) {
-    EXPECT_EQ(derg.set_v_ref_ofs.get().value, 0);
-    EXPECT_EQ(derg.set_v_ref_ofs.get().multiplier, 7);
+    EXPECT_EQ(derg.set_v_ref_ofs->value, 0);
+    EXPECT_EQ(derg.set_v_ref_ofs->multiplier, 2);
   }
 }

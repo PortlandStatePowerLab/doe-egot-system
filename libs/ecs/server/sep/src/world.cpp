@@ -1,4 +1,5 @@
 #include <ecs/server/sep/dcap.hpp>
+#include <ecs/server/sep/der.hpp>
 #include <ecs/server/sep/edev.hpp>
 #include <ecs/server/sep/frp.hpp>
 #include <ecs/server/sep/frq.hpp>
@@ -37,6 +38,7 @@ World::World() {
   world.import <dcap::Module>();
   world.import <edev::Module>();
   world.import <time::Module>();
+  world.import <der::Module>();
   ecs::server::time::generateTime(world);
 
   // world.import <sdev::Module>();
@@ -82,23 +84,23 @@ std::string World::Get(const Href &href) {
     sep::DeviceCapability dcap;
     dcap.href = "/dcap";
     dcap.poll_rate = 300;
-    sep::EndDeviceListLink edev_ll = {};
+    sep::EndDeviceListLink edev_ll;
     edev_ll.all = world.filter_builder<sep::EndDevice>()
                       .term(flecs::ChildOf, client)
                       .build()
                       .count();
     edev_ll.href = "/edev";
-    dcap.end_device_list_link.emplace(edev_ll);
-    sep::ResponseSetListLink rsps_ll = {};
+    dcap.end_device_list_link = edev_ll;
+    sep::ResponseSetListLink rsps_ll;
     rsps_ll.all = world.filter_builder<sep::ResponseSet>()
                       .term(flecs::ChildOf, client)
                       .build()
                       .count();
     rsps_ll.href = "/rsps";
-    dcap.response_set_list_link.emplace(rsps_ll);
-    sep::TimeLink tm = {};
+    dcap.response_set_list_link = rsps_ll;
+    sep::TimeLink tm;
     tm.href = "/tm";
-    dcap.time_link.emplace(tm);
+    dcap.time_link = tm;
     return xml::Serialize(dcap);
   }; break;
   case (Uri::sdev): {
@@ -410,8 +412,23 @@ std::string World::Get(const Href &href) {
 
     return xml::Serialize(frp_list);
   }; break;
-  case (Uri::der): {
-    // TODO
+  case (Uri::der_list): {
+    sep::DERList list;
+
+    auto f =
+        world.filter_builder<sep::DER>().term(flecs::ChildOf, client).build();
+
+    f.iter([&list, href](flecs::iter &it, sep::DER *der) {
+      for (auto i : it) {
+        list.ders.emplace_back(der[i]);
+      }
+    });
+
+    list.href = href.uri;
+    list.all = list.ders.size();
+    list.results = list.ders.size();
+
+    return xml::Serialize(list);
   }; break;
   case (Uri::aupt): {
     // TODO

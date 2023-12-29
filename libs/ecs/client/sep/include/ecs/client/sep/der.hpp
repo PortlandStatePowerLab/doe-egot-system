@@ -20,15 +20,18 @@ struct Module {
   ///
   /// request the DER resource from an IEEE 2030.5 Server
   ///
-  static void getDERList(flecs::entity e,
-                                  sep::DERListLink &link);
+  static void getDERCapabilities(flecs::entity e, sep::DERCapabilityLink &link);
+  static void getDERSettings(flecs::entity e, sep::DERSettingsLink &link);
+  static void getDERStatus(flecs::entity e, sep::DERStatusLink &link);
+  static void getDERAvailablity(flecs::entity e,
+                                sep::DERAvailabilityLink &link);
+
   ///
   /// update the DER resource and all its links
   ///
-  static void updateDER(flecs::entity e,
-                                     sep::DER &dderc);
+  static void updateDER(flecs::entity e, sep::DERList &der);
 };
-} // namespace dcap
+} // namespace der
 } // namespace client
 } // namespace ecs
 #endif // __ECS_CLIENT_DER_H__
