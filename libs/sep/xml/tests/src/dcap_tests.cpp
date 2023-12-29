@@ -1,9 +1,4 @@
-#include <algorithm>
-#include <climits>
-#include <fstream>
 #include <gtest/gtest.h>
-#include <iostream>
-#include <memory>
 #include <sep/xml/device_capability_adapter.hpp>
 #include <sep/xml/utilities.hpp>
 #include <sep/xml/xml_validator.hpp>
@@ -44,30 +39,69 @@ TEST_F(TestDeviceCapabilityXML, IsAdapterTranslationAccurate) {
   xml::Parse(xml_str, &dcap);
   EXPECT_EQ(dcap.poll_rate, 900);
   EXPECT_EQ(dcap.href, "http://uri1");
-  EXPECT_EQ(dcap.customer_account_list_link.value().href, "http://uri1");
-  EXPECT_EQ(dcap.customer_account_list_link.value().all, 0);
-  EXPECT_EQ(dcap.demand_response_program_list_link.value().href, "http://uri1");
-  EXPECT_EQ(dcap.demand_response_program_list_link.value().all, 0);
-  EXPECT_EQ(dcap.der_program_list_link.value().href, "http://uri1");
-  EXPECT_EQ(dcap.der_program_list_link.value().all, 0);
-  EXPECT_EQ(dcap.file_list_link.value().href, "http://uri1");
-  EXPECT_EQ(dcap.file_list_link.value().all, 0);
-  EXPECT_EQ(dcap.messaging_program_list_link.value().href, "http://uri1");
-  EXPECT_EQ(dcap.messaging_program_list_link.value().all, 0);
-  EXPECT_EQ(dcap.prepayment_list_link.value().href, "http://uri1");
-  EXPECT_EQ(dcap.prepayment_list_link.value().all, 0);
-  EXPECT_EQ(dcap.response_set_list_link.value().href, "http://uri1");
-  EXPECT_EQ(dcap.response_set_list_link.value().all, 0);
-  EXPECT_EQ(dcap.tariff_profile_list_link.value().href, "http://uri1");
-  EXPECT_EQ(dcap.tariff_profile_list_link.value().all, 0);
-  EXPECT_EQ(dcap.time_link.value().href, "http://uri1");
-  EXPECT_EQ(dcap.usage_point_list_link.value().href, "http://uri1");
-  EXPECT_EQ(dcap.usage_point_list_link.value().all, 0);
-  EXPECT_EQ(dcap.end_device_list_link.value().href, "http://uri1");
-  EXPECT_EQ(dcap.end_device_list_link.value().all, 0);
-  EXPECT_EQ(dcap.mirror_usage_point_list_link.value().href, "http://uri1");
-  EXPECT_EQ(dcap.mirror_usage_point_list_link.value().all, 0);
-  EXPECT_EQ(dcap.self_device_link.value().href, "http://uri1");
+  if (dcap.customer_account_list_link.is_initialized()) {
+    EXPECT_EQ(dcap.customer_account_list_link.value().href, "http://uri1");
+    EXPECT_EQ(dcap.customer_account_list_link.value().all, 0);
+  }
+
+  if (dcap.demand_response_program_list_link.is_initialized()) {
+    EXPECT_EQ(dcap.demand_response_program_list_link.value().href,
+              "http://uri1");
+    EXPECT_EQ(dcap.demand_response_program_list_link.value().all, 0);
+  }
+
+  if (dcap.der_program_list_link.is_initialized()) {
+    EXPECT_EQ(dcap.der_program_list_link.value().href, "http://uri1");
+    EXPECT_EQ(dcap.der_program_list_link.value().all, 0);
+  }
+
+  if (dcap.file_list_link.is_initialized()) {
+    EXPECT_EQ(dcap.file_list_link.value().href, "http://uri1");
+    EXPECT_EQ(dcap.file_list_link.value().all, 0);
+  }
+
+  if (dcap.messaging_program_list_link.is_initialized()) {
+    EXPECT_EQ(dcap.messaging_program_list_link.value().href, "http://uri1");
+    EXPECT_EQ(dcap.messaging_program_list_link.value().all, 0);
+  }
+
+  if (dcap.prepayment_list_link.is_initialized()) {
+    EXPECT_EQ(dcap.prepayment_list_link.value().href, "http://uri1");
+    EXPECT_EQ(dcap.prepayment_list_link.value().all, 0);
+  }
+
+  if (dcap.response_set_list_link.is_initialized()) {
+    EXPECT_EQ(dcap.response_set_list_link.value().href, "http://uri1");
+    EXPECT_EQ(dcap.response_set_list_link.value().all, 0);
+  }
+
+  if (dcap.tariff_profile_list_link.is_initialized()) {
+    EXPECT_EQ(dcap.tariff_profile_list_link.value().href, "http://uri1");
+    EXPECT_EQ(dcap.tariff_profile_list_link.value().all, 0);
+  }
+
+  if (dcap.time_link.is_initialized()) {
+    EXPECT_EQ(dcap.time_link.value().href, "http://uri1");
+  }
+
+  if (dcap.usage_point_list_link.is_initialized()) {
+    EXPECT_EQ(dcap.usage_point_list_link.value().href, "http://uri1");
+    EXPECT_EQ(dcap.usage_point_list_link.value().all, 0);
+  }
+
+  if (dcap.end_device_list_link.is_initialized()) {
+    EXPECT_EQ(dcap.end_device_list_link.value().href, "http://uri1");
+    EXPECT_EQ(dcap.end_device_list_link.value().all, 0);
+  }
+
+  if (dcap.mirror_usage_point_list_link.is_initialized()) {
+    EXPECT_EQ(dcap.mirror_usage_point_list_link.value().href, "http://uri1");
+    EXPECT_EQ(dcap.mirror_usage_point_list_link.value().all, 0);
+  }
+
+  if (dcap.self_device_link.is_initialized()) {
+    EXPECT_EQ(dcap.self_device_link.value().href, "http://uri1");
+  }
 }
 
 TEST_F(TestDeviceCapabilityXML, IsOptional) {

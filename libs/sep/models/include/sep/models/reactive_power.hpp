@@ -10,7 +10,7 @@ namespace sep {
 ///
 struct ReactivePower {
   PowerOfTenMultiplierType multiplier;
-  UInt16 value;
+  Int16 value;
 };
 };     // namespace sep
 #endif // __REACTIVE_POWER_H__

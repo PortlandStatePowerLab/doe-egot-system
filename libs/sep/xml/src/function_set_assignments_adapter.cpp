@@ -4,7 +4,8 @@
 #include <sep/xml/utilities.hpp>
 
 namespace xml {
-void ObjectMap(const boost::property_tree::ptree &pt, sep::DeviceCapability *dcap) {
+void ObjectMap(const boost::property_tree::ptree &pt,
+               sep::DeviceCapability *dcap) {
   std::string path = "DeviceCapability.<xmlattr>.href";
   dcap->href = pt.get<std::string>(path);
 

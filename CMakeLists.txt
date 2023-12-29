@@ -40,7 +40,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(flecs cea2045)
 
 add_subdirectory(libs)
-add_subdirectory(apps)
+# add_subdirectory(apps)
 
 # install resources for programs
 execute_process(

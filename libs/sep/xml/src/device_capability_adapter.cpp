@@ -8,8 +8,10 @@ void ObjectMap(const boost::property_tree::ptree &pt,
                sep::DeviceCapability *dcap) {
   std::string path = "DeviceCapability.<xmlattr>.href";
   dcap->href = pt.get<std::string>(path);
+
   path = "DeviceCapability.<xmlattr>.pollRate";
   dcap->poll_rate = pt.get<sep::UInt32>(path);
+
   path = "DeviceCapability.CustomerAccountListLink";
   if (auto child = pt.get_child_optional(path)) {
     auto href = child.value().get<std::string>("<xmlattr>.href", "");
@@ -127,8 +129,10 @@ void TreeMap(const sep::DeviceCapability &dcap,
              boost::property_tree::ptree *pt) {
   std::string path = "DeviceCapability.<xmlattr>.href";
   pt->put(path, dcap.href);
+
   path = "DeviceCapability.<xmlattr>.pollRate";
   pt->put(path, dcap.poll_rate);
+
   if (dcap.customer_account_list_link.is_initialized()) {
     path = "DeviceCapability.CustomerAccountListLink.<xmlattr>.href";
     pt->put(path, dcap.customer_account_list_link.get().href);

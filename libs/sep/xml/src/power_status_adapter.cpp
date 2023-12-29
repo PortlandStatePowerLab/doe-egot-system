@@ -26,7 +26,7 @@ void ObjectMap(const boost::property_tree::ptree &pt, sep::PowerStatus *ps) {
   }
   path = "PowerStatus.PEVInfo";
   if (auto child = pt.get_child_optional(path)) {
-    sep::PEVInfo info = {};
+    sep::PEVInfo info;
     info.charging_power_now.multiplier =
         child.value().get<sep::PowerOfTenMultiplierType>(
             "chargingPowerNow.multiplier", 0);
