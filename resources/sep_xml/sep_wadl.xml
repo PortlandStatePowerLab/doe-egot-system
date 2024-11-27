@@ -36,7 +36,7 @@
       </method>
     </resource>
     <resource id="SelfDevice" wx:samplePath="/sdev">
-      <doc title="SelfDevice">The device that is providing the services being accessed. </doc>
+      <doc title="SelfDevice">The dev`ice that is providing the services being accessed. </doc>
       <method id="GETSelfDevice" name="GET" wx:mode="M">
         <response>
           <representation mediaType="application/sep+xml" element="sep:SelfDevice"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DERCapability href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
-  <modesSupported>0FB7</modesSupported>
+  <modesSupported>00</modesSupported>
   <rtgAbnormalCategory>0</rtgAbnormalCategory>
   <rtgMaxA>
     <multiplier>1</multiplier>
@@ -19,11 +19,11 @@
     <value>1</value>
   </rtgMaxChargeRateW>
   <rtgMaxDischargeRateVA>
-    <multiplier>-128</multiplier>
+    <multiplier>-8</multiplier>
     <value>0</value>
   </rtgMaxDischargeRateVA>
   <rtgMaxDischargeRateW>
-    <multiplier>-128</multiplier>
+    <multiplier>-8</multiplier>
     <value>1</value>
   </rtgMaxDischargeRateW>
   <rtgMaxV>
@@ -31,7 +31,7 @@
     <value>0</value>
   </rtgMaxV>
   <rtgMaxVA>
-    <multiplier>127</multiplier>
+    <multiplier>7</multiplier>
     <value>0</value>
   </rtgMaxVA>
   <rtgMaxVar>
@@ -39,11 +39,11 @@
     <value>1</value>
   </rtgMaxVar>
   <rtgMaxVarNeg>
-    <multiplier>-128</multiplier>
+    <multiplier>-8</multiplier>
     <value>1</value>
   </rtgMaxVarNeg>
   <rtgMaxW>
-    <multiplier>127</multiplier>
+    <multiplier>7</multiplier>
     <value>1</value>
   </rtgMaxW>
   <rtgMaxWh>
@@ -56,16 +56,16 @@
   </rtgMinPFOverExcited>
   <rtgMinPFUnderExcited>
     <displacement>0</displacement>
-    <multiplier>-128</multiplier>
+    <multiplier>-8</multiplier>
   </rtgMinPFUnderExcited>
   <rtgMinV>
-    <multiplier>-128</multiplier>
+    <multiplier>-8</multiplier>
     <value>0</value>
   </rtgMinV>
   <rtgNormalCategory>0</rtgNormalCategory>
   <rtgOverExcitedPF>
     <displacement>0</displacement>
-    <multiplier>127</multiplier>
+    <multiplier>7</multiplier>
   </rtgOverExcitedPF>
   <rtgOverExcitedW>
     <multiplier>0</multiplier>
@@ -84,7 +84,7 @@
     <value>1</value>
   </rtgUnderExcitedW>
   <rtgVNom>
-    <multiplier>127</multiplier>
+    <multiplier>7</multiplier>
     <value>0</value>
   </rtgVNom>
   <type>0</type>

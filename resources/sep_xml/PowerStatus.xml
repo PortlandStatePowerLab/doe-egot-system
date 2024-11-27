@@ -15,7 +15,7 @@
       <value>0</value>
     </energyRequestNow>
     <maxForwardPower>
-      <multiplier>-128</multiplier>
+      <multiplier>1</multiplier>
       <value>1</value>
     </maxForwardPower>
     <minimumChargingDuration>0</minimumChargingDuration>

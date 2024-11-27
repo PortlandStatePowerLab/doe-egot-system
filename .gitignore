@@ -31,6 +31,15 @@
 *.out
 *.app
 
+# Diagrams
+*.svg
+
 # Directories
 .vscode/
+.cache/
+.cmake/
 build/
+debug/
+release/
+docs/html/
+docs/latex/

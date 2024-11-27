@@ -1,0 +1,18 @@
+sequenceDiagram
+%%{init:{'theme':'neutral'}}%%
+%% @backgroundColor(transparent)
+    autonumber
+    Client->>+Server: HTTP POST FlowReservationRequestLink
+    Server-->>-Client: HTTP 201
+    Note right of Server: Generate FlowReservationResponse
+    Client->>+Server: HTTP GET FlowReservationResponseListLink
+    Server-->>-Client: HTTP 200
+    Note left of Client: Find MRID
+    loop Scheduled
+        Client->>+Server: HTTP GET FlowReservationResponseLink
+        Server-->>-Client: HTTP 200
+    end
+    loop Active
+        Client->>+Server: HTTP PUT PowerStatusLink
+        Server-->>-Client: HTTP 201
+    end

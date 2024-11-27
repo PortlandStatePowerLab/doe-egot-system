@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DERStatus subscribable="0" href="http://uri1" xmlns="urn:ieee:std:2030.5:ns">
-  <alarmStatus>0FB7</alarmStatus>
+  <alarmStatus>01</alarmStatus>
   <genConnectStatus>
     <dateTime>1</dateTime>
-    <value>07</value>
+    <value>04</value>
   </genConnectStatus>
   <inverterStatus>
     <dateTime>1</dateTime>
@@ -32,6 +32,6 @@
   </storageModeStatus>
   <storConnectStatus>
     <dateTime>-9223372036854775807</dateTime>
-    <value>07</value>
+    <value>04</value>
   </storConnectStatus>
 </DERStatus>

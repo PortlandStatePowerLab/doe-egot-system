@@ -2,20 +2,56 @@
 Department of Energy - Energy Grid of Things System
 
 ## Development
+- https://tmuxcheatsheet.com/
 
 ### Linux OS
 
 ```
 cd doe-egot-system
-./setup.sh
+./tools/setup.sh
 ```
 
 ## Building
-
-```
+For development the build type should be set to *Debug*, but all performance testing should use *Release*. There may be issues when trying to compile multiple build types so the build folder should have a different name.
+```shell
 cd doe-egot-system
-cmake -S . -B build
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 cmake --build build
+```
+
+### Documentation
+If you would like to build the documentation install the following requirments and run doxygen.
+```shell
+sudo apt install doxygen graphviz
+cd docs
+doxygen
+```
+
+If you would like a PDF of the documentation run install the following requirments and run make within the latex folder.
+```shell
+sudo apt install texlive-base texlive-latex-recommended texlive-latex-extra
+cd docs
+doxygen
+cd latex
+make
+```
+
+## Running
+Running the system as a whole is done through the *run_egot.sh* script found in tools. It will spawn tree tmux sessions: GSP, DTMC, and DERS. The DERS session will have *n* number of DCMS running in individual windows within the session. See snapshot of terminal after running.
+
+
+```shell
+cd doe-egot-system
+./tools/run_egot.sh <n>
+tmux ls
+tmux a -t <session>
+```
+
+## Stop
+Stopping the EGoT system only requires stopping all tmux sessions. 
+
+```shell
+tmux kill-server
 ```
 
 ## Project Organization

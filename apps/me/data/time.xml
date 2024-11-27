@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Time pollRate="900" href="/time"
+  xmlns="urn:ieee:std:2030.5:ns"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ieee:std:2030.5:ns sep.xsd">
+  <currentTime>1691072429</currentTime>
+  <dstEndTime>1699149600</dstEndTime>
+  <dstOffset>3600</dstOffset>
+  <dstStartTime>1678586400</dstStartTime>
+  <localTime>1691047229</localTime>
+  <quality>7</quality>
+  <tzOffset>-28800</tzOffset>
+</Time>
